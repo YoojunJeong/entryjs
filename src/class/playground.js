@@ -56,7 +56,7 @@ Entry.Playground = class {
 
             const tabView = Entry.createElement('div', 'entryCategoryTab')
                 .addClass('entryPlaygroundTabWorkspace')
-                .appendTo(this.view_);
+                // .appendTo(this.view_);   // JYJ - 탭 리스트 삭제
             this.generateTabView(tabView);
             this.tabView_ = tabView;
 
@@ -209,18 +209,19 @@ Entry.Playground = class {
         const { options = {} } = Entry;
         const { commentDisable, backpackDisable } = options;
 
-        if (!commentDisable) {
-            const commentToggleButton = Entry.createElement('div')
-                .addClass('entryPlaygroundCommentButtonWorkspace showComment')
-                .appendTo(tabButtonView);
-            commentToggleButton.setAttribute('alt', Lang.Blocks.show_all_comment);
-            commentToggleButton.setAttribute('title', Lang.Blocks.show_all_comment);
+        // JYJ - 메모 버튼 삭제
+        // if (!commentDisable) {
+        //     const commentToggleButton = Entry.createElement('div')
+        //         .addClass('entryPlaygroundCommentButtonWorkspace showComment')
+        //         .appendTo(tabButtonView);
+        //     commentToggleButton.setAttribute('alt', Lang.Blocks.show_all_comment);
+        //     commentToggleButton.setAttribute('title', Lang.Blocks.show_all_comment);
 
-            this.commentToggleButton_ = commentToggleButton;
-            commentToggleButton.bindOnClick(() => {
-                this.toggleCommentButton();
-            });
-        }
+        //     this.commentToggleButton_ = commentToggleButton;
+        //     commentToggleButton.bindOnClick(() => {
+        //         this.toggleCommentButton();
+        //     });
+        // }
 
         // TODO: 백팩(나의보관함) 숨김처리
         if (!backpackDisable && false) {
@@ -448,6 +449,14 @@ Entry.Playground = class {
             id: 'entryWorkspaceBlockMenu',
             class: 'entryWorkspaceBlockMenu',
         });
+
+        // JYJ - 
+        const blockMenuTop = Entry.Dom('div', {
+            parent: blockMenuView,
+            id: 'entryMenuTop',
+            class: 'entryMenuTop',
+        });
+        // blockMenuTop.addClass('entryEngine_w').addClass('entryEngineWorkspace_w');
 
         const initOpts = {
             blockMenu: {

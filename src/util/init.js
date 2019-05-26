@@ -282,6 +282,7 @@ Entry.createDom = function(container, option) {
         this.stateManager.generateView(this.stateManagerView, option);
 
         const engineContainer = Entry.createElement('div');
+        // JYJ - check
         engineContainer.classList.add('engineContainer');
         container.appendChild(engineContainer);
         const engineView = Entry.createElement('div');

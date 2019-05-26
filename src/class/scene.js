@@ -32,9 +32,9 @@ Entry.Scene = class {
      */
     generateView(sceneView, option) {
         this.view_ = sceneView;
-        this.view_.addClass('entryScene');
+        // this.view_.addClass('entryScene');   // JYJ - 상단 줄 삭제
         if (!option || option == 'workspace') {
-            this.view_.addClass('entrySceneWorkspace');
+            // this.view_.addClass('entrySceneWorkspace');  // JYJ - 상단 줄 삭제
 
             $(this.view_).on('mousedown touchstart', (e) => {
                 const offset = $(this.view_).offset();
@@ -54,15 +54,16 @@ Entry.Scene = class {
                 }
             });
 
-            const listView = this.createListView();
-            this.view_.appendChild(listView);
-            this.listView_ = listView;
-
-            if (Entry.sceneEditable) {
-                const addButton = this.createAddButton();
-                this.view_.appendChild(addButton);
-                this.addButton_ = addButton;
-            }
+            // JYJ - 상단 줄 삭제
+            // const listView = this.createListView();
+            // this.view_.appendChild(listView);
+            // this.listView_ = listView;
+            //
+            // if (Entry.sceneEditable) {
+            //     const addButton = this.createAddButton();
+            //     this.view_.appendChild(addButton);
+            //     this.addButton_ = addButton;
+            // }
         }
     }
 
