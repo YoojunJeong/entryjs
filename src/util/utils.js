@@ -334,12 +334,15 @@ Entry.resizeElement = function(interfaceModel) {
         } else if (canvasSize > 640) {
             canvasSize = 640;
         }
+        // JYJ - canvas size forced set.
+        canvasSize = 260;
+
         interfaceModel.canvasWidth = canvasSize;
 
         const engineContainer = Entry.engine.view_.parentElement;
         engineContainer.style.width = `${canvasSize}px`;
-        Entry.engine.view_.style.width = `${canvasSize - 24}px`;
-        Entry.stage.canvas.canvas.style.width = `${canvasSize - 26}px`;
+        Entry.engine.view_.style.width = 250;//`${canvasSize - 24}px`;
+        Entry.stage.canvas.canvas.style.width = 255;//`${canvasSize - 26}px`;
 
         let menuWidth = interfaceModel.menuWidth;
         if (!menuWidth) {

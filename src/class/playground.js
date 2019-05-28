@@ -129,6 +129,16 @@ Entry.Playground = class {
                 Entry.playground.curtainView_.addClass('entryRemove');
             });
             this.applyTabOption();
+
+
+            // JYJ - jquery
+            var divTemp = $(".entryEngine_w");
+            $(".entryCategoryListWorkspace").before(divTemp);
+            $(".engineContainer").hide();
+            // $("#entryWorkspaceBoard").css("z-index", "999");
+            // $(".entryWorkspaceBlockMenu").css("width", "260px");
+            // $(".entryEngine_w entryEngineWorkspace_w").css("width", "100%");
+            // $("#entryCanvas").css("width", "100%");
         }
     }
 
@@ -449,14 +459,6 @@ Entry.Playground = class {
             id: 'entryWorkspaceBlockMenu',
             class: 'entryWorkspaceBlockMenu',
         });
-
-        // JYJ - 
-        const blockMenuTop = Entry.Dom('div', {
-            parent: blockMenuView,
-            id: 'entryMenuTop',
-            class: 'entryMenuTop',
-        });
-        // blockMenuTop.addClass('entryEngine_w').addClass('entryEngineWorkspace_w');
 
         const initOpts = {
             blockMenu: {
