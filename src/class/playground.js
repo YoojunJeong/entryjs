@@ -135,6 +135,11 @@ Entry.Playground = class {
             var divTemp = $(".entryEngine_w");
             $(".entryCategoryListWorkspace").before(divTemp);
             $(".engineContainer").hide();
+            $(".entryEngineButtonWrapper").append($("#btnMaximize"));
+            // $(".entrySpeedButtonWorkspace").hide();
+            // $(".entryCoordinateButtonWorkspace_w").hide();
+            // $(".entryMouseViewWorkspace_w").hide();
+            
             // $("#entryWorkspaceBoard").css("z-index", "999");
             // $(".entryWorkspaceBlockMenu").css("width", "260px");
             // $(".entryEngine_w entryEngineWorkspace_w").css("width", "100%");
@@ -249,41 +254,42 @@ Entry.Playground = class {
     }
 
     createPackPackView(backPackView) {
-        this.backPack = new BackPack({
-            isShow: false,
-            data: {
-                items: [],
-                onClose: () => {
-                    Entry.dispatchEvent('closeBackPack');
-                },
-                onRemoveItem: (id) => {
-                    Entry.dispatchEvent('removeBackPackItem', id);
-                },
-                onChangeTitle: (id, title) => {
-                    Entry.dispatchEvent('changeBackPackTitle', id, title);
-                },
-                onCustomDragEnter: ({ type, value, onDragEnter }) => {
-                    if (Entry.GlobalSvg.isShow) {
-                        const { _view = {} } = Entry.GlobalSvg;
-                        onDragEnter({
-                            type: 'block',
-                            value: _view,
-                        });
-                    }
-                },
-                onDropItem: ({ type, value }) => {
-                    if (type === 'object') {
-                        const object = Entry.container.getObject(value);
-                        object.addStorage();
-                    } else if (type === 'block') {
-                        if (value.addStorage) {
-                            value.addStorage();
-                        }
-                    }
-                },
-            },
-            container: this.backPackView,
-        });
+        // JYJ - ????????? 왜 살려놓으면 죽지?
+        // this.backPack = new BackPack({
+        //     isShow: false,
+        //     data: {
+        //         items: [],
+        //         onClose: () => {
+        //             Entry.dispatchEvent('closeBackPack');
+        //         },
+        //         onRemoveItem: (id) => {
+        //             Entry.dispatchEvent('removeBackPackItem', id);
+        //         },
+        //         onChangeTitle: (id, title) => {
+        //             Entry.dispatchEvent('changeBackPackTitle', id, title);
+        //         },
+        //         onCustomDragEnter: ({ type, value, onDragEnter }) => {
+        //             if (Entry.GlobalSvg.isShow) {
+        //                 const { _view = {} } = Entry.GlobalSvg;
+        //                 onDragEnter({
+        //                     type: 'block',
+        //                     value: _view,
+        //                 });
+        //             }
+        //         },
+        //         onDropItem: ({ type, value }) => {
+        //             if (type === 'object') {
+        //                 const object = Entry.container.getObject(value);
+        //                 object.addStorage();
+        //             } else if (type === 'block') {
+        //                 if (value.addStorage) {
+        //                     value.addStorage();
+        //                 }
+        //             }
+        //         },
+        //     },
+        //     container: this.backPackView,
+        // });
         this.blockBackPackArea = Entry.Dom('div')
             .addClass('blockBackPackDrop')
             .appendTo(backPackView);

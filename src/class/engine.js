@@ -72,17 +72,18 @@ Entry.Engine = function() {
             this.view_ = controlView;
             this.view_.addClass('entryEngine_w').addClass('entryEngineWorkspace_w');
 
-            this.speedButton = Entry.createElement('button')
-                .addClass(
-                    'entrySpeedButtonWorkspace',
-                    'entryEngineTopWorkspace',
-                    'entryEngineButtonWorkspace_w'
-                )
-                .appendTo(this.view_)
-                .bindOnClick(function(e) {
-                    Entry.engine.toggleSpeedPanel();
-                    this.blur();
-                });
+            // JYJ - remove speed button
+            // this.speedButton = Entry.createElement('button')
+            //     .addClass(
+            //         'entrySpeedButtonWorkspace',
+            //         'entryEngineTopWorkspace',
+            //         'entryEngineButtonWorkspace_w'
+            //     )
+            //     .appendTo(this.view_)
+            //     .bindOnClick(function(e) {
+            //         Entry.engine.toggleSpeedPanel();
+            //         this.blur();
+            //     });
 
             this.maximizeButton = Entry.createElement('button')
                 .addClass(
@@ -95,29 +96,32 @@ Entry.Engine = function() {
                     Entry.engine.toggleFullScreen();
                     this.blur();
                 });
+            this.maximizeButton.id = 'btnMaximize';
 
-            this.coordinateButton = Entry.createElement('button')
-                .addClass(
-                    'entryEngineButtonWorkspace_w',
-                    'entryEngineTopWorkspace',
-                    'entryCoordinateButtonWorkspace_w'
-                )
-                .appendTo(this.view_)
-                .bindOnClick(function(e) {
-                    if (this.hasClass('toggleOn')) {
-                        this.removeClass('toggleOn');
-                    } else {
-                        this.addClass('toggleOn');
-                    }
+            // JYJ - remove coordinate button    
+            // this.coordinateButton = Entry.createElement('button')
+            //     .addClass(
+            //         'entryEngineButtonWorkspace_w',
+            //         'entryEngineTopWorkspace',
+            //         'entryCoordinateButtonWorkspace_w'
+            //     )
+            //     .appendTo(this.view_)
+            //     .bindOnClick(function(e) {
+            //         if (this.hasClass('toggleOn')) {
+            //             this.removeClass('toggleOn');
+            //         } else {
+            //             this.addClass('toggleOn');
+            //         }
 
-                    this.blur();
-                    Entry.stage.toggleCoordinator();
-                });
+            //         this.blur();
+            //         Entry.stage.toggleCoordinator();
+            //     });
 
-            this.mouseView = Entry.createElement('div')
-                .addClass('entryMouseViewWorkspace_w')
-                .addClass('entryHide')
-                .appendTo(this.view_);
+            // JYJ - remove mouseView button    
+            // this.mouseView = Entry.createElement('div')
+            //     .addClass('entryMouseViewWorkspace_w')
+            //     .addClass('entryHide')
+            //     .appendTo(this.view_);
 
             this.mouseViewInput = Entry.createElement('input').appendTo(this.mouseView);
             $(this.mouseViewInput).attr('readonly', 'readonly');
@@ -125,16 +129,16 @@ Entry.Engine = function() {
             this.buttonWrapper = Entry.createElement('div')
                 .addClass('entryEngineButtonWrapper')
                 .appendTo(this.view_);
-            this.addButton = Entry.createElement('button')
-                .addClass('entryEngineButtonWorkspace_w')
-                .addClass('entryAddButtonWorkspace_w')
-                .bindOnClick(function() {
-                    Entry.do('addObjectButtonClick');
-                    this.blur();
-                })
-                .appendTo(this.buttonWrapper);
-            this.addButton.innerHTML = Lang.Workspace.add_object;
-            if (!Entry.objectAddable) this.addButton.addClass('entryRemove');
+            // this.addButton = Entry.createElement('button')
+            //     .addClass('entryEngineButtonWorkspace_w')
+            //     .addClass('entryAddButtonWorkspace_w')
+            //     .bindOnClick(function() {
+            //         Entry.do('addObjectButtonClick');
+            //         this.blur();
+            //     })
+            //     .appendTo(this.buttonWrapper);
+            // this.addButton.innerHTML = Lang.Workspace.add_object;
+            // if (!Entry.objectAddable) this.addButton.addClass('entryRemove');
 
             this.runButton = Entry.createElement('button')
                 .addClass('entryEngineButtonWorkspace_w')
@@ -201,15 +205,15 @@ Entry.Engine = function() {
                 Entry.engine.toggleFullScreen();
             });
 
-            this.coordinateButton = Entry.createElement('button');
-            this.coordinateButton.addClass('entryEngineButtonMinimize');
-            this.coordinateButton.addClass('entryCoordinateButtonMinimize');
-            this.view_.appendChild(this.coordinateButton);
-            this.coordinateButton.bindOnClick(function(e) {
-                if (this.hasClass('toggleOn')) this.removeClass('toggleOn');
-                else this.addClass('toggleOn');
-                Entry.stage.toggleCoordinator();
-            });
+            // this.coordinateButton = Entry.createElement('button');
+            // this.coordinateButton.addClass('entryEngineButtonMinimize');
+            // this.coordinateButton.addClass('entryCoordinateButtonMinimize');
+            // this.view_.appendChild(this.coordinateButton);
+            // this.coordinateButton.bindOnClick(function(e) {
+            //     if (this.hasClass('toggleOn')) this.removeClass('toggleOn');
+            //     else this.addClass('toggleOn');
+            //     Entry.stage.toggleCoordinator();
+            // });
 
             this.stopButton = Entry.createElement('button');
             this.stopButton.addClass('entryEngineButtonMinimize');

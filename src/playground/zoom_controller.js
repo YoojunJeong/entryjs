@@ -140,7 +140,9 @@ Entry.ZoomController = class ZoomController {
         }
         var svgDom = this.nowBoard.svgDom;
         this.x = svgDom.width() - (this.CONTROLLER_WIDTH + 22.5);
-        this.y = 8;
+        this.y = svgDom.height() - 100;
+        // const svgDom = this.board.svgDom;
+        
         this.align();
     }
 
