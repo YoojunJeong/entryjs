@@ -132,7 +132,7 @@ Entry.Playground = class {
 
 
             // JYJ - jquery는 여기에
-            $("#entryMenuTop").css("video", "https://www.youtube.com/watch?v=O4Wbd9PWs5g");
+            $("#entryMenuTop").html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/yInoAZwNSUs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
             $(".engineContainer").hide();
 
             
