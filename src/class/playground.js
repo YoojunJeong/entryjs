@@ -135,12 +135,6 @@ Entry.Playground = class {
             $("#entryMenuTop").css("video", "https://www.youtube.com/watch?v=O4Wbd9PWs5g");
             $(".engineContainer").hide();
 
-            // JYJ - 사이드 메뉴 버튼 숨김처리
-            $("#entryCategorymoving").hide();
-            $("#entryCategorylooks").hide();
-            $("#entryCategorybrush").hide();
-            $("#entryCategoryfunc").hide();
-            $("#entryCategoryextension").hide();
             
         }
     }
