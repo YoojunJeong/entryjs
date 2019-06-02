@@ -23,7 +23,7 @@ module.exports = {
                     params: [
                         {
                             type: 'number',
-                            params: ['2'],
+                            params: ['1'],  // JYJ - 기다리는 시간 default
                         },
                         null,
                     ],

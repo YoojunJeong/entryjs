@@ -755,12 +755,14 @@ module.exports = {
                             [Lang.Blocks.CALC_calc_operation_atan, 'atan_radian'],
                             [Lang.Blocks.CALC_calc_operation_log, 'log'],
                             [Lang.Blocks.CALC_calc_operation_ln, 'ln'],
-                            [Lang.Blocks.CALC_calc_operation_unnatural, 'unnatural'],
+                            // [Lang.Blocks.CALC_calc_operation_unnatural, 'unnatural'],
                             [Lang.Blocks.CALC_calc_operation_floor, 'floor'],
-                            [Lang.Blocks.CALC_calc_operation_ceil, 'ceil'],
+                            // [Lang.Blocks.CALC_calc_operation_ceil, 'ceil'],
                             [Lang.Blocks.CALC_calc_operation_round, 'round'],
-                            [Lang.Blocks.CALC_calc_operation_factorial, 'factorial'],
+                            // [Lang.Blocks.CALC_calc_operation_factorial, 'factorial'],
                             [Lang.Blocks.CALC_calc_operation_abs, 'abs'],
+                            [Lang.Blocks.CALC_calc_operation_pi, 'pi'],
+                            [Lang.Blocks.CALC_calc_operation_remain, 'remain'],
                         ],
                         value: 'square',
                         fontSize: 10,
@@ -1085,6 +1087,34 @@ module.exports = {
                         {
                             syntax: 'math.fabs(%2)',
                             params: [null, null, null, 'abs'],
+                            blockType: 'param',
+                            textParams: [
+                                undefined,
+                                {
+                                    type: 'Block',
+                                    accept: 'string',
+                                },
+                                undefined,
+                                null,
+                            ],
+                        },
+                        {
+                            syntax: 'math.pi(%2)',
+                            params: [null, null, null, 'pi'],
+                            blockType: 'param',
+                            textParams: [
+                                undefined,
+                                {
+                                    type: 'Block',
+                                    accept: 'string',
+                                },
+                                undefined,
+                                null,
+                            ],
+                        },
+                        {
+                            syntax: '% %2',
+                            params: [null, null, null, 'remain'],
                             blockType: 'param',
                             textParams: [
                                 undefined,
