@@ -131,11 +131,16 @@ Entry.Playground = class {
             this.applyTabOption();
 
 
-            // JYJ - jquery
+            // JYJ - jquery는 여기에
             $("#entryMenuTop").css("video", "https://www.youtube.com/watch?v=O4Wbd9PWs5g");
             $(".engineContainer").hide();
 
-            // $("#entryWorkspaceBlockMenu").css("top", "250px");
+            // JYJ - 사이드 메뉴 버튼 숨김처리
+            $("#entryCategorymoving").hide();
+            $("#entryCategorylooks").hide();
+            $("#entryCategorybrush").hide();
+            $("#entryCategoryfunc").hide();
+            $("#entryCategoryextension").hide();
             
         }
     }
