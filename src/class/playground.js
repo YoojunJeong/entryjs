@@ -132,18 +132,11 @@ Entry.Playground = class {
 
 
             // JYJ - jquery
-            var divTemp = $(".entryEngine_w");
-            $(".entryCategoryListWorkspace").before(divTemp);
+            $("#entryMenuTop").css("video", "https://www.youtube.com/watch?v=O4Wbd9PWs5g");
             $(".engineContainer").hide();
-            $(".entryEngineButtonWrapper").append($("#btnMaximize"));
-            // $(".entrySpeedButtonWorkspace").hide();
-            // $(".entryCoordinateButtonWorkspace_w").hide();
-            // $(".entryMouseViewWorkspace_w").hide();
+
+            // $("#entryWorkspaceBlockMenu").css("top", "250px");
             
-            // $("#entryWorkspaceBoard").css("z-index", "999");
-            // $(".entryWorkspaceBlockMenu").css("width", "260px");
-            // $(".entryEngine_w entryEngineWorkspace_w").css("width", "100%");
-            // $("#entryCanvas").css("width", "100%");
         }
     }
 
@@ -464,6 +457,13 @@ Entry.Playground = class {
             parent: codeView,
             id: 'entryWorkspaceBlockMenu',
             class: 'entryWorkspaceBlockMenu',
+        });
+
+        // JYJ - 비디오 영역 추가
+        const blockMenuViewTop = Entry.Dom('div', {
+            parent: blockMenuView,
+            id: 'entryMenuTop',
+            class: 'entryMenuTop',
         });
 
         const initOpts = {

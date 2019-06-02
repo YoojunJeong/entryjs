@@ -32,7 +32,7 @@ Entry.init = function(container, options) {
     /** @type {object} */
     this.options = options;
     this.parseOptions(options);
-    this.mediaFilePath = `${options.libDir ? options.libDir : '/lib'}/entry-js/images/`;
+    this.mediaFilePath = `./images/`;
     this.painterBaseUrl = `${
         options.libDir ? options.libDir : '/lib'
     }/literallycanvas-mobile/lib/img`;
