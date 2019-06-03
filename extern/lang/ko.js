@@ -6735,6 +6735,7 @@ Lang.template = {
     "text_prepend": "%1 라고 앞에 추가하기 %2",
     "text_flush": "텍스트 모두 지우기 %1",
     "variableAddButton": "%1",
+    "soundAddButton": "%1",
     "listAddButton": "%1",
     "change_variable": "%1 에 %2 만큼 더하기 %3",
     "set_variable": "%1 를 %2 로 정하기 %3",

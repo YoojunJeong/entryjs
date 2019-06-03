@@ -8,7 +8,7 @@ module.exports = {
                 params: [
                     {
                         type: 'Text',
-                        text: Lang.Workspace.variable_create,
+                        text: Lang.Workspace.sound_add,
                         color: '#4f80ff',
                         align: 'center',
                     },
@@ -19,7 +19,8 @@ module.exports = {
                 events: {
                     mousedown: [
                         function() {
-                            Entry.variableContainer.openVariableAddPanel('variable');
+                            alert(Lang.Workspace.sound_add);
+                            // Entry.variableContainer.openVariableAddPanel('variable');
                         },
                     ],
                 },

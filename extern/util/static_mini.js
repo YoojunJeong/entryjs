@@ -201,6 +201,7 @@ EntryStatic.getAllBlocks = function() {
         {
             category: 'sound',
             blocks: [
+                'soundAddButton',
                 'sound_something_with_block',
                 'sound_something_wait_with_block',
                 'sound_volume_change',
