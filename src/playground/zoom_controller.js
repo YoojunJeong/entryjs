@@ -60,7 +60,7 @@ Entry.ZoomController = class ZoomController {
             width: 32,
             height: 32,
             filter: 'url(#entryButtonShadowFilter)',
-            style: 'cursor: zoom-out;',
+            style: 'cursor: pointer;',
         });
         zoomGroup.export = zoomGroup.svgZoom.elem('image', {
             href: `${Entry.mediaFilePath}custom/modi_com_btn_export.png`,
@@ -69,7 +69,7 @@ Entry.ZoomController = class ZoomController {
             width: 32,
             height: 32,
             filter: 'url(#entryButtonShadowFilter)',
-            style: 'cursor: zoom-out;',
+            style: 'cursor: pointer;',
         });
         zoomGroup.plus = zoomGroup.svgZoom.elem('image', {
             href: `${Entry.mediaFilePath}custom/modi_com_btn_plus.png`,
@@ -78,7 +78,7 @@ Entry.ZoomController = class ZoomController {
             width: 32,
             height: 32,
             filter: 'url(#entryButtonShadowFilter)',
-            style: 'cursor: zoom-out;',
+            style: 'cursor: pointer;',
         });
         zoomGroup.next = zoomGroup.svgZoom.elem('image', {
             href: `${Entry.mediaFilePath}custom/modi_com_btn_next.png`,
@@ -87,7 +87,7 @@ Entry.ZoomController = class ZoomController {
             width: 32,
             height: 32,
             filter: 'url(#entryButtonShadowFilter)',
-            style: 'cursor: zoom-out;',
+            style: 'cursor: pointer;',
         });
 
 
@@ -128,18 +128,50 @@ Entry.ZoomController = class ZoomController {
 
     addControl(zoomGroup) {
         if (this.nowBoard) {
-            $(zoomGroup.svgZoom).bind('mousedown touchstart', (e) => {
-                e.stopImmediatePropagation();
+            $(zoomGroup.refresh).bind('mousedown touchstart', (e) => {
+                this.doAction('REFRESH');
             });
-            $(zoomGroup.zoomOut).bind('mousedown touchstart', (e) => {
-                this.zoomChange(this.ZOOM_MODE.OUT);
+            $(zoomGroup.export).bind('mousedown touchstart', (e) => {
+                this.doAction('EXPORT');
             });
-            $(zoomGroup.zoomReset).bind('mousedown touchstart', (e) => {
-                this.zoomChange(this.ZOOM_MODE.RESET);
+            $(zoomGroup.plus).bind('mousedown touchstart', (e) => {
+                this.doAction('PLUS');
             });
-            $(zoomGroup.zoomIn).bind('mousedown touchstart', (e) => {
-                this.zoomChange(this.ZOOM_MODE.IN);
+            $(zoomGroup.next).bind('mousedown touchstart', (e) => {
+                this.doAction('NEXT');
             });
+
+            // $(zoomGroup.svgZoom).bind('mousedown touchstart', (e) => {
+            //     e.stopImmediatePropagation();
+            // });
+            // $(zoomGroup.zoomOut).bind('mousedown touchstart', (e) => {
+            //     this.zoomChange(this.ZOOM_MODE.OUT);
+            // });
+            // $(zoomGroup.zoomReset).bind('mousedown touchstart', (e) => {
+            //     this.zoomChange(this.ZOOM_MODE.RESET);
+            // });
+            // $(zoomGroup.zoomIn).bind('mousedown touchstart', (e) => {
+            //     this.zoomChange(this.ZOOM_MODE.IN);
+            // });
+        }
+    }
+
+    doAction(mode) {
+        switch(mode) {
+            case 'REFRESH':
+                alert('REFRESH');
+                break;
+            case 'EXPORT':
+                alert('EXPORT');
+                break;
+            case 'PLUS':
+                alert('PLUS');
+                break;
+            case 'NEXT':
+                alert('NEXT');
+                break;
+            default:
+                break;
         }
     }
 
