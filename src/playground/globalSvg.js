@@ -50,10 +50,10 @@ class GlobalSvg {
         this._mode = mode;
 
         const fromBlockMenu = view.dragInstance && view.dragInstance.isNew;
-        const backPackMode = !fromBlockMenu && Entry.playground.backPack.isShow;
-        if (mode !== Entry.Workspace.MODE_VIMBOARD && !backPackMode) {
-            view.set({ visible: false });
-        }
+        // const backPackMode = !fromBlockMenu && Entry.playground.backPack.isShow;
+        // if (mode !== Entry.Workspace.MODE_VIMBOARD && !backPackMode) {
+        //     view.set({ visible: false });
+        // }
 
         this.draw();
         this.show();

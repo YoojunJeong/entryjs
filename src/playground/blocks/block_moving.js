@@ -19,76 +19,76 @@ module.exports = {
         }
 
         return {
-            move_direction: {
-                color: EntryStatic.colorSet.block.default.MOVING,
-                outerLine: EntryStatic.colorSet.block.darken.MOVING,
-                skeleton: 'basic',
-                statements: [],
-                params: [
-                    {
-                        type: 'Block',
-                        accept: 'string',
-                        defaultType: 'number',
-                    },
-                    {
-                        type: 'Indicator',
-                        img: 'block_icon/moving_icon.svg',
-                        size: 11,
-                    },
-                ],
-                events: {},
-                def: {
-                    params: [
-                        {
-                            type: 'number',
-                            params: ['10'],
-                        },
-                        null,
-                    ],
-                    type: 'move_direction',
-                },
-                pyHelpDef: {
-                    params: [
-                        {
-                            type: 'number',
-                            params: ['A&value'],
-                        },
-                        null,
-                    ],
-                    type: 'move_direction',
-                },
-                paramsKeyMap: {
-                    VALUE: 0,
-                },
-                class: 'walk',
-                isNotFor: [],
-                func(sprite, script) {
-                    const value = script.getNumberValue('VALUE', script);
-                    sprite.setX(
-                        sprite.getX() +
-                            value *
-                                Math.cos(
-                                    (sprite.getRotation() + sprite.getDirection() - 90) /
-                                        180 *
-                                        Math.PI
-                                )
-                    );
-                    sprite.setY(
-                        sprite.getY() -
-                            value *
-                                Math.sin(
-                                    (sprite.getRotation() + sprite.getDirection() - 90) /
-                                        180 *
-                                        Math.PI
-                                )
-                    );
-                    if (sprite.brush && !sprite.brush.stop) {
-                        sprite.brush.lineTo(sprite.getX(), sprite.getY() * -1);
-                    }
-                    return script.callReturn();
-                },
-                syntax: { js: [], py: ['Entry.move_to_direction(%1)'] },
-            },
+            // move_direction: {
+            //     color: EntryStatic.colorSet.block.default.MOVING,
+            //     outerLine: EntryStatic.colorSet.block.darken.MOVING,
+            //     skeleton: 'basic',
+            //     statements: [],
+            //     params: [
+            //         {
+            //             type: 'Block',
+            //             accept: 'string',
+            //             defaultType: 'number',
+            //         },
+            //         {
+            //             type: 'Indicator',
+            //             img: 'block_icon/moving_icon.svg',
+            //             size: 11,
+            //         },
+            //     ],
+            //     events: {},
+            //     def: {
+            //         params: [
+            //             {
+            //                 type: 'number',
+            //                 params: ['10'],
+            //             },
+            //             null,
+            //         ],
+            //         type: 'move_direction',
+            //     },
+            //     pyHelpDef: {
+            //         params: [
+            //             {
+            //                 type: 'number',
+            //                 params: ['A&value'],
+            //             },
+            //             null,
+            //         ],
+            //         type: 'move_direction',
+            //     },
+            //     paramsKeyMap: {
+            //         VALUE: 0,
+            //     },
+            //     class: 'walk',
+            //     isNotFor: [],
+            //     func(sprite, script) {
+            //         const value = script.getNumberValue('VALUE', script);
+            //         sprite.setX(
+            //             sprite.getX() +
+            //                 value *
+            //                     Math.cos(
+            //                         (sprite.getRotation() + sprite.getDirection() - 90) /
+            //                             180 *
+            //                             Math.PI
+            //                     )
+            //         );
+            //         sprite.setY(
+            //             sprite.getY() -
+            //                 value *
+            //                     Math.sin(
+            //                         (sprite.getRotation() + sprite.getDirection() - 90) /
+            //                             180 *
+            //                             Math.PI
+            //                     )
+            //         );
+            //         if (sprite.brush && !sprite.brush.stop) {
+            //             sprite.brush.lineTo(sprite.getX(), sprite.getY() * -1);
+            //         }
+            //         return script.callReturn();
+            //     },
+            //     syntax: { js: [], py: ['Entry.move_to_direction(%1)'] },
+            // },
             bounce_wall: {
                 color: EntryStatic.colorSet.block.default.MOVING,
                 outerLine: EntryStatic.colorSet.block.darken.MOVING,

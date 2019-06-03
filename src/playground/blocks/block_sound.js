@@ -1,6 +1,31 @@
 module.exports = {
     getBlocks() {
         return {
+
+            soundAddButton: {
+                skeleton: 'basic_button',
+                color: '#eee',
+                params: [
+                    {
+                        type: 'Text',
+                        text: Lang.Workspace.variable_create,
+                        color: '#4f80ff',
+                        align: 'center',
+                    },
+                ],
+                def: {
+                    type: 'soundAddButton',
+                },
+                events: {
+                    mousedown: [
+                        function() {
+                            Entry.variableContainer.openVariableAddPanel('variable');
+                        },
+                    ],
+                },
+                syntax: { js: [], py: [''] },
+            },
+
             sound_something_with_block: {
                 color: EntryStatic.colorSet.block.default.SOUND,
                 outerLine: EntryStatic.colorSet.block.darken.SOUND,
