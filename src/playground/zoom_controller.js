@@ -162,13 +162,19 @@ Entry.ZoomController = class ZoomController {
                 alert('REFRESH');
                 break;
             case 'EXPORT':
-                alert('EXPORT');
+                var yn = confirm('코딩한 내용을 모디 블록으로 내보낼까요?');
+                if(yn) {
+                    // c code로 내보낸다.
+                }
                 break;
             case 'PLUS':
                 alert('PLUS');
                 break;
             case 'NEXT':
-                alert('NEXT');
+                var yn = confirm('발명품 사진 찍기로 이동할까요?');
+                if(yn) {
+                    // 사진 찍기로 이동.
+                }
                 break;
             default:
                 break;
