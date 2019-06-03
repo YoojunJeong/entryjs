@@ -49,38 +49,81 @@ Entry.ZoomController = class ZoomController {
 
     renderStart(zoomGroup) {
         zoomGroup.svgZoom.elem('image', {
-            href: `${Entry.mediaFilePath}btn_zoom_bg.svg`,
+            href: ``,
             width: this.CONTROLLER_WIDTH,
             height: this.CONTROLLER_HEIGHT,
         });
-        zoomGroup.zoomOut = zoomGroup.svgZoom.elem('image', {
-            href: `${Entry.mediaFilePath}btn_zoom_out.svg`,
-            x: 4,
+        zoomGroup.refresh = zoomGroup.svgZoom.elem('image', {
+            href: `${Entry.mediaFilePath}custom/modi_com_btn_refresh.png`,
+            x: 0,
             y: 3,
             width: 32,
             height: 32,
             filter: 'url(#entryButtonShadowFilter)',
             style: 'cursor: zoom-out;',
         });
-        zoomGroup.zoomReset = zoomGroup.svgZoom.elem('image', {
-            id: 'zoom_reset',
-            href: `${Entry.mediaFilePath}btn_zoom_reset.svg`,
-            x: 44,
-            y: 3,
-            width: 40,
-            height: 32,
-            filter: 'url(#entryButtonShadowFilter)',
-            style: 'cursor: pointer;',
-        });
-        zoomGroup.zoomIn = zoomGroup.svgZoom.elem('image', {
-            href: `${Entry.mediaFilePath}btn_zoom_in.svg`,
-            x: 92,
+        zoomGroup.export = zoomGroup.svgZoom.elem('image', {
+            href: `${Entry.mediaFilePath}custom/modi_com_btn_export.png`,
+            x: 40,
             y: 3,
             width: 32,
             height: 32,
             filter: 'url(#entryButtonShadowFilter)',
-            style: 'cursor: zoom-in;',
+            style: 'cursor: zoom-out;',
         });
+        zoomGroup.plus = zoomGroup.svgZoom.elem('image', {
+            href: `${Entry.mediaFilePath}custom/modi_com_btn_plus.png`,
+            x: 80,
+            y: 3,
+            width: 32,
+            height: 32,
+            filter: 'url(#entryButtonShadowFilter)',
+            style: 'cursor: zoom-out;',
+        });
+        zoomGroup.next = zoomGroup.svgZoom.elem('image', {
+            href: `${Entry.mediaFilePath}custom/modi_com_btn_next.png`,
+            x: 120,
+            y: 3,
+            width: 32,
+            height: 32,
+            filter: 'url(#entryButtonShadowFilter)',
+            style: 'cursor: zoom-out;',
+        });
+
+
+        // zoomGroup.svgZoom.elem('image', {
+        //     href: `${Entry.mediaFilePath}btn_zoom_bg.svg`,
+        //     width: this.CONTROLLER_WIDTH,
+        //     height: this.CONTROLLER_HEIGHT,
+        // });
+        // zoomGroup.zoomOut = zoomGroup.svgZoom.elem('image', {
+        //     href: `${Entry.mediaFilePath}btn_zoom_out.svg`,
+        //     x: 4,
+        //     y: 3,
+        //     width: 32,
+        //     height: 32,
+        //     filter: 'url(#entryButtonShadowFilter)',
+        //     style: 'cursor: zoom-out;',
+        // });
+        // zoomGroup.zoomReset = zoomGroup.svgZoom.elem('image', {
+        //     id: 'zoom_reset',
+        //     href: `${Entry.mediaFilePath}btn_zoom_reset.svg`,
+        //     x: 44,
+        //     y: 3,
+        //     width: 40,
+        //     height: 32,
+        //     filter: 'url(#entryButtonShadowFilter)',
+        //     style: 'cursor: pointer;',
+        // });
+        // zoomGroup.zoomIn = zoomGroup.svgZoom.elem('image', {
+        //     href: `${Entry.mediaFilePath}btn_zoom_in.svg`,
+        //     x: 92,
+        //     y: 3,
+        //     width: 32,
+        //     height: 32,
+        //     filter: 'url(#entryButtonShadowFilter)',
+        //     style: 'cursor: zoom-in;',
+        // });
     }
 
     addControl(zoomGroup) {
@@ -139,8 +182,8 @@ Entry.ZoomController = class ZoomController {
             return;
         }
         var svgDom = this.nowBoard.svgDom;
-        this.x = svgDom.width() - (this.CONTROLLER_WIDTH + 22.5);
-        this.y = svgDom.height() - 100;
+        this.x = svgDom.width() - (this.CONTROLLER_WIDTH + 122.5);
+        this.y = svgDom.height() - 80;
         // const svgDom = this.board.svgDom;
         
         this.align();
