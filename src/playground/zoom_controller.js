@@ -1,4 +1,5 @@
 import Toast from './toast';
+import Interpreter from './interpreter'
 
 Entry.ZoomController = class ZoomController {
     constructor(board) {
