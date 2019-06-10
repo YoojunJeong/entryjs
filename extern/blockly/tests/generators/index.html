@@ -39,18 +39,18 @@
 <script type="text/javascript" src="../../blocks/logic.js"></script>
 <script type="text/javascript" src="../../blocks/loops.js"></script>
 <script type="text/javascript" src="../../blocks/math.js"></script>
-<script type="text/javascript" src="../../blocks/text.js"></script>
-<script type="text/javascript" src="../../blocks/lists.js"></script>
-<script type="text/javascript" src="../../blocks/colour.js"></script>
-<script type="text/javascript" src="../../blocks/variables.js"></script>
-<script type="text/javascript" src="../../blocks/procedures.js"></script>
+<script type="text/javascript" src="../../extern/blockly/blocks/text.js"></script>
+<script type="text/javascript" src="../../extern/blockly/blocks/lists.js"></script>
+<script type="text/javascript" src="../../extern/blockly/blocks/colour.js"></script>
+<script type="text/javascript" src="../../extern/blockly/blocks/variables.js"></script>
+<script type="text/javascript" src="../../extern/blockly/blocks/procedures.js"></script>
 <script type="text/javascript">
 'use strict';
 
 function start() {
   var toolbox = document.getElementById('toolbox');
   Blockly.inject(document.getElementById('svg'),
-                 {path: '../../', toolbox: toolbox});
+                 {path: '../../extern/blockly', toolbox: toolbox});
 }
 
 function loadXml() {

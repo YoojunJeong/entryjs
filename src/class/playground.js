@@ -132,9 +132,15 @@ Entry.Playground = class {
 
 
             // JYJ - jquery는 여기에
-            $("#entryMenuTop").html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/yInoAZwNSUs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+            // $("#entryMenuTop").html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/yInoAZwNSUs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
             $(".engineContainer").hide();
 
+            $(".wrapper").append('<div id="inject"></div>');
+            $.get("../../extern/blockly/tests/generators/index.html", function(html_string)
+            {
+                $("#inject").append(html_string);
+            });
+            // toXml();
             
         }
     }

@@ -1,5 +1,13 @@
 import Toast from './toast';
 import Interpreter from './interpreter'
+import { threadId } from 'worker_threads';
+
+'use strict';
+
+goog.provide('Blockly.Workspace');
+goog.provide('Blockly.Xml');
+
+
 
 Entry.ZoomController = class ZoomController {
     constructor(board) {
@@ -160,12 +168,86 @@ Entry.ZoomController = class ZoomController {
     doAction(mode) {
         switch(mode) {
             case 'REFRESH':
-                alert('REFRESH');
+                var mainWS = Entry.getMainWS();
+                console.log(Entry);
+                var genBlocks = new Entry.Block(null, null);
+                console.log(genBlocks.getBlockList());
+                
+                var rtl = (document.location.search == '?rtl');
+                Blockly.inject(document.getElementById('inject')
+                            , {rtl: rtl, path: '../../extern/blockly/tests', toolbox: toolbox});
+
+                console.log(genBlocks);
+            
+                            
+                Blockly.mainWorkspace.topBlocks_ = genBlocks;
+                // for(const block of Blockly.mainWorkspace.svgGroup_.children) {   
+                //     Blockly.mainWorkspace
+                // }    
+                // console.log(Entry);
+                // Blockly.mainWorkspace = new Blockly.Workspace;
+                // console.log(Blockly.mainWorkspace);
+                // var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+                // var width = Blockly.svgSize().width;
+                var xmlDom = goog.dom.createDom('xml');
+                // var blocks = Blockly.mainWorkspace.svgGroup_.childNodes;
+                var blocks = Blockly.mainWorkspace.getTopBlocks(true);
+
+                console.log(blocks);
+
+                // for (var i = 0, block; block = blocks[i]; i++) {
+                for(const block of blocks) {
+                    console.log(block);      
+                    var element = Blockly.Xml.blockToDom_(block);
+                    // var xy = block.getRelativeToSurfaceXY();
+                    // element.setAttribute('x', Blockly.RTL ? width - xy.x : xy.x);
+                    // element.setAttribute('y', xy.y);
+                    xmlDom.appendChild(element);
+                }
+                
+                console.log(xmlDom);
+                var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+
+                console.log(xmlText);
+                
                 break;
             case 'EXPORT':
                 var yn = confirm('코딩한 내용을 모디 블록으로 내보낼까요?');
                 if(yn) {
                     // c code로 내보낸다.
+                    // Blockly.mainWorkspace = Entry.getMainWS();
+                    
+                    Blockly.inject(document.getElementById('inject'), {path: '../../extern/blockly', toolbox: toolbox});
+        
+                    console.log(Blockly.mainWorkspace);
+                    console.log(Entry);
+                    // for(const block of Blockly.mainWorkspace.svgGroup_.children) {   
+                    //     Blockly.mainWorkspace
+                    // }    
+                    // console.log(Entry);
+                    // Blockly.mainWorkspace = new Blockly.Workspace;
+                    // console.log(Blockly.mainWorkspace);
+                    // var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+                    // var width = Blockly.svgSize().width;
+                    var xmlDom = goog.dom.createDom('xml');
+                    // var blocks = Blockly.mainWorkspace.svgGroup_.childNodes;
+                    var blocks = Blockly.mainWorkspace.getTopBlocks(true);
+                    
+
+                    // for (var i = 0, block; block = blocks[i]; i++) {
+                    for(const block of blocks) {
+                        console.log(block);      
+                        var element = Blockly.Xml.blockToDom_(block);
+                        // var xy = block.getRelativeToSurfaceXY();
+                        // element.setAttribute('x', Blockly.RTL ? width - xy.x : xy.x);
+                        // element.setAttribute('y', xy.y);
+                        xmlDom.appendChild(element);
+                    }
+                  
+                    console.log(xmlDom);
+                    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+
+                    console.log(xmlText);
                 }
                 break;
             case 'PLUS':
