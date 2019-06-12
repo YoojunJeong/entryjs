@@ -1,6 +1,6 @@
 import Toast from './toast';
 import Interpreter from './interpreter'
-import { threadId } from 'worker_threads';
+// import { threadId } from 'worker_threads';
 
 'use strict';
 
@@ -203,6 +203,8 @@ Entry.ZoomController = class ZoomController {
                     // element.setAttribute('x', Blockly.RTL ? width - xy.x : xy.x);
                     // element.setAttribute('y', xy.y);
                     xmlDom.appendChild(element);
+
+                    console.log(element);  
                 }
                 
                 console.log(xmlDom);
@@ -215,39 +217,43 @@ Entry.ZoomController = class ZoomController {
                 var yn = confirm('코딩한 내용을 모디 블록으로 내보낼까요?');
                 if(yn) {
                     // c code로 내보낸다.
-                    // Blockly.mainWorkspace = Entry.getMainWS();
-                    
-                    Blockly.inject(document.getElementById('inject'), {path: '../../extern/blockly', toolbox: toolbox});
-        
-                    console.log(Blockly.mainWorkspace);
-                    console.log(Entry);
-                    // for(const block of Blockly.mainWorkspace.svgGroup_.children) {   
-                    //     Blockly.mainWorkspace
-                    // }    
-                    // console.log(Entry);
-                    // Blockly.mainWorkspace = new Blockly.Workspace;
-                    // console.log(Blockly.mainWorkspace);
-                    // var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-                    // var width = Blockly.svgSize().width;
-                    var xmlDom = goog.dom.createDom('xml');
-                    // var blocks = Blockly.mainWorkspace.svgGroup_.childNodes;
-                    var blocks = Blockly.mainWorkspace.getTopBlocks(true);
-                    
+                   
+                    var workspace = Entry.getMainWS();
+                
+                    Entry.playground.object = Entry.container.objects_[0];
 
-                    // for (var i = 0, block; block = blocks[i]; i++) {
-                    for(const block of blocks) {
-                        console.log(block);      
-                        var element = Blockly.Xml.blockToDom_(block);
-                        // var xy = block.getRelativeToSurfaceXY();
-                        // element.setAttribute('x', Blockly.RTL ? width - xy.x : xy.x);
-                        // element.setAttribute('y', xy.y);
-                        xmlDom.appendChild(element);
-                    }
-                  
-                    console.log(xmlDom);
-                    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+                    const blockMap = this.nowBoard.code._blockMap;
 
-                    console.log(xmlText);
+                    const keys = Object.keys(blockMap) || [];
+                    keys.forEach((id) => {
+                        var block = blockMap[id];
+                        // console.log(block);
+
+                        var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
+                        var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
+                        var blockToPyParser = new Entry.BlockToPyParser(syntax);
+                        var pyToBlockParser = new Entry.PyToBlockParser(syntax);
+    
+                        blockToPyParser._parseMode = Entry.Parser.PARSE_GENERAL;
+                        var options = { locations: true, ranges: true };
+                        var code = {
+                            registerEvent: function() {},
+                            registerBlock: function() {}
+                        };
+    
+                        var blockSchema = Entry.block[block.type];
+                        var pythonOutput = blockToPyParser.Thread(new Entry.Thread([blockSchema.def], code));
+                        var blockOutput = pyToBlockParser.processPrograms([filbert.parse(pythonOutput, options)]);
+    
+                        console.log(pythonOutput);
+    
+                        blockToPyParser = new Entry.BlockToPyParser(syntax);
+                        blockToPyParser._parseMode = Entry.Parser.PARSE_GENERAL;
+
+                        var secondPythonOutput = blockToPyParser.Thread(new Entry.Thread(blockOutput[0], code));
+                        console.log(secondPythonOutput);
+                    
+                    });
                 }
                 break;
             case 'PLUS':
