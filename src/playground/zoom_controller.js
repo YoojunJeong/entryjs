@@ -1,5 +1,6 @@
 import Toast from './toast';
 import Interpreter from './interpreter'
+import Filbert from '../../extern/util/filbert.js'
 // import { threadId } from 'worker_threads';
 
 'use strict';
@@ -243,7 +244,7 @@ Entry.ZoomController = class ZoomController {
     
                         var blockSchema = Entry.block[block.type];
                         var pythonOutput = blockToPyParser.Thread(new Entry.Thread([blockSchema.def], code));
-                        var blockOutput = pyToBlockParser.processPrograms([filbert.parse(pythonOutput, options)]);
+                        var blockOutput = pyToBlockParser.processPrograms([Filbert.parse(pythonOutput, options)]);
     
                         console.log(pythonOutput);
     
