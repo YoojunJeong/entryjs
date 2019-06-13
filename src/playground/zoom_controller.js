@@ -1,6 +1,6 @@
 import Toast from './toast';
 import Interpreter from './interpreter'
-import Filbert from '../../extern/util/filbert.js'
+// import Filbert from '../../extern/util/filbert.js'
 // import { threadId } from 'worker_threads';
 
 'use strict';
@@ -220,9 +220,7 @@ Entry.ZoomController = class ZoomController {
                     // c code로 내보낸다.
                    
                     var workspace = Entry.getMainWS();
-                
-                    Entry.playground.object = Entry.container.objects_[0];
-
+            
                     const blockMap = this.nowBoard.code._blockMap;
 
                     const keys = Object.keys(blockMap) || [];
@@ -232,10 +230,11 @@ Entry.ZoomController = class ZoomController {
 
                         var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
                         var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
-                        var blockToPyParser = new Entry.BlockToPyParser(syntax);
-                        var pyToBlockParser = new Entry.PyToBlockParser(syntax);
+                        // var blockToPyParser = new Entry.BlockToPyParser(syntax);
+                        var blockToCParser = new Entry.BlockToCParser(syntax);
+                        // var pyToBlockParser = new Entry.PyToBlockParser(syntax);
     
-                        blockToPyParser._parseMode = Entry.Parser.PARSE_GENERAL;
+                        blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
                         var options = { locations: true, ranges: true };
                         var code = {
                             registerEvent: function() {},
@@ -243,22 +242,27 @@ Entry.ZoomController = class ZoomController {
                         };
     
                         var blockSchema = Entry.block[block.type];
-                        var pythonOutput = blockToPyParser.Thread(new Entry.Thread([blockSchema.def], code));
-                        var blockOutput = pyToBlockParser.processPrograms([Filbert.parse(pythonOutput, options)]);
+                        var cOutput = blockToCParser.Thread(new Entry.Thread([blockSchema.def], code));
+        
+                        console.log(cOutput);
     
-                        console.log(pythonOutput);
-    
-                        blockToPyParser = new Entry.BlockToPyParser(syntax);
-                        blockToPyParser._parseMode = Entry.Parser.PARSE_GENERAL;
+                        // blockToPyParser = new Entry.BlockToPyParser(syntax);
+                        // blockToPyParser._parseMode = Entry.Parser.PARSE_GENERAL;
 
-                        var secondPythonOutput = blockToPyParser.Thread(new Entry.Thread(blockOutput[0], code));
-                        console.log(secondPythonOutput);
+                        // var secondPythonOutput = blockToPyParser.Thread(new Entry.Thread(blockOutput[0], code));
+                        // console.log(secondPythonOutput);
                     
                     });
                 }
                 break;
             case 'PLUS':
                 alert('PLUS');
+
+                var workspace = Entry.getMainWS();
+
+                console.log(workspace.vimBoard);
+               
+
                 break;
             case 'NEXT':
                 var yn = confirm('발명품 사진 찍기로 이동할까요?');

@@ -78,6 +78,12 @@ module.exports = {
                             syntax: 'Entry.wait_for_sec(%1)',
                         },
                     ],
+
+                    c: [
+                        {
+                            syntax:'sleep(%1)',
+                        },
+                    ],
                 },
             },
             repeat_basic: {
@@ -157,6 +163,14 @@ module.exports = {
                             idChar: ['i', 'j', 'k'],
                         },
                     ],
+
+                    c: [
+                        {
+                            syntax:'for(int i = 0; i < %1; i++) {\n$1}',
+                            template: 'for(int i = 0; i < %1; i++) {}',
+                           
+                        },
+                    ],
                 },
             },
             repeat_inf: {
@@ -218,6 +232,8 @@ module.exports = {
                             ],
                         },
                     ],
+
+                    c: [],
                 },
             },
             repeat_while_true: {
@@ -300,6 +316,7 @@ module.exports = {
                             template: 'while not %1:',
                         },
                     ],
+                    c: [],
                 },
             },
             stop_repeat: {
@@ -324,7 +341,7 @@ module.exports = {
                 func(sprite, script) {
                     return this.executor.breakLoop();
                 },
-                syntax: { js: [], py: ['break'] },
+                syntax: { js: [], py: ['break'] ,c: [],},
             },
             _if: {
                 color: EntryStatic.colorSet.block.default.FLOW,
@@ -389,6 +406,7 @@ module.exports = {
                 },
                 syntax: {
                     js: [],
+                    c: [],
                     py: [{ syntax: 'if %1:\n$1', template: 'if %1:' }],
                 },
             },
@@ -462,6 +480,7 @@ module.exports = {
                 },
                 syntax: {
                     js: [],
+                    c: [],
                     py: [
                         {
                             syntax: 'if %1:\n$1\nelse:\n$2',
@@ -529,125 +548,7 @@ module.exports = {
                         return script;
                     }
                 },
-                syntax: { js: [], py: ['Entry.wait_until(%1)'] },
-            },
-            stop_object: {
-                color: EntryStatic.colorSet.block.default.FLOW,
-                outerLine: EntryStatic.colorSet.block.darken.FLOW,
-                skeleton: 'basic',
-                statements: [],
-                params: [
-                    {
-                        type: 'Dropdown',
-                        options: [
-                            [Lang.Blocks.FLOW_stop_object_all, 'all'],
-                            [Lang.Blocks.FLOW_stop_object_this_object, 'thisOnly'],
-                            [Lang.Blocks.FLOW_stop_object_this_thread, 'thisThread'],
-                            [Lang.Blocks.FLOW_stop_object_other_thread, 'otherThread'],
-                            [Lang.Blocks.FLOW_stop_object_other_objects, 'other_objects'],
-                        ],
-                        value: 'all',
-                        fontSize: 10,
-                        bgColor: EntryStatic.colorSet.block.darken.FLOW,
-                        arrowColor: EntryStatic.colorSet.arrow.default.DEFAULT,
-                    },
-                    {
-                        type: 'Indicator',
-                        img: 'block_icon/flow_icon.svg',
-                        size: 11,
-                    },
-                ],
-                events: {},
-                def: {
-                    params: [null, null],
-                    type: 'stop_object',
-                },
-                pyHelpDef: {
-                    params: ['A&value', null],
-                    type: 'stop_object',
-                },
-                paramsKeyMap: {
-                    TARGET: 0,
-                },
-                class: 'terminate',
-                isNotFor: [],
-                func(sprite, script) {
-                    const object = sprite.parent;
-
-                    switch (script.getField('TARGET', script)) {
-                        case 'all':
-                            Entry.container.mapObject(function(obj) {
-                                if (!obj.objectType) {
-                                    return;
-                                }
-
-                                obj.script.clearExecutors();
-                            });
-                            return this.die();
-                        case 'thisOnly':
-                            object.script.clearExecutorsByEntity(sprite);
-                            return this.die();
-                        case 'thisObject':
-                            object.script.clearExecutors();
-                            return this.die();
-                        case 'thisThread':
-                            return this.die();
-                        case 'otherThread': {
-                            const executor = this.executor;
-                            const code = object.script;
-                            const executors = code.executors;
-                            const spriteId = sprite.id;
-                            for (let i = 0; i < executors.length; i++) {
-                                const currentExecutor = executors[i];
-                                if (
-                                    currentExecutor !== executor &&
-                                    currentExecutor.entity.id === spriteId
-                                ) {
-                                    code.removeExecutor(currentExecutor);
-                                    --i;
-                                }
-                            }
-                            return script.callReturn();
-                        }
-                        case 'other_objects':
-                            Entry.container.mapObject(function(obj) {
-                                if (!obj.objectType || obj === object) {
-                                    return;
-                                }
-
-                                obj.script.clearExecutors();
-                            });
-                            return script.callReturn();
-                    }
-                },
-                syntax: {
-                    js: [],
-                    py: [
-                        {
-                            syntax: 'Entry.stop_code(%1)',
-                            textParams: [
-                                {
-                                    type: 'Dropdown',
-                                    options: [
-                                        [Lang.Blocks.FLOW_stop_object_all, 'all'],
-                                        [Lang.Blocks.FLOW_stop_object_this_object, 'thisOnly'],
-                                        [Lang.Blocks.FLOW_stop_object_this_thread, 'thisThread'],
-                                        [Lang.Blocks.FLOW_stop_object_other_thread, 'otherThread'],
-                                        [
-                                            Lang.Blocks.FLOW_stop_object_other_objects,
-                                            'other_objects',
-                                        ],
-                                    ],
-                                    value: 'all',
-                                    fontSize: 11,
-                                    arrowColor: EntryStatic.colorSet.arrow.default.FLOW,
-                                    converter: Entry.block.converters.returnStringValue,
-                                    codeMap: 'Entry.CodeMap.Entry.stop_object[0]',
-                                },
-                            ],
-                        },
-                    ],
-                },
+                syntax: { js: [], c: [], py: ['Entry.wait_until(%1)'] },
             },
             restart_project: {
                 color: EntryStatic.colorSet.block.default.FLOW,
@@ -672,169 +573,8 @@ module.exports = {
                     Entry.engine.toggleStop();
                     Entry.engine.toggleRun();
                 },
-                syntax: { js: [], py: ['Entry.start_again()'] },
-            },
-            when_clone_start: {
-                color: EntryStatic.colorSet.block.default.FLOW,
-                outerLine: EntryStatic.colorSet.block.darken.FLOW,
-                skeleton: 'basic_event',
-                statements: [],
-                params: [
-                    {
-                        type: 'Indicator',
-                        img: 'block_icon/start_icon_clone.svg',
-                        size: 14,
-                        position: {
-                            x: 0,
-                            y: -2,
-                        },
-                    },
-                ],
-                events: {},
-                def: {
-                    params: [null],
-                    type: 'when_clone_start',
-                },
-                class: 'clone',
-                isNotFor: [],
-                func(sprite, script) {
-                    return script.callReturn();
-                },
-                event: 'when_clone_start',
-                syntax: {
-                    js: [],
-                    py: [
-                        {
-                            syntax: 'def when_make_clone():',
-                            blockType: 'event',
-                        },
-                    ],
-                },
-            },
-            create_clone: {
-                color: EntryStatic.colorSet.block.default.FLOW,
-                outerLine: EntryStatic.colorSet.block.darken.FLOW,
-                skeleton: 'basic',
-                statements: [],
-                params: [
-                    {
-                        type: 'DropdownDynamic',
-                        value: null,
-                        menuName: 'clone',
-                        fontSize: 10,
-                        textColor: '#fff',
-                        bgColor: EntryStatic.colorSet.block.darken.FLOW,
-                        arrowColor: EntryStatic.colorSet.arrow.default.DEFAULT,
-                    },
-                    {
-                        type: 'Indicator',
-                        img: 'block_icon/flow_icon.svg',
-                        size: 11,
-                    },
-                ],
-                events: {},
-                def: {
-                    params: [null, null],
-                    type: 'create_clone',
-                },
-                pyHelpDef: {
-                    params: ['A&value', null],
-                    type: 'create_clone',
-                },
-                paramsKeyMap: {
-                    VALUE: 0,
-                },
-                class: 'clone',
-                isNotFor: [],
-                func(sprite, script) {
-                    const targetSpriteId = script.getField('VALUE', script);
-                    const returnBlock = script.callReturn();
-                    if (targetSpriteId === 'self') {
-                        sprite.parent.addCloneEntity(sprite.parent, sprite, null);
-                    } else {
-                        const object = Entry.container.getObject(targetSpriteId);
-                        object.addCloneEntity(sprite.parent, null, null);
-                    }
-                    return returnBlock;
-                },
-                syntax: {
-                    js: [],
-                    py: [
-                        {
-                            syntax: 'Entry.make_clone_of(%1)',
-                            textParams: [
-                                {
-                                    type: 'DropdownDynamic',
-                                    value: null,
-                                    menuName: 'clone',
-                                    fontSize: 11,
-                                    arrowColor: EntryStatic.colorSet.arrow.default.FLOW,
-                                    converter: Entry.block.converters.returnStringKey,
-                                    codeMap: 'Entry.CodeMap.Entry.create_clone[0]',
-                                },
-                            ],
-                        },
-                    ],
-                },
-            },
-            delete_clone: {
-                color: EntryStatic.colorSet.block.default.FLOW,
-                outerLine: EntryStatic.colorSet.block.darken.FLOW,
-                skeleton: 'basic_without_next',
-                statements: [],
-                params: [
-                    {
-                        type: 'Indicator',
-                        img: 'block_icon/flow_icon.svg',
-                        size: 11,
-                    },
-                ],
-                events: {},
-                def: {
-                    params: [null],
-                    type: 'delete_clone',
-                },
-                class: 'clone',
-                isNotFor: [],
-                func(sprite, script) {
-                    if (!sprite.isClone) {
-                        return script.callReturn();
-                    }
-                    sprite.removeClone();
-                    return this.die();
-                },
-                syntax: { js: [], py: ['Entry.remove_this_clone()'] },
-            },
-            remove_all_clones: {
-                color: EntryStatic.colorSet.block.default.FLOW,
-                outerLine: EntryStatic.colorSet.block.darken.FLOW,
-                skeleton: 'basic',
-                statements: [],
-                params: [
-                    {
-                        type: 'Indicator',
-                        img: 'block_icon/flow_icon.svg',
-                        size: 11,
-                    },
-                ],
-                events: {},
-                def: {
-                    params: [null],
-                    type: 'remove_all_clones',
-                },
-                class: 'clone',
-                isNotFor: [],
-                func(sprite, script) {
-                    let clonedEntities = sprite.parent.getClonedEntities();
-                    clonedEntities.map(function(entity) {
-                        entity.removeClone();
-                    });
-                    clonedEntities = null;
-
-                    return script.callReturn();
-                },
-                syntax: { js: [], py: ['Entry.remove_all_clone()'] },
-            },
-        };
+                syntax: { js: [], c: [],py: ['Entry.start_again()'] },
+            }
+        }
     },
 };

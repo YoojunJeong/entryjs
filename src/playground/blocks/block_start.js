@@ -36,6 +36,13 @@ module.exports = {
                             blockType: 'event',
                         },
                     ],
+
+                    c: [
+                        {
+                            syntax:'whenStart',
+                            blockType: 'event'
+                        }
+                    ]
                 },
             },
             when_some_key_pressed: {
