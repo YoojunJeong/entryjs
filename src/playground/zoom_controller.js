@@ -244,6 +244,7 @@ Entry.ZoomController = class ZoomController {
                         var blockSchema = Entry.block[block.type];
                         var cOutput = blockToCParser.Thread(new Entry.Thread([blockSchema.def], code));
         
+                        console.log(blockSchema);
                         console.log(cOutput);
     
                         // blockToPyParser = new Entry.BlockToPyParser(syntax);

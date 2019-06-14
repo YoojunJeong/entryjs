@@ -393,7 +393,7 @@ Entry.Parser = function(mode, type, cm, syntax) {
                 if (!syntaxArray)
                     continue;
 
-                if(block.syntax.py)
+                if(block.syntax.c)
                     continue;
 
                 var syntaxTemp = syntax;
@@ -416,11 +416,11 @@ Entry.Parser = function(mode, type, cm, syntax) {
                 }
             } else if (mode === Entry.Vim.WORKSPACE_MODE) {
                 var key = type;
-                var pySyntax = block.syntax && block.syntax.py;
+                var cSyntax = block.syntax && block.syntax.c;
 
-                if (!pySyntax) continue;
+                if (!cSyntax) continue;
 
-                pySyntax.map(function(s, i) {
+                cSyntax.map(function(s, i) {
                     var result, tokens;
 
                     if (typeof s === "string") {

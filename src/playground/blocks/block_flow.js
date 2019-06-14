@@ -167,7 +167,8 @@ module.exports = {
                     c: [
                         {
                             syntax:'for(int i = 0; i < %1; i++) {\n$1}',
-                            template: 'for(int i = 0; i < %1; i++) {}',
+                            template: 'for(int i = 0; i < %1; i++) {\n}',
+                            idChar: ['i', 'j', 'k'],
                            
                         },
                     ],

@@ -55,6 +55,7 @@ Entry.BlockToCParser = class {
             return '';
         }
 
+        
         if (blocks[0] instanceof Entry.Comment) {
             this.Comment(blocks[0]);
         } else if (this._parseMode === Entry.Parser.PARSE_SYNTAX) {
@@ -85,6 +86,7 @@ Entry.BlockToCParser = class {
         }
         !block._schema && block.loadSchema();
 
+        
         const results = [];
         const syntaxObj = this.searchSyntax(block);
         let syntax;
@@ -214,6 +216,7 @@ Entry.BlockToCParser = class {
 
         let result = '';
         const syntaxObj = this.searchSyntax(block);
+    
         const textParams = syntaxObj.textParams && syntaxObj.textParams;
 
         if (schemaParams[index]) {
@@ -222,7 +225,10 @@ Entry.BlockToCParser = class {
                     break;
                 }
                 case 'Block': {
+
+
                     let param = this.Block(dataParams[index]).trim();
+
                     const funcParam = this._funcParamMap.get(param);
                     const textParam = textParams && textParams[index];
 
@@ -314,13 +320,8 @@ Entry.BlockToCParser = class {
         }
 
         if (schema && schema.syntax) {
-
-        
-            console.log(schema.syntax.py);
-            console.log(schema.syntax.c);
-
-
             const syntaxes = schema.syntax.c.concat();
+
             while (syntaxes.length) {
                 let isFail = false;
                 const syntax = syntaxes.shift();

@@ -597,6 +597,19 @@ function getBlocks() {
                         ],
                     },
                 ],
+
+                c: [
+                    {
+                        syntax: '%1',
+                        keyOption: 'number',
+                        textParams: [
+                            {
+                                type: 'TextInput',
+                                converter: Entry.block.converters.returnStringOrNumberByValue,
+                            },
+                        ],
+                    },
+                ], 
             },
         },
         angle: {
