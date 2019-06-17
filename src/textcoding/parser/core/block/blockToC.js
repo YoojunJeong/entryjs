@@ -55,7 +55,6 @@ Entry.BlockToCParser = class {
             return '';
         }
 
-        
         if (blocks[0] instanceof Entry.Comment) {
             this.Comment(blocks[0]);
         } else if (this._parseMode === Entry.Parser.PARSE_SYNTAX) {
@@ -64,6 +63,7 @@ Entry.BlockToCParser = class {
             let rootResult = '';
             let contentResult = '';
 
+            // 여기서 에러 - this.Block(block)
             blocks.forEach((block, index) => {
                 if (index === 0 && Entry.TextCodingUtil.isEventBlock(block)) {
                     rootResult = `${this.Block(block)}\n`;
@@ -112,6 +112,7 @@ Entry.BlockToCParser = class {
             results.push(block.data.type);
         }
 
+        // syntax가 undefined
         if (!syntax && !this.isFuncStmtParam(block)) {
             const error = new Error();
             error.block = block;
@@ -123,6 +124,7 @@ Entry.BlockToCParser = class {
         const _blockStatementRegex = /\$\d/gim;
 
         let isFirstCommentToken = true;
+        
         _blockTokens.forEach((token) => {
             const paramsTemplate = token.match(_blockParamRegex);
             const statements = token.match(_blockStatementRegex);
@@ -210,6 +212,7 @@ Entry.BlockToCParser = class {
      * @private
      */
     _getParamsValue(templateIndex, block) {
+
         const index = Number(templateIndex) - 1;
         const schemaParams = block._schema.params;
         const dataParams = block.data.params;
@@ -307,13 +310,13 @@ Entry.BlockToCParser = class {
 
         if (datum instanceof Entry.BlockView) {
 
-        
             schema = datum.block._schema;
             appliedParams = datum.block.data.params;
         } else if (datum instanceof Entry.Block) {
             
             schema = datum._schema;
             appliedParams = datum.params;
+
         } else {
             
             schema = datum;
@@ -325,6 +328,7 @@ Entry.BlockToCParser = class {
             while (syntaxes.length) {
                 let isFail = false;
                 const syntax = syntaxes.shift();
+                                
                 if (typeof syntax === 'string') {
                     return { syntax, template: syntax };
                 }

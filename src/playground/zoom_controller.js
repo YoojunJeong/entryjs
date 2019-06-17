@@ -169,49 +169,41 @@ Entry.ZoomController = class ZoomController {
     doAction(mode) {
         switch(mode) {
             case 'REFRESH':
-                var mainWS = Entry.getMainWS();
-                console.log(Entry);
-                var genBlocks = new Entry.Block(null, null);
-                console.log(genBlocks.getBlockList());
                 
-                var rtl = (document.location.search == '?rtl');
-                Blockly.inject(document.getElementById('inject')
-                            , {rtl: rtl, path: '../../extern/blockly/tests', toolbox: toolbox});
+                // var workspace = Entry.getMainWS();
 
-                console.log(genBlocks);
-            
-                            
-                Blockly.mainWorkspace.topBlocks_ = genBlocks;
-                // for(const block of Blockly.mainWorkspace.svgGroup_.children) {   
-                //     Blockly.mainWorkspace
-                // }    
-                // console.log(Entry);
-                // Blockly.mainWorkspace = new Blockly.Workspace;
-                // console.log(Blockly.mainWorkspace);
-                // var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-                // var width = Blockly.svgSize().width;
-                var xmlDom = goog.dom.createDom('xml');
-                // var blocks = Blockly.mainWorkspace.svgGroup_.childNodes;
-                var blocks = Blockly.mainWorkspace.getTopBlocks(true);
+                const blockMap = this.nowBoard.code._blockMap;
 
-                console.log(blocks);
 
-                // for (var i = 0, block; block = blocks[i]; i++) {
-                for(const block of blocks) {
-                    console.log(block);      
-                    var element = Blockly.Xml.blockToDom_(block);
-                    // var xy = block.getRelativeToSurfaceXY();
-                    // element.setAttribute('x', Blockly.RTL ? width - xy.x : xy.x);
-                    // element.setAttribute('y', xy.y);
-                    xmlDom.appendChild(element);
+                const keys = Object.keys(blockMap) || [];
+                keys.forEach((id) => {
+                    var block = blockMap[id];
 
-                    console.log(element);  
-                }
-                
-                console.log(xmlDom);
-                var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+                    // console.log(block._schema);
 
-                console.log(xmlText);
+                    var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
+                    var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
+                    var blockToCParser = new Entry.BlockToCParser(syntax);
+
+                    blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
+                    // var options = { locations: true, ranges: true };
+                    var code = {
+                        registerEvent: function() {},
+                        registerBlock: function() {}
+                    };
+
+                    var blockSchema = Entry.block[block.type];
+                    // var cOutput = blockToCParser.Thread(new Entry.Thread([blockSchema.def], code));
+                    var cOutput = blockToCParser.Thread(block.getThread());
+    
+                    console.log(cOutput);
+
+                    // blockToPyParser = new Entry.BlockToPyParser(syntax);
+                    // blockToPyParser._parseMode = Entry.Parser.PARSE_GENERAL;
+
+                    // var secondPythonOutput = blockToPyParser.Thread(new Entry.Thread(blockOutput[0], code));
+                    // console.log(secondPythonOutput);
+                });
                 
                 break;
             case 'EXPORT':
