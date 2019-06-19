@@ -18,11 +18,13 @@ module.exports = {
                 events: {
                     mousedown: [
                         function() {
-                            Entry.variableContainer.openVariableAddPanel('variable');
+                            // 변수 만들기 버튼 클릭
+                            $("#variableModal").removeClass('entryRemove');
+                            // Entry.variableContainer.openVariableAddPanel('variable');
                         },
                     ],
                 },
-                syntax: { js: [], py: [''] },
+                syntax: { js: [], py: [''], c: [''] },
             },
             listAddButton: {
                 skeleton: 'basic_button',

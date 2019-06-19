@@ -130,6 +130,24 @@ Entry.Playground = class {
             });
             this.applyTabOption();
 
+            // JYJ - make modal
+            const variableModal = Entry.createElement('div', 'variableModal')
+                .addClass('variableModal')
+                .appendTo(this.view_);
+            var html = '<div class="variableModalTop">* 변수 이름';
+                html +='    <br/>';
+                html +='    <input id="makeVariableValue" style="width:200px;height:30px;border-radius:12px;"/>';
+                html +='    <button id="btnMakeVariable" style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">만들기</button>'
+                html +='    <br/>';
+                html +='</div>';
+                html +='<div class="variableModalMid">전체(0)';
+                html +='</div>';
+                html +='<div class="variableModalBottom">';
+                html +='    <button id="btnVarModalCancel" style="width:70px;height:30px;border: 0.1rem outset blue;border-radius:12px;">취소</button>'
+                html +='    <button id="btnVarModalAdd" style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">추가하기</button>'
+                html +='</div>';
+
+            variableModal.innerHTML = html;
 
             // JYJ - jquery는 여기에
             // $("#entryMenuTop").html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/yInoAZwNSUs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
