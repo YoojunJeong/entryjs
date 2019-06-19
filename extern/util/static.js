@@ -245,7 +245,7 @@ EntryStatic.getAllBlocks = function() {
                 // 'coordinate_object',
                 // 'get_sound_volume',
                 'quotient_and_mod',
-                // 'calc_operation',
+                'calc_operation',
                 // 'get_project_timer_value',
                 // 'choose_project_timer_action',
                 // 'set_visible_project_timer',
