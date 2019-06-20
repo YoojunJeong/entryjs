@@ -5,11 +5,6 @@ import Interpreter from './interpreter'
 
 'use strict';
 
-goog.provide('Blockly.Workspace');
-goog.provide('Blockly.Xml');
-
-
-
 Entry.ZoomController = class ZoomController {
     constructor(board) {
         this.boardMap = new Map();
@@ -234,16 +229,12 @@ Entry.ZoomController = class ZoomController {
                         };
     
                         var blockSchema = Entry.block[block.type];
-                        var cOutput = blockToCParser.Thread(new Entry.Thread([blockSchema.def], code));
+                        var cOutput = blockToCParser.Thread(block.getThread());
         
-                        console.log(blockSchema);
-                        console.log(cOutput);
-    
-                        // blockToPyParser = new Entry.BlockToPyParser(syntax);
-                        // blockToPyParser._parseMode = Entry.Parser.PARSE_GENERAL;
+                        // console.log(blockSchema);
+                        // console.log(cOutput);
 
-                        // var secondPythonOutput = blockToPyParser.Thread(new Entry.Thread(blockOutput[0], code));
-                        // console.log(secondPythonOutput);
+                        alert(cOutput);
                     
                     });
                 }

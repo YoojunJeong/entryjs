@@ -357,19 +357,28 @@ class TextCodingUtil {
     assembleRepeatWhileTrueBlock(block, syntax) {
         let result = '';
         if (block.data.type === 'repeat_while_true') {
+
+            
+
             const blockToken = syntax.split(/(?=:)|[ ]/gi); // space 로 split 하되, : 도 자르지만 토큰에 포함
-            let lastIndex = blockToken.length - 2;
+            let lastIndex = blockToken.length - 3;
             const option = blockToken[lastIndex];
 
+            console.log("repeat_while_true blockToken : ", blockToken);
+            console.log("repeat_while_true option : ", option);
+
             if (option == 'until') {
-                const condition = 'not';
+                const condition = '!';
                 blockToken.splice(1, 0, condition);
                 lastIndex += 1;
                 blockToken.splice(lastIndex, 1);
-                result = blockToken.join(' ').replace(/[ ]+:/, ':');
+                result = blockToken.join(' ').replace(' ! ', '!');
+                result = result.replace(' )', ')');
             } else if (option == 'while') {
                 blockToken.splice(lastIndex, 1);
-                result = blockToken.join(' ').replace(/[ ]+:/, ':');
+                result = blockToken.join(' ').replace(' while ', '');
+                result = result.replace('( ', '(');
+                result = result.replace(' )', ')');
             } else {
                 result = syntax;
             }

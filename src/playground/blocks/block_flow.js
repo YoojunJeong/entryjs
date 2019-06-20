@@ -81,7 +81,7 @@ module.exports = {
 
                     c: [
                         {
-                            syntax:'sleep(%1)',
+                            syntax:'sleep(%1);',
                         },
                     ],
                 },
@@ -234,7 +234,17 @@ module.exports = {
                         },
                     ],
 
-                    c: [],
+                    c: [ {
+                        syntax: 'while(true){\n$1\n}',
+                        template: 'while(%2)\n',
+                        textParams: [
+                            undefined,
+                            {
+                                type: 'Block',
+                                accept: 'boolean',
+                            },
+                        ],
+                    },],
                 },
             },
             repeat_while_true: {
@@ -317,7 +327,12 @@ module.exports = {
                             template: 'while not %1:',
                         },
                     ],
-                    c: [],
+                    c: [
+                        {
+                            syntax: 'while( %1 %2 ) {\n$1\n}',
+                            template: 'while( %1 %2 ) {\n}',
+                        },
+                    ],
                 },
             },
             stop_repeat: {
