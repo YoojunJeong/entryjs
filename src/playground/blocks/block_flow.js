@@ -235,7 +235,7 @@ module.exports = {
                     ],
 
                     c: [ {
-                        syntax: 'while(true){\n$1\n}',
+                        syntax: 'while(TRUE){\n$1\n}',
                         template: 'while(%2)\n',
                         textParams: [
                             undefined,
@@ -357,7 +357,10 @@ module.exports = {
                 func(sprite, script) {
                     return this.executor.breakLoop();
                 },
-                syntax: { js: [], py: ['break'] ,c: [],},
+                syntax: { 
+                    js: [], 
+                    py: ['break'] ,
+                    c: ['break;'],},
             },
             _if: {
                 color: EntryStatic.colorSet.block.default.FLOW,
@@ -422,8 +425,8 @@ module.exports = {
                 },
                 syntax: {
                     js: [],
-                    c: [],
                     py: [{ syntax: 'if %1:\n$1', template: 'if %1:' }],
+                    c: [{ syntax: 'if(%1) {\n$1\n}', template: 'if(%1){\n}' }],
                 },
             },
             if_else: {
@@ -496,11 +499,27 @@ module.exports = {
                 },
                 syntax: {
                     js: [],
-                    c: [],
                     py: [
                         {
                             syntax: 'if %1:\n$1\nelse:\n$2',
                             template: 'if %1: %3 else:',
+                            textParams: [
+                                {
+                                    type: 'Block',
+                                    accept: 'boolean',
+                                },
+                                undefined,
+                                {
+                                    type: 'LineBreak',
+                                },
+                            ],
+                        },
+                    ],
+
+                    c: [
+                        {
+                            syntax: 'if(%1) {\n$1\n} else {\n$2\n}',
+                            template: 'if(%1) {\n} else {\n\n}',
                             textParams: [
                                 {
                                     type: 'Block',
@@ -564,7 +583,16 @@ module.exports = {
                         return script;
                     }
                 },
-                syntax: { js: [], c: [], py: ['Entry.wait_until(%1)'] },
+                syntax: { 
+                    js: [], 
+                    py: ['Entry.wait_until(%1)'], 
+                    c: [
+                        {
+                            syntax: 'while( ! %1 ) {\n sleep();\n}',
+                            template: 'while( %1 ) {\n}',
+                        },
+                    ], 
+                },
             },
             restart_project: {
                 color: EntryStatic.colorSet.block.default.FLOW,

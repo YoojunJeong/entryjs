@@ -162,11 +162,14 @@ Entry.BlockToCParser = class {
                 resultTextCode += token;
             }
 
+            
+
             // 특수 블록 처리
             // TODO 이와 같은 처리는 블록에 정보가 있고, 정보에 따라 처리해야 한다.
             if (syntaxObj) {
                 switch (syntaxObj.key) {
                     case 'repeat_while_true':
+
                         resultTextCode = Entry.TextCodingUtil.assembleRepeatWhileTrueBlock(
                             block,
                             resultTextCode
@@ -181,6 +184,24 @@ Entry.BlockToCParser = class {
                             );
                             resultTextCode = forStmtTokens.join(' ');
                         }
+                        break;
+                    }
+
+                    case 'wait_until_true': {
+                        resultTextCode = Entry.TextCodingUtil.assembleWaitUntilTrueBlock(
+                            block,
+                            resultTextCode
+                        );
+                        break;
+                    }
+
+                    case 'boolean_and_or': {
+                        console.log("syntaxObj boolean_and_or");
+
+                        resultTextCode = Entry.TextCodingUtil.assembleBoolenAndOrBlock(
+                            block,
+                            resultTextCode
+                        );
                         break;
                     }
                 }
@@ -230,6 +251,7 @@ Entry.BlockToCParser = class {
                 case 'Block': {
 
 
+                    
                     let param = this.Block(dataParams[index]).trim();
 
                     const funcParam = this._funcParamMap.get(param);
@@ -274,6 +296,7 @@ Entry.BlockToCParser = class {
                     break;
                 }
                 default: {
+                   
                     const textParam = textParams && textParams[index];
 
                     let param;
@@ -286,6 +309,8 @@ Entry.BlockToCParser = class {
                         );
                     }
 
+                    
+
                     // 필드 블록이 아닌 블록에 내재된 파라미터 처리
                     if (
                         !Entry.Utils.isNumber(param) &&
@@ -293,10 +318,14 @@ Entry.BlockToCParser = class {
                             block.type === 'is_press_some_key')
                     ) {
                         result += `"${param}"`;
-                    } else {
+                    } 
+                    
+                    else {
                         result += param;
                     }
 
+                    
+                   
                     break;
                 }
             }
@@ -323,6 +352,7 @@ Entry.BlockToCParser = class {
         }
 
         if (schema && schema.syntax) {
+
             const syntaxes = schema.syntax.c.concat();
 
             while (syntaxes.length) {

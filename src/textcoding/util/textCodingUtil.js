@@ -358,8 +358,6 @@ class TextCodingUtil {
         let result = '';
         if (block.data.type === 'repeat_while_true') {
 
-            
-
             const blockToken = syntax.split(/(?=:)|[ ]/gi); // space 로 split 하되, : 도 자르지만 토큰에 포함
             let lastIndex = blockToken.length - 3;
             const option = blockToken[lastIndex];
@@ -385,6 +383,79 @@ class TextCodingUtil {
         } else {
             result = syntax;
         }
+
+        return result;
+    }
+
+    assembleWaitUntilTrueBlock(block, syntax) {
+
+        let result = '';
+        if (block.data.type === 'wait_until_true') {
+
+            const blockToken = syntax.split(/(?=:)|[ ]/gi); // space 로 split 하되, : 도 자르지만 토큰에 포함
+            let lastIndex = blockToken.length - 3;
+            const option = blockToken[lastIndex];
+
+            result = blockToken.join(' ').replace(' ! ', '!');
+            result = result.replace(' )', ')');
+
+        } 
+        
+        
+        else {
+            result = syntax;
+        }
+
+        return result;
+    }
+
+    assembleBoolenAndOrBlock(block, syntax) {
+
+        let result = '';
+
+    
+
+        const blockToken = syntax.split(/(?=:)|[ ]/gi); // space 로 split 하되, : 도 자르지만 토큰에 포함
+        let lastIndex = blockToken.length - 3;
+        const option = blockToken[lastIndex];
+
+        console.log("boolean_and_or blockToken : ", blockToken);
+        console.log("boolean_and_or option : ", option);
+
+        if (block.data.type === 'boolean_and_or') {
+
+           
+        
+            if (option == 'and') {
+              
+                const condition = '&&';
+                blockToken.splice(2, 0, condition);
+                lastIndex += 1;
+                blockToken.splice(lastIndex, 1);
+
+                result = blockToken.join(' ').replace(' ( ', '(');
+                result = result.replace('( ', '(');
+                result = result.replace(' )', ')');
+
+            } else if (option == 'or') {
+              
+                const condition = '||';
+                blockToken.splice(2, 0, condition);
+                lastIndex += 1;
+                blockToken.splice(lastIndex, 1);
+
+                result = blockToken.join(' ').replace(' ( ', '(');
+                result = result.replace('( ', '(');
+                result = result.replace(' )', ')');
+            } else {
+                result = syntax;
+            }
+
+        } else {
+            result = syntax;
+        }
+
+        console.log("boolean_and_or result : ", result);
 
         return result;
     }

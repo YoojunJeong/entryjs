@@ -529,6 +529,39 @@ module.exports = {
                             ],
                         },
                     ],
+
+                    c: [
+                        {
+                            syntax: '(%1 %2 %3)',
+                            template: '(%1 %2 %3)',
+                            keyOption: 'boolean_basic_operator',
+                            blockType: 'param',
+                            textParams: [
+                                {
+                                    type: 'Block',
+                                    accept: 'string',
+                                },
+                                {
+                                    type: 'Dropdown',
+                                    options: [
+                                        ['=', 'EQUAL'],
+                                        ['>', 'GREATER'],
+                                        ['<', 'LESS'],
+                                        ['≥', 'GREATER_OR_EQUAL'],
+                                        ['≤', 'LESS_OR_EQUAL'],
+                                    ],
+                                    value: 'EQUAL',
+                                    fontSize: 11,
+                                    noArrow: true,
+                                    converter: Entry.block.converters.returnOperator,
+                                },
+                                {
+                                    type: 'Block',
+                                    accept: 'string',
+                                },
+                            ],
+                        },
+                    ],
                 },
             },
             boolean_and_or: {
@@ -635,6 +668,33 @@ module.exports = {
                             ],
                         },
                     ],
+                    c:[
+                        {
+                            syntax: '( %1 %2 %3 )',
+                            template: '( %1 %2 %3 )',
+                            blockType: 'param',
+                            textParams: [
+                                {
+                                    type: 'Block',
+                                    accept: 'boolean',
+                                },
+                                {
+                                    type: 'Dropdown',
+                                    options: [
+                                        [Lang.Blocks.JUDGEMENT_boolean_and, 'AND'],
+                                        [Lang.Blocks.JUDGEMENT_boolean_or, 'OR'],
+                                    ],
+                                    converter: Entry.block.converters.returnOperator,
+                                    value: 'AND',
+                                    fontSize: 11,
+                                },
+                                {
+                                    type: 'Block',
+                                    accept: 'boolean',
+                                },
+                            ],
+                         },
+                     ],
                 },
             },
             boolean_not: {
@@ -691,6 +751,7 @@ module.exports = {
                             ],
                         },
                     ],
+                    c:[],
                 },
             },
         };
