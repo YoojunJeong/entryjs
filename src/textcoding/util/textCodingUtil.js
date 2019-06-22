@@ -409,7 +409,7 @@ class TextCodingUtil {
         return result;
     }
 
-    assembleBoolenAndOrBlock(block, syntax) {
+    assembleBasicOperatorBlock(block, syntax) {
 
         let result = '';
 
@@ -419,30 +419,66 @@ class TextCodingUtil {
         let lastIndex = blockToken.length - 3;
         const option = blockToken[lastIndex];
 
+        console.log("boolean_basic_operator blockToken : ", blockToken);
+        console.log("boolean_basic_operator option : ", option);
+
+        if (block.data.type === 'boolean_basic_operator') {
+
+            result = result.replace(' ( ', '(');
+            result = result.replace(' )', ')');
+
+        } else {
+            result = syntax;
+        }
+
+        console.log("boolean_and_or result : ", result);
+
+        return result;
+    }
+
+
+    assembleBoolenAndOrBlock(block, syntax) {
+
+        let result = '';
+        let option = '';
+        let optIndex = 0;
+
+        const blockToken = syntax.split(/(?=:)|[ ]/gi); // space 로 split 하되, : 도 자르지만 토큰에 포함
+        
+    
+        for (var i = 0; i < blockToken.length; i++) {
+            
+            if(blockToken[i] == 'and' || blockToken[i]=='or') {
+                option = blockToken[i];
+                optIndex = i;
+            }
+        }
+        
+
         console.log("boolean_and_or blockToken : ", blockToken);
         console.log("boolean_and_or option : ", option);
 
         if (block.data.type === 'boolean_and_or') {
 
-           
-        
             if (option == 'and') {
               
                 const condition = '&&';
-                blockToken.splice(2, 0, condition);
-                lastIndex += 1;
-                blockToken.splice(lastIndex, 1);
+                blockToken.splice(optIndex, 0, condition);
+                optIndex += 1;
+                blockToken.splice(optIndex, 1);
 
                 result = blockToken.join(' ').replace(' ( ', '(');
                 result = result.replace('( ', '(');
                 result = result.replace(' )', ')');
 
+                console.log("boolean_and_or result3 : ", result);
+                
             } else if (option == 'or') {
               
                 const condition = '||';
-                blockToken.splice(2, 0, condition);
-                lastIndex += 1;
-                blockToken.splice(lastIndex, 1);
+                blockToken.splice(optIndex, 0, condition);
+                optIndex += 1;
+                blockToken.splice(optIndex, 1);
 
                 result = blockToken.join(' ').replace(' ( ', '(');
                 result = result.replace('( ', '(');
@@ -454,8 +490,8 @@ class TextCodingUtil {
         } else {
             result = syntax;
         }
-
-        console.log("boolean_and_or result : ", result);
+    
+       
 
         return result;
     }

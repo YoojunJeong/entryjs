@@ -195,6 +195,17 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
+                    // case 'boolean_basic_operator': {
+                    //     console.log("syntaxObj boolean_basic_operator");
+
+                    //     resultTextCode = Entry.TextCodingUtil.assembleBasicOperatorBlock(
+                    //         block,
+                    //         resultTextCode
+                    //     );
+                    //     break;
+                    // }
+
+
                     case 'boolean_and_or': {
                         console.log("syntaxObj boolean_and_or");
 
