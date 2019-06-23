@@ -88,11 +88,11 @@ Entry.Playground = class {
             this.generateTextView(textView);
             this.textView_ = textView;
 
-            const soundView = Entry.createElement('div', 'entrySound')
-                .addClass('entryPlaygroundSoundWorkspace entryRemove')
-                .appendTo(this.view_);
-            this.generateSoundView(soundView);
-            this.soundView_ = soundView;
+            // const soundView = Entry.createElement('div', 'entrySound')
+            //     .addClass('entryPlaygroundSoundWorkspace entryRemove')
+            //     .appendTo(this.view_);
+            // this.generateSoundView(soundView);
+            // this.soundView_ = soundView;
 
             const defaultView = Entry.createElement('div', 'entryDefault')
                 .addClass('entryPlaygroundDefaultWorkspace')
@@ -130,24 +130,133 @@ Entry.Playground = class {
             });
             this.applyTabOption();
 
-            // JYJ - 변수 추가하기
-            const variableModal = Entry.createElement('div', 'variableModal')
-                .addClass('variableModal')
-                .appendTo(this.view_);
-            var html = '<div class="variableModalTop">* 변수 이름';
-                html +='    <br/>';
-                html +='    <input id="makeVariableValue" placeholder="변수의 이름을 입력해주세요." style="width:200px;height:30px;border-radius:12px;background-color:white;"/>';
-                html +='    <button id="btnMakeVariable" style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">만들기</button>'
-                html +='    <br/>';
-                html +='</div>';
-                html +='<div class="variableModalMid">전체 (<em id="totalCnt">0</em>)';
-                html +='</div>';
-                html +='<div class="variableModalBottom">';
-                html +='    <button onclick="javascript:$(\'#variableModal\').addClass(\'entryRemove\');"; style="width:70px;height:30px;border: 0.1rem outset blue;border-radius:12px;background-color:white;">취소</button>'
-                html +='    <button style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">추가하기</button>'
-                html +='</div>';
 
-            variableModal.innerHTML = html;
+
+            // JYJ - 변수 추가하기
+            this.variableAddPanel = {
+                isOpen: false,
+                info: {
+                    object: null,
+                    isCloud: false,
+                },
+            };
+            const variableModal = Entry.createElement('div', 'variableModal')
+                                        .addClass('variableModal')
+                                        .appendTo(this.view_);
+            this.variableModel = variableModal;
+
+            const that = this;
+            const _whenEnter = Entry.Utils.whenEnter;
+            const _setFocused = Entry.Utils.setFocused;          
+            const _setBlurredTimer = Entry.Utils.setBlurredTimer;
+            this.lists_ = [];
+
+            // 변수 만들기 폼
+            const variableAddSpace = Entry.createElement('div').addClass(
+                'entryVariableAddSpaceWorkspace off'
+            );
+            this.variableAddPanel.view = variableAddSpace;
+            this.variableAddPanel.isOpen = false;
+
+            // 입력 폼
+            const addSpaceNameWrapper = Entry.createElement('div')
+                .addClass('entryVariableAddSpaceNameWrapperWorkspace')
+                .appendTo(this.variableModel);
+
+            const addSpaceInputLabel = Entry.createElement('label')
+                .addClass('entryVariableAddSpaceInputLabelWorkspace')
+                .appendTo(addSpaceNameWrapper);
+            addSpaceInputLabel.setAttribute('for', 'entryVariableAddSpaceInputWorkspace');
+            addSpaceInputLabel.innerText = Lang.Workspace.Variable_placeholder_name;
+
+            const addSpaceInput = Entry.createElement('input')
+                .addClass('entryVariableAddSpaceInputWorkspace')
+                .appendTo(addSpaceNameWrapper);
+            addSpaceInput.setAttribute('type', 'text');
+            addSpaceInput.id = 'entryVariableAddSpaceInputWorkspace';
+            addSpaceInput.setAttribute('placeholder', Lang.Workspace.Variable_placeholder_content);
+            addSpaceInput.variableContainer = this;
+            addSpaceInput.onkeypress = _whenEnter(function() {
+                if (this.enterKeyDisabled) {
+                    this.blur();
+                } else {
+                    that._addVariable();
+                }
+            });
+            addSpaceInput.onfocus = _setFocused;
+            const doBlur = _setBlurredTimer(function() {
+                this.isBlurred = false;
+                Entry.do('variableAddSetName', this.value);
+                this.blurCallback && this.blurCallback();
+            });
+            addSpaceInput.onblur = () => {
+                this.isBlurred = true;
+                doBlur.apply(this);
+            };
+            this.variableAddPanel.view.name = addSpaceInput;
+
+            // 모든 오브젝트에서 사용
+            const addSpaceGlobalWrapper = Entry.createElement('div')
+                .addClass('entryVariableAddSpaceGlobalWrapperWorkspace on')
+                .bindOnClick(() => {
+                    addSpaceLocalWrapper.removeClass('on');
+                    addSpaceGlobalWrapper.addClass('on');
+                    return Entry.do('listAddSetScope', 'global');
+                })
+                .appendTo(this.variableModel);
+            this.variableAddPanel.view.globalCheck = addSpaceGlobalWrapper;
+            $(".entryVariableAddSpaceGlobalWrapperWorkspace").hide();
+    
+            Entry.createElement('span')
+                .addClass('Workspace_text')
+                .appendTo(addSpaceGlobalWrapper).innerHTML = Lang.Workspace.use_all_objects;
+    
+            Entry.createElement('span')
+                .addClass('entryVariableAddSpaceCheckWorkspace')
+                .appendTo(addSpaceGlobalWrapper);
+       
+            // 확인 취소 버튼
+            const addSpaceButtonWrapper = Entry.createElement('div')
+                .addClass('entryVariableAddSpaceButtonWrapperWorkspace')
+                .appendTo(this.variableModel);
+    
+            const addSpaceCancelButton = Entry.createElement('a')
+                .addClass('entryVariableAddSpaceCancelWorkspace')
+                .addClass('entryVariableAddSpaceButtonWorkspace')
+                .bindOnClick(() => {
+                    // this.variableAddPanel.view.addClass('off');
+                    // this.resetVariableAddPanel('list');
+                    $("#variableModal").addClass('entryRemove');
+                })
+                .appendTo(addSpaceButtonWrapper);
+            addSpaceCancelButton.href = '#';
+            addSpaceCancelButton.innerHTML = Lang.Buttons.cancel;
+    
+            const addSpaceConfirmButton = Entry.createElement('a')
+                .addClass('entryVariableAddSpaceConfirmWorkspace')
+                .addClass('entryVariableAddSpaceButtonWorkspace')
+                .bindOnClick(() => {
+                    that._addVariable();
+                })
+                .appendTo(addSpaceButtonWrapper);
+            addSpaceConfirmButton.href = '#';
+            addSpaceConfirmButton.innerHTML = Lang.Buttons.save;
+            this.listAddConfirmButton = addSpaceConfirmButton;
+                                                        
+            // var html = '<div class="variableModalTop">* 변수 이름';
+            //     html +='    <br/>';
+            //     html +='    <input id="makeVariableValue" placeholder="변수의 이름을 입력해주세요." style="width:200px;height:30px;border-radius:12px;background-color:white;"/>';
+            //     html +='    <button id="btnMakeVariable" style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">만들기</button>'
+            //     html +='    <br/>';
+            //     html +='</div>';
+            //     html +='<div class="variableModalMid">전체 (<em id="totalCnt">0</em>)';
+            //     html +='</div>';
+            //     html +='<div class="variableModalBottom">';
+            //     html +='    <button onclick="javascript:$(\'#variableModal\').addClass(\'entryRemove\');"; style="width:70px;height:30px;border: 0.1rem outset blue;border-radius:12px;background-color:white;">취소</button>'
+            //     html +='    <button style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">추가하기</button>'
+            //     html +='</div>';
+
+            // variableModal.innerHTML = html;
 
             // JYJ - 소리 추가하기
             const soundModal = Entry.createElement('div', 'soundModal')
@@ -162,16 +271,134 @@ Entry.Playground = class {
 
             soundModal.innerHTML = html;
 
+            const soundView = Entry.createElement('div', 'entrySound')
+                                .addClass('entryPlaygroundSoundWorkspace entryRemove')
+                                .appendTo(soundModal);
+            this.generateSoundView(soundView);
+            this.soundView_ = soundView;
+
 
             // JYJ - jquery는 여기에
             // $("#entryMenuTop").html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/yInoAZwNSUs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
             $(".engineContainer").hide();
-
-    
-            // toXml();
             
         }
     }
+
+    _addVariable() {
+        const variableInput = Entry.getDom(['variableContainer', 'variableAddInput']);
+        this.variableAddPanel.view.addClass('off');
+        const blurCallback = () => {
+            delete variableInput.blurCallback;
+            Entry.do(
+                'variableContainerAddVariable',
+                Entry.Variable.create(this._makeVariableData('variable'))
+            );
+            const [variable] = this.variables_;
+            this.updateSelectedVariable(variable);
+            const { nameField } = variable.listElement;
+            nameField.removeAttribute('disabled');
+        };
+
+        $("#variableModal").hide();
+
+        if (variableInput.isBlurred) {
+            variableInput.blurCallback = blurCallback;
+        } else {
+            blurCallback();
+        }
+
+        this.resetVariableAddPanel('variable');
+
+    }
+
+    _makeVariableData(type = 'variable') {
+        
+        type = 'variable';
+        const {
+            view,
+            info: { isCloud, object },
+        } = this._getAddPanel(type);
+        
+        let name = view.name.value.trim();
+        if (_.isEmpty(name)) {
+            name = Lang.Workspace[type];
+        }
+
+        name = this._truncName(name, type, this._maxNameLength);
+
+        const target = `${type}s_`;
+
+        // console.log(this.checkAllVariableName(name, target));
+        // name = this.checkAllVariableName(name, target)
+        //     ? Entry.getOrderedName(name, this[target], 'name_')
+        //     : name;
+
+        // console.log(2);
+
+        return {
+            name,
+            isCloud,
+            object,
+            variableType: type,
+        };
+    }
+
+    _getAddPanel(type = 'variable') {
+        return this[`${type}AddPanel`];
+    }
+
+    _truncName(name, type, maxLen) {
+        maxLen = maxLen || this._maxNameLength;
+
+        if (name.length <= maxLen) {
+            return name;
+        }
+
+        Entry.toast.warning(
+            Lang.Workspace[`${type}_name_auto_edited_title`],
+            Lang.Workspace[`${type}_name_auto_edited_content`]
+        );
+
+        return name.substring(0, maxLen);
+    }
+
+    checkAllVariableName(name, variable) {
+        console.log(name_);
+        return this[variable].some(({ name_ }) => name_ === name);
+    }
+
+    updateSelectedVariable(object, type = 'variable') {
+        const objectType = _.result(object, 'type');
+        if (this.selected) {
+            this.selected.listElement.removeClass('unfold');
+            this.selected.listElement.addClass('fold');
+        }
+        if (!object) {
+            if (type === 'variable') {
+                this.selected = null;
+            } else {
+                this.selected = null;
+            }
+        } else if (objectType === 'variable' || objectType === 'slide') {
+            this.selected = object;
+            this.selected.listElement.removeClass('fold');
+            this.selected.listElement.addClass('unfold');
+            if (!this.variableSettingView) {
+                this.generateVariableSettingView(object);
+            }
+            this.updateVariableSettingView(object);
+        } else if (objectType === 'list') {
+            this.selected = object;
+            this.selected.listElement.removeClass('fold');
+            this.selected.listElement.addClass('unfold');
+            if (!this.listSettingView) {
+                this.generateListSettingView(object);
+            }
+            this.updateListSettingView(object);
+        }
+    }
+
 
     /**
      * Generate default view.
