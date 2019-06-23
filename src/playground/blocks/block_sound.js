@@ -19,7 +19,8 @@ module.exports = {
                 events: {
                     mousedown: [
                         function() {
-                            alert(Lang.Workspace.sound_add);
+                            // 소리 만들기 버튼 클릭
+                            $("#soundModal").removeClass('entryRemove');                            
                             // Entry.variableContainer.openVariableAddPanel('variable');
                         },
                     ],

@@ -130,7 +130,7 @@ Entry.Playground = class {
             });
             this.applyTabOption();
 
-            // JYJ - make modal
+            // JYJ - 변수 추가하기
             const variableModal = Entry.createElement('div', 'variableModal')
                 .addClass('variableModal')
                 .appendTo(this.view_);
@@ -148,6 +148,20 @@ Entry.Playground = class {
                 html +='</div>';
 
             variableModal.innerHTML = html;
+
+            // JYJ - 소리 추가하기
+            const soundModal = Entry.createElement('div', 'soundModal')
+            .addClass('variableModal')
+            .appendTo(this.view_);
+            var html = '<div class="variableModalMid">';
+                html +='</div>';
+                html +='<div class="variableModalBottom">';
+                html +='    <button onclick="javascript:$(\'#soundModal\').addClass(\'entryRemove\');"; style="width:70px;height:30px;border: 0.1rem outset blue;border-radius:12px;background-color:white;">취소</button>'
+                html +='    <button style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">추가하기</button>'
+                html +='</div>';
+
+            soundModal.innerHTML = html;
+
 
             // JYJ - jquery는 여기에
             // $("#entryMenuTop").html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/yInoAZwNSUs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
