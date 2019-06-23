@@ -136,15 +136,15 @@ Entry.Playground = class {
                 .appendTo(this.view_);
             var html = '<div class="variableModalTop">* 변수 이름';
                 html +='    <br/>';
-                html +='    <input id="makeVariableValue" style="width:200px;height:30px;border-radius:12px;"/>';
+                html +='    <input id="makeVariableValue" placeholder="변수의 이름을 입력해주세요." style="width:200px;height:30px;border-radius:12px;background-color:white;"/>';
                 html +='    <button id="btnMakeVariable" style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">만들기</button>'
                 html +='    <br/>';
                 html +='</div>';
-                html +='<div class="variableModalMid">전체(0)';
+                html +='<div class="variableModalMid">전체 (<em id="totalCnt">0</em>)';
                 html +='</div>';
                 html +='<div class="variableModalBottom">';
-                html +='    <button id="btnVarModalCancel" style="width:70px;height:30px;border: 0.1rem outset blue;border-radius:12px;">취소</button>'
-                html +='    <button id="btnVarModalAdd" style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">추가하기</button>'
+                html +='    <button onclick="javascript:$(\'#variableModal\').addClass(\'entryRemove\');"; style="width:70px;height:30px;border: 0.1rem outset blue;border-radius:12px;background-color:white;">취소</button>'
+                html +='    <button style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">추가하기</button>'
                 html +='</div>';
 
             variableModal.innerHTML = html;
