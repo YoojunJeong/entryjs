@@ -265,6 +265,16 @@ Entry.MODI.getBlocks = function() {
 
                 return pd.value[2];
             },
+
+            syntax: { js: [], py: [''],
+            
+                c: [
+                    {
+                        syntax: 'diplay0.setReset()',
+                        template: 'diplay0.setReset()',
+                    },
+                ],
+            },
         },
         modi_environment_value: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
@@ -381,70 +391,70 @@ Entry.MODI.getBlocks = function() {
                 return pd.value[2];
             },
         },
-        modi_gyroscope_value: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
-            fontColor: '#fff',
-            skeleton: 'basic_string_field',
-            template: '자이로센서 %1번의 %2',
-            params: [
-                {
-                    type: 'DropdownDynamic',
-                    value: null,
-                    fontSize: 11,
-                    menuName: Entry.MODI.gyroscopeList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
-                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
-                },
-                {
-                    type: 'Dropdown',
-                    options: [
-                        ['Roll', 2],
-                        ['Pitch', 3],
-                        ['Yaw', 4],
-                        [Lang.Blocks.modi_gyroscope_xAcceleratior, 8],
-                        [Lang.Blocks.modi_gyroscope_yAcceleratior, 9],
-                        [Lang.Blocks.modi_gyroscope_zAcceleratior, 10],
-                    ],
-                    fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
-                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
-                },
-            ],
-            def: {
-                params: [null, 2],
-                type: 'modi_gyroscope_value',
-            },
-            paramsKeyMap: {
-                name: 0,
-                property: 1,
-            },
-            class: 'gyroscope',
-            isNotFor: ['modi'],
-            func: function(sprite, script) {
-                var key = script.getStringField('name');
-                var property = script.getNumberField('property');
+        // modi_gyroscope_value: {
+        //     color: EntryStatic.colorSet.block.default.HARDWARE,
+        //     outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+        //     fontColor: '#fff',
+        //     skeleton: 'basic_string_field',
+        //     template: '자이로센서 %1번의 %2',
+        //     params: [
+        //         {
+        //             type: 'DropdownDynamic',
+        //             value: null,
+        //             fontSize: 11,
+        //             menuName: Entry.MODI.gyroscopeList,
+        //             bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+        //             arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+        //         },
+        //         {
+        //             type: 'Dropdown',
+        //             options: [
+        //                 ['Roll', 2],
+        //                 ['Pitch', 3],
+        //                 ['Yaw', 4],
+        //                 [Lang.Blocks.modi_gyroscope_xAcceleratior, 8],
+        //                 [Lang.Blocks.modi_gyroscope_yAcceleratior, 9],
+        //                 [Lang.Blocks.modi_gyroscope_zAcceleratior, 10],
+        //             ],
+        //             fontSize: 11,
+        //             bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+        //             arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+        //         },
+        //     ],
+        //     def: {
+        //         params: [null, 2],
+        //         type: 'modi_gyroscope_value',
+        //     },
+        //     paramsKeyMap: {
+        //         name: 0,
+        //         property: 1,
+        //     },
+        //     class: 'gyroscope',
+        //     isNotFor: ['modi'],
+        //     func: function(sprite, script) {
+        //         var key = script.getStringField('name');
+        //         var property = script.getNumberField('property');
 
-                var pd = JSON.parse(Entry.hw.portData.module['gyro'][key]);
-                var moduleID = pd.id;
+        //         var pd = JSON.parse(Entry.hw.portData.module['gyro'][key]);
+        //         var moduleID = pd.id;
 
-                if (!Entry.hw.sendQueue['getProperty']) {
-                    Entry.MODI.initSend();
-                }
-                if (!pd.value[property]) {
-                    pd.value[property] = 0;
+        //         if (!Entry.hw.sendQueue['getProperty']) {
+        //             Entry.MODI.initSend();
+        //         }
+        //         if (!pd.value[property]) {
+        //             pd.value[property] = 0;
 
-                    // send GETPROPERTY
-                    /*if(Entry.MODI.getModule.id != moduleID || Entry.MODI.getModule.property != property || Object.keys(Entry.hw.sendQueue["getProperty"]).length == 0){
-                Entry.hw.sendQueue["getProperty"][moduleID] = JSON.stringify({module: property, id: moduleID});
-                Entry.MODI.getModule.id = moduleID;
-                Entry.MODI.getModule.property = property;
-            }*/
-                }
+        //             // send GETPROPERTY
+        //             /*if(Entry.MODI.getModule.id != moduleID || Entry.MODI.getModule.property != property || Object.keys(Entry.hw.sendQueue["getProperty"]).length == 0){
+        //         Entry.hw.sendQueue["getProperty"][moduleID] = JSON.stringify({module: property, id: moduleID});
+        //         Entry.MODI.getModule.id = moduleID;
+        //         Entry.MODI.getModule.property = property;
+        //     }*/
+        //         }
 
-                return pd.value[property];
-            },
-        },
+        //         return pd.value[property];
+        //     },
+        // },
         modi_button_value: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -505,6 +515,17 @@ Entry.MODI.getBlocks = function() {
                 }
 
                 return pd.value[property];
+            },
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: '%1.%2',
+                        template: '%1.%2',
+                    },
+                ],
             },
         },
         modi_button_true: {
@@ -587,54 +608,54 @@ Entry.MODI.getBlocks = function() {
                 return pd.value[2];
             },
         },
-        modi_ultrasonic_value: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
-            fontColor: '#fff',
-            skeleton: 'basic_string_field',
-            template: '초음파 %1번 센서의 거리(%)',
-            params: [
-                {
-                    type: 'DropdownDynamic',
-                    value: null,
-                    fontSize: 11,
-                    menuName: Entry.MODI.ultrasonicList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
-                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
-                },
-            ],
-            def: {
-                params: [null],
-                type: 'modi_ultrasonic_value',
-            },
-            paramsKeyMap: {
-                name: 0,
-            },
-            class: 'ultrasonic',
-            isNotFor: ['modi'],
-            func: function(sprite, script) {
-                var key = script.getStringField('name');
+        // modi_ultrasonic_value: {
+        //     color: EntryStatic.colorSet.block.default.HARDWARE,
+        //     outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+        //     fontColor: '#fff',
+        //     skeleton: 'basic_string_field',
+        //     template: '초음파 %1번 센서의 거리(%)',
+        //     params: [
+        //         {
+        //             type: 'DropdownDynamic',
+        //             value: null,
+        //             fontSize: 11,
+        //             menuName: Entry.MODI.ultrasonicList,
+        //             bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+        //             arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+        //         },
+        //     ],
+        //     def: {
+        //         params: [null],
+        //         type: 'modi_ultrasonic_value',
+        //     },
+        //     paramsKeyMap: {
+        //         name: 0,
+        //     },
+        //     class: 'ultrasonic',
+        //     isNotFor: ['modi'],
+        //     func: function(sprite, script) {
+        //         var key = script.getStringField('name');
 
-                var pd = JSON.parse(Entry.hw.portData.module['ultrasonic'][key]);
-                var moduleID = pd.id;
+        //         var pd = JSON.parse(Entry.hw.portData.module['ultrasonic'][key]);
+        //         var moduleID = pd.id;
 
-                if (!Entry.hw.sendQueue['getProperty']) {
-                    Entry.MODI.initSend();
-                }
+        //         if (!Entry.hw.sendQueue['getProperty']) {
+        //             Entry.MODI.initSend();
+        //         }
 
-                if (!pd.value[2]) {
-                    pd.value[2] = 0;
+        //         if (!pd.value[2]) {
+        //             pd.value[2] = 0;
 
-                    // send GETPROPERTY
-                    /*if(Entry.MODI.getModule.id != moduleID || Object.keys(Entry.hw.sendQueue["getProperty"]).length == 0){
-                Entry.hw.sendQueue["getProperty"][moduleID] = JSON.stringify({module: 2, id: moduleID});
-                Entry.MODI.getModule.id = moduleID;
-            }*/
-                }
+        //             // send GETPROPERTY
+        //             /*if(Entry.MODI.getModule.id != moduleID || Object.keys(Entry.hw.sendQueue["getProperty"]).length == 0){
+        //         Entry.hw.sendQueue["getProperty"][moduleID] = JSON.stringify({module: 2, id: moduleID});
+        //         Entry.MODI.getModule.id = moduleID;
+        //     }*/
+        //         }
 
-                return pd.value[2];
-            },
-        },
+        //         return pd.value[2];
+        //     },
+        // },
         modi_set_motor_value: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,

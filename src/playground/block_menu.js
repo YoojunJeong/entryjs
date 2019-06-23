@@ -7,7 +7,7 @@ import Visible from '@egjs/visible';
 import debounce from 'lodash/debounce';
 
 const VARIABLE = 'variable';
-const HW = 'arduino';
+const HW = 'modi';
 const splitterHPadding = 20;
 
 function _buildCategoryCodes(blocks, category) {

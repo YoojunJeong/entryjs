@@ -397,22 +397,35 @@ EntryStatic.getAllBlocks = function() {
         //         'get_lifeSafety_behavior',
         //     ],
         // },
+
         {
             category: 'arduino',
             blocks: [
-                'arduino_download_connector',
-                'download_guide',
-                'arduino_download_source',
-                'arduino_connect',
-                'arduino_reconnect',
-                'arduino_open',
-                'arduino_cloud_pc_open',
-                'arduino_noti',
+                'modi_microphone_value',
+                'modi_environment_value',
+                'modi_dial_value',
+                // 'modi_gyroscope_value',
+                'modi_button_value',
+                'modi_button_true',
+                'modi_button_false',
+                'modi_infrared_value',
+                // 'modi_ultrasonic_value',
+                'modi_set_motor_value',
+                'modi_change_motor_upper_value',
+                'modi_change_motor_bottom_value',
+                'modi_clear_led',
+                'modi_set_led_rgb',
+                'modi_set_led_color',
+                'modi_set_basic_speaker',
+                'modi_set_custom_speaker',
+                'modi_print_display_by_value',
             ].concat(EntryStatic.DynamicHardwareBlocks),
         },
     ];
 };
-EntryStatic.DynamicHardwareBlocks = [];
+EntryStatic.DynamicHardwareBlocks = [
+    
+];
 EntryStatic.discussCategories = [
     // 'notice',
     'qna',

@@ -167,11 +167,7 @@ Entry.Playground = class {
             // $("#entryMenuTop").html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/yInoAZwNSUs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
             $(".engineContainer").hide();
 
-            $(".wrapper").append('<div id="inject"></div>');
-            $.get("../../extern/blockly/tests/generators/index.html", function(html_string)
-            {
-                $("#inject").append(html_string);
-            });
+    
             // toXml();
             
         }
@@ -2097,6 +2093,8 @@ Entry.Playground = class {
     }
 
     updateHW() {
+
+        
         const blockMenu = _.result(this.mainWorkspace, 'blockMenu');
         if (!blockMenu) {
             return;

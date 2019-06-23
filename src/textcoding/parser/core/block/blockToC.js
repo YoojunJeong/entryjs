@@ -195,20 +195,19 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
-                    // case 'boolean_basic_operator': {
-                    //     console.log("syntaxObj boolean_basic_operator");
+                    case 'modi_button_value' : {
+                        console.log("syntaxObj modi_button_value");
 
-                    //     resultTextCode = Entry.TextCodingUtil.assembleBasicOperatorBlock(
-                    //         block,
-                    //         resultTextCode
-                    //     );
-                    //     break;
-                    // }
+                        resultTextCode = Entry.TextCodingUtil.assembleModiButtonValueBlock(
+                            block,
+                            resultTextCode
+                        );
+
+                        break;
+                    }
 
 
                     case 'boolean_and_or': {
-                        console.log("syntaxObj boolean_and_or");
-
                         resultTextCode = Entry.TextCodingUtil.assembleBoolenAndOrBlock(
                             block,
                             resultTextCode

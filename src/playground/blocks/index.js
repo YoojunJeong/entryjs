@@ -8,30 +8,31 @@ const _flatten = require('lodash/flatten');
 const basicBlockList = [
     require('./block_start'),
     require('./block_flow'),
-    require('./block_moving'),
-    require('./block_looks'),
-    require('./block_brush'),
+    // require('./block_moving'),
+    // require('./block_looks'),
+    // require('./block_brush'),
     require('./block_text'),
     require('./block_sound'),
     require('./block_judgement'),
     require('./block_calc'),
     require('./block_variable'),
-    require('./block_func'),
+    require('./block_modi'),
+    // require('./block_func'),
 ];
 
 Entry.EXPANSION_BLOCK = {};
-require('./block_expansion_weather');
-require('./block_expansion_festival');
-require('./block_expansion_translate');
-require('./block_expansion_behaviorconduct_disaster');
-require('./block_expansion_behaviorconduct_lifesafety');
+// require('./block_expansion_weather');
+// require('./block_expansion_festival');
+// require('./block_expansion_translate');
+// require('./block_expansion_behaviorconduct_disaster');
+// require('./block_expansion_behaviorconduct_lifesafety');
 
 Entry.EXPANSION_BLOCK_LIST = {
-    weather: Entry.Expansion_Weather,
-    festival: Entry.EXPANSION_BLOCK.festival,
-    translate: Entry.EXPANSION_BLOCK.translate,
-    behaviorConductDisaster: Entry.EXPANSION_BLOCK.behaviorConductDisaster,
-    behaviorConductLifeSafety: Entry.EXPANSION_BLOCK.behaviorConductLifeSafety,
+    // weather: Entry.Expansion_Weather,
+    // festival: Entry.EXPANSION_BLOCK.festival,
+    // translate: Entry.EXPANSION_BLOCK.translate,
+    // behaviorConductDisaster: Entry.EXPANSION_BLOCK.behaviorConductDisaster,
+    // behaviorConductLifeSafety: Entry.EXPANSION_BLOCK.behaviorConductLifeSafety,
 };
 
 function getBlockObject(items) {

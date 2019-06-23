@@ -496,6 +496,69 @@ class TextCodingUtil {
         return result;
     }
 
+    assembleModiButtonValueBlock(block, syntax) {
+
+        let result = '';
+
+        const blockToken = syntax.split('.'); // space 로 split 하되, : 도 자르지만 토큰에 포함
+        let lastIndex = blockToken.length - 1;
+        const option = blockToken[lastIndex];
+
+        console.log("modi_button_value blockToken : ", blockToken);
+        console.log("modi_button_value option : ", option);
+
+        if (block.data.type === 'modi_button_value') {
+
+            if (option == '2') {
+              
+                const condition = 'getClick()';
+                blockToken.splice(lastIndex, 0, condition);
+                lastIndex += 1;
+                blockToken.splice(lastIndex, 1);
+
+                result = blockToken.join('.').replace('2', condition);
+                
+            } else if (option == '3') {
+              
+                const condition = 'getDoubleClick()';
+                blockToken.splice(lastIndex, 0, condition);
+                lastIndex += 1;
+                blockToken.splice(lastIndex, 1);
+
+                result = blockToken.join('.').replace('3', condition);
+                
+            } 
+
+            else if (option == '3') {
+              
+                const condition = 'getPressStatus()';
+                blockToken.splice(lastIndex, 0, condition);
+                lastIndex += 1;
+                blockToken.splice(lastIndex, 1);
+
+                result = blockToken.join('.').replace('4', condition);
+                
+            } 
+
+            else {
+                const condition = 'getToggle()';
+                blockToken.splice(lastIndex, 0, condition);
+                lastIndex += 1;
+                blockToken.splice(lastIndex, 1);
+
+                result = blockToken.join('.').replace('5', condition);
+            }
+
+        } else {
+            result = syntax;
+        }
+
+        console.log("boolean_and_or result : ", result);
+
+        return result;
+
+    }
+
     jsAdjustSyntax(block, syntax) {
         let result = '';
         if (block.data.type == 'ai_boolean_distance') {
