@@ -559,6 +559,46 @@ class TextCodingUtil {
 
     }
 
+    assembleModiDialValueBlock(block, syntax) {
+
+        let result = '';
+
+        const blockToken = syntax.split('.'); // space 로 split 하되, : 도 자르지만 토큰에 포함
+        let lastIndex = blockToken.length - 1;
+        const option = blockToken[lastIndex];
+
+        if (block.data.type === 'modi_dial_value') {
+
+            if (option == '2') {
+              
+                const condition = 'getTurn()';
+                blockToken.splice(lastIndex, 0, condition);
+                lastIndex += 1;
+                blockToken.splice(lastIndex, 1);
+
+                result = blockToken.join('.').replace('2', condition);
+                
+            } else if (option == '3') {
+              
+                const condition = 'getTurnSpeed()';
+                blockToken.splice(lastIndex, 0, condition);
+                lastIndex += 1;
+                blockToken.splice(lastIndex, 1);
+
+                result = blockToken.join('.').replace('3', condition);
+                
+            } 
+
+    
+        } else {
+            result = syntax;
+        }
+
+        return result;
+
+    }
+
+
     jsAdjustSyntax(block, syntax) {
         let result = '';
         if (block.data.type == 'ai_boolean_distance') {

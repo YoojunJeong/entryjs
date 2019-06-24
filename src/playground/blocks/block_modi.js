@@ -346,7 +346,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '다이얼 %1번의 각도',
+            template: '다이얼 %1번의 %2',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -356,13 +356,22 @@ Entry.MODI.getBlocks = function() {
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
+
+                {
+                    type: 'Dropdown',
+                    options: [['회전위치', 2], ['회전각도', 3]],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
             ],
             def: {
-                params: [null],
+                params: [null, 2],
                 type: 'modi_dial_value',
             },
             paramsKeyMap: {
                 name: 0,
+                property: 1,
             },
             class: 'dial',
             isNotFor: ['modi'],
@@ -389,6 +398,15 @@ Entry.MODI.getBlocks = function() {
                 var moduleID = JSON.parse(Entry.hw.portData.module['dial'][key]).id;
 
                 return pd.value[2];
+            },
+
+            syntax: {
+                c: [
+                    {
+                        syntax: '%1.%2',
+                        template: '%1.%2',
+                    },
+                ],
             },
         },
         // modi_gyroscope_value: {
@@ -472,7 +490,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Dropdown',
-                    options: [['Click', 2], ['Double Click', 3], ['Toggle', 5], ['Press', 4]],
+                    options: [['클릭', 2], ['두번 클릭', 3], ['토글', 5], ['누름상태', 4]],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
@@ -543,6 +561,17 @@ Entry.MODI.getBlocks = function() {
             func: function(sprite, script) {
                 return 100;
             },
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: 'TRUE',
+                        template: 'TRUE',
+                    },
+                ],
+            },
         },
         modi_button_false: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
@@ -559,13 +588,24 @@ Entry.MODI.getBlocks = function() {
             func: function(sprite, script) {
                 return 0;
             },
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: 'FALSE',
+                        template: 'FALSE',
+                    },
+                ],
+            },
         },
         modi_infrared_value: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '적외선 %1번 센서의 거리(%)',
+            template: '적외선 %1번 센서의 빛 반사량(%)',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -606,6 +646,15 @@ Entry.MODI.getBlocks = function() {
                 }
 
                 return pd.value[2];
+            },
+
+            syntax: {
+                c: [
+                    {
+                        syntax: '%1.getProximity()',
+                        template: '%1.getProximity()',
+                    },
+                ],
             },
         },
         // modi_ultrasonic_value: {
@@ -911,7 +960,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: 'LED %1번의 색 끄기 %2',
+            template: '불빛 %1번의 빛 끄기 %2',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -955,12 +1004,21 @@ Entry.MODI.getBlocks = function() {
 
                 return script.callReturn();
             },
+
+            syntax: {
+                c: [
+                    {
+                        syntax: '%1.setRgb(0,0,0)',
+                        template: '%1.setRgb(0,0,0)',
+                    },
+                ],
+            },
         },
         modi_set_led_rgb: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: 'LED %1번 R %2 G %3 B %4  %5',
+            template: '불빛 %1번 R %2 G %3 B %4  %5',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1036,12 +1094,21 @@ Entry.MODI.getBlocks = function() {
 
                 return script.callReturn();
             },
+
+            syntax: {
+                c: [
+                    {
+                        syntax: '%1.setRgb(%2,%3,%4)',
+                        template: '%1.setRgb(%2,%3,%4)',
+                    },
+                ],
+            },
         },
         modi_set_led_color: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: 'LED %1번 색 %2로 정하기 %3',
+            template: '불빛 %1번 빛 %2로 정하기 %3',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1094,6 +1161,15 @@ Entry.MODI.getBlocks = function() {
                 });
 
                 return script.callReturn();
+            },
+
+            syntax: {
+                c: [
+                    {
+                        syntax: '%1.%2',
+                        template: '%1.%2',
+                    },
+                ],
             },
         },
         modi_set_basic_speaker: {

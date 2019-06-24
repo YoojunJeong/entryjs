@@ -1,5 +1,7 @@
 import Toast from './toast';
 import Interpreter from './interpreter'
+
+// const interpreter = require('./playground/interpreter');
 // import Filbert from '../../extern/util/filbert.js'
 // import { threadId } from 'worker_threads';
 
@@ -14,6 +16,8 @@ Entry.ZoomController = class ZoomController {
         if (Entry.windowResized) {
             Entry.windowResized.attach(this, this.setPosition);
         }
+
+        
     }
 
     get CONTROLLER_WIDTH() {
@@ -168,7 +172,7 @@ Entry.ZoomController = class ZoomController {
                 // var workspace = Entry.getMainWS();
 
                 const blockMap = this.nowBoard.code._blockMap;
-
+              
 
                 const keys = Object.keys(blockMap) || [];
                 keys.forEach((id) => {
@@ -192,20 +196,19 @@ Entry.ZoomController = class ZoomController {
                     var cOutput = blockToCParser.Thread(block.getThread());
     
                     console.log(cOutput);
-
+makeFrame
                     // blockToPyParser = new Entry.BlockToPyParser(syntax);
                     // blockToPyParser._parseMode = Entry.Parser.PARSE_GENERAL;
-
                     // var secondPythonOutput = blockToPyParser.Thread(new Entry.Thread(blockOutput[0], code));
-                    // console.log(secondPythonOutput);
+                    
                 });
                 
                 break;
             case 'EXPORT':
                 var yn = confirm('코딩한 내용을 모디 블록으로 내보낼까요?');
                 if(yn) {
-                    // c code로 내보낸다.
-                   
+                    // c code로 내보낸다
+
                     var workspace = Entry.getMainWS();
             
                     const blockMap = this.nowBoard.code._blockMap;
@@ -235,6 +238,12 @@ Entry.ZoomController = class ZoomController {
                         // console.log(cOutput);
 
                         alert(cOutput);
+
+                        // const makeFrame = this.interpreter.makeFrame(cOutput);
+
+                       
+                        console.log('makeFrame', Interpreter.makeFrame(cOutput));
+                        // console.log('makeFrame', makeFrame);
                     
                     });
                 }

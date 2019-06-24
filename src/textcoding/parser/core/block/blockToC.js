@@ -193,10 +193,18 @@ Entry.BlockToCParser = class {
                             resultTextCode
                         );
                         break;
+                        }
+
+                    case 'boolean_and_or': {
+                        resultTextCode = Entry.TextCodingUtil.assembleBoolenAndOrBlock(
+                            block,
+                            resultTextCode
+                        );
+                        break;
                     }
 
                     case 'modi_button_value' : {
-                        console.log("syntaxObj modi_button_value");
+                        
 
                         resultTextCode = Entry.TextCodingUtil.assembleModiButtonValueBlock(
                             block,
@@ -206,14 +214,32 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
+                    case 'modi_button_true' : {
+                        
 
-                    case 'boolean_and_or': {
-                        resultTextCode = Entry.TextCodingUtil.assembleBoolenAndOrBlock(
+                        resultTextCode = 'TRUE'
+
+                        break;
+                    }
+
+                    case 'modi_button_false' : {
+                        
+
+                        resultTextCode = 'FALSE'
+
+                        break;
+                    }
+
+                    case 'modi_dial_value' : {
+
+                        resultTextCode = Entry.TextCodingUtil.assembleModiDialValueBlock(
                             block,
                             resultTextCode
                         );
+
                         break;
                     }
+                
                 }
             }
 
