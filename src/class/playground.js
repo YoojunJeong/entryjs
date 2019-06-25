@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import { BackPack, ColorPicker, Dropdown, Sortable } from '@entrylabs/tool';
+import { Backpack, ColorPicker, Dropdown, Sortable } from '@entrylabs/tool';
 import Toast from '../playground/toast';
 import EntryEvent from '@entrylabs/event';
 import { Destroyer } from '../util/destroyer/Destroyer';
@@ -243,24 +243,11 @@ Entry.Playground = class {
             addSpaceConfirmButton.innerHTML = Lang.Buttons.save;
             this.listAddConfirmButton = addSpaceConfirmButton;
                                                         
-            // var html = '<div class="variableModalTop">* 변수 이름';
-            //     html +='    <br/>';
-            //     html +='    <input id="makeVariableValue" placeholder="변수의 이름을 입력해주세요." style="width:200px;height:30px;border-radius:12px;background-color:white;"/>';
-            //     html +='    <button id="btnMakeVariable" style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">만들기</button>'
-            //     html +='    <br/>';
-            //     html +='</div>';
-            //     html +='<div class="variableModalMid">전체 (<em id="totalCnt">0</em>)';
-            //     html +='</div>';
-            //     html +='<div class="variableModalBottom">';
-            //     html +='    <button onclick="javascript:$(\'#variableModal\').addClass(\'entryRemove\');"; style="width:70px;height:30px;border: 0.1rem outset blue;border-radius:12px;background-color:white;">취소</button>'
-            //     html +='    <button style="width:70px;height:30px;background-color:blue;color:white;border-radius:12px;">추가하기</button>'
-            //     html +='</div>';
 
-            // variableModal.innerHTML = html;
 
             // JYJ - 소리 추가하기
             const soundModal = Entry.createElement('div', 'soundModal')
-            .addClass('variableModal')
+            .addClass('soundModal')
             .appendTo(this.view_);
             var html = '<div class="variableModalMid">';
                 html +='</div>';
@@ -302,13 +289,19 @@ Entry.Playground = class {
 
         $("#variableModal").hide();
 
-        if (variableInput.isBlurred) {
-            variableInput.blurCallback = blurCallback;
-        } else {
-            blurCallback();
+        try {
+            if (variableInput.isBlurred) {
+                variableInput.blurCallback = blurCallback;
+            } else {
+                blurCallback();
+            }    
+
+            this.resetVariableAddPanel('variable');
+
+        } catch(e) {
+            console.log(e);
         }
 
-        this.resetVariableAddPanel('variable');
 
     }
 
@@ -508,41 +501,41 @@ Entry.Playground = class {
 
     createPackPackView(backPackView) {
         // JYJ - ????????? 왜 살려놓으면 죽지?
-        // this.backPack = new BackPack({
-        //     isShow: false,
-        //     data: {
-        //         items: [],
-        //         onClose: () => {
-        //             Entry.dispatchEvent('closeBackPack');
-        //         },
-        //         onRemoveItem: (id) => {
-        //             Entry.dispatchEvent('removeBackPackItem', id);
-        //         },
-        //         onChangeTitle: (id, title) => {
-        //             Entry.dispatchEvent('changeBackPackTitle', id, title);
-        //         },
-        //         onCustomDragEnter: ({ type, value, onDragEnter }) => {
-        //             if (Entry.GlobalSvg.isShow) {
-        //                 const { _view = {} } = Entry.GlobalSvg;
-        //                 onDragEnter({
-        //                     type: 'block',
-        //                     value: _view,
-        //                 });
-        //             }
-        //         },
-        //         onDropItem: ({ type, value }) => {
-        //             if (type === 'object') {
-        //                 const object = Entry.container.getObject(value);
-        //                 object.addStorage();
-        //             } else if (type === 'block') {
-        //                 if (value.addStorage) {
-        //                     value.addStorage();
-        //                 }
-        //             }
-        //         },
-        //     },
-        //     container: this.backPackView,
-        // });
+        this.backPack = new Backpack({
+            isShow: false,
+            data: {
+                items: [],
+                onClose: () => {
+                    Entry.dispatchEvent('closeBackPack');
+                },
+                onRemoveItem: (id) => {
+                    Entry.dispatchEvent('removeBackPackItem', id);
+                },
+                onChangeTitle: (id, title) => {
+                    Entry.dispatchEvent('changeBackPackTitle', id, title);
+                },
+                onCustomDragEnter: ({ type, value, onDragEnter }) => {
+                    if (Entry.GlobalSvg.isShow) {
+                        const { _view = {} } = Entry.GlobalSvg;
+                        onDragEnter({
+                            type: 'block',
+                            value: _view,
+                        });
+                    }
+                },
+                onDropItem: ({ type, value }) => {
+                    if (type === 'object') {
+                        const object = Entry.container.getObject(value);
+                        object.addStorage();
+                    } else if (type === 'block') {
+                        if (value.addStorage) {
+                            value.addStorage();
+                        }
+                    }
+                },
+            },
+            container: this.backPackView,
+        });
         this.blockBackPackArea = Entry.Dom('div')
             .addClass('blockBackPackDrop')
             .appendTo(backPackView);

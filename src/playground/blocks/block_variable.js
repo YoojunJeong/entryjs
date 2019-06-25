@@ -19,6 +19,9 @@ module.exports = {
                     mousedown: [
                         function() {
                             // 변수 만들기 버튼 클릭
+                            $("#entryVariableAddSpaceInputWorkspace").val('');
+                            $("#variableModal").show();
+                            // $("#variableModal").addClass('entryRemove');
                             $("#variableModal").removeClass('entryRemove');
                             // Entry.variableContainer.openVariableAddPanel('variable');
                         },
