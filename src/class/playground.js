@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import { BackPack, ColorPicker, Dropdown, Sortable } from '@entrylabs/tool';
+import { Backpack, ColorPicker, Dropdown, Sortable } from '@entrylabs/tool';
 import Toast from '../playground/toast';
 import EntryEvent from '@entrylabs/event';
 import { Destroyer } from '../util/destroyer/Destroyer';
@@ -501,41 +501,41 @@ Entry.Playground = class {
 
     createPackPackView(backPackView) {
         // JYJ - ????????? 왜 살려놓으면 죽지?
-        // this.backPack = new BackPack({
-        //     isShow: false,
-        //     data: {
-        //         items: [],
-        //         onClose: () => {
-        //             Entry.dispatchEvent('closeBackPack');
-        //         },
-        //         onRemoveItem: (id) => {
-        //             Entry.dispatchEvent('removeBackPackItem', id);
-        //         },
-        //         onChangeTitle: (id, title) => {
-        //             Entry.dispatchEvent('changeBackPackTitle', id, title);
-        //         },
-        //         onCustomDragEnter: ({ type, value, onDragEnter }) => {
-        //             if (Entry.GlobalSvg.isShow) {
-        //                 const { _view = {} } = Entry.GlobalSvg;
-        //                 onDragEnter({
-        //                     type: 'block',
-        //                     value: _view,
-        //                 });
-        //             }
-        //         },
-        //         onDropItem: ({ type, value }) => {
-        //             if (type === 'object') {
-        //                 const object = Entry.container.getObject(value);
-        //                 object.addStorage();
-        //             } else if (type === 'block') {
-        //                 if (value.addStorage) {
-        //                     value.addStorage();
-        //                 }
-        //             }
-        //         },
-        //     },
-        //     container: this.backPackView,
-        // });
+        this.backPack = new Backpack({
+            isShow: false,
+            data: {
+                items: [],
+                onClose: () => {
+                    Entry.dispatchEvent('closeBackPack');
+                },
+                onRemoveItem: (id) => {
+                    Entry.dispatchEvent('removeBackPackItem', id);
+                },
+                onChangeTitle: (id, title) => {
+                    Entry.dispatchEvent('changeBackPackTitle', id, title);
+                },
+                onCustomDragEnter: ({ type, value, onDragEnter }) => {
+                    if (Entry.GlobalSvg.isShow) {
+                        const { _view = {} } = Entry.GlobalSvg;
+                        onDragEnter({
+                            type: 'block',
+                            value: _view,
+                        });
+                    }
+                },
+                onDropItem: ({ type, value }) => {
+                    if (type === 'object') {
+                        const object = Entry.container.getObject(value);
+                        object.addStorage();
+                    } else if (type === 'block') {
+                        if (value.addStorage) {
+                            value.addStorage();
+                        }
+                    }
+                },
+            },
+            container: this.backPackView,
+        });
         this.blockBackPackArea = Entry.Dom('div')
             .addClass('blockBackPackDrop')
             .appendTo(backPackView);
