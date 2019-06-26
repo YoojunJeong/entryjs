@@ -196,7 +196,6 @@ Entry.ZoomController = class ZoomController {
                     var cOutput = blockToCParser.Thread(block.getThread());
     
                     console.log(cOutput);
-makeFrame
                     // blockToPyParser = new Entry.BlockToPyParser(syntax);
                     // blockToPyParser._parseMode = Entry.Parser.PARSE_GENERAL;
                     // var secondPythonOutput = blockToPyParser.Thread(new Entry.Thread(blockOutput[0], code));
@@ -237,13 +236,22 @@ makeFrame
                         // console.log(blockSchema);
                         // console.log(cOutput);
 
-                        alert(cOutput);
+                        // console.log('module ', Entry.module);
+                        
+                        // Entry.module = 'Network network0(0x1BED8A97);Led led0(0x4020A3A5DB73);';
+                        var binary = 'void doUserTask(){';
+                        binary += Entry.module;
+                        binary += cOutput;
+                        binary += 'sleep(1);}}'
 
-                        // const makeFrame = this.interpreter.makeFrame(cOutput);
+                        // const binary = 'void doUserTask()\n{Network network0(0x1BED8A97);Led led0(0x4020A3A5DB73);while(true){led0.setRgb(100,0,0);sleep(1);}}'
 
-                       
-                        console.log('makeFrame', Interpreter.makeFrame(cOutput));
-                        // console.log('makeFrame', makeFrame);
+                        alert(binary);
+
+                        const binaryOutput= Interpreter.makeFrame(binary);
+                    
+                        console.log('binaryOutput', binaryOutput.block);
+                        window.android.uploadCode(binaryOutput.block);
                     
                     });
                 }

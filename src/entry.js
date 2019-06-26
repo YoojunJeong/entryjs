@@ -5,6 +5,9 @@ const Entry = {};
 
 module.exports = Entry;
 global.Entry = Entry;
+// var module = 'Network network0(0x40201371B0D8);\nLed led0(0x40201371B0D8);\nButton button0(0x2030D92B254A);\n';
+// var module = '';
+global.Entry.module = 'Led (40201371B0D8);\nLed Button (2030D92B254A);\n';
 
 require('core-js/fn/object/values');
 require('./graphicEngine/FakePIXI');

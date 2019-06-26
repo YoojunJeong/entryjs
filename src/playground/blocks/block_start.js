@@ -39,7 +39,7 @@ module.exports = {
 
                     c: [
                         {
-                            syntax:'whenStart',
+                            syntax:'while(true){\n',
                             blockType: 'event'
                         }
                     ]

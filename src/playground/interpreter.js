@@ -490,6 +490,8 @@ function makeFrame(luxc) {
         result.errorCode = code.errorCode;
     }
 
+    console.log('kstlove makeFrame result ', result);
+
     return result;
 }
 
@@ -501,6 +503,7 @@ function getSetupBlock(luxc) {
         var name = match[2];
         var data = Number(match[3]);
         setupList.push(new Variable(new StringValue(name), new NumberValue(data)));
+
     }
 
     while ((match = regex.setup.pictures.exec(luxc))) {
@@ -510,7 +513,10 @@ function getSetupBlock(luxc) {
             data.push(Number(pixel));
         });
         setupList.push(new Variable(new StringValue(name), new PictureValue(data)));
+        
     }
+
+    
 
     return new SetupBlock(setupList);
 }
@@ -547,6 +553,11 @@ function getCodeBlock(luxc) {
                             name: name,
                             uuid: uuid
                         };
+
+                        console.log('kstlove type ',type);
+                        console.log('kstlove name ',name);
+                        console.log('kstlove uuid ',uuid);
+
                     } else if ((match = regex.block.if.exec(code))) {
                         var conditions = convertArgumentToConditionBlocks(match[1]);
                         var block = new IfBlock(IfType.if, conditions);
@@ -646,7 +657,7 @@ function getCodeBlock(luxc) {
         errorCode = e;
     }
 
-    console.log(blocks);
+    
 
     return {
         block: new CodeBlock(blocks),
