@@ -239,10 +239,11 @@ Entry.ZoomController = class ZoomController {
                         // console.log('module ', Entry.module);
                         
                         // Entry.module = 'Network network0(0x1BED8A97);Led led0(0x4020A3A5DB73);';
-                        var binary = 'void doUserTask(){';
+                        var binary = 'void doUserTask(){\n';
                         binary += Entry.module;
+                        binary += '\n';
                         binary += cOutput;
-                        binary += 'sleep(1);}}'
+                        binary += 'sleep(1);\n}\n}'
 
                         // const binary = 'void doUserTask()\n{Network network0(0x1BED8A97);Led led0(0x4020A3A5DB73);while(true){led0.setRgb(100,0,0);sleep(1);}}'
 
