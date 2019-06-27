@@ -553,7 +553,7 @@ class TextCodingUtil {
             result = syntax;
         }
 
-        console.log("boolean_and_or result : ", result);
+       
 
         return result;
 
@@ -597,6 +597,39 @@ class TextCodingUtil {
         return result;
 
     }
+
+    assembleSetLedColoreBlock(blcok, syntax) {
+
+        let result = '';
+
+        const blockToken = syntax.split('.'); // space 로 split 하되, : 도 자르지만 토큰에 포함
+        let lastIndex = blockToken.length - 1;
+        const option = blockToken[lastIndex];
+
+        console.log("modi_set_led_color result : ", option);
+
+        var hex = option.replace( "#", "" ); 
+        var value = hex.match( /[a-f\d]/gi ); 
+
+
+        // 헥사값이 세자리일 경우, 여섯자리로. 
+        if ( value.length == 3 ) hex = value[0] + value[0] + value[1] + value[1] + value[2] + value[2]; 
+
+
+        value = hex.match( /[a-f\d]{2}/gi ); 
+
+        var r = (parseInt( value[0], 16 ) / 256) * 100; 
+        var g = (parseInt( value[1], 16 ) / 256) * 100; 
+        var b = (parseInt( value[2], 16 ) / 256) * 100; 
+
+        console.log("modi_set_led_color r : ", r);
+
+        var rgbType = "led0.setRgb(" + Math.round(r) + ", " + Math.round(g) + ", " + Math.round(b) + ");\n"; 
+
+        return rgbType; 
+    }
+
+
 
 
     jsAdjustSyntax(block, syntax) {

@@ -99,68 +99,6 @@ const defineValue = {
     F_RA_S_7: 3729
 };
 
-
-// from util.js
-Number.prototype.toUint8Array = function () {
-    var result = [];
-    var hexString = this.toString(16);
-    while (hexString.length >= 1) {
-        result.push(parseInt(hexString.substring(0, 2), 16));
-        hexString = hexString.substring(2, hexString.length);
-    }
-    return result.reverse();
-};
-
-
-function Stack() {
-    //스택의 요소가 저장되는 배열
-    this.dataStore = [];
-
-    //스택의 위치
-    this.top = -1;
-
-    //스택에 요소를 추가
-    this.push = function (element) {
-        this.top = this.top + 1;
-        this.dataStore[this.top] = element;
-    };
-
-    //스택의 꼭대기의 요소를 반환한다.
-    //단 top이 감소하는것은 아니다.
-    this.peek = function () {
-        return this.dataStore[this.top];
-    };
-
-    //스택 최상층의 요소를 반환한다.
-    this.pop = function () {
-        //Stack underflow
-        if (this.top <= -1) {
-            console.log("Stack underflow!!!");
-            return;
-        } else {
-            var popped = this.dataStore[this.top];
-            //top을 1 감소시킨다.
-            this.top = this.top - 1;
-            return popped;
-        }
-    };
-
-    //스택의 전체 요소를 삭제한다.
-    this.clear = function () {
-        this.top = -1;
-    };
-
-    //스택에 저장된 데이터 수
-    this.length = function () {
-        return this.top + 1;
-    };
-}
-
-// dependancies end
-
-
-
-
 /**
  * Stack을 구현한 class
  * @class Stack
@@ -209,12 +147,10 @@ function Stack() {
     };
 }
 
-
 /**
  * interpreter 관리하는 모듈
  * @module interpreter
  */
-
 
 const FrameType = {
     NONE: -1,
@@ -434,19 +370,18 @@ const Property = {
         getDialTurn: 4,
         getTimerReached: 7,
         sendData: 2,
-        setCamera: 0x100,
-        setBuzzer: 0x101
+        setBuzzer: 0x100,
+        setCamera: 0x101,
     }
 };
 
 
 const define = defineValue;
-let newObj = {}
 const regex = {
     userTask: /void\s*doUserTask\s*\([\x20-\x7E\s]*?\)\s*\{([\x20-\x7E\s]*)\}/, // void doUserTask() {...}
 
     setup: {
-        modules: /([\w]*)\s([\w]+)\(([\w]+)\);/g, // Network network0(0x123456);
+        modules: /([\w]*)\s+([\w]+)\(([\w]+)\);/g, // Network network0(0x123456);
         variables: /([\w]+)\s([\w]+)\s\=\s([\w.]+);/g, // float number0 = 0.0;
         pictures: /const\schar\s(\w*)\[385\]\s=\s\{([\w,\s]*)\};/g // const char picture0[385] = {0x00, 0x12, 0x34};
     },
@@ -463,7 +398,7 @@ const regex = {
         condition: /([\x20-\x7E]*)(==|>=|<=|!=|>|<)([\x20-\x7E]*)/, // button0.getClick()==40
 
         setProperty: /^([\w]*)\.([\w]*)\s*\(([\x20-\x7E]+)?\);/, // led0.setRgb(0, 50, 100)
-        getProperty: /([\w]*)\.([\w]*)\s\(\)/, // button.getClick()
+        getProperty: /([\w]*)\.([\w]*)\s*\(\)/, // button.getClick()
         sleep: /^sleep\s*\(([\x20-\x7E]*)\);/, // sleep(50),
         break: /^break;/, // break
         continue: /^continue;/, // continue
@@ -474,7 +409,11 @@ const regex = {
     }
 };
 
+var module_map = new Map();
+
 function makeFrame(luxc) {
+    module_map.clear();
+
     var setup = getSetupBlock(luxc);
     var code = getCodeBlock(luxc);
     var result = {
@@ -490,20 +429,44 @@ function makeFrame(luxc) {
         result.errorCode = code.errorCode;
     }
 
-    console.log('kstlove makeFrame result ', result);
-
     return result;
 }
+
+function numberToArray(nums) {
+    var result = [];
+    var hexString = nums.toString(16);
+
+    for (var i = hexString.length; i >0 ; i -= 2) {
+        var step = i - 2;
+        if (step < 0)
+            step = 0;
+
+        var byte_slice = hexString.substring(step, i);
+
+        result.push(parseInt(byte_slice, 16));
+        hexString = hexString.substring(0, step);
+    }
+
+    return result;
+};
 
 function getSetupBlock(luxc) {
     var setupList = [];
     var match;
 
+    while ((match = regex.setup.modules.exec(luxc)))
+    {
+        var key = match[2];
+        module_map.set(key, {
+            type : match[1].toLowerCase(),
+            uuid : match[3]
+        });
+    }
+
     while ((match = regex.setup.variables.exec(luxc))) {
         var name = match[2];
         var data = Number(match[3]);
         setupList.push(new Variable(new StringValue(name), new NumberValue(data)));
-
     }
 
     while ((match = regex.setup.pictures.exec(luxc))) {
@@ -513,10 +476,7 @@ function getSetupBlock(luxc) {
             data.push(Number(pixel));
         });
         setupList.push(new Variable(new StringValue(name), new PictureValue(data)));
-        
     }
-
-    
 
     return new SetupBlock(setupList);
 }
@@ -553,11 +513,6 @@ function getCodeBlock(luxc) {
                             name: name,
                             uuid: uuid
                         };
-
-                        console.log('kstlove type ',type);
-                        console.log('kstlove name ',name);
-                        console.log('kstlove uuid ',uuid);
-
                     } else if ((match = regex.block.if.exec(code))) {
                         var conditions = convertArgumentToConditionBlocks(match[1]);
                         var block = new IfBlock(IfType.if, conditions);
@@ -657,7 +612,7 @@ function getCodeBlock(luxc) {
         errorCode = e;
     }
 
-    
+    console.log(blocks);
 
     return {
         block: new CodeBlock(blocks),
@@ -737,8 +692,11 @@ function convertValueToBlock(arg) {
         }
 
         if ((match = regex.block.getProperty.exec(arg))) {
-            var uuid = Number(map.getUuid(match[1]));
-            var type = map.getType(uuid);
+
+            var module_info = module_map.get(match[1]);
+
+            var uuid = Number(module_info.uuid);
+            var type = module_info.type;
             var property = Property[type][match[2]];
             block = new FunctionGetValue(uuid, property);
         } else if ((match = regex.block.number.exec(arg))) {
@@ -936,16 +894,19 @@ class Variable extends Block {
 class FunctionGetValue extends Block {
     constructor(uuid, property) {
         super(FrameType.FUNCTION_GET_VALUE, uuid);
-        var uuidArray = uuid.toUint8Array();
-        var propertyArray = property.toUint8Array();
         var frame = [];
+        var id = numberToArray(uuid);
         for (var i = 0; i < 6; i++) {
-            var data = uuidArray[i] ? uuidArray[i] : 0x00;
-            frame.push(data);
+            if (id[i] == undefined)
+                frame.push(0x00);
+            else
+                frame.push(id[i]);
         }
+
         for (var i = 0; i < 2; i++) {
-            var data = propertyArray[i] ? propertyArray[i] : 0x00;
+            var data = property & 0xFF;
             frame.push(data);
+            property = property >>> 8;
         }
         this.property = property;
         this.appendFrame(frame);
@@ -957,16 +918,19 @@ class FunctionSetValue extends Block {
         super(FrameType.FUNCTION_SET_VALUE, uuid);
         this.property = property;
         this.values = values;
-        var uuidArray = uuid.toUint8Array();
-        var propertyArray = property.toUint8Array();
         var frame = [];
+        var id = numberToArray(uuid);
         for (var i = 0; i < 6; i++) {
-            var data = uuidArray[i] ? uuidArray[i] : 0x00;
-            frame.push(data);
+            if (id[i] == undefined)
+                frame.push(0x00);
+            else
+                frame.push(id[i]);
         }
+
         for (var i = 0; i < 2; i++) {
-            var data = propertyArray[i] ? propertyArray[i] : 0x00;
+            var data = property & 0xFF;
             frame.push(data);
+            property = property >>> 8;
         }
 
         frame.push(values.length);
@@ -988,6 +952,10 @@ class VariableSetValue extends Block {
     constructor(name, args) {
         super(FrameType.VARIABLE_SET_VALUE, 0);
         this.appendFrame(name.serialize());
+
+        if (args.length == undefined) {
+            this.appendFrame(args.serialize());
+        }
 
         for (var i = 0; i < args.length; i++) {
             this.appendFrame(args[i].serialize());

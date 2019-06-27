@@ -44,7 +44,7 @@ Entry.ZoomController = class ZoomController {
         return this.svgGroup;
     }
 
-    ZOOM_LEVEL = 2;
+    ZOOM_LEVEL = 10;
 
     generateView() {
         const zoomGroup = {
@@ -52,6 +52,7 @@ Entry.ZoomController = class ZoomController {
         };
         this.renderStart(zoomGroup);
         this.addControl(zoomGroup);
+    
         zoomGroup.toast = new Toast(this.nowBoard);
         return zoomGroup;
     }
@@ -237,22 +238,27 @@ Entry.ZoomController = class ZoomController {
                         // console.log(cOutput);
 
                         // console.log('module ', Entry.module);
-                        
-                        // Entry.module = 'Network network0(0x1BED8A97);Led led0(0x4020A3A5DB73);';
-                        var binary = 'void doUserTask(){\n';
+                    
+
+                        Entry.module = 'Network network0(0x07B4573);\nButton button0(0x2030D92B254A);\nLed led0(0x40201371B0D8);\n';
+
+                        // console.log('Entry.module', Entry.module);
+                        var binary = '"#include "user.hpp"\n\nusing namespace math;\n\nvoid doUserTask()\n{\n';
                         binary += Entry.module;
                         binary += '\n';
                         binary += cOutput;
-                        binary += 'sleep(1);\n}\n}'
-
+                        binary += '\nsleep(1);\n}\n}'
+                        // alert(binary);
                         // const binary = 'void doUserTask()\n{Network network0(0x1BED8A97);Led led0(0x4020A3A5DB73);while(true){led0.setRgb(100,0,0);sleep(1);}}'
 
-                        alert(binary);
-
+                    
                         const binaryOutput= Interpreter.makeFrame(binary);
                     
-                        console.log('binaryOutput', binaryOutput.block);
+                        console.log('binary',JSON.stringify(binary));
+                        console.log('binaryOutput',JSON.stringify(binaryOutput.block));
                         window.android.uploadCode(binaryOutput.block);
+
+                        
                     
                     });
                 }
@@ -321,6 +327,8 @@ Entry.ZoomController = class ZoomController {
         // const svgDom = this.board.svgDom;
         
         this.align();
+
+        this.setScale(2);
     }
 
     getPosition() {

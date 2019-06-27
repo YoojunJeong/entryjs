@@ -239,6 +239,15 @@ Entry.BlockToCParser = class {
 
                         break;
                     }
+
+                    case 'modi_set_led_color' : {
+                        resultTextCode = Entry.TextCodingUtil.assembleSetLedColoreBlock(
+                            block,
+                            resultTextCode
+                        );
+
+                        break;
+                    }
                 
                 }
             }

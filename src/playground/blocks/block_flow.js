@@ -166,8 +166,8 @@ module.exports = {
 
                     c: [
                         {
-                            syntax:'for(int i = 0; i < %1; i++) {\n$1\n}',
-                            template: 'for(int i = 0; i < %1; i++) {\n}',
+                            syntax:'for(int i = 0; i < %1; i++)\n{\n$1\n}',
+                            template: 'for(int i = 0; i < %1; i++)\n{\n}',
                             idChar: ['i', 'j', 'k'],
                            
                         },
@@ -235,8 +235,8 @@ module.exports = {
                     ],
 
                     c: [ {
-                        syntax: 'while(TRUE){\n$1\n}',
-                        template: 'while(%2)\n',
+                        syntax: 'while(TRUE)\n{\n$1\n}',
+                        template: 'while(%2)\n{\n}',
                         textParams: [
                             undefined,
                             {
@@ -329,8 +329,8 @@ module.exports = {
                     ],
                     c: [
                         {
-                            syntax: 'while( %1 %2 ) {\n$1\n}',
-                            template: 'while( %1 %2 ) {\n}',
+                            syntax: 'while( %1 %2 )\n{\n$1\n}',
+                            template: 'while( %1 %2 )\n{\n}',
                         },
                     ],
                 },
@@ -426,7 +426,7 @@ module.exports = {
                 syntax: {
                     js: [],
                     py: [{ syntax: 'if %1:\n$1', template: 'if %1:' }],
-                    c: [{ syntax: 'if(%1) {\n$1\n}', template: 'if(%1){\n}' }],
+                    c: [{ syntax: 'if(%1)\n{\n$1\n}', template: 'if\n(%1){\n}' }],
                 },
             },
             if_else: {
@@ -518,8 +518,8 @@ module.exports = {
 
                     c: [
                         {
-                            syntax: 'if(%1) {\n$1\n} else {\n$2\n}',
-                            template: 'if(%1) {\n} else {\n\n}',
+                            syntax: 'if(%1)\n{\n$1\n}\nelse\n{\n$2\n}',
+                            template: 'if(%1)\n{\n}\nelse\n{\n\n}',
                             textParams: [
                                 {
                                     type: 'Block',
@@ -588,8 +588,8 @@ module.exports = {
                     py: ['Entry.wait_until(%1)'], 
                     c: [
                         {
-                            syntax: 'while( ! %1 ) {\n sleep();\n}',
-                            template: 'while( %1 ) {\n}',
+                            syntax: 'while( ! %1 )\n{\n sleep();\n}',
+                            template: 'while( %1 )\n{\n}',
                         },
                     ], 
                 },

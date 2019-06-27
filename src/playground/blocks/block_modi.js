@@ -478,7 +478,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '버튼 %1번의 %2',
+            template: '버튼의 %2',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -501,8 +501,8 @@ Entry.MODI.getBlocks = function() {
                 type: 'modi_button_value',
             },
             paramsKeyMap: {
-                name: 0,
-                property: 1,
+            
+                property: 0,
             },
             class: 'button',
             isNotFor: ['modi'],
@@ -511,10 +511,10 @@ Entry.MODI.getBlocks = function() {
                     Entry.MODI.initSend();
                 }
 
-                var key = script.getStringField('name');
+                // var key = script.getStringField('name');
                 var property = script.getNumberField('property');
-                var moduleID = JSON.parse(Entry.hw.portData.module['button'][key]).id;
-                var pd = JSON.parse(Entry.hw.portData.module['button'][key]);
+                // var moduleID = JSON.parse(Entry.hw.portData.module['button'][key]).id;
+                // var pd = JSON.parse(Entry.hw.portData.module['button'][key]);
 
                 if (!Entry.hw.sendQueue['getProperty']) {
                     Entry.MODI.initSend();
@@ -540,8 +540,8 @@ Entry.MODI.getBlocks = function() {
                 py: [],
                 c: [
                     {
-                        syntax: '%1.%2',
-                        template: '%1.%2',
+                        syntax: 'button0.%2',
+                        template: 'button0.%2',
                     },
                 ],
             },
@@ -1108,16 +1108,16 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '불빛 %1번 빛 %2로 정하기 %3',
+            template: '불빛 %1로 정하기 %2',
             params: [
-                {
-                    type: 'DropdownDynamic',
-                    value: null,
-                    fontSize: 11,
-                    menuName: Entry.MODI.ledList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
-                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
-                },
+                // {
+                //     type: 'DropdownDynamic',
+                //     value: null,
+                //     fontSize: 11,
+                //     menuName: Entry.MODI.ledList,
+                //     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                //     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                // },
                 {
                     type: 'Color',
                 },
@@ -1132,8 +1132,8 @@ Entry.MODI.getBlocks = function() {
                 type: 'modi_set_led_color',
             },
             paramsKeyMap: {
-                name: 0,
-                color: 1,
+                // name: 0,
+                color: 0,
             },
             class: 'led',
             isNotFor: ['modi'],
@@ -1166,8 +1166,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: '%1.%2',
-                        template: '%1.%2',
+                        syntax: 'led0.%1',
+                        template: 'led0.%1',
                     },
                 ],
             },
