@@ -113,8 +113,8 @@ Entry.FieldTrashcan = class FieldTrashcan {
             return;
         }
         const svgDom = this.board.svgDom;
-        this._x = svgDom.width() - 83.5;
-        this._y = svgDom.height() - 110;
+        this._x =  30;
+        this._y = svgDom.height() - 100;
         // this._y = 10;
         this.align();
     }

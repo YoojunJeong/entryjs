@@ -64,41 +64,41 @@ Entry.ZoomController = class ZoomController {
             height: this.CONTROLLER_HEIGHT,
         });
         zoomGroup.refresh = zoomGroup.svgZoom.elem('image', {
-            href: `${Entry.mediaFilePath}custom/modi_com_btn_refresh.png`,
+            href: `${Entry.mediaFilePath}custom/modi_btn_refresh.png`,
             x: 0,
             y: 3,
-            width: 32,
-            height: 32,
+            width: 83,
+            height: 85,
             filter: 'url(#entryButtonShadowFilter)',
             style: 'cursor: pointer;',
         });
         zoomGroup.export = zoomGroup.svgZoom.elem('image', {
-            href: `${Entry.mediaFilePath}custom/modi_com_btn_export.png`,
-            x: 40,
+            href: `${Entry.mediaFilePath}custom/modi_btn_export.png`,
+            x: 93,
             y: 3,
-            width: 32,
-            height: 32,
+            width: 83,
+            height: 85,
             filter: 'url(#entryButtonShadowFilter)',
             style: 'cursor: pointer;',
         });
         zoomGroup.plus = zoomGroup.svgZoom.elem('image', {
-            href: `${Entry.mediaFilePath}custom/modi_com_btn_plus.png`,
-            x: 80,
+            href: `${Entry.mediaFilePath}custom/modi_btn_remote_dis.png`,
+            x: 186,
             y: 3,
-            width: 32,
-            height: 32,
+            width: 83,
+            height: 85,
             filter: 'url(#entryButtonShadowFilter)',
             style: 'cursor: pointer;',
         });
-        zoomGroup.next = zoomGroup.svgZoom.elem('image', {
-            href: `${Entry.mediaFilePath}custom/modi_com_btn_next.png`,
-            x: 120,
-            y: 3,
-            width: 32,
-            height: 32,
-            filter: 'url(#entryButtonShadowFilter)',
-            style: 'cursor: pointer;',
-        });
+        // zoomGroup.next = zoomGroup.svgZoom.elem('image', {
+        //     href: `${Entry.mediaFilePath}custom/modi_com_btn_next.png`,
+        //     x: 120,
+        //     y: 3,
+        //     width: 32,
+        //     height: 32,
+        //     filter: 'url(#entryButtonShadowFilter)',
+        //     style: 'cursor: pointer;',
+        // });
 
 
         // zoomGroup.svgZoom.elem('image', {
@@ -322,8 +322,8 @@ Entry.ZoomController = class ZoomController {
             return;
         }
         var svgDom = this.nowBoard.svgDom;
-        this.x = svgDom.width() - (this.CONTROLLER_WIDTH + 122.5);
-        this.y = svgDom.height() - 80;
+        this.x = svgDom.width() - (this.CONTROLLER_WIDTH + 250);
+        this.y = svgDom.height() - 100;
         // const svgDom = this.board.svgDom;
         
         this.align();
