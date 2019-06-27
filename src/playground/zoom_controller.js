@@ -148,7 +148,7 @@ Entry.ZoomController = class ZoomController {
                 this.doAction('REMOTE');
             });
             $(zoomGroup.next).bind('mousedown touchstart', (e) => {
-                this.doAction('NEXT');
+                this.doAction('PICTURE');
             });
 
             // $(zoomGroup.svgZoom).bind('mousedown touchstart', (e) => {
@@ -171,7 +171,7 @@ Entry.ZoomController = class ZoomController {
             case 'RESET':
                 var yn = confirm('블록을 초기화 할까요?');
                 if(yn) {
-                    window.android.reset();
+                    window.android.callFuntion('RESET');
                 }
                 
                 
@@ -227,13 +227,13 @@ Entry.ZoomController = class ZoomController {
                 }
                 break;
             case 'REMOTE':
-                window.android.showRemote();
+                window.android.callFuntion('REMOTE');
 
                 break;
-            case 'NEXT':
+            case 'PICTURE':
                 var yn = confirm('발명품 사진 찍기로 이동할까요?');
                 if(yn) {
-                    window.android.movePicture();
+                    window.android.callFuntion('PICTURE');
                 }
                 break;
             default:
