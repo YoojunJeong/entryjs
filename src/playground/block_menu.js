@@ -223,8 +223,8 @@ class BlockMenu {
 
     setScale(scale = 1) {
 
-        this.scale = 1.2;
-        this.svgBlockGroup.attr('transform', `scale(1.2)`);
+        // this.scale = 1.2;
+        // this.svgBlockGroup.attr('transform', `scale(1.2)`);
     
     }
 
