@@ -725,6 +725,7 @@ Entry.Workspace = class Workspace {
         this.scale = scale;
         this.board.setScale(scale);
         Entry.GlobalSvg.setScale(scale);
+        this.blockMenu.setScale(scale);
         if (this.overlayBoard) {
             this.overlayBoard.setScale(scale);
         }

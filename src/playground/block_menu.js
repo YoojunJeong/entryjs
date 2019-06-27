@@ -192,6 +192,8 @@ class BlockMenu {
 
         Entry.Utils.bindBlockViewHoverEvent(this, this.svgDom);
         $(window).scroll(this.updateOffset.bind(this));
+
+        // this.setScale(1.5);
     }
 
     changeCode(code, isImmediate) {
@@ -217,6 +219,13 @@ class BlockMenu {
         } else {
             this._dAlign();
         }
+    }
+
+    setScale(scale = 1) {
+
+        this.scale = 1.2;
+        this.svgBlockGroup.attr('transform', `scale(1.2)`);
+    
     }
 
     bindCodeView(codeView) {
@@ -266,7 +275,7 @@ class BlockMenu {
 
             const className = Entry.block[type].class;
             if (pastClass && pastClass !== className) {
-                this._createSplitter(marginFromTop);
+                // this._createSplitter(marginFromTop);
                 marginFromTop += vPadding;
             }
             pastClass = className;
@@ -281,7 +290,7 @@ class BlockMenu {
             if (index > 0) {
                 marginFromTop += blockView.marginBottom || 0;
             }
-            marginFromTop += blockView.height + vPadding;
+            marginFromTop += (blockView.height + vPadding) * 1.2;
         });
 
         this.updateSplitters();
