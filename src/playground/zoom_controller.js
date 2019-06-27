@@ -139,13 +139,13 @@ Entry.ZoomController = class ZoomController {
     addControl(zoomGroup) {
         if (this.nowBoard) {
             $(zoomGroup.refresh).bind('mousedown touchstart', (e) => {
-                this.doAction('REFRESH');
+                this.doAction('RESET');
             });
             $(zoomGroup.export).bind('mousedown touchstart', (e) => {
                 this.doAction('EXPORT');
             });
             $(zoomGroup.plus).bind('mousedown touchstart', (e) => {
-                this.doAction('PLUS');
+                this.doAction('REMOTE');
             });
             $(zoomGroup.next).bind('mousedown touchstart', (e) => {
                 this.doAction('NEXT');
@@ -168,40 +168,12 @@ Entry.ZoomController = class ZoomController {
 
     doAction(mode) {
         switch(mode) {
-            case 'REFRESH':
+            case 'RESET':
+                var yn = confirm('블록을 초기화 할까요?');
+                if(yn) {
+                    window.android.reset();
+                }
                 
-                // var workspace = Entry.getMainWS();
-
-                const blockMap = this.nowBoard.code._blockMap;
-              
-
-                const keys = Object.keys(blockMap) || [];
-                keys.forEach((id) => {
-                    var block = blockMap[id];
-
-                    // console.log(block._schema);
-
-                    var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
-                    var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
-                    var blockToCParser = new Entry.BlockToCParser(syntax);
-
-                    blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
-                    // var options = { locations: true, ranges: true };
-                    var code = {
-                        registerEvent: function() {},
-                        registerBlock: function() {}
-                    };
-
-                    var blockSchema = Entry.block[block.type];
-                    // var cOutput = blockToCParser.Thread(new Entry.Thread([blockSchema.def], code));
-                    var cOutput = blockToCParser.Thread(block.getThread());
-    
-                    console.log(cOutput);
-                    // blockToPyParser = new Entry.BlockToPyParser(syntax);
-                    // blockToPyParser._parseMode = Entry.Parser.PARSE_GENERAL;
-                    // var secondPythonOutput = blockToPyParser.Thread(new Entry.Thread(blockOutput[0], code));
-                    
-                });
                 
                 break;
             case 'EXPORT':
@@ -234,12 +206,6 @@ Entry.ZoomController = class ZoomController {
                         var blockSchema = Entry.block[block.type];
                         var cOutput = blockToCParser.Thread(block.getThread());
         
-                        // console.log(blockSchema);
-                        // console.log(cOutput);
-
-                        // console.log('module ', Entry.module);
-                    
-
                         // Entry.module = 'Network network0(0x07B4573);\nButton button0(0x2030D92B254A);\nLed led0(0x40201371B0D8);\n';
 
                         // console.log('Entry.module', Entry.module);
@@ -248,14 +214,11 @@ Entry.ZoomController = class ZoomController {
                         binary += '\n';
                         binary += cOutput;
                         binary += '\nsleep(1);\n}\n}'
-                        // alert(binary);
-                        // const binary = 'void doUserTask()\n{Network network0(0x1BED8A97);Led led0(0x4020A3A5DB73);while(true){led0.setRgb(100,0,0);sleep(1);}}'
-
                     
                         const binaryOutput= Interpreter.makeFrame(binary);
                     
-                        console.log('binary',JSON.stringify(binary));
-                        console.log('binaryOutput',JSON.stringify(binaryOutput.block));
+                        // console.log('binary',JSON.stringify(binary));
+                        // console.log('binaryOutput',JSON.stringify(binaryOutput.block));
                         window.android.uploadCode(binaryOutput.block);
 
                         
@@ -263,19 +226,14 @@ Entry.ZoomController = class ZoomController {
                     });
                 }
                 break;
-            case 'PLUS':
-                alert('PLUS');
-
-                var workspace = Entry.getMainWS();
-
-                console.log(workspace.vimBoard);
-               
+            case 'REMOTE':
+                window.android.showRemote();
 
                 break;
             case 'NEXT':
                 var yn = confirm('발명품 사진 찍기로 이동할까요?');
                 if(yn) {
-                    // 사진 찍기로 이동.
+                    window.android.movePicture();
                 }
                 break;
             default:
