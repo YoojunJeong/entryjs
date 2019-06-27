@@ -83,22 +83,22 @@ Entry.ZoomController = class ZoomController {
         });
         zoomGroup.plus = zoomGroup.svgZoom.elem('image', {
             href: `${Entry.mediaFilePath}custom/modi_btn_remote_dis.png`,
-            x: 186,
+            x: 181,
             y: 3,
             width: 83,
             height: 85,
             filter: 'url(#entryButtonShadowFilter)',
             style: 'cursor: pointer;',
         });
-        // zoomGroup.next = zoomGroup.svgZoom.elem('image', {
-        //     href: `${Entry.mediaFilePath}custom/modi_com_btn_next.png`,
-        //     x: 120,
-        //     y: 3,
-        //     width: 32,
-        //     height: 32,
-        //     filter: 'url(#entryButtonShadowFilter)',
-        //     style: 'cursor: pointer;',
-        // });
+        zoomGroup.next = zoomGroup.svgZoom.elem('image', {
+            href: `${Entry.mediaFilePath}custom/modi_com_btn_next.png`,
+            x: 269,
+            y: 3,
+            width: 83,
+            height: 85,
+            filter: 'url(#entryButtonShadowFilter)',
+            style: 'cursor: pointer;',
+        });
 
 
         // zoomGroup.svgZoom.elem('image', {
