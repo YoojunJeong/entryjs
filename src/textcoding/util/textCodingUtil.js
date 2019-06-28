@@ -600,8 +600,6 @@ class TextCodingUtil {
 
     assembleSetLedColoreBlock(blcok, syntax) {
 
-        let result = '';
-
         const blockToken = syntax.split('.'); // space 로 split 하되, : 도 자르지만 토큰에 포함
         let lastIndex = blockToken.length - 1;
         const option = blockToken[lastIndex];
@@ -628,6 +626,59 @@ class TextCodingUtil {
 
         return rgbType; 
     }
+
+    assembleModiSetMotorValueBlock(block, syntax) {
+
+        let result = '';
+
+        const blockToken = syntax.split('.'); // space 로 split 하되, : 도 자르지만 토큰에 포함
+      
+        const option2 = blockToken[2];
+        const option3 = blockToken[3];
+
+        if (block.data.type === 'modi_set_motor_value') {
+
+            if (option == 'MOTOR_ANGLE') {
+              
+                result = 'setAngle(' + option2 + ',' + option3+');\n';
+        
+            
+            } else if (option == 'MOTOR_SPEED') {
+              
+                result = 'setAngle(' + option2 + ',' + option3+');\n';
+                
+            } 
+
+            else if  (option == 'MOTOR_TORQUE') {
+              
+                result = 'setTorque(' + option2 + ',' + option3+');\n';
+                
+            } 
+
+    
+        } else {
+            result = syntax;
+        }
+
+        return result;
+
+    }
+
+    assembleModiSetBasicSpeakerBlock(block, syntax) {
+
+        let result = '';
+
+        const blockToken = syntax.split('.'); 
+       
+        const option2 = blockToken[2];
+        const option3 = blockToken[3];
+
+        result = 'setTune(' + option2 + ',' + option3+');\n';
+
+        return result;
+
+    }
+
 
 
 

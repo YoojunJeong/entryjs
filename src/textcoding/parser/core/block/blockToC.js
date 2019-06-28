@@ -248,7 +248,25 @@ Entry.BlockToCParser = class {
 
                         break;
                     }
-                
+
+                    case 'modi_set_motor_value': {
+                        resultTextCode = Entry.TextCodingUtil.assembleModiSetMotorValueBlock(
+                            block,
+                            resultTextCode
+                        );
+
+                        break;
+                    }
+
+                    case 'modi_set_basic_speaker' :
+                    case 'modi_set_custom_speaker' : {
+                        resultTextCode = Entry.TextCodingUtil.assembleModiSetBasicSpeakerBlock(
+                            block,
+                            resultTextCode
+                        );
+
+                        break;
+                        }
                 }
             }
 
