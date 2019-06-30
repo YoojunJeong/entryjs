@@ -277,16 +277,17 @@ Entry.BlockToCParser = class {
 
                         break;
                     }
-
-                    case 'modi_set_basic_speaker' :
-                    case 'modi_set_custom_speaker' : {
+                    case 'modi_set_custom_speaker' :
+                    case 'modi_set_basic_speaker' : {
                         resultTextCode = Entry.TextCodingUtil.assembleModiSetBasicSpeakerBlock(
                             block,
                             resultTextCode
                         );
 
                         break;
-                        }
+                        
+                    }
+            
                 }
             }
 

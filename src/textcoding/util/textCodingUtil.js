@@ -559,6 +559,10 @@ class TextCodingUtil {
         let lastIndex = blockToken.length - 1;
         const option = blockToken[lastIndex];
 
+        console.log("modi_dial_value blockToken : ", blockToken);
+        console.log("modi_dial_value option : ", option);
+        
+
         if (block.data.type === 'modi_dial_value') {
 
             if (option == '2') {
@@ -586,6 +590,8 @@ class TextCodingUtil {
             result = syntax;
         }
 
+        console.log("modi_dial_value option : ", result);
+       
         return result;
 
     }
@@ -701,12 +707,20 @@ class TextCodingUtil {
 
         let result = '';
 
-        const blockToken = syntax.split('.'); 
+        const blockToken = syntax.split('_'); 
        
+        const option1 = blockToken[1];
         const option2 = blockToken[2];
-        const option3 = blockToken[3];
 
-        result = 'setTune(' + option2 + ',' + option3+');';
+    
+
+        result = 'setTune(' + option1 + ', ' + option2+');';
+        
+    
+       
+        console.log("modi_set_basic_speaker result : ", result);
+
+        
 
         return result;
 

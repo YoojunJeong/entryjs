@@ -398,7 +398,8 @@ Entry.MODI.getBlocks = function() {
                 }
 
                 var moduleID = JSON.parse(Entry.hw.portData.module['dial'][key]).id;
-
+                var pd = JSON.parse(Entry.hw.portData.module['button'][key]);
+                
                 return pd.value[2];
             },
 
@@ -1247,6 +1248,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Block',
                     accept: 'string',
+                    defaultType: 'number',
                 },
                 {
                     type: 'Indicator',
@@ -1296,8 +1298,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'speaker0.%2.%3',
-                        template: 'speaker0.%2.%3',
+                        syntax: 'speaker0_%2_%3',
+                        template: 'speaker0_%2_%3',
                     },
                 ],
             },
@@ -1320,10 +1322,12 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Block',
                     accept: 'string',
+                    defaultType: 'number',
                 },
                 {
                     type: 'Block',
                     accept: 'string',
+                    defaultType: 'number',
                 },
                 {
                     type: 'Indicator',
@@ -1338,6 +1342,7 @@ Entry.MODI.getBlocks = function() {
                         type: 'number',
                         params: ['100'],
                     },
+                    
                     {
                         type: 'number',
                         params: ['100'],
@@ -1372,12 +1377,14 @@ Entry.MODI.getBlocks = function() {
                 return script.callReturn();
             },
 
-            c: [
-                {
-                    syntax: 'speaker0.%2.%3',
-                    template: 'speaker0.%2.%3',
-                },
-            ],
+            syntax: {
+                c: [
+                    {
+                        syntax: 'speaker0_%2_%3',
+                        template: 'speaker0_%2_%3',
+                    },
+                ],
+            },
         },
 
         modi_play_speaker: {
@@ -1397,10 +1404,12 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Block',
                     accept: 'string',
+                    defaultType: 'number',
                 },
                 {
                     type: 'Block',
                     accept: 'string',
+                    defaultType: 'number',
                 },
                 {
                     type: 'Indicator',
@@ -1476,6 +1485,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Block',
                     accept: 'string',
+                    defaultType: 'number',
                 },
                 {
                     type: 'Indicator',
