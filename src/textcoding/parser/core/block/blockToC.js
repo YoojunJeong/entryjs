@@ -168,6 +168,7 @@ Entry.BlockToCParser = class {
             // TODO 이와 같은 처리는 블록에 정보가 있고, 정보에 따라 처리해야 한다.
             if (syntaxObj) {
                 switch (syntaxObj.key) {
+                    
                     case 'repeat_while_true':
 
                         resultTextCode = Entry.TextCodingUtil.assembleRepeatWhileTrueBlock(
@@ -186,7 +187,7 @@ Entry.BlockToCParser = class {
                         }
                         break;
                     }
-
+                   
                     case 'wait_until_true': {
                         resultTextCode = Entry.TextCodingUtil.assembleWaitUntilTrueBlock(
                             block,
@@ -194,6 +195,15 @@ Entry.BlockToCParser = class {
                         );
                         break;
                         }
+
+                    case 'boolean_basic_operator' : {
+                        resultTextCode = Entry.TextCodingUtil.assembleBasicOperatorBlock(
+                            block,
+                            resultTextCode
+                        );
+                        break;
+                        
+                    }
 
                     case 'boolean_and_or': {
                         resultTextCode = Entry.TextCodingUtil.assembleBoolenAndOrBlock(
@@ -240,6 +250,7 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
+                   
                     case 'modi_set_led_color' : {
                         resultTextCode = Entry.TextCodingUtil.assembleSetLedColoreBlock(
                             block,
@@ -248,6 +259,15 @@ Entry.BlockToCParser = class {
 
                         break;
                     }
+
+                    // case 'modi_set_led_rgb' : {
+                    //     resultTextCode = Entry.TextCodingUtil.assembleSetLedRgbBlock(
+                    //         block,
+                    //         resultTextCode
+                    //     );
+
+                    //     break;
+                    // }
 
                     case 'modi_set_motor_value': {
                         resultTextCode = Entry.TextCodingUtil.assembleModiSetMotorValueBlock(

@@ -1044,7 +1044,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '불빛의 R %2 G %3 B %4  %5',
+            template: '불빛 R %2 G %3 B %4  %5',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1124,8 +1124,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'led0.setRgb(%2,%3,%4)',
-                        template: 'led0.setRgb(%2,%3,%4)',
+                        syntax: 'led0.setRgb(%2,%3,%4);',
+                        template: 'led0.setRgb(%2,%3,%4);',
                     },
                 ],
             },
@@ -1293,12 +1293,15 @@ Entry.MODI.getBlocks = function() {
                 return script.callReturn();
             },
 
-            c: [
-                {
-                    syntax: 'speeker0.%2.%3',
-                    template: 'speeker0.%2.%3',
-                },
-            ],
+            syntax: {
+                c: [
+                    {
+                        syntax: 'speaker0.%2.%3',
+                        template: 'speaker0.%2.%3',
+                    },
+                ],
+            },
+          
         },
         modi_set_custom_speaker: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
@@ -1371,8 +1374,8 @@ Entry.MODI.getBlocks = function() {
 
             c: [
                 {
-                    syntax: 'speeker0.%2.%3',
-                    template: 'speeker0.%2.%3',
+                    syntax: 'speaker0.%2.%3',
+                    template: 'speaker0.%2.%3',
                 },
             ],
         },
@@ -1446,12 +1449,15 @@ Entry.MODI.getBlocks = function() {
                 return script.callReturn();
             },
 
-            c: [
-                {
-                    syntax: 'speeker0.%2.%3',
-                    template: 'speeker0.%2.%3',
-                },
-            ],
+            syntax: {
+                c: [
+                    {
+                        syntax: 'speaker0.%2.%3',
+                        template: 'speaker0.%2.%3',
+                    },
+                ],
+            }
+          
         },
         modi_print_display_by_value: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
@@ -1516,13 +1522,14 @@ Entry.MODI.getBlocks = function() {
                 });
                 return script.callReturn();
             },
-            c: [
-                {
-                    syntax: 'display0.setText(%2);',
-                    template: 'display0.setText(%2);',
-                },
-            ],
-            
+            syntax: {
+                c: [
+                    {
+                        syntax: 'display0.setText(%2);',
+                        template: 'display0.setText(%2);',
+                    },
+                ],
+            }
         },
     };
 };

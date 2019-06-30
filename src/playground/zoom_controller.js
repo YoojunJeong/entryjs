@@ -206,7 +206,7 @@ Entry.ZoomController = class ZoomController {
                         var blockSchema = Entry.block[block.type];
                         var cOutput = blockToCParser.Thread(block.getThread());
         
-                        // Entry.module = 'Network network0(0x07B4573);\nButton button0(0x2030D92B254A);\nLed led0(0x40201371B0D8);\n';
+                        // Entry.module = 'Network network0(0x07B4573);\nDisplay display0(0x2030D92B254A);\nLed led0(0x40201371B0D8);\n';
 
                         // console.log('Entry.module', Entry.module);
                         var binary = '"#include "user.hpp"\n\nusing namespace math;\n\nvoid doUserTask()\n{\n';
@@ -217,8 +217,10 @@ Entry.ZoomController = class ZoomController {
                     
                         const binaryOutput= Interpreter.makeFrame(binary);
                     
-                        // console.log('binary',JSON.stringify(binary));
-                        // console.log('binaryOutput',JSON.stringify(binaryOutput.block));
+                        alert(binary);
+                        alert(JSON.stringify(binaryOutput.block));
+                        // console.log('binary',binary);
+                        console.log('binaryOutput',JSON.stringify(binaryOutput.block));
                         window.android.uploadCode(binaryOutput.block);
 
                         

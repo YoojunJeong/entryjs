@@ -359,8 +359,16 @@ class TextCodingUtil {
         if (block.data.type === 'repeat_while_true') {
 
             const blockToken = syntax.split(/(?=:)|[ ]/gi); // space 로 split 하되, : 도 자르지만 토큰에 포함
-            let lastIndex = blockToken.length - 3;
-            const option = blockToken[lastIndex];
+            let option = '';
+            let optIndex = 0;
+
+            for (var i = 0; i < blockToken.length; i++) {
+            
+                if(blockToken[i] == 'until' || blockToken[i]=='while') {
+                    option = blockToken[i];
+                    optIndex = i;
+                }
+            }
 
             console.log("repeat_while_true blockToken : ", blockToken);
             console.log("repeat_while_true option : ", option);
@@ -368,12 +376,12 @@ class TextCodingUtil {
             if (option == 'until') {
                 const condition = '!';
                 blockToken.splice(1, 0, condition);
-                lastIndex += 1;
-                blockToken.splice(lastIndex, 1);
+                optIndex += 1;
+                blockToken.splice(optIndex, 1);
                 result = blockToken.join(' ').replace(' ! ', '!');
                 result = result.replace(' )', ')');
             } else if (option == 'while') {
-                blockToken.splice(lastIndex, 1);
+                blockToken.splice(optIndex, 1);
                 result = blockToken.join(' ').replace(' while ', '');
                 result = result.replace('( ', '(');
                 result = result.replace(' )', ')');
@@ -406,6 +414,7 @@ class TextCodingUtil {
             result = syntax;
         }
 
+    
         return result;
     }
 
@@ -413,24 +422,7 @@ class TextCodingUtil {
 
         let result = '';
 
-    
-
-        const blockToken = syntax.split(/(?=:)|[ ]/gi); // space 로 split 하되, : 도 자르지만 토큰에 포함
-        let lastIndex = blockToken.length - 3;
-        const option = blockToken[lastIndex];
-
-        console.log("boolean_basic_operator blockToken : ", blockToken);
-        console.log("boolean_basic_operator option : ", option);
-
-        if (block.data.type === 'boolean_basic_operator') {
-
-            result = result.replace(' ( ', '(');
-            result = result.replace(' )', ')');
-
-        } else {
-            result = syntax;
-        }
-
+        result = syntax.replace(/(\s*)/g,"");
         console.log("boolean_and_or result : ", result);
 
         return result;
@@ -622,7 +614,48 @@ class TextCodingUtil {
 
         console.log("modi_set_led_color r : ", r);
 
-        var rgbType = "led0.setRgb(" + Math.round(r) + ", " + Math.round(g) + ", " + Math.round(b) + ");\n"; 
+        var rgbType = "led0.setRgb(" + Math.round(r) + "," + Math.round(g) + "," + Math.round(b) + ");"; 
+
+        return rgbType; 
+    }
+
+    assembleSetLedRgbBlock(blcok, syntax) {
+
+        const blockToken = syntax.split('.'); // space 로 split 하되, : 도 자르지만 토큰에 포함
+        const rInput = blockToken[1];
+        const gInput = blockToken[2];
+        const bInput = blockToken[3];
+
+    
+        var hexR = rInput.replace( "#", "" ); 
+        var rValue = hexR.match( /[a-f\d]/gi ); 
+
+        var hexG = gInput.replace( "#", "" ); 
+        var gValue = hexG.match( /[a-f\d]/gi ); 
+
+        var hexB = bInput.replace( "#", "" ); 
+        var bValue = hexB.match( /[a-f\d]/gi ); 
+
+        console.log("modi_set_led_color_rgb  rValue : ", rValue);
+        console.log("modi_set_led_color_rgb  gValue : ", gValue);
+        console.log("modi_set_led_color_rgb  bValue : ", bValue);
+
+
+
+        // 헥사값이 세자리일 경우, 여섯자리로. 
+        if ( rValue.length == 3 ) hexR = rValue[0] + rValue[0]; 
+        if ( gValue.length == 3 ) hexG = gValue[0] + gValue[0]; 
+        if ( bValue.length == 3 ) hexB = bValue[0] + bValue[0]; 
+
+        var r = (parseInt( rValue[0], 16 ) / 256) * 100; 
+        var g = (parseInt( gValue[0], 16 ) / 256) * 100; 
+        var b = (parseInt( bValue[0], 16 ) / 256) * 100; 
+
+        console.log("modi_set_led_color_rgb : ", r);
+        console.log("modi_set_led_color_rgb : ", g);
+        console.log("modi_set_led_color_rgb : ", b);
+
+        var rgbType = "led0.setRgb(" + Math.round(rInput) + "," + Math.round(gInput) + "," + Math.round(bInput) + ");"; 
 
         return rgbType; 
     }
@@ -640,18 +673,18 @@ class TextCodingUtil {
 
             if (option == 'MOTOR_ANGLE') {
               
-                result = 'setAngle(' + option2 + ',' + option3+');\n';
+                result = 'setAngle(' + option2 + ',' + option3+');';
         
             
             } else if (option == 'MOTOR_SPEED') {
               
-                result = 'setAngle(' + option2 + ',' + option3+');\n';
+                result = 'setAngle(' + option2 + ',' + option3+');';
                 
             } 
 
             else if  (option == 'MOTOR_TORQUE') {
               
-                result = 'setTorque(' + option2 + ',' + option3+');\n';
+                result = 'setTorque(' + option2 + ',' + option3+');';
                 
             } 
 
@@ -673,7 +706,7 @@ class TextCodingUtil {
         const option2 = blockToken[2];
         const option3 = blockToken[3];
 
-        result = 'setTune(' + option2 + ',' + option3+');\n';
+        result = 'setTune(' + option2 + ',' + option3+');';
 
         return result;
 
