@@ -16,8 +16,6 @@ Entry.ZoomController = class ZoomController {
         if (Entry.windowResized) {
             Entry.windowResized.attach(this, this.setPosition);
         }
-
-        
     }
 
     get CONTROLLER_WIDTH() {
@@ -177,56 +175,63 @@ Entry.ZoomController = class ZoomController {
                 
                 break;
             case 'EXPORT':
-                var yn = confirm('코딩한 내용을 모디 블록으로 내보낼까요?');
-                if(yn) {
-                    // c code로 내보낸다
 
-                    var workspace = Entry.getMainWS();
-            
-                    const blockMap = this.nowBoard.code._blockMap;
-
-                    const keys = Object.keys(blockMap) || [];
-                    keys.forEach((id) => {
-                        var block = blockMap[id];
-                        // console.log(block);
-
-                        var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
-                        var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
-                        // var blockToPyParser = new Entry.BlockToPyParser(syntax);
-                        var blockToCParser = new Entry.BlockToCParser(syntax);
-                        // var pyToBlockParser = new Entry.PyToBlockParser(syntax);
+                    var yn = confirm('코딩한 내용을 모디 블록으로 내보낼까요?');
+                    if(yn) {
+                        // c code로 내보낸다
+                    
+                        try {
+                            const blockMap = this.nowBoard.code._blockMap;
     
-                        blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
-                        var options = { locations: true, ranges: true };
-                        var code = {
-                            registerEvent: function() {},
-                            registerBlock: function() {}
-                        };
-    
-                        var blockSchema = Entry.block[block.type];
-                        var cOutput = blockToCParser.Thread(block.getThread());
+                            const keys = Object.keys(blockMap) || [];
+                            keys.forEach((id) => {
+                                var block = blockMap[id];
+                                // console.log(block);
         
-                        // Entry.module = 'Network network0(0x07B4573);\nDisplay display0(0x2030D92B254A);\nLed led0(0x40201371B0D8);\n';
+                                var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
+                                var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
+                                // var blockToPyParser = new Entry.BlockToPyParser(syntax);
+                                var blockToCParser = new Entry.BlockToCParser(syntax);
+                                // var pyToBlockParser = new Entry.PyToBlockParser(syntax);
+            
+                                blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
+                                var cOutput = blockToCParser.Thread(block.getThread());
+                
+                                // Entry.module = 'Network network0(0x07B4573);\nIr ir0(0x206080B18920);\nDisplay display0(0x4000323AEE9C);\n';
+        
+                                // console.log('Entry.module', Entry.module);
+                                var binary = '"#include "user.hpp"\n\nusing namespace math;\n\nvoid doUserTask()\n{\n';
+                                binary += Entry.module;
+                                binary += '\n';
+                                binary += cOutput;
+                                binary += '\nsleep(1);\n}\n}'
+                            
+                            
+                                const binaryOutput= Interpreter.makeFrame(binary);
+                            
+                                // alert(binary);
+                                // alert(Entry.module);
+                                // alert(JSON.stringify(binaryOutput.block));
+                                console.log('binaryOutput',binaryOutput);
+                                console.log('binaryOutput',JSON.stringify(binaryOutput.block));
+                                window.android.uploadCode(binaryOutput.block);
+                            
+                            });
+                        }
 
-                        // console.log('Entry.module', Entry.module);
-                        var binary = '"#include "user.hpp"\n\nusing namespace math;\n\nvoid doUserTask()\n{\n';
-                        binary += Entry.module;
-                        binary += '\n';
-                        binary += cOutput;
-                        binary += '\nsleep(1);\n}\n}'
-                    
-                        const binaryOutput= Interpreter.makeFrame(binary);
-                    
-                        alert(binary);
-                        alert(JSON.stringify(binaryOutput.block));
-                        // console.log('binary',binary);
-                        console.log('binaryOutput',JSON.stringify(binaryOutput.block));
-                        window.android.uploadCode(binaryOutput.block);
+                        catch (e) {
 
+                            // console.log('error',e.message);
+                            window.android.failUpload(e.message);
+                        }
                         
-                    
-                    });
-                }
+                    }
+                    else {
+                        this.exportIng = false;
+                    }
+
+             
+                
                 break;
             case 'REMOTE':
                 window.android.callFuntion('REMOTE');

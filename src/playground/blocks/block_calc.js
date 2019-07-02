@@ -182,6 +182,39 @@ module.exports = {
                             ],
                         },
                     ],
+
+                    c: [
+                        {
+                            syntax: '%1 %2 %3',
+                            template: '%1 %2 %3',
+                            keyOption: 'calc_basic',
+                            blockType: 'param',
+                            textParams: [
+                                {
+                                    type: 'Block',
+                                    accept: 'string',
+                                },
+                                {
+                                    type: 'Dropdown',
+                                    options: [
+                                        ['+', 'PLUS'],
+                                        ['-', 'MINUS'],
+                                        ['x', 'MULTI'],
+                                        ['/', 'DIVIDE'],
+                                    ],
+                                    value: 'PLUS',
+                                    fontSize: 11,
+                                    noArrow: true,
+                                    converter: Entry.block.converters.returnOperator,
+                                    paramType: 'operator',
+                                },
+                                {
+                                    type: 'Block',
+                                    accept: 'string',
+                                },
+                            ],
+                        }
+                    ]
                 },
             },
             calc_rand: {
@@ -310,6 +343,47 @@ module.exports = {
                             ],
                         },
                     ],
+                    
+                    c: [
+                        {
+                            syntax: 'getRandom(%2, %4)',
+                            blockType: 'param',
+                            textParams: [
+                                null,
+                                {
+                                    type: 'Block',
+                                    accept: 'string',
+                                    paramType: 'integer',
+                                },
+                                null,
+                                {
+                                    type: 'Block',
+                                    accept: 'string',
+                                    paramType: 'integer',
+                                },
+                                null,
+                            ],
+                        },
+                        {
+                            syntax: 'random.uniform(%2, %4)',
+                            blockType: 'param',
+                            textParams: [
+                                null,
+                                {
+                                    type: 'Block',
+                                    accept: 'string',
+                                    paramType: 'float',
+                                },
+                                null,
+                                {
+                                    type: 'Block',
+                                    accept: 'string',
+                                    paramType: 'float',
+                                },
+                                null,
+                            ],
+                        },
+                    ]
                 },
             },
             coordinate_mouse: {

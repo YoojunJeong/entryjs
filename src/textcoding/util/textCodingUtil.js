@@ -670,27 +670,33 @@ class TextCodingUtil {
 
         let result = '';
 
-        const blockToken = syntax.split('.'); // space 로 split 하되, : 도 자르지만 토큰에 포함
+        const blockToken = syntax.split('?'); // space 로 split 하되, : 도 자르지만 토큰에 포함
       
-        const option2 = blockToken[2];
-        const option3 = blockToken[3];
+        const option = blockToken[1];
+        const option1 = blockToken[2];
+        const option2 = blockToken[3];
+
+        console.log("modi_set_motor_value option1 : ", option);
+        console.log("modi_set_motor_value option2: ", option1);
+        console.log("modi_set_motor_value option3: ", option2);
+    
 
         if (block.data.type === 'modi_set_motor_value') {
 
             if (option == 'MOTOR_ANGLE') {
               
-                result = 'setAngle(' + option2 + ',' + option3+');';
+                result = 'motor0.setAngle(' + option1 + ',' + option2+');';
         
             
             } else if (option == 'MOTOR_SPEED') {
               
-                result = 'setAngle(' + option2 + ',' + option3+');';
+                result = 'motor0.setSpeed(' + option1 + ',' + option2+');';
                 
             } 
 
             else if  (option == 'MOTOR_TORQUE') {
               
-                result = 'setTorque(' + option2 + ',' + option3+');';
+                result = 'motor0.setTorque(' + option1 + ',' + option2+');';
                 
             } 
 
@@ -707,17 +713,18 @@ class TextCodingUtil {
 
         let result = '';
 
-        const blockToken = syntax.split('_'); 
+        const blockToken = syntax.split('?'); 
        
         const option1 = blockToken[1];
         const option2 = blockToken[2];
 
     
 
-        result = 'setTune(' + option1 + ', ' + option2+');';
+        result = 'speaker0.setTune(' + option1 + ', ' + option2+');';
         
     
-       
+        console.log("modi_set_basic_speaker option1 : ", option1);
+        console.log("modi_set_basic_speaker option2 : ", option2);
         console.log("modi_set_basic_speaker result : ", result);
 
         

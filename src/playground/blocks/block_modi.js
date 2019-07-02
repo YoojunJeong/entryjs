@@ -796,8 +796,8 @@ Entry.MODI.getBlocks = function() {
             
                 c: [
                     {
-                        syntax: 'motor0.%2.%3.%4',
-                        template: 'motor0.%2.%3.%4',
+                        syntax: 'motor0.?%2?%3?%4',
+                        template: 'motor0.?%2?%3?%4',
                     },
                 ],
             },
@@ -1298,8 +1298,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'speaker0_%2_%3',
-                        template: 'speaker0_%2_%3',
+                        syntax: 'speaker0.?%2?%3',
+                        template: 'speaker0.?%2?%3',
                     },
                 ],
             },
@@ -1380,8 +1380,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'speaker0_%2_%3',
-                        template: 'speaker0_%2_%3',
+                        syntax: 'speaker0.?%2?%3',
+                        template: 'speaker0.?%2?%3',
                     },
                 ],
             },
@@ -1461,8 +1461,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'speaker0.%2.%3',
-                        template: 'speaker0.%2.%3',
+                        syntax: 'speaker0.?%2?%3',
+                        template: 'speaker0.?%2?%3',
                     },
                 ],
             }
