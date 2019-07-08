@@ -187,14 +187,23 @@ Entry.BlockToCParser = class {
                         }
                         break;
                     }
-                   
-                    case 'wait_until_true': {
-                        resultTextCode = Entry.TextCodingUtil.assembleWaitUntilTrueBlock(
+
+                    case 'wait_second' : {
+                        resultTextCode = Entry.TextCodingUtil.assembleWaitSecondeBlock(
                             block,
                             resultTextCode
                         );
                         break;
-                        }
+
+                    }
+                   
+                    // case 'wait_until_true': {
+                    //     resultTextCode = Entry.TextCodingUtil.assembleWaitUntilTrueBlock(
+                    //         block,
+                    //         resultTextCode
+                    //     );
+                    //     break;
+                    //     }
 
                     case 'boolean_basic_operator' : {
                         resultTextCode = Entry.TextCodingUtil.assembleBasicOperatorBlock(

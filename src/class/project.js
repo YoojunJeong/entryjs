@@ -14,7 +14,7 @@ function scriptCheck(script) {
 
     if (
         whenRun !== 'when_run_button_click' ||
-        repeat !== 'repeat_basic' ||
+        repeat !== 'repeat_inf' ||
         statements.length !== 1 ||
         statements[0].length !== 1 ||
         move !== 'move_direction'

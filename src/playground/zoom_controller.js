@@ -212,8 +212,9 @@ Entry.ZoomController = class ZoomController {
                                 // alert(binary);
                                 // alert(Entry.module);
                                 // alert(JSON.stringify(binaryOutput.block));
-                                console.log('binaryOutput',binaryOutput);
-                                console.log('binaryOutput',JSON.stringify(binaryOutput.block));
+                                // console.log('binary',binary);
+                                // console.log('binaryOutput',binaryOutput);
+                                // console.log('binaryOutput',JSON.stringify(binaryOutput.block));
                                 window.android.uploadCode(binaryOutput.block);
                             
                             });
@@ -226,9 +227,7 @@ Entry.ZoomController = class ZoomController {
                         }
                         
                     }
-                    else {
-                        this.exportIng = false;
-                    }
+                
 
              
                 

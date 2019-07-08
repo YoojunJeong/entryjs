@@ -418,6 +418,25 @@ class TextCodingUtil {
         return result;
     }
 
+    assembleWaitSecondeBlock(block, syntax) {
+
+        let result = '';
+        if (block.data.type === 'wait_second') {
+
+          var second = syntax * 1000;
+
+          result = 'sleep('+second+');'
+        } 
+        
+        
+        else {
+            result = syntax;
+        }
+
+    
+        return result;
+    }
+
     assembleBasicOperatorBlock(block, syntax) {
 
         let result = '';

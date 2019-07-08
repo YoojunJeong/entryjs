@@ -244,8 +244,8 @@ EntryStatic.getAllBlocks = function() {
                 // 'coordinate_mouse',
                 // 'coordinate_object',
                 // 'get_sound_volume',
-                'quotient_and_mod',
-                'calc_operation',
+                // 'quotient_and_mod',
+                // 'calc_operation',
                 // 'get_project_timer_value',
                 // 'choose_project_timer_action',
                 // 'set_visible_project_timer',
@@ -401,8 +401,8 @@ EntryStatic.getAllBlocks = function() {
         {
             category: 'arduino',
             blocks: [
-                'modi_microphone_value',
-                'modi_environment_value',
+                // 'modi_microphone_value',
+                // 'modi_environment_value',
                 'modi_dial_value',
                 // 'modi_gyroscope_value',
                 'modi_button_value',

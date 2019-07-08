@@ -50,7 +50,7 @@ module.exports = {
                         script.timeFlag = 1;
                         let timeValue = script.getNumberValue('SECOND', script);
                         const fps = Entry.FPS || 60;
-                        timeValue = 60 / fps * timeValue * 1000;
+                        timeValue = 60 / fps * timeValue;
 
                         const blockId = script.block.id;
                         Entry.TimeWaitManager.add(
@@ -81,7 +81,7 @@ module.exports = {
 
                     c: [
                         {
-                            syntax:'sleep(%1);',
+                            syntax:'%1'
                         },
                     ],
                 },
@@ -588,8 +588,8 @@ module.exports = {
                     py: ['Entry.wait_until(%1)'], 
                     c: [
                         {
-                            syntax: 'while( ! %1 )\n{\n sleep();\n}',
-                            template: 'while( %1 )\n{\n}',
+                            syntax: 'while(%1 == 0)\n{\n}',
+                            template: 'while(%1 == 0)\n{\n}',
                         },
                     ], 
                 },
