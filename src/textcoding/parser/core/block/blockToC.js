@@ -15,7 +15,7 @@ Entry.BlockToCParser = class {
 
         this._variableDeclaration = null;
         this._listDeclaration = null;
-        this._forIdCharIndex = 0;
+        this._forIdCharIndex = 0;   
     }
 
     Code(code, parseMode) {

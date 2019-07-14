@@ -588,8 +588,8 @@ module.exports = {
                     py: ['Entry.wait_until(%1)'], 
                     c: [
                         {
-                            syntax: 'while(%1 == 0)\n{\n}',
-                            template: 'while(%1 == 0)\n{\n}',
+                            syntax: 'while(%1 == 0)\n{\nsleep(1);\n}',
+                            template: 'while(%1 == 0)\n{\nsleep(1);\n}',
                         },
                     ], 
                 },

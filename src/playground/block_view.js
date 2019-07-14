@@ -649,10 +649,10 @@ Entry.BlockView = class BlockView {
                 const dragInstance = this.dragInstance;
                 // const backPackMode = !this.fromBlockMenu && Entry.playground.backPack.isShow;
                 // if (backPackMode) {
-                    Entry.GlobalSvg.position({
-                        left: mouseEvent.pageX - dragInstance.offsetX,
-                        top: mouseEvent.pageY - dragInstance.offsetY,
-                    });
+                    // Entry.GlobalSvg.position({
+                    //     left: mouseEvent.pageX - dragInstance.offsetX,
+                    //     top: mouseEvent.pageY - dragInstance.offsetY,
+                    // });
                 // } else {
                     this.moveBy(
                         mouseEvent.pageX - dragInstance.offsetX,
