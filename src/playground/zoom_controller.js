@@ -88,17 +88,7 @@ Entry.ZoomController = class ZoomController {
             filter: 'url(#entryButtonShadowFilter)',
             style: 'cursor: pointer;',
         });
-        zoomGroup.next = zoomGroup.svgZoom.elem('image', {
-            href: `${Entry.mediaFilePath}custom/modi_com_btn_next.png`,
-            x: 269,
-            y: 3,
-            width: 83,
-            height: 85,
-            filter: 'url(#entryButtonShadowFilter)',
-            style: 'cursor: pointer;',
-        });
-
-
+       
         // zoomGroup.svgZoom.elem('image', {
         //     href: `${Entry.mediaFilePath}btn_zoom_bg.svg`,
         //     width: this.CONTROLLER_WIDTH,
@@ -145,10 +135,7 @@ Entry.ZoomController = class ZoomController {
             $(zoomGroup.plus).bind('mousedown touchstart', (e) => {
                 this.doAction('REMOTE');
             });
-            $(zoomGroup.next).bind('mousedown touchstart', (e) => {
-                this.doAction('PICTURE');
-            });
-
+        
             // $(zoomGroup.svgZoom).bind('mousedown touchstart', (e) => {
             //     e.stopImmediatePropagation();
             // });
@@ -257,12 +244,7 @@ Entry.ZoomController = class ZoomController {
                 window.android.callFuntion('REMOTE');
 
                 break;
-            case 'PICTURE':
-                var yn = confirm('발명품 사진 찍기로 이동할까요?');
-                if(yn) {
-                    window.android.callFuntion('PICTURE');
-                }
-                break;
+           
             default:
                 break;
         }
@@ -307,7 +289,7 @@ Entry.ZoomController = class ZoomController {
             return;
         }
         var svgDom = this.nowBoard.svgDom;
-        this.x = svgDom.width() - (this.CONTROLLER_WIDTH + 250);
+        this.x = svgDom.width() - (this.CONTROLLER_WIDTH + 170);
         this.y = svgDom.height() - 100;
         // const svgDom = this.board.svgDom;
         

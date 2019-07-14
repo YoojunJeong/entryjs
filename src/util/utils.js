@@ -345,7 +345,7 @@ Entry.resizeElement = function(interfaceModel) {
         Entry.stage.canvas.canvas.style.width = 255;//`${canvasSize - 26}px`;
 
         let menuWidth = interfaceModel.menuWidth;
-        if (!menuWidth) {
+        if (!menuWidth) {ㅋ
             menuWidth = 258;
         } else if (menuWidth < 258) {
             menuWidth = 258;
