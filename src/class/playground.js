@@ -183,6 +183,7 @@ Entry.Playground = class {
                     that._addVariable();
                 }
             });
+
             addSpaceInput.onfocus = _setFocused;
             const doBlur = _setBlurredTimer(function() {
                 this.isBlurred = false;
@@ -214,7 +215,39 @@ Entry.Playground = class {
             Entry.createElement('span')
                 .addClass('entryVariableAddSpaceCheckWorkspace')
                 .appendTo(addSpaceGlobalWrapper);
-       
+
+
+            // 기본값 셋팅
+            const addSpaceInputLabel2 = Entry.createElement('label')
+                .addClass('entryVariableAddSpaceInputLabelWorkspace')
+                .appendTo(addSpaceNameWrapper);
+            addSpaceInputLabel2.setAttribute('for', 'entryVariableAddSpaceInputWorkspace');
+            addSpaceInputLabel2.innerText = Lang.Command[812];
+
+            // const attrInputWrapper = Entry.createElement('span')
+            //     .appendTo(variableModal)
+            //     .addClass('custom_val_inptbox');
+            const attrInput = Entry.createElement('input')
+                                    .addClass('custom_val_inptbox')
+                                    .appendTo(addSpaceNameWrapper);
+            attrInput.setAttribute('type', 'text');
+            attrInput.value = 0;
+            attrInput.onkeypress = Entry.Utils.blurWhenEnter;
+            attrInput.onfocus = _setFocused;
+            attrInput.onblur = Entry.Utils.setBlurredTimer(function() {
+                const v = that.selected;
+                Entry.do('variableSetDefaultValue', v.id_, this.value);
+            });
+
+            const element = Entry.createElement('div')
+                .addClass('attr_inner_box')
+                .bindOnClick((e) => e.stopPropagation());
+            if (this.variableSettingView) {
+                $(this.variableSettingView).remove();
+                delete this.variableSettingView;
+            }
+            element.initValueInput = attrInput;
+    
             // 확인 취소 버튼
             const addSpaceButtonWrapper = Entry.createElement('div')
                 .addClass('entryVariableAddSpaceButtonWrapperWorkspace')
