@@ -176,13 +176,13 @@ Entry.Playground = class {
             addSpaceInput.id = 'entryVariableAddSpaceInputWorkspace';
             addSpaceInput.setAttribute('placeholder', Lang.Workspace.Variable_placeholder_content);
             addSpaceInput.variableContainer = this;
-            addSpaceInput.onkeypress = _whenEnter(function() {
-                if (this.enterKeyDisabled) {
-                    this.blur();
-                } else {
-                    that._addVariable();
-                }
-            });
+            // addSpaceInput.onkeypress = _whenEnter(function() {
+            //     if (this.enterKeyDisabled) {
+            //         this.blur();
+            //     } else {
+            //         that._addVariable();
+            //     }
+            // });
 
             addSpaceInput.onfocus = _setFocused;
             const doBlur = _setBlurredTimer(function() {
@@ -216,6 +216,25 @@ Entry.Playground = class {
                 .addClass('entryVariableAddSpaceCheckWorkspace')
                 .appendTo(addSpaceGlobalWrapper);
 
+            // 변수 속성 설정
+            const element = Entry.createElement('div')
+                .addClass('attr_inner_box')
+                .bindOnClick((e) => e.stopPropagation());
+            if (this.variableSettingView) {
+                $(this.variableSettingView).remove();
+                delete this.variableSettingView;
+            }
+            this.variableSettingView = element;
+
+            const varAttr = Entry.createElement('div')
+                .addClass('val_attr')
+                .appendTo(element);
+            const boxSubject = Entry.createElement('span')
+                .addClass('box_sjt')
+                .appendTo(varAttr);
+            boxSubject.innerHTML = Lang.Workspace.Variable_property;
+
+
 
             // 기본값 셋팅
             const addSpaceInputLabel2 = Entry.createElement('label')
@@ -224,30 +243,22 @@ Entry.Playground = class {
             addSpaceInputLabel2.setAttribute('for', 'entryVariableAddSpaceInputWorkspace');
             addSpaceInputLabel2.innerText = Lang.Command[812];
 
-            // const attrInputWrapper = Entry.createElement('span')
-            //     .appendTo(variableModal)
-            //     .addClass('custom_val_inptbox');
-            const attrInput = Entry.createElement('input')
-                                    .addClass('custom_val_inptbox')
-                                    .appendTo(addSpaceNameWrapper);
+            const attrInputWrapper = Entry.createElement('span')
+                .appendTo(addSpaceNameWrapper)
+                .addClass('val_inptbox');
+            const attrInput = Entry.createElement('input').appendTo(attrInputWrapper);
             attrInput.setAttribute('type', 'text');
             attrInput.value = 0;
             attrInput.onkeypress = Entry.Utils.blurWhenEnter;
             attrInput.onfocus = _setFocused;
-            attrInput.onblur = Entry.Utils.setBlurredTimer(function() {
+            attrInput.onblur = _setBlurredTimer(function() {
                 const v = that.selected;
                 Entry.do('variableSetDefaultValue', v.id_, this.value);
             });
 
-            const element = Entry.createElement('div')
-                .addClass('attr_inner_box')
-                .bindOnClick((e) => e.stopPropagation());
-            if (this.variableSettingView) {
-                $(this.variableSettingView).remove();
-                delete this.variableSettingView;
-            }
             element.initValueInput = attrInput;
-    
+            
+   
             // 확인 취소 버튼
             const addSpaceButtonWrapper = Entry.createElement('div')
                 .addClass('entryVariableAddSpaceButtonWrapperWorkspace')
@@ -314,7 +325,8 @@ Entry.Playground = class {
                 'variableContainerAddVariable',
                 Entry.Variable.create(this._makeVariableData('variable'))
             );
-            const [variable] = this.variables_;
+            // const [variable] = this.variables_;
+            const [variable] = Entry.variableContainer.variables_;
             this.updateSelectedVariable(variable);
             const { nameField } = variable.listElement;
             nameField.removeAttribute('disabled');
@@ -334,8 +346,126 @@ Entry.Playground = class {
         } catch(e) {
             console.log(e);
         }
+    }
 
+ 
+    renderVariableReference(variable) {
+        const variableId = variable.id_;
 
+        const callers = this._variableRefs.filter(({ block: { params } }) =>
+            _.includes(params, variableId)
+        );
+
+        const usedWrapper = Entry.createElement('div').addClass('use_obj');
+        const usedSubject = Entry.createElement('span')
+            .addClass('box_sjt')
+            .appendTo(usedWrapper);
+
+        if (variable.type === 'variable') {
+            usedSubject.innerHTML = Lang.Workspace.Variable_used_objects;
+        } else {
+            // variable.type === 'list'
+            usedSubject.innerHTML = Lang.Workspace.List_used_objects;
+        }
+
+        const listView = Entry.createElement('ul')
+            .addClass('obj_list')
+            .appendTo(usedWrapper);
+
+        if (callers.length) {
+            const fragment = document.createDocumentFragment();
+
+            callers.forEach((caller) => {
+                const element = Entry.createElement('li');
+                !caller.object.thumbnailView_ && caller.object.generateView();
+                const thumb = caller.object.thumbnailView_.cloneNode();
+                thumb.addClass('thmb');
+                element.appendChild(thumb);
+                Entry.createElement('span')
+                    .addClass('text')
+                    .appendTo(element).innerHTML = `${caller.object.name} : ${
+                    Lang.Blocks[`VARIABLE_${caller.block.type}`]
+                }`;
+                element.variable = variable;
+                element.bindOnClick((e) => {
+                    e.stopPropagation();
+                    if (Entry.playground.object != caller.object) {
+                        Entry.container.selectObject();
+                        Entry.container.selectObject(caller.object.id, true);
+                    }
+                    const block = caller.funcBlock || caller.block;
+                    const board = _.result(block.view, 'getBoard');
+                    if (board) {
+                        board.setSelectedBlock(block.view);
+                    }
+                    Entry.playground.toggleOnVariableView();
+                    Entry.playground.changeViewMode('variable');
+                });
+                fragment.appendChild(element);
+            });
+            listView.appendChild(fragment);
+        } else {
+            Entry.createElement('li')
+                .addClass('text red')
+                .appendTo(listView).innerHTML = Lang.Workspace.no_use;
+        }
+
+        this.variableSettingView && this.variableSettingView.appendChild(usedWrapper);
+        this.listSettingView && this.listSettingView.appendChild(usedWrapper);
+    }
+
+    clearListElement() {
+        const clearList = [this.listView_];
+        for (const elem of clearList) {
+            while (elem && elem.firstChild) {
+                elem.removeChild(elem.lastChild);
+            }
+        }
+        if (this.listSettingView) {
+            $(this.listSettingView).remove();
+            delete this.listSettingView;
+        }
+        if (this.variableSettingView) {
+            $(this.variableSettingView).remove();
+            delete this.variableSettingView;
+        }
+    }
+
+    resetVariableAddPanel(type = 'variable') {
+        const panel = this._getAddPanel(type);
+        if (!panel.view) {
+            return;
+        }
+        const info = panel.info;
+        info.isCloud = false;
+        info.object = null;
+        panel.view.name.value = '';
+        panel.isOpen = false;
+        this.updateVariableAddView(type);
+    }
+
+    updateVariableAddView(type = 'variable') {
+        const {
+            info: { isCloud, object },
+            view,
+        } = this._getAddPanel(type);
+        const { cloudCheck, globalCheck, localCheck, cloudWrapper } = view;
+
+        // if (isCloud) {
+        //     cloudCheck.addClass('on');
+        // } else {
+        //     cloudCheck.removeClass('on');
+        // }
+
+        // if (object) {
+        //     globalCheck.removeClass('on');
+        //     localCheck.addClass('on');
+        //     cloudWrapper.addClass('entryVariableAddSpaceUnCheckedWorkspace');
+        // } else {
+        //     globalCheck.addClass('on');
+        //     localCheck.removeClass('on');
+        //     cloudWrapper.removeClass('entryVariableAddSpaceUnCheckedWorkspace');
+        // }
     }
 
     _makeVariableData(type = 'variable') {
@@ -390,7 +520,6 @@ Entry.Playground = class {
     }
 
     checkAllVariableName(name, variable) {
-        console.log(name_);
         return this[variable].some(({ name_ }) => name_ === name);
     }
 
@@ -425,6 +554,160 @@ Entry.Playground = class {
         }
     }
 
+    generateVariableSettingView(variable) {
+        const that = this;
+        const createElement = Entry.createElement;
+        const _setFocused = Entry.Utils.setFocused;
+        const _setBlurredTimer = Entry.Utils.setBlurredTimer;
+
+        // 변수 속성 설정
+        const element = createElement('div')
+            .addClass('attr_inner_box')
+            .bindOnClick((e) => e.stopPropagation());
+        if (this.variableSettingView) {
+            $(this.variableSettingView).remove();
+            delete this.variableSettingView;
+        }
+        this.variableSettingView = element;
+
+        const varAttr = createElement('div')
+            .addClass('val_attr')
+            .appendTo(element);
+        const boxSubject = createElement('span')
+            .addClass('box_sjt')
+            .appendTo(varAttr);
+        boxSubject.innerHTML = Lang.Workspace.Variable_property;
+
+        // 기본 값 입력 창
+        const attrInputBox = createElement('div')
+            .addClass('attr_inpt')
+            .appendTo(varAttr);
+        if (this._isPythonMode()) {
+            attrInputBox.addClass('hidden');
+        }
+
+        // const attrInputLabel = createElement('label').appendTo(attrInputBox);
+        // attrInputLabel.setAttribute('for', 'attr_cnt');
+        // attrInputLabel.innerHTML = Lang.Workspace.default_value;
+
+        // const attrInputWrapper = createElement('span')
+        //     .appendTo(attrInputBox)
+        //     .addClass('val_inptbox');
+        // const attrInput = createElement('input').appendTo(attrInputWrapper);
+        // attrInput.setAttribute('type', 'text');
+        // attrInput.value = 0;
+        // attrInput.onkeypress = Entry.Utils.blurWhenEnter;
+        // attrInput.onfocus = _setFocused;
+        // attrInput.onblur = _setBlurredTimer(function() {
+        //     const v = that.selected;
+        //     Entry.do('variableSetDefaultValue', v.id_, this.value);
+        // });
+        // element.initValueInput = attrInput;
+
+        // 슬라이드 입력창
+        const slideInputBox = createElement('div')
+            .addClass('slide_inpt')
+            .appendTo(varAttr);
+
+        const slideCheckBox = createElement('div')
+            .addClass('chk_box')
+            .appendTo(slideInputBox);
+        element.slideCheck = createElement('span')
+            .addClass('entryVariableAddSpaceCheckWorkspace')
+            .bindOnClick(() => {
+                const v = that.selected;
+                Entry.do(
+                    'variableSetSlidable',
+                    v.id_,
+                    v.getType() === 'variable' ? 'slide' : 'variable'
+                );
+            })
+            .appendTo(slideCheckBox);
+        const slideCheckText = createElement('span')
+            .addClass('chk_text')
+            .appendTo(slideCheckBox);
+        slideCheckText.innerHTML = Lang.Workspace.slide;
+
+        // 최소 최대 영역
+        const slideCountBox = createElement('div')
+            .addClass('cnt_box')
+            .appendTo(slideInputBox);
+
+        const minValueInput = createElement('input').appendTo(slideCountBox);
+        minValueInput.innerHTML = Lang.Workspace.min_value;
+        minValueInput.setAttribute('type', 'text');
+
+        const v = that.selected;
+        const vType = _.result(v, 'type');
+
+        if (vType === 'slide') {
+            minValueInput.value = v.minValue_;
+        } else {
+            minValueInput.value = 0;
+        }
+        minValueInput.onkeypress = Entry.Utils.blurWhenEnter;
+        minValueInput.onfocus = _setFocused;
+        minValueInput.onblur = _setBlurredTimer(function() {
+            const v = that.selected;
+            let value = this.value;
+            value = Entry.Utils.isNumber(value) ? value : v.getMinValue();
+            Entry.do('variableSetMinValue', v.id_, value);
+        });
+        element.minValueInput = minValueInput;
+
+        createElement('span')
+            .addClass('dash')
+            .appendTo(slideCountBox).innerHTML = '~';
+
+        const maxValueInput = createElement('input').appendTo(slideCountBox);
+        maxValueInput.innerHTML = Lang.Workspace.max_value;
+        maxValueInput.setAttribute('type', 'text');
+
+        if (vType === 'slide') {
+            maxValueInput.value = v.maxValue_;
+        } else {
+            maxValueInput.value = 100;
+        }
+
+        maxValueInput.onkeypress = Entry.Utils.blurWhenEnter;
+        maxValueInput.onfocus = _setFocused;
+        maxValueInput.onblur = _setBlurredTimer(function() {
+            const v = that.selected;
+            let value = this.value;
+            value = Entry.Utils.isNumber(value) ? value : v.getMaxValue();
+            Entry.do('variableSetMaxValue', v.id_, value);
+        });
+        element.maxValueInput = maxValueInput;
+        this.renderVariableReference(variable);
+    }
+
+    updateVariableSettingView(v) {
+        const view = this.variableSettingView;
+        if (!view) {
+            return;
+        }
+        const {
+            initValueInput: initValue,
+            slideCheck: slide,
+            minValueInput: minValue,
+            maxValueInput: maxValue,
+        } = view;
+
+        // slide.removeClass('on');
+        // if (v.getType() === 'slide') {
+        //     slide.addClass('on');
+        //     minValue.removeAttribute('disabled');
+        //     maxValue.removeAttribute('disabled');
+        //     minValue.value = v.getMinValue();
+        //     maxValue.value = v.getMaxValue();
+        // } else {
+        //     minValue.setAttribute('disabled', 'disabled');
+        //     maxValue.setAttribute('disabled', 'disabled');
+        // }
+
+        initValue.value = v.getValue();
+        v.listElement.appendChild(view);
+    }
 
     /**
      * Generate default view.

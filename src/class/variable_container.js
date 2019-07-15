@@ -2962,7 +2962,8 @@ Entry.VariableContainer = class VariableContainer {
             case 'listSetVisibility':
                 return this.listSettingView.visibleCheck;
             case 'variableSetDefaultValue':
-                return this.variableSettingView.initValueInput;
+                return 0;
+                // return this.variableSettingView.initValueInput;
             case 'slideCheck':
                 return this.variableSettingView.slideCheck;
             case 'variableMinValue':
