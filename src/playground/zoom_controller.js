@@ -1,4 +1,4 @@
-import Toast from './toast';
+
 import Interpreter from './interpreter'
 
 // const interpreter = require('./playground/interpreter');
@@ -51,7 +51,7 @@ Entry.ZoomController = class ZoomController {
         this.renderStart(zoomGroup);
         this.addControl(zoomGroup);
     
-        zoomGroup.toast = new Toast(this.nowBoard);
+    
         return zoomGroup;
     }
 
@@ -78,6 +78,7 @@ Entry.ZoomController = class ZoomController {
             height: 85,
             filter: 'url(#entryButtonShadowFilter)',
             style: 'cursor: pointer;',
+            onClick :`window.android.uploadCode(${Entry.binaryOutput})`
         });
         zoomGroup.plus = zoomGroup.svgZoom.elem('image', {
             href: `${Entry.mediaFilePath}custom/modi_btn_remote_dis.png`,
@@ -167,72 +168,75 @@ Entry.ZoomController = class ZoomController {
                     if(yn) {
                         // c code로 내보낸다
                     
-                        try {
+                        var startBtnCount = 0;
+                        const blockMap = this.nowBoard.code._blockMap;
 
-                            var startBtnCount = 0;
-                            const blockMap = this.nowBoard.code._blockMap;
+                        console.log(blockMap);
 
-                            console.log(blockMap);
+                        const keys = Object.keys(blockMap) || [];
+
+                        console.log('key', keys);
+
+                        keys.forEach((id) => {
+                            var block = blockMap[id];
+
+                            console.log('block ',block);
+
+                            if(block.data.type == 'when_run_button_click') {
+                                startBtnCount++;
+
+                                if(startBtnCount > 1) {
+                                    window.android.failUpload('시작버튼은 1개만 사용할 수 있어요.');
+                                    throw new Error('시작버튼이 2개 입니다.');
+                                }
+                                // console.log(block.data.type);
+
+                            }                                
+                        
+                        });
+
+
+                        const block = blockMap[keys[0]];
+                        var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
+                        var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
+                        // var blockToPyParser = new Entry.BlockToPyParser(syntax);
+                        var blockToCParser = new Entry.BlockToCParser(syntax);
+                        // var pyToBlockParser = new Entry.PyToBlockParser(syntax);
     
-                            const keys = Object.keys(blockMap) || [];
-
-                            console.log('key', keys);
-
-                            keys.forEach((id) => {
-                                var block = blockMap[id];
-
-                                console.log('block ',block);
-
-                                if(block.data.type == 'when_run_button_click') {
-                                    startBtnCount++;
-
-                                    if(startBtnCount > 1) {
-                                        window.android.failUpload('시작버튼은 1개만 사용할 수 있어요.');
-                                        throw new Error('시작버튼이 2개 입니다.');
-                                    }
-                                    // console.log(block.data.type);
-
-                                }                                
-                            
-                            });
-
-
-                            const block = blockMap[keys[0]];
-                            var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
-                            var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
-                            // var blockToPyParser = new Entry.BlockToPyParser(syntax);
-                            var blockToCParser = new Entry.BlockToCParser(syntax);
-                            // var pyToBlockParser = new Entry.PyToBlockParser(syntax);
+                        blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
+                        var cOutput = blockToCParser.Thread(block.getThread());
         
-                            blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
-                            var cOutput = blockToCParser.Thread(block.getThread());
-            
-                            // Entry.module = 'Network network0(0x07B4573);\nIr ir0(0x206080B18920);\nDisplay display0(0x4000323AEE9C);\n';
-    
-                            // console.log('Entry.module', Entry.module);
-                            var binary = '"#include "user.hpp"\n\nusing namespace math;\n\nvoid doUserTask()\n{\n';
-                            binary += Entry.module;
-                            binary += '\n';
-                            binary += cOutput;
-                            binary += '\nsleep(1);\n}\n}'
-                            
-                            
-                                const binaryOutput= Interpreter.makeFrame(binary);
-                            
-                                // alert(binary);
-                                // alert(Entry.module);
-                                // alert(JSON.stringify(binaryOutput.block));
-                                // console.log('binary',binary);
-                                // console.log('binaryOutput',binaryOutput);
-                                // console.log('binaryOutput',JSON.stringify(binaryOutput.block));
-                                window.android.uploadCode(binaryOutput.block);
-                        }
+                        // Entry.module = 'Network network0(0x07B4573);\nIr ir0(0x206080B18920);\nDisplay display0(0x4000323AEE9C);\n';
 
-                        catch (e) {
+                        // console.log('Entry.module', Entry.module);
+                        var binary = '"#include "user.hpp"\n\nusing namespace math;\n\nvoid doUserTask()\n{\n';
+                        binary += Entry.module;
+                        binary += '\n';
+                        binary += cOutput;
+                        binary += '\nsleep(1);\n}\n}'
+                        
+                            let binaryOutput = Interpreter.makeFrame(binary);
+                           
+                            let project = Entry.exportProject();
 
-                            // console.log('error',e.message);
-                            window.android.failUpload(e.message);
-                        }
+                            Entry.binaryOutput = binaryOutput.block
+                            Entry.project = project
+
+                            // uploadCode(binaryOutput.block);
+
+                            // alert(JSON.stringify(project));
+                            // console.log('project',project);
+
+                            // alert(binary);
+                            // alert(Entry.module);
+                            // alert(JSON.stringify(binaryOutput.block));
+                            // console.log('binary',binary);
+                            // console.log('binaryOutput',binaryOutput);
+                            // console.log('binaryOutput',JSON.stringify(binaryOutput.block));
+                            
+                            // window.android.exportProject(JSON.stringify(project));
+                            window.android.uploadCode(binaryOutput.block);
+                            
                         
                     }
                 
@@ -279,7 +283,7 @@ Entry.ZoomController = class ZoomController {
         const zoomGroup = this.boardMap.get(this.nowBoard);
         const { workspace } = this.nowBoard;
         workspace.setScale(scale);
-        zoomGroup.toast.show(`${scale * 100}%`);
+    
         const { scroller } = this.nowBoard;
         scroller.resizeScrollBar && scroller.resizeScrollBar.call(scroller);
     }
@@ -295,7 +299,7 @@ Entry.ZoomController = class ZoomController {
         
         this.align();
 
-        this.setScale(1.5);
+        this.setScale(1.2);
     }
 
     getPosition() {
@@ -324,11 +328,7 @@ Entry.ZoomController = class ZoomController {
     }
 
     destroy() {
-        this.boardMap.forEach((zoomGroup) => {
-            if (zoomGroup.toast) {
-                zoomGroup.toast.destroy();
-            }
-        });
+       
         delete this.nowBoard;
         delete this.boardMap;
     }
