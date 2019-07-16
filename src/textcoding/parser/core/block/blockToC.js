@@ -296,6 +296,17 @@ Entry.BlockToCParser = class {
                         break;
                         
                     }
+                    case 'modi_melody_speaker' : {
+                        // resultTextCode = Entry.TextCodingUtil.assembleModiSetBasicSpeakerBlock(
+                        //     block,
+                        //     resultTextCode
+                        // );
+                        console.log(resultTextCode)
+                        resultTextCode = resultTextCode
+                        break;
+                        
+                    }
+                    
             
                 }
             }

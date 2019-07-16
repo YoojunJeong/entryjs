@@ -213,6 +213,7 @@ Entry.MODI.blockMenuBlocks = [
     'modi_set_led_color',
     'modi_set_basic_speaker',
     'modi_set_custom_speaker',
+    'modi_melody_speaker',
     'modi_print_display_by_value',
 ];
 //region modi 모디
@@ -1303,7 +1304,6 @@ Entry.MODI.getBlocks = function() {
                     },
                 ],
             },
-          
         },
         modi_set_custom_speaker: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
@@ -1466,6 +1466,134 @@ Entry.MODI.getBlocks = function() {
                     },
                 ],
             }
+          
+        },
+
+        modi_melody_speaker: {
+            melodyBlock: ['송어', '은파'],
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            skeleton: 'basic',
+            template: '스피커의 %2 멜로디 크기는 %3(으)로 정하기 %4',
+            params: [
+                {
+                    type: 'DropdownDynamic',
+                    value: null,
+                    fontSize: 11,
+                    menuName: Entry.MODI.speakerList,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Dropdown',
+                    options: [
+                        ['송어', 1],
+                        ['은파', 2],
+                        ['엘리제를 위하여', 3],
+                    ],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/hardware_icon.svg',
+                    size: 12,
+                },
+            ],
+            events: {},
+            def: {
+                params: [
+                    null,
+                    '송어',
+                    {
+                        type: 'number',
+                        params: ['100'],
+                    },
+                ],
+                type: 'modi_melody_speaker',
+            },
+            paramsKeyMap: {
+                name: 0,
+                frequence: 1,
+                volume: 2,
+            },
+            class: 'speaker',
+            isNotFor: ['modi'],
+            func: function(sprite, script) {
+                if (!Entry.hw.sendQueue.moduleValue) {
+                    Entry.MODI.initSend();
+                }
+                var key = script.getStringField('name'),
+                    frequence = script.getStringField('frequence'),
+                    volume = script.getNumberValue('volume', script);
+                var moduleID = JSON.parse(Entry.hw.portData.module['speaker'][key]).id;
+
+                var sq = Entry.hw.sendQueue.moduleValue;
+                sq['speaker'][key] = JSON.stringify({
+                    module: 'SPEAKER_BUZZER',
+                    id: moduleID,
+                    value1: frequence,
+                    value2: volume,
+                });
+
+                return script.callReturn();
+            },
+            syntax: {
+                c: [
+                    {
+                        syntax: `speaker0.setTune(F_SOL_6, 100);
+                        sleep(200);
+                        for(int i=0; i<2; i++)
+                        {
+                            speaker0.setTune(F_DO_7, 100);
+                            sleep(250);
+                            speaker0.setTune(F_DO_7, 0);
+                            sleep(100);
+                            sleep(1);
+                        }
+                        for(int i=0; i<2; i++)
+                        {
+                            speaker0.setTune(F_MI_7, 100);
+                            sleep(250);
+                            speaker0.setTune(F_MI_7, 0);
+                            sleep(100);
+                            sleep(1);
+                        }
+                        speaker0.setTune(F_DO_7, 100);
+                        sleep(600);
+                        speaker0.setTune(F_DO_7, 0);
+                        sleep(100);`,
+                        template: `speaker0.setTune(F_SOL_6, 100);
+                        sleep(200);
+                        for(int i=0; i<2; i++)
+                        {
+                            speaker0.setTune(F_DO_7, 100);
+                            sleep(250);
+                            speaker0.setTune(F_DO_7, 0);
+                            sleep(100);
+                            sleep(1);
+                        }
+                        for(int i=0; i<2; i++)
+                        {
+                            speaker0.setTune(F_MI_7, 100);
+                            sleep(250);
+                            speaker0.setTune(F_MI_7, 0);
+                            sleep(100);
+                            sleep(1);
+                        }
+                        speaker0.setTune(F_DO_7, 100);
+                        sleep(600);
+                        speaker0.setTune(F_DO_7, 0);
+                        sleep(100);`,
+                    },
+                ],
+            },
           
         },
         modi_print_display_by_value: {

@@ -419,6 +419,7 @@ EntryStatic.getAllBlocks = function() {
                 'modi_set_basic_speaker',
                 'modi_set_custom_speaker',
                 'modi_play_speaker',
+                'modi_melody_speaker',
                 'modi_print_display_by_value',
             ].concat(EntryStatic.DynamicHardwareBlocks),
         },
