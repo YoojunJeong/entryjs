@@ -159,6 +159,8 @@ Entry.ZoomController = class ZoomController {
                 break;
             case 'EXPORT':
 
+                console.log(Entry.variableContainer.variables_);
+
                     var startBtnCount = 0;
                         const blockMap = this.nowBoard.code._blockMap;
 
