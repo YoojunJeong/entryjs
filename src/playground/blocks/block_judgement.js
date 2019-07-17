@@ -532,7 +532,7 @@ module.exports = {
 
                     c: [
                         {
-                            syntax: '%1 %2 %3',
+                            syntax: '(%1 %2 %3)',
                             template: '%1 %2 %3',
                             keyOption: 'boolean_basic_operator',
                             blockType: 'param',
@@ -670,7 +670,7 @@ module.exports = {
                     ],
                     c:[
                         {
-                            syntax: '%1 %2 %3',
+                            syntax: '(%1 %2 %3)',
                             template: '%1 %2 %3',
                             blockType: 'param',
                             textParams: [
@@ -753,7 +753,7 @@ module.exports = {
                     ],
                     c:[
                         {
-                            syntax: '%1 %2 %3',
+                            syntax: '(%1 %2 %3)',
                             template: '%1 %2 %3',
                             blockType: 'param',
                             textParams: [
