@@ -193,6 +193,21 @@ Entry.MODI = {
         }
         return list;
     },
+    displayImageList: function() {
+        // TODO: 이미지 리소스와 연결
+        var list = [
+            ['기본이미지', 'basic_image0']
+        ];
+
+        return list;
+    },
+    speakerMelodyList: function() {
+        // TODO: 멜로디 리소스와 연결
+        var list = [
+            ['기본소리', 'basic_melody0']
+        ];
+        return list;
+    }
 };
 Entry.MODI.blockMenuBlocks = [
     //MODI
@@ -200,6 +215,7 @@ Entry.MODI.blockMenuBlocks = [
     'modi_environment_value',
     'modi_dial_value',
     'modi_gyroscope_value',
+    // 'modi_button_judgement',
     'modi_button_value',
     'modi_button_true',
     'modi_button_false',
@@ -214,6 +230,31 @@ Entry.MODI.blockMenuBlocks = [
     'modi_set_basic_speaker',
     'modi_set_custom_speaker',
     'modi_print_display_by_value',
+    'modi_display_variable',
+    'modi_display_image',
+    'modi_display_reset',
+    'modi_display_move',
+    'modi_network_bell',
+    'modi_network_button_judgement',
+    'modi_network_joystick_judgement',
+    'modi_network_timer_judgement',
+    'modi_network_button',
+    'modi_network_slider',
+    'modi_network_dial',
+
+    // 'modi_network_button_true',
+    // 'modi_network_button_false',
+    // 'modi_network_joystick',
+    // 'modi_network_joystick_unpressed',
+    // 'modi_network_joystick_up',
+    // 'modi_network_joystick_down',
+    // 'modi_network_joystick_left',
+    // 'modi_network_joystick_right',
+    // 'modi_network_slider_left',
+    // 'modi_network_slider_right',
+    // 'modi_network_timer',
+    // 'modi_network_timer_unreached',
+    // 'modi_network_timer_reached',
 ];
 //region modi 모디
 Entry.MODI.getBlocks = function() {
@@ -1472,7 +1513,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '디스플레이 화면에 %2 보이기 %3',
+            template: '화면에 %2 보이기 %3',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1541,6 +1582,670 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
+        modi_display_variable : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            skeleton: 'basic',
+            template: '화면의 %1 줄에 %2 보이기 %3',
+            params: [
+                {
+                    type: 'Dropdown',
+                    options: [['첫 번째', 0], ['두 번째', 15], ['세 번째', 30]],
+                    value: 0,
+                    fontSize: 10,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/hardware_icon.svg',
+                    size: 12,
+                },
+            ],
+            events: {},
+            def: {
+                params: [
+                    null,
+                    {
+                        type: 'number',
+                        params: ['10'],
+                    },
+                ],
+                type: 'modi_display_variable',
+            },
+            paramsKeyMap: {
+                name: 0,
+                text: 1,
+            },
+            class: 'display',
+            isNotFor: ['modi'],
+            func: function(sprite, script) {
+                return script.callReturn();
+            },
+            syntax: {
+                c: [
+                    {
+                        syntax: 'display0.setVariable(2,%1,%2);',
+                        template: 'display0.setVariable(2,%1,%2);',
+                    },
+                ],
+            }
+        },
+        modi_display_image : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            skeleton: 'basic',
+            template: '화면의 %1 그림 보이기 %2',
+            params: [
+                {
+                    type: 'DropdownDynamic',
+                    value: null,
+                    fontSize: 11,
+                    menuName: Entry.MODI.displayImageList,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/hardware_icon.svg',
+                    size: 12,
+                },
+            ],
+            events: {},
+            def: {
+                params: [
+                    null,
+                ],
+                type: 'modi_display_image',
+            },
+            paramsKeyMap: {
+                name: 0,
+                text: 1,
+            },
+            class: 'display',
+            isNotFor: ['modi'],
+            func: function(sprite, script) {
+                return script.callReturn();
+            },
+            syntax: {
+                c: [
+                    {
+                        syntax: 'display0.drawPicture(%1);',
+                        template: 'display0.drawPicture(%1);',
+                    },
+                ],
+            }
+        },
+        modi_display_reset : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            skeleton: 'basic',
+            template: '화면 모두 지우기 %1',
+            params: [
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/hardware_icon.svg',
+                    size: 12,
+                },
+            ],
+            events: {},
+            def: {
+                params: [
+                    null,
+                ],
+                type: 'modi_display_reset',
+            },
+            paramsKeyMap: {
+                name: 0,
+                text: 1,
+            },
+            class: 'display',
+            isNotFor: ['modi'],
+            func: function(sprite, script) {
+                return script.callReturn();
+            },
+            syntax: {
+                c: [
+                    {
+                        syntax: 'display0.setReset();',
+                        template: 'display0.setReset();',
+                    },
+                ],
+            }
+        },
+        modi_display_move : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            skeleton: 'basic',
+            template: '화면을 %1 방향으로 %2 만큼 이동하기 %3',
+            params: [
+                {
+                    type: 'Dropdown',
+                    options: [
+                        ['위', 'Vertical\('],
+                        ['아래', 'Vertical\(-1*'],
+                        ['오른쪽', 'Horizontal\('],
+                        ['왼쪽', 'Horizontal\(-1*'],
+                    ],
+                    value: 'Vertical\(',
+                    fontSize: 10,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Block',
+                    accept: 'string',
+                    defaultType: 'number',
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/hardware_icon.svg',
+                    size: 12,
+                },
+            ],
+            events: {},
+            def: {
+                params: [
+                    null,
+                    {
+                        type: 'text',
+                        params: ['10'],
+                    }
+                ],
+                type: 'modi_display_move',
+            },
+            paramsKeyMap: {
+                name: 0,
+                text: 1,
+            },
+            class: 'display',
+            isNotFor: ['modi'],
+            func: function(sprite, script) {
+                return script.callReturn();
+            },
+            syntax: {
+                c: [
+                    {
+                        syntax: 'display0.set%1%2);',
+                        template: 'display0.set%1%2);',
+                    },
+                ],
+            }
+        },
+        modi_network_bell: {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            skeleton: 'basic',
+            template: '네트워크 알람 %1 %2',
+            params: [
+                {
+                    type: 'Dropdown',
+                    options: [
+                        ['켜기', 'BUZZER_ON'],
+                        ['끄기', 'BUZZER_OFF'],
+                    ],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/hardware_icon.svg',
+                    size: 12,
+                },
+            ],
+            events: {},
+            def: {
+                params: [
+                    'BUZZER_ON'
+                ],
+                type: 'modi_network_bell',
+            },
+
+            class: 'network',
+            isNotFor: ['modi'],
+
+            syntax: {
+                c: [
+                    {
+                        syntax: 'network0.setBuzzer(%1);',
+                        template: 'network0.setBuzzer(%1);',
+                    },
+                ],
+            }
+        },
+        modi_network_button : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_string_field',
+            template: '네트워크 버튼의 %2',
+            params: [
+                {
+                    type: 'DropdownDynamic',
+                    value: null,
+                    fontSize: 11,
+                    menuName: Entry.MODI.buttonList,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Dropdown',
+                    options: [
+                        ['클릭', 'getButtonClick'],
+                        ['두번 클릭', 'getButtonDoubleClick'],
+                        ['스위치', 'getButtonToggle'],
+                        ['누름상태', 'getButtonPressed']],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+            ],
+            def: {
+                params: [null, 'getButtonPressed'],
+                type: 'modi_network_button',
+            },
+            paramsKeyMap: {
+                property: 0,
+            },
+            class: 'network',
+            isNotFor: ['modi'],
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: 'network0.%2()',
+                        template: 'network0.%2()',
+                    },
+                ],
+            },
+        },
+        modi_network_button_judgement : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_boolean_field',
+            template: '네트워크 버튼의 %2이(가) %3',
+            params: [
+                {
+                    type: 'DropdownDynamic',
+                    value: null,
+                    fontSize: 11,
+                    menuName: Entry.MODI.buttonList,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Dropdown',
+                    options: [
+                        ['클릭', 'getButtonClick'],
+                        ['두번 클릭', 'getButtonDoubleClick'],
+                        ['스위치', 'getButtonToggle'],
+                        ['누름상태', 'getButtonPressed']],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Dropdown',
+                    options: [
+                        ['눌림', 'TRUE'],
+                        ['안눌림', 'FALSE'],
+                    ],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+            ],
+            def: {
+                params: [null, 'getButtonPressed', 'TRUE'],
+                type: 'modi_network_button_judgement',
+            },
+            paramsKeyMap: {
+                property: 0,
+            },
+            class: 'network',
+            isNotFor: ['modi'],
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: '(network0.%2() == %3)',
+                        template: '(network0.%2() == %3)',
+                    },
+                ],
+            },
+        },
+        modi_network_button_true : {},
+        modi_network_button_false : {},
+        modi_network_joystick_judgement : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_boolean_field',
+            template: '네트워크 조이스틱 %2',
+            params: [
+                {
+                    type: 'DropdownDynamic',
+                    value: null,
+                    fontSize: 11,
+                    menuName: Entry.MODI.buttonList,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Dropdown',
+                    options: [
+                        ['위', 'JOYSTICK_UP'],
+                        ['아래', 'JOYSTICK_DOWN'],
+                        ['왼쪽', 'JOYSTICK_LEFT'],
+                        ['오른쪽', 'JOYSTICK_RIGHT']],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+            ],
+            def: {
+                params: [null, 'JOYSTICK_UP'],
+                type: 'modi_network_joystick_judgement',
+            },
+            paramsKeyMap: {
+                property: 0,
+            },
+            class: 'network',
+            isNotFor: ['modi'],
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: '(network0.getJoystickDirection() == %2)',
+                        template: '(network0.getJoystickDirection() == %2)',
+                    },
+                ],
+            },
+        },
+        modi_network_joystick : {
+        },
+        modi_network_joystick_unpressed : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_string_field',
+            template: '안눌림',
+            def: {
+                params: [null],
+                type: 'modi_network_joystick_unpressed',
+            },
+            class: 'network',
+            isNotFor: ['modi'],
+            func: function(sprite, script) {
+                return 0;
+            },
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: 'JOYSTICK_UNPRESSED',
+                        template: 'JOYSTICK_UNPRESSED',
+                    },
+                ],
+            },
+        },
+        modi_network_joystick_up : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_string_field',
+            template: '위',
+            def: {
+                params: [null],
+                type: 'modi_network_joystick_up',
+            },
+            class: 'network',
+            isNotFor: ['modi'],
+            func: function(sprite, script) {
+                return 20;
+            },
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: 'JOYSTICK_UP',
+                        template: 'JOYSTICK_UP',
+                    },
+                ],
+            },
+        },
+        modi_network_joystick_down : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_string_field',
+            template: '아래',
+            def: {
+                params: [null],
+                type: 'modi_network_joystick_down',
+            },
+            class: 'network',
+            isNotFor: ['modi'],
+            func: function(sprite, script) {
+                return 30;
+            },
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: 'JOYSTICK_DOWN',
+                        template: 'JOYSTICK_DOWN',
+                    },
+                ],
+            },
+        },
+        modi_network_joystick_left : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_string_field',
+            template: '왼쪽',
+            def: {
+                params: [null],
+                type: 'modi_network_joystick_left',
+            },
+            class: 'network',
+            isNotFor: ['modi'],
+            func: function(sprite, script) {
+                return 40;
+            },
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: 'JOYSTICK_LEFT',
+                        template: 'JOYSTICK_LEFT',
+                    },
+                ],
+            },
+        },
+        modi_network_joystick_right : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_string_field',
+            template: '오른쪽',
+            def: {
+                params: [null],
+                type: 'modi_network_joystick_right',
+            },
+            class: 'network',
+            isNotFor: ['modi'],
+            func: function(sprite, script) {
+                return 50;
+            },
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: 'JOYSTICK_RIGHT',
+                        template: 'JOYSTICK_RIGHT',
+                    },
+                ],
+            },
+        },
+        modi_network_slider_left : {},
+        modi_network_slider_right : {},
+        modi_network_slider: {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_string_field',
+            template: '네트워크 %2 슬라이더의 값',
+            params: [
+                {
+                    type: 'DropdownDynamic',
+                    value: null,
+                    fontSize: 11,
+                    menuName: Entry.MODI.dialList,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Dropdown',
+                    options: [
+                        ['왼쪽', 'Left'],
+                        ['오른쪽', 'Right']
+                    ],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                }
+            ],
+            def: {
+                params: [null, 'Left'],
+                type: 'modi_network_slider',
+            },
+            paramsKeyMap: {
+                name: 0,
+                property: 1,
+            },
+            class: 'network',
+            isNotFor: ['modi'],
+            
+            syntax: {
+                c: [
+                    {
+                        syntax: 'network0.get%2SliderPosition()',
+                        template: 'network0.get%2SliderPosition()',
+                    },
+                ],
+            },
+        },
+        modi_network_dial : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_string_field',
+            template: '네트워크 다이얼의 회전위치',
+            params: [
+                {
+                    type: 'DropdownDynamic',
+                    value: null,
+                    fontSize: 11,
+                    menuName: Entry.MODI.dialList,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+            ],
+            def: {
+                params: [null],
+                type: 'modi_network_dial',
+            },
+            paramsKeyMap: {
+                name: 0,
+                property: 1,
+            },
+            class: 'network',
+            isNotFor: ['modi'],
+            
+            syntax: {
+                c: [
+                    {
+                        syntax: 'network0.getDialTurn()',
+                        template: 'network0.getDialTurn()',
+                    },
+                ],
+            },
+        },
+
+        modi_network_timer_judgement : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_boolean_field',
+            template: '네트워크 타이머 %2',
+            params: [
+                {
+                    type: 'DropdownDynamic',
+                    value: null,
+                    fontSize: 11,
+                    menuName: Entry.MODI.dialList,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Dropdown',
+                    options: [
+                        ['울림', 'TRUE'],
+                        ['안울림', 'FALSE'],
+                    ],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+            ],
+            def: {
+                params: [null, 'TRUE'],
+                type: 'modi_network_timer_judgement',
+            },
+            paramsKeyMap: {
+                name: 0,
+                property: 1,
+            },
+            class: 'network',
+            isNotFor: ['modi'],
+            
+            syntax: {
+                c: [
+                    {
+                        syntax: '(network0.getTimerReached()  == %2)',
+                        template: '(network0.getTimerReached()  == %2)',
+                    },
+                ],
+            },
+        },
+        modi_network_timer : {},
+        modi_network_timer_unreached : {},
+        modi_network_timer_reached : {},
     };
 };
 //endregion modi 모디
