@@ -7,7 +7,9 @@ module.exports = Entry;
 global.Entry = Entry;
 // var module = 'Network network0(0x40201371B0D8);\nLed led0(0x40201371B0D8);\nButton button0(0x2030D92B254A);\n';
 // var module = '';
-global.Entry.module = 'first\n';
+global.Entry.module = '';
+global.Entry.project = '';
+global.Entry.binaryOutput = '';
 
 require('core-js/fn/object/values');
 require('./graphicEngine/FakePIXI');

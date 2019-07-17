@@ -78,39 +78,61 @@
 
 <script src="./dist/entry.js"></script>
 
+<script src="../extern/util/static.js"></script>
+
 <!--main script-->
 <script>
                 window.PUBLIC_PATH_FOR_ENTRYJS = './dist/';
-                $(document).ready(function() {
-                    var initOption = {
-                        type: 'workspace',
 
+            
+                function loadProject(project) {
 
-                    };
-                    Entry.init(document.getElementById('workspace'), initOption);
-                    Entry.enableArduino();
-                    Entry.loadProject();
+    
+                    if(project != null) {
+                        
+                        console.log('project', project);
+                        $(document).ready(function() {
+                            var initOption = {
+                                type: 'workspace',
+                            };
+                            Entry.init(document.getElementById('workspace'), initOption);
+                            Entry.loadProject(project);
+                        });
+                      
+                    }
 
-                    // let videoSrc = "";
-                    // let playerHtml = '';
-                    // playerHtml += '<video width="100%" height="240px">';
-                    // playerHtml += '<source src="' + videoSrc + '" type="video/ogg">';
-                    // playerHtml += '</video>';
-                    // $(".player").append(playerHtml);
-                            
-                    //setInterval(() => {$(".player").append("1111"); console.log("11")},  5000)
-                });
+                    else {
+                        console.log('project is 0', project);
+                        $(document).ready(function() {
+                            var initOption = {
+                                type: 'workspace',
+                            };
+                            Entry.init(document.getElementById('workspace'), initOption);
+                            Entry.loadProject();
+                        });
+                    }
+                }
+        
 
                  function setConnectModule(module) {
 
-                   Entry.module = module;
+                   let result = '';
+                   const moduleToken = module.split('?');
 
+                   for (var i = 0; i < moduleToken.length; i++) {
 
-                }
+                        result += moduleToken[i] + '\n';
+                   }
+                   Entry.module = result;
+                 }
 
-                 function setDisConnectModule(module) {
+                 function setSaveProject() {
+                    let project = Entry.exportProject()
+                    let json = JSON.stringify(project);
 
-                }
+                    window.android.exportProject(json);
+                 }
+
 
             </script>
 </body>
