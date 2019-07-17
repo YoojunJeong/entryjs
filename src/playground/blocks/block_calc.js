@@ -185,7 +185,7 @@ module.exports = {
 
                     c: [
                         {
-                            syntax: '%1 %2 %3',
+                            syntax: '(%1 %2 %3)',
                             template: '%1 %2 %3',
                             keyOption: 'calc_basic',
                             blockType: 'param',
@@ -346,7 +346,7 @@ module.exports = {
                     
                     c: [
                         {
-                            syntax: 'getRandom(%2, %4)',
+                            syntax: 'getRandom(%2,%4)',
                             blockType: 'param',
                             textParams: [
                                 null,
