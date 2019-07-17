@@ -401,7 +401,6 @@ Entry.MODI.getBlocks = function() {
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
-
                 {
                     type: 'Dropdown',
                     options: [['위치', 2]],
@@ -2208,7 +2207,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '네트워크 다이얼의 위치',
+            template: '네트워크 다이얼의 %2',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -2218,9 +2217,16 @@ Entry.MODI.getBlocks = function() {
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
+                {
+                    type: 'Dropdown',
+                    options: [['위치', 2]],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
             ],
             def: {
-                params: [null],
+                params: [null, 2],
                 type: 'modi_network_dial',
             },
             paramsKeyMap: {
