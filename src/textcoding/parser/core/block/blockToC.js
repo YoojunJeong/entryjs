@@ -297,14 +297,12 @@ Entry.BlockToCParser = class {
                         
                     }
                     case 'modi_melody_speaker' : {
-                        // resultTextCode = Entry.TextCodingUtil.assembleModiSetBasicSpeakerBlock(
-                        //     block,
-                        //     resultTextCode
-                        // );
+                        resultTextCode = Entry.TextCodingUtil.assembleModiMelodySpeakerBlock(
+                            block,
+                            resultTextCode
+                        );
                         console.log(resultTextCode)
-                        resultTextCode = resultTextCode
                         break;
-                        
                     }
                     
                     case 'modi_print_display_by_value' : {

@@ -1487,9 +1487,9 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Dropdown',
                     options: [
-                        ['송어', 1],
-                        ['은파', 2],
-                        ['엘리제를 위하여', 3],
+                        ['송어', '송어'],
+                        ['은파', '은파'],
+                        ['엘리제를 위하여', '엘리제를 위하여'],
                     ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -1547,50 +1547,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: `speaker0.setTune(F_SOL_6, 100);
-                        sleep(200);
-                        for(int i=0; i<2; i++)
-                        {
-                            speaker0.setTune(F_DO_7, 100);
-                            sleep(250);
-                            speaker0.setTune(F_DO_7, 0);
-                            sleep(100);
-                            sleep(1);
-                        }
-                        for(int i=0; i<2; i++)
-                        {
-                            speaker0.setTune(F_MI_7, 100);
-                            sleep(250);
-                            speaker0.setTune(F_MI_7, 0);
-                            sleep(100);
-                            sleep(1);
-                        }
-                        speaker0.setTune(F_DO_7, 100);
-                        sleep(600);
-                        speaker0.setTune(F_DO_7, 0);
-                        sleep(100);`,
-                        template: `speaker0.setTune(F_SOL_6, 100);
-                        sleep(200);
-                        for(int i=0; i<2; i++)
-                        {
-                            speaker0.setTune(F_DO_7, 100);
-                            sleep(250);
-                            speaker0.setTune(F_DO_7, 0);
-                            sleep(100);
-                            sleep(1);
-                        }
-                        for(int i=0; i<2; i++)
-                        {
-                            speaker0.setTune(F_MI_7, 100);
-                            sleep(250);
-                            speaker0.setTune(F_MI_7, 0);
-                            sleep(100);
-                            sleep(1);
-                        }
-                        speaker0.setTune(F_DO_7, 100);
-                        sleep(600);
-                        speaker0.setTune(F_DO_7, 0);
-                        sleep(100);`,
+                        syntax: 'speacker0.?%2?%3',
+                        template: 'speacker0.?%2?%3',
                     },
                 ],
             },

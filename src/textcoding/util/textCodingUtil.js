@@ -1,6 +1,298 @@
 'use strict';
 
+const melodyLibrary = {
+    "송어" : 
+        `speaker0.setTune(F_SOL_6, 100);
+        sleep(200);
+        for(int i=0; i<2; i++)
+        {
+            speaker0.setTune(F_DO_7, 100);
+            sleep(250);
+            speaker0.setTune(F_DO_7, 0);
+            sleep(100);
+            sleep(1);
+        }
+        for(int i=0; i<2; i++)
+        {
+            speaker0.setTune(F_MI_7, 100);
+            sleep(250);
+            speaker0.setTune(F_MI_7, 0);
+            sleep(100);
+            sleep(1);
+        }
+        speaker0.setTune(F_DO_7, 100);
+        sleep(600);
+        speaker0.setTune(F_DO_7, 0);
+        sleep(100);
+        for(int i=0; i<2; i++)
+        {
+            speaker0.setTune(F_SOL_6, 100);
+            sleep(250);
+            speaker0.setTune(F_SOL_6, 0);
+            sleep(100);
+            sleep(1);
+        }
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(400);
+        speaker0.setTune(F_SOL_6, 0);
+        sleep(100);
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(200);
+        speaker0.setTune(F_RE_7, 100);
+        sleep(180);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(180);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(180);
+        speaker0.setTune(F_RA_6, 100);
+        sleep(180);
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(500);
+        speaker0.setTune(F_SOL_6, 0);
+        sleep(250);
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(200);
+        for(int i=0; i<2; i++)
+        {
+            speaker0.setTune(F_DO_7, 100);
+            sleep(250);
+            speaker0.setTune(F_DO_7, 0);
+            sleep(100);
+            sleep(1);
+        }
+        for(int i=0; i<2; i++)
+        {
+            speaker0.setTune(F_MI_7, 100);
+            sleep(250);
+            speaker0.setTune(F_MI_7, 0);
+            sleep(100);
+            sleep(1);
+        }
+        speaker0.setTune(F_DO_7, 100);
+        sleep(600);
+        speaker0.setTune(F_DO_7, 0);
+        sleep(100);
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(350);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(300);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(300);
+        speaker0.setTune(F_SI_6, 0);
+        sleep(50);
+        speaker0.setTune(F_RA_6, 100);
+        sleep(200);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(200);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(350);
+        speaker0.setTune(F_PA_S_6, 100);
+        sleep(300);
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(500);
+        speaker0.setTune(F_SOL_6, 0);
+        sleep(250);
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(250);
+        for(int i=0; i<2; i++)
+        {
+            speaker0.setTune(F_SI_6, 100);
+            sleep(250);
+            speaker0.setTune(F_SI_6, 0);
+            sleep(100);
+            sleep(1);
+        }
+        speaker0.setTune(F_DO_7, 100);
+        sleep(180);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(180);
+        speaker0.setTune(F_RA_6, 100);
+        sleep(180);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(180);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(500);
+        speaker0.setTune(F_DO_7, 0);
+        sleep(100);
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(350);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(300);
+        for(int i=0; i<2; i++)
+        {
+            speaker0.setTune(F_SI_6, 100);
+            sleep(250);
+            speaker0.setTune(F_SI_6, 0);
+            sleep(100);
+            sleep(1);
+        }
+        speaker0.setTune(F_SI_6, 100);
+        sleep(180);
+        speaker0.setTune(2800, 100);
+        sleep(180);
+        speaker0.setTune(F_RE_7, 100);
+        sleep(180);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(180);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(750);
+        speaker0.setTune(F_DO_7, 0);
+        sleep(150);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(250);
+        for(int i=0; i<2; i++)
+        {
+            speaker0.setTune(F_RA_6, 100);
+            sleep(250);
+            speaker0.setTune(F_RA_6, 0);
+            sleep(100);
+            sleep(1);
+        }
+        speaker0.setTune(F_RA_6, 100);
+        sleep(350);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(250);
+        speaker0.setTune(F_DO_7, 0);
+        sleep(100);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(500);
+        speaker0.setTune(F_DO_7, 0);
+        sleep(100);
+        for(int i=0; i<2; i++)
+        {
+            speaker0.setTune(F_SOL_6, 100);
+            sleep(250);
+            speaker0.setTune(F_SOL_6, 0);
+            sleep(100);
+            sleep(1);
+        }
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(400);
+        speaker0.setTune(F_SOL_6, 0);
+        sleep(100);
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(200);
+        speaker0.setTune(F_RE_7, 100);
+        sleep(300);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(300);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(750);
+        speaker0.setTune(F_DO_6, 0);
+        sleep(100);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(200);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(200);
+        speaker0.setTune(F_RA_6, 100);
+        sleep(200);
+        speaker0.setTune(F_RA_6, 0);
+        sleep(100);
+        speaker0.setTune(F_RA_6, 100);
+        sleep(300);
+        speaker0.setTune(F_RA_6, 0);
+        sleep(100);
+        speaker0.setTune(F_RA_6, 100);
+        sleep(180);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(180);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(180);
+        speaker0.setTune(F_RE_7, 100);
+        sleep(180);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(500);
+        speaker0.setTune(F_DO_7, 0);
+        sleep(100);
+        for(int i=0; i<2; i++)
+        {
+            speaker0.setTune(F_SOL_6, 100);
+            sleep(250);
+            speaker0.setTune(F_SOL_6, 0);
+            sleep(100);
+            sleep(1);
+        }
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(400);
+        speaker0.setTune(F_SOL_6, 0);
+        sleep(100);
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(200);
+        speaker0.setTune(F_RE_7, 100);
+        sleep(300);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(300);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(500);
+        `,
+
+    "은파" : 
+        `speaker0.setTune(F_RE_7, 100);
+        sleep(900);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(300);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(300);
+        speaker0.setTune(F_RE_7, 100);
+        sleep(300);
+        speaker0.setTune(3135, 100);
+        sleep(600);
+        speaker0.setTune(2959, 100);
+        sleep(300);
+        speaker0.setTune(F_MI_7, 100);
+        sleep(600);
+        speaker0.setTune(F_DO_7, 0);
+        sleep(300);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(600);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(300);
+        speaker0.setTune(F_RA_6, 100);
+        sleep(600);
+        speaker0.setTune(F_PA_S_6, 0);
+        sleep(300);
+        speaker0.setTune(F_MI_7, 100);
+        sleep(600);
+        speaker0.setTune(F_RE_7, 100);
+        sleep(300);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(600);
+        speaker0.setTune(F_SOL_6, 0);
+        sleep(300);
+        speaker0.setTune(F_RE_7, 100);
+        sleep(900);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(300);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(300);
+        speaker0.setTune(F_RE_7, 100);
+        sleep(300);
+        speaker0.setTune(3135, 100);
+        sleep(600);
+        speaker0.setTune(2925, 100);
+        sleep(300);
+        speaker0.setTune(F_MI_7, 100);
+        sleep(600);
+        speaker0.setTune(F_DO_7, 0);
+        sleep(300);
+        speaker0.setTune(F_DO_7, 100);
+        sleep(600);
+        speaker0.setTune(F_SI_6, 100);
+        sleep(300);
+        speaker0.setTune(F_RA_6, 100);
+        sleep(300);
+        speaker0.setTune(F_MI_7, 100);
+        sleep(300);
+        speaker0.setTune(F_RE_7, 100);
+        sleep(300);
+        speaker0.setTune(F_SOL_6, 100);
+        sleep(1500);
+        speaker0.setTune(F_SOL_6, 0);
+        sleep(300);`
+}
+
 class TextCodingUtil {
+
     // Entry 에서 사용 중
     canUsePythonVariables(variables) {
         return variables.every((variable) => {
@@ -750,6 +1042,16 @@ class TextCodingUtil {
 
         return result;
 
+    }
+
+    assembleModiMelodySpeakerBlock(block, syntax) {
+        let result = melodyLibrary["송어"];
+        const blockToken = syntax.split('?'); 
+        if(blockToken[1]){
+            result =  melodyLibrary[blockToken[1]]
+        }
+        console.log("assembleModiMelodySpeakerBlock", blockToken, melodyLibrary[blockToken[1]])
+        return result;
     }
 
     assembleDisplayBlock(block, syntax) {
