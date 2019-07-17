@@ -164,7 +164,7 @@ const FrameType = {
     VALUE: 10,
     OPERATOR: 11,
     VARIABLE: 12,
-
+    CALTULATOR: 14,
     // module / sleep
     FUNCTION_GET_VALUE: 20,
     FUNCTION_SET_VALUE: 21,
@@ -173,7 +173,7 @@ const FrameType = {
     VARIABLE_SET_VALUE: 26,
 
     DELAY: 30,
-
+    RANDOM: 31,
     // logic
     IF: 50,
     WHILE: 51,
@@ -190,7 +190,8 @@ const ValueType = {
 
     NUMBER: 1,
     STRING: 2,
-    PICTURE: 3
+    PICTURE: 3,
+    POLYNOMIALSTRING: 4,
 };
 
 const OperatorType = {
@@ -237,30 +238,19 @@ function stringToOperatorType(type) {
     var result = -1;
 
     switch (type) {
-        case "<":
-            result = OperatorType.LESS_THAN;
-            break;
-        case ">":
-            result = OperatorType.GREATER_THAN;
-            break;
-        case "<=":
-            result = OperatorType.LESS_THAN_OR_EQUAL_TO;
-            break;
-        case ">=":
-            result = OperatorType.GREATER_THAN_OR_EQUAL_TO;
-            break;
-        case "==":
-            result = OperatorType.EQUALITY;
-            break;
-        case "!=":
-            result = OperatorType.INEQUALITY;
-            break;
-        case "&&":
-            result = OperatorType.LOGICAL_AND;
-            break;
-        case "||":
-            result = OperatorType.LOGICAL_OR;
-            break;
+        case "<": return OperatorType.LESS_THAN;
+        case ">": return OperatorType.GREATER_THAN;
+        case "<=": return OperatorType.LESS_THAN_OR_EQUAL_TO;
+        case ">=": return OperatorType.GREATER_THAN_OR_EQUAL_TO;
+        case "==": return OperatorType.EQUALITY;
+        case "!=": return OperatorType.INEQUALITY;
+        case "&&": return OperatorType.LOGICAL_AND;
+        case "||": return OperatorType.LOGICAL_OR;
+        case '+': return OperatorType.ADDITION
+        case '-': return OperatorType.SUBTRACTION
+        case '*': return OperatorType.MULTIPLICATION
+        case '/': return OperatorType.DIVISION
+        case '%': return OperatorType.MODULUS
     }
 
     return result;
@@ -398,7 +388,7 @@ const regex = {
         condition: /([\x20-\x7E]*)(==|>=|<=|!=|>|<)([\x20-\x7E]*)/, // button0.getClick()==40
 
         setProperty: /^([\w]*)\.([\w]*)\s*\(([\x20-\x7E]+)?\);/, // led0.setRgb(0, 50, 100)
-        getProperty: /([\w]*)\.([\w]*)\s*\(\)/, // button.getClick()
+        getProperty: /([\w]*)\.([\w]*)\s*\(\s*\)/, // button.getClick()
         sleep: /^sleep\s*\(([\x20-\x7E]*)\);/, // sleep(50),
         break: /^break;/, // break
         continue: /^continue;/, // continue
@@ -406,7 +396,11 @@ const regex = {
         variable: /^\(char\*\)([\w]*)|([\w]*)/, // picture0, (char*)picture0
         string: /^"([\x20-\x7E]*)"/, // "MODI"
         number: /^(\s*[-0-9.]+)/ // 8421
-    }
+    },
+
+    polynomial: /([\w.\$]+)|(--|\+\+|&&|\|\||>=|<=|==|<|>|&|\||!|[+\-*\/%])/g,
+    braket: /([\w.]*)\(((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*)\)/g,
+    replacement: /\$[0-9]+/, // $0 $1 $2 $92 ... replace characters for inner polynomials
 };
 
 var module_map = new Map();
@@ -429,14 +423,17 @@ function makeFrame(luxc) {
         result.errorCode = code.errorCode;
     }
 
+
+    console.log("total length : " + result.block.length);
+
     return result;
 }
 
 function numberToArray(nums) {
     var result = [];
-    var hexString = nums.toString(16);
+    var hexString = Number(nums).toString(16);
 
-    for (var i = hexString.length; i >0 ; i -= 2) {
+    for (var i = hexString.length; i > 0; i -= 2) {
         var step = i - 2;
         if (step < 0)
             step = 0;
@@ -454,12 +451,11 @@ function getSetupBlock(luxc) {
     var setupList = [];
     var match;
 
-    while ((match = regex.setup.modules.exec(luxc)))
-    {
+    while ((match = regex.setup.modules.exec(luxc))) {
         var key = match[2];
         module_map.set(key, {
-            type : match[1].toLowerCase(),
-            uuid : match[3]
+            type: match[1].toLowerCase(),
+            uuid: match[3]
         });
     }
 
@@ -537,7 +533,7 @@ function getCodeBlock(luxc) {
                         var polynomial = convertPolynomial(match[2], modules);
                         var block = new VariableSetValue(
                             new StringValue(variableName),
-                            new StringValue(polynomial)
+                            new PolynomialStringValue(polynomial)
                         );
                         if (logicStack.length()) {
                             var logic = logicStack.peek();
@@ -612,7 +608,7 @@ function getCodeBlock(luxc) {
         errorCode = e;
     }
 
-    console.log(blocks);
+    // console.log(blocks);
 
     return {
         block: new CodeBlock(blocks),
@@ -639,43 +635,330 @@ function convertPolynomial(src, modules) {
     return result;
 }
 
+var luxcParer = new class {
+    constructor() {
+        this.regex = {
+            polynomial: /([\w.\$]+)|(--|\+\+|&&|\|\||>=|<=|==|<|>|&|\||!|[+\-*\/%])/g,
+            braket: /([\w.]*)\(((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*)\)/g,
+            replacement: /\$[0-9]+/, // $0 $1 $2 $92 ... replace characters for inner polynomials
+            string: /^"([\x20-\x7E]*)"/, // "MODI"
+        }
+    }
+
+    _match(str) {
+        var match_results = [];
+        var match = this.regex.braket.exec(str);
+        while (match) {
+            var inner = match;
+            match_results.push(inner);
+            match = this.regex.braket.exec(str);
+        }
+
+        return match_results;
+    }
+
+    _replace(str) {
+        var match_results = this._match(str);
+
+        // replace inner bracket results to '$' arguments for indexing
+        var replace_text = str;
+        for (var i = 0; i < match_results.length; i++) {
+            replace_text = replace_text.replace(match_results[i][0], "$" + i.toString());
+        }
+
+        // match = match_reulsts[i]
+        // match[0] full match result ex) led0.setRgb(100, 100, 0)
+        // match[1] function name ex) led0.setRgb or null, null means () operator
+        // match[2] arguments of inner braket '100, 100, 0'
+        var replacement = [match_results, replace_text];
+        return replacement;
+    };
+
+    _split(replace_text) {
+        var results = [];
+
+        var match = this.regex.polynomial.exec(replace_text);
+        while (match) {
+            results.push(match[0]);
+            match = this.regex.polynomial.exec(replace_text);
+        }
+
+        return results;
+    };
+
+    _ordering(args) {
+        // TODO: 연산자 우선순위 정렬
+        var unary_op_priority = [
+            '++', '--',                                                       // 증감 연산
+            '!', '~',                                                         // 비트 (!, ~)
+        ];
+
+        var op_priority = [
+            '*', '/', '%',                                                    // 산술연산
+            '+', '-',
+            '<<', '>>',                                                       // 쉬프트 연산
+            '<', '<=', '>', '>=',                                             // 비교연산
+            '==', '!=',
+            '&', '^', '|',                                                    // 비트연산
+            '&&', '||',                                                       // 논리연산
+            '=', '+=', '-=', '*=', '/=', '%=', '<<=', '>>=', '&=', '^=', '|=' // 대입연산
+        ];
+
+        var prev = (args, i) => {
+            var idx = i - 1;
+            if (idx >= args.length || idx < 0)
+                throw 'invaild index';
+            return idx;
+        };
+
+        var group = (args, offset, length) => {
+            var copy = args.slice(0, args.length);
+            copy.splice(offset, length, copy.slice(offset, offset + length));
+            return copy;
+        };
+
+        var sort = (args, operator_priority_array) => {
+            var operator_group = [];
+
+            for (var index = 0; index < args.length; index++) {
+                var pri = operator_priority_array.indexOf(args[index]);
+                if (pri >= 0) {
+                    operator_group.push({ idx: index, priority: pri, operator: args[index] });
+                }
+            }
+
+            operator_group.sort((lhs, rhs) => {
+                return lhs.priority < rhs.priority ? -1 : lhs.priority > rhs.priority ? 1 : 0;
+            });
+
+            return operator_group;
+        }
+
+        var unary_op_group = sort(args, unary_op_priority);
+        while (unary_op_group.length) {
+            var value = unary_op_group.shift();
+            var offset = value.idx;
+
+            args = group(args, offset, 2);
+            unary_op_group.forEach((v) => {
+                if (v.idx > offset) {
+                    v.idx -= 1;
+                }
+            });
+        }
+
+        var binary_op_group = sort(args, op_priority);
+        while (binary_op_group.length) {
+            var value = binary_op_group.shift();
+            var offset = prev(args, value.idx);
+
+            args = group(args, offset, 3);
+            binary_op_group.forEach((v) => {
+                if (v.idx > offset) {
+                    v.idx -= 2;
+                }
+            });
+        }
+
+        return args;
+    };
+
+    _repair(replacements, args, repair_with_bracket) {
+
+        var repair_args = [];
+        for (var i = 0; i < args.length; i++) {
+
+            if (Array.isArray(args[i])) {
+                this._repair(replacements, args);
+                continue;
+            }
+
+            var indexing = /\$([0-9]+)/g;
+            var index_match = indexing.exec(args[i]);
+
+            var repair_context = [];
+            while (index_match) {
+                var match_text = index_match[0];
+                var index = index_match[1];
+                var match = replacements[index];
+                var repair = match[2];
+
+                // option 'repair_with_bracket' is used to split comma arguments
+                if (match[1] != "" || repair_with_bracket)
+                    repair = match[1] + "(" + repair + ")";
+                
+                repair_context.push([match_text, repair]);
+                index_match = indexing.exec(args[i]);
+            }
+            
+            var repair_arg = args[i];
+            for (var j = 0; j < repair_context.length; j ++) {
+                repair_arg = repair_arg.replace(repair_context[j][0], repair_context[j][1]);
+            }
+
+            repair_args.push(repair_arg);
+        }
+
+        return repair_args;
+    };
+
+    _splitArgs(args_text) {
+        var replace_object = this._replace(args_text);
+        var split_array = replace_object[1].split(',');
+        var repair_args = this._repair(replace_object[0], split_array, true);
+        return repair_args;
+    }
+
+    _parsePolynomial(polynomial_text) {
+        var replace_object = this._replace(polynomial_text);
+        var split_array = this._split(replace_object[1]);
+        var repair_args = this._repair(replace_object[0], split_array);
+
+        if (repair_args.length == 1) {
+                var match_results = replace_object[0];
+                if (match_results.length == 1) {
+                    // match results means => "func"("args")
+                    var func = replace_object[0][0][1];
+                    var args = replace_object[0][0][2];
+
+                    if (func !== "")
+                {
+                        // getRandom(10, 20) or dial0.getTurn() ...
+                        return {call : func, args : this.parse(args)};
+                }
+            }
+
+            return repair_args[0];
+        }
+
+        for (var i = 0; i < repair_args.length; i++) {
+                var result = this._parsePolynomial(repair_args[i]);
+            repair_args[i] = result;
+        }
+
+        var ordered_args = this._ordering(repair_args);
+        return ordered_args;
+    }
+
+    parse(text) {
+        var args = this._splitArgs(text);
+
+        if (args.length > 1) {
+            for (var i = 0; i < args.length; i ++) {
+                var result = this.parse(args[i]);
+                args[i] = result;
+            }
+        } else if (args.length == 1) {
+
+            // check string match
+            if (this.regex.string.exec(args[0])) {
+                return args;
+            } else {
+                args[0] = this._parsePolynomial(args[0]);
+            }
+        }
+
+        if (args.length == 1)
+            return args[0];
+
+        return args;
+    }
+};
+
+function argsToBlock(args) {
+    if (Array.isArray(args)) {
+        if (args.length == 1)
+            return argsToBlock(args[0]);
+    }
+
+    if (Array.isArray(args)) {
+        if (args.length < 3) {
+            throw "too few arguments" + args;
+        } else if (args.length > 3) {
+            throw "too many arguments" + args;
+        }
+
+        const logical = ['&&', '||', '==', '>=', '<=', '>', '<', '!=']
+        const arthmatic = ['+', '-', '*', '/', '%']
+
+        var lhs = argsToBlock(args[0]);
+        var op = new Operator(args[1]);
+        var rhs = argsToBlock(args[2]);
+
+        var block;
+        if (logical.includes(args[1])) {
+            block = new ConditionBlock(lhs, op, rhs);
+        }
+        else if (arthmatic.includes(args[1])) {
+            block = new CalculatorBlock(lhs, op, rhs);
+        }
+        else {
+            throw "Invaild Operator" + op;
+        }
+
+        return block;
+
+    } else if (typeof args == "object"){
+        var func = args.call;
+        var func_args = args.args;
+
+        if (func == undefined) {
+            throw "invaild object" + func_args;
+        }
+
+        for (var i = 0; i < func_args.length; i ++) {
+            func_args[i] = argsToBlock(func_args[i]);
+        }
+
+        var match = /([\w]+)\.([\w]+)/g.exec(func);
+        if (func == 'getRandom') {
+            return new RandomBlock(func_args[0], func_args[1]);
+        } else if (match) {
+            var name = match[1];
+            var method = match[2];
+
+            var get_method_match = /get[\w]+/g.exec(method);
+            if (!get_method_match)
+                throw "invalid function method"
+
+            var module_info = module_map.get(name);
+            var type = module_info.type;
+            var uuid = module_info.uuid;
+            var property = Property[type][method];
+            
+            return new FunctionGetValue(uuid, property);
+        }
+
+    } else if (typeof args == "string") {
+        return convertValueToBlock(args);
+    } else {
+        throw "invaild argument" + args;
+    }
+
+    return args;
+}
+
 function convertArgumentToConditionBlocks(args) {
-    var conditions = [];
-    var splited = args.split(/&&|\|\|/);
-    var logicsRegex = /(\&\&|\|\|)/g;
-    var nexts = logicsRegex.exec(args);
+    var split_results = luxcParer.parse(args);
+    var block = argsToBlock(split_results);
 
-    splited.forEach(function (conditionString, index) {
-        var value1;
-        var operator;
-        var value2;
-        if (conditionString.indexOf("true") !== -1) {
-            value1 = new NumberValue(1);
-            operator = new Operator("==");
-            value2 = new NumberValue(1);
-        } else {
-            var match = regex.block.condition.exec(conditionString);
-            value1 = convertValueToBlock(match[1]);
-            operator = new Operator(match[2]);
-            value2 = convertValueToBlock(match[3]);
-        }
-        if (nexts) {
-            var next = new Operator(nexts[index]);
-            conditions.push(new ConditionBlock(value1, operator, value2, next));
-        } else {
-            conditions.push(new ConditionBlock(value1, operator, value2));
-        }
-    });
+    if (block.getType() == FrameType.CALTULATOR)
+    {
+        block = new ConditionBlock(block, new Operator(OperatorType.INEQUALITY), new NumberValue(0));
+    }
 
-    return conditions;
+    return [block];
 }
 
 function convertArgumentToBlocks(args) {
+    var args = luxcParer.parse(args);
+
     var blocks = [];
-    var datas = args.split(",");
-    datas.forEach(function (data) {
-        blocks.push(convertValueToBlock(data));
-    });
+    for (var i = 0; i < args.length; i ++) {
+        var block = argsToBlock(args[i]);
+        blocks.push(block);
+    }
+
     return blocks;
 }
 
@@ -692,7 +975,6 @@ function convertValueToBlock(arg) {
         }
 
         if ((match = regex.block.getProperty.exec(arg))) {
-
             var module_info = module_map.get(match[1]);
 
             var uuid = Number(module_info.uuid);
@@ -705,6 +987,8 @@ function convertValueToBlock(arg) {
         } else if ((match = regex.block.string.exec(arg))) {
             var string = match[1].toString();
             block = new StringValue(string);
+        } else if (arg == "true") {
+            block = new ConditionBlock(new NumberValue(Number(1)), new Operator(OperatorType.EQUALITY), new NumberValue(Number(1)));
         } else if ((match = regex.block.variable.exec(arg))) {
             var variableName;
             if (arg.indexOf("(char*)") !== -1) {
@@ -870,6 +1154,18 @@ class StringValue extends Block {
     }
 }
 
+class PolynomialStringValue extends Block {
+    constructor(value) {
+        super(FrameType.VALUE, 0);
+        var frame = [];
+        frame.push(ValueType.POLYNOMIALSTRING);
+        for (var i = 0; i < value.length; i++) {
+            frame.push(value.charCodeAt(i));
+        }
+        this.value = value;
+        this.appendFrame(frame);
+    }
+}
 class PictureValue extends Block {
     constructor(value) {
         super(FrameType.VALUE, 0);
@@ -1039,6 +1335,23 @@ class BreakBlock extends Block {
 class ContinueBlock extends Block {
     constructor() {
         super(FrameType.CONTINUE, 0);
+    }
+}
+
+class CalculatorBlock extends Block {
+    constructor(lhs, op, rhs) {
+        super(FrameType.CALTULATOR, 0);
+        this.appendFrame(lhs.serialize());
+        this.appendFrame(op.serialize());
+        this.appendFrame(rhs.serialize());
+    }
+}
+
+class RandomBlock extends Block {
+    constructor(min, max) {
+        super(FrameType.RANDOM, 0);
+        this.appendFrame(min.serialize());
+        this.appendFrame(max.serialize());
     }
 }
 
