@@ -427,10 +427,10 @@ EntryStatic.getAllBlocks = function() {
                 'modi_display_image',
                 'modi_display_reset',
                 'modi_display_move',
+                'modi_network_bell',
                 'modi_network_button_judgement',
                 'modi_network_joystick_judgement',
                 'modi_network_timer_judgement',
-                'modi_network_bell',
                 'modi_network_slider',
                 'modi_network_dial',
 
