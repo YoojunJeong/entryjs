@@ -2824,7 +2824,7 @@ function getBlocks() {
                 return true;
             },
             isPrimitive: true,
-            syntax: { js: ['Scope', 'true'], py: ['True'], c:['TRUE'] },
+            syntax: { js: ['Scope', 'true'], py: ['True'], c:['true'] },
         },
         False: {
             color: EntryStatic.colorSet.block.default.JUDGE,
