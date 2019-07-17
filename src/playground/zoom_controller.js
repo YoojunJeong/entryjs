@@ -207,16 +207,34 @@ Entry.ZoomController = class ZoomController {
                         var cOutput = blockToCParser.Thread(block.getThread());
         
                         // Entry.module = 'Network network0(0x07B4573);\nIr ir0(0x206080B18920);\nDisplay display0(0x4000323AEE9C);\n';
-
-                        // console.log('Entry.module', Entry.module);
-                        var binary = '"#include "user.hpp"\n\nusing namespace math;\n\nvoid doUserTask()\n{\n';
+                        var binary = '"#include "user.hpp"\n\nusing namespace math;\n';
+                        let images = cOutput.match(/image\d/g)
+                        let imgData = Entry.TextCodingUtil.data
+                        console.log("images", images, imgData)
+                        for(let i =0 ; i < images.length ; i++){
+                            binary += `const char picture${i}[${imgData.split(',').length + 1}] = {${imgData}};`
+                        }
+                        
+                        binary += '\nvoid doUserTask()\n{\n';
                         binary += Entry.module;
-                        binary += '\n';
+                        console.log(`Entry.module`)
+                        console.log(Entry.module)
+
+                        for(let i =0 ; i < images.length ; i++){
+                            binary += `display0.addPicture("${images[i]}",(char*)picture${i});`;
+                        }
+
+                        binary += '\n\n';
                         binary += cOutput;
                         binary += '\nsleep(1);\n}\n}'
-                        
-                            let binaryOutput = Interpreter.makeFrame(binary);
+                        console.log("binary")
+                        console.log(JSON.stringify(binary))
+                        console.log(binary)
+
+                        let binaryOutput = Interpreter.makeFrame(binary);
                            
+                        console.log(binaryOutput.block)
+
                             let project = Entry.exportProject();
 
                             Entry.binaryOutput = binaryOutput.block

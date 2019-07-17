@@ -300,12 +300,11 @@ Entry.BlockToCParser = class {
                             block,
                             resultTextCode
                         );
-                        console.log(resultTextCode)
                         break;
                     }
                     
                     case 'modi_print_display_by_value' : {
-                        resultTextCode = Entry.TextCodingUtil.assembleDisplayBlock(
+                        resultTextCode = Entry.TextCodingUtil.assembleModiDisplayBlock(
                             block,
                             resultTextCode
                         );

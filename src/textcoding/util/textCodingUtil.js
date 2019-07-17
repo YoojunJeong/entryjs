@@ -292,6 +292,9 @@ const melodyLibrary = {
 }
 
 class TextCodingUtil {
+    constructor(){
+        this.data = null 
+    }
 
     // Entry 에서 사용 중
     canUsePythonVariables(variables) {
@@ -1045,16 +1048,13 @@ class TextCodingUtil {
     }
 
     assembleModiMelodySpeakerBlock(block, syntax) {
-        let result = melodyLibrary["송어"];
         const blockToken = syntax.split('?'); 
-        if(blockToken[1]){
-            result =  melodyLibrary[blockToken[1]]
-        }
-        console.log("assembleModiMelodySpeakerBlock", blockToken, melodyLibrary[blockToken[1]])
+        const melodyName = blockToken[1] || "송어" // TODO: 없으면 default 넣음
+        let result = melodyLibrary[melodyName];
         return result;
     }
 
-    assembleDisplayBlock(block, syntax) {
+    assembleModiDisplayBlock(block, syntax) {
         let result = '';
         const blockToken = syntax.split('?'); 
         console.log("modi_print_display_by_value option0 : ", blockToken);
@@ -1075,19 +1075,43 @@ class TextCodingUtil {
         function convertToImg(str) {
             let x = document.createElement("CANVAS");
             let ctx = x.getContext("2d");
-            ctx.font = '9pt lighter sans-serif';
+            ctx.font = 'bold 9pt lighter sans-serif';
             ctx.textBaseline="top"; 
-            ctx.fillText(str, 0, 0);
-            let bin = ctx.getImageData(0,0,64,32)
-            // console.log(bin.data.toString())
-            return bin.data.toString()
-            // document.body.appendChild(x);
+            ctx.fillText(str, 2, 2);
+            let bin = ctx.getImageData(0,0,64,48)
+            return bin //bin.data.toString()
         }
         if(isNotInASCII(option1)){ // 영문이 아닌 경우
             console.log('isNotInASCII, make this str to img')
             // TODO: make this to img
-            const data = convertToImg(option1)
-            console.log('img',data)
+            const imgData = convertToImg(option1)
+            console.log('img', imgData)
+            let gray_data = [];
+            for (let i = 0; i < imgData.data.length; i += 4) {
+                let pixel = [imgData.data[i], imgData.data[i + 1], imgData.data[i + 2], imgData.data[i + 3]];
+                let gray = imgData.data[i + 3]; //(a.data[i] + a.data[i+1] + a.data[i+2] + a.data[i+3]) >> 2
+                gray_data.push(gray)
+            }
+            // TODO: gyay to binary의 변홤 품질이 좋지않음. 다른 알고리즘으로 대체
+            let binary_data = [];
+            for (let i = 0; i < gray_data.length; i++) {
+                let bin = gray_data[i] > 90 ? 1 : 0;
+                binary_data.push(bin);
+            }
+            let modi_display_data = [];
+            for (let i = 0; i < binary_data.length; i += 8) {
+                let byte = 0x00;
+                for (let j = 0; j < 8; j++) {
+                    byte = (byte << 1) | binary_data[i + j];
+                }
+                modi_display_data.push(byte);
+            }
+            // console.log(a.data.toString())
+            this.data = modi_display_data.toString();
+            console.log(modi_display_data.length);
+            console.log(this.data) //modi_display_data.toString()
+
+
             result = `display0.drawPicture("image0");`;
         }
 

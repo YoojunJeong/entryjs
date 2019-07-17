@@ -1420,7 +1420,7 @@ Entry.MODI.getBlocks = function() {
                     null,
                     {
                         type: 'text',
-                        params: ['text'],
+                        params: ['가나다'],
                     },
                 ],
                 type: 'modi_print_display_by_value',
