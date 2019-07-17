@@ -227,8 +227,10 @@ Entry.MODI.blockMenuBlocks = [
     'modi_clear_led',
     'modi_set_led_rgb',
     'modi_set_led_color',
+    'modi_speaker_off',
     'modi_set_basic_speaker',
     'modi_set_custom_speaker',
+    'modi_speaker_melody',
     'modi_print_display_by_value',
     'modi_display_variable',
     'modi_display_image',
@@ -402,7 +404,7 @@ Entry.MODI.getBlocks = function() {
 
                 {
                     type: 'Dropdown',
-                    options: [['회전위치', 2], ['회전각도', 3]],
+                    options: [['위치', 2]],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
@@ -622,7 +624,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '안눌림',
+            template: '안 눌림',
             def: {
                 params: [null],
                 type: 'modi_button_false',
@@ -649,7 +651,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '적외선 센서의 빛 반사량(%)',
+            template: '적외선의 빛 반사량(%)',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -754,7 +756,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic',
-            template: '모터 %2의 상단값은 %3 하단값은 %4 (으)로 정하기 %5',
+            template: '모터 %2의 1번은 %3 2번은 %4 (으)로 정하기 %5',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -769,7 +771,7 @@ Entry.MODI.getBlocks = function() {
                     options: [
                         [Lang.Blocks.modi_motor_angle, 'MOTOR_ANGLE'],
                         [Lang.Blocks.modi_motor_speed, 'MOTOR_SPEED'],
-                        [Lang.Blocks.modi_motor_torque, 'MOTOR_TORQUE'],
+                        // [Lang.Blocks.modi_motor_torque, 'MOTOR_TORQUE'],
                     ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -847,7 +849,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '모터 %2의 상단값을 %3만큼 바꾸기 %4',
+            template: '모터 %2의 1번을 %3만큼 바꾸기 %4',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -862,7 +864,7 @@ Entry.MODI.getBlocks = function() {
                     options: [
                         [Lang.Blocks.modi_motor_angle, 'MOTOR_ANGLE'],
                         [Lang.Blocks.modi_motor_speed, 'MOTOR_SPEED'],
-                        [Lang.Blocks.modi_motor_torque, 'MOTOR_TORQUE'],
+                        // [Lang.Blocks.modi_motor_torque, 'MOTOR_TORQUE'],
                     ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -937,7 +939,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '모터 %2의 하단값을 %3만큼 바꾸기 %4',
+            template: '모터 %2의 2번을 %3만큼 바꾸기 %4',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -952,7 +954,7 @@ Entry.MODI.getBlocks = function() {
                     options: [
                         [Lang.Blocks.modi_motor_angle, 'MOTOR_ANGLE'],
                         [Lang.Blocks.modi_motor_speed, 'MOTOR_SPEED'],
-                        [Lang.Blocks.modi_motor_torque, 'MOTOR_TORQUE'],
+                        // [Lang.Blocks.modi_motor_torque, 'MOTOR_TORQUE'],
                     ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -1028,7 +1030,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '불빛의 빛 끄기 %2',
+            template: '불빛 끄기 %2',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1086,7 +1088,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '불빛 R %2 G %3 B %4  %5',
+            template: '불빛을 빨간빛 %2 초록빛 %3 파란빛 %4 으로 정하기 %5',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1176,7 +1178,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '불빛 %1로 정하기 %2',
+            template: '불빛을 %1 빛으로 정하기 %2',
             params: [
                 // {
                 //     type: 'DropdownDynamic',
@@ -1240,11 +1242,74 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
+        modi_speaker_off: {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            skeleton: 'basic',
+            template: '스피커 끄기 %2',
+            params: [
+                {
+                    type: 'DropdownDynamic',
+                    value: null,
+                    fontSize: 11,
+                    menuName: Entry.MODI.speakerList,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/hardware_icon.svg',
+                    size: 12,
+                },
+            ],
+            events: {},
+            def: {
+                params: [
+                    null,
+                ],
+                type: 'modi_speaker_off',
+            },
+            paramsKeyMap: {
+                name: 0,
+                frequence: 1,
+                volume: 2,
+            },
+            class: 'speaker',
+            isNotFor: ['modi'],
+            func: function(sprite, script) {
+                if (!Entry.hw.sendQueue.moduleValue) {
+                    Entry.MODI.initSend();
+                }
+                var key = script.getStringField('name'),
+                    frequence = script.getStringField('frequence'),
+                    volume = script.getNumberValue('volume', script);
+                var moduleID = JSON.parse(Entry.hw.portData.module['speaker'][key]).id;
+
+                var sq = Entry.hw.sendQueue.moduleValue;
+                sq['speaker'][key] = JSON.stringify({
+                    module: 'SPEAKER_BUZZER',
+                    id: moduleID,
+                    value1: frequence,
+                    value2: volume,
+                });
+
+                return script.callReturn();
+            },
+
+            syntax: {
+                c: [
+                    {
+                        syntax: 'speaker0.setTune(0,0);',
+                        template: 'speaker0.setTune(0,0);',
+                    },
+                ],
+            },
+        },
         modi_set_basic_speaker: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '스피커를 %2음으로 크기는 %3(으)로 정하기 %4',
+            template: '스피커의 음을 %2 크기는 %3(으)로 정하기 %4',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1257,13 +1322,13 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Dropdown',
                     options: [
-                        [Lang.Blocks.modi_speaker_F_PA_5, 'F_PA_5'],
-                        [Lang.Blocks.modi_speaker_F_SOL_5, 'F_SOL_5'],
-                        [Lang.Blocks.modi_speaker_F_RA_5, 'F_RA_5'],
-                        [Lang.Blocks.modi_speaker_F_SO_5, 'F_SO_5'],
-                        [Lang.Blocks.modi_speaker_F_PA_S_5, 'F_PA_S_5'],
-                        [Lang.Blocks.modi_speaker_F_SOL_S_5, 'F_SOL_S_5'],
-                        [Lang.Blocks.modi_speaker_F_RA_S_5, 'F_RA_S_5'],
+                        // [Lang.Blocks.modi_speaker_F_PA_5, 'F_PA_5'],
+                        // [Lang.Blocks.modi_speaker_F_SOL_5, 'F_SOL_5'],
+                        // [Lang.Blocks.modi_speaker_F_RA_5, 'F_RA_5'],
+                        // [Lang.Blocks.modi_speaker_F_SO_5, 'F_SO_5'],
+                        // [Lang.Blocks.modi_speaker_F_PA_S_5, 'F_PA_S_5'],
+                        // [Lang.Blocks.modi_speaker_F_SOL_S_5, 'F_SOL_S_5'],
+                        // [Lang.Blocks.modi_speaker_F_RA_S_5, 'F_RA_S_5'],
                         [Lang.Blocks.modi_speaker_F_DO_6, 'F_DO_6'],
                         [Lang.Blocks.modi_speaker_F_RE_6, 'F_RE_6'],
                         [Lang.Blocks.modi_speaker_F_MI_6, 'F_MI_6'],
@@ -1271,16 +1336,16 @@ Entry.MODI.getBlocks = function() {
                         [Lang.Blocks.modi_speaker_F_SOL_6, 'F_SOL_6'],
                         [Lang.Blocks.modi_speaker_F_RA_6, 'F_RA_6'],
                         [Lang.Blocks.modi_speaker_F_SO_6, 'F_SO_6'],
-                        [Lang.Blocks.modi_speaker_F_DO_S_6, 'F_DO_S_6'],
-                        [Lang.Blocks.modi_speaker_F_RE_S_6, 'F_RE_S_6'],
-                        [Lang.Blocks.modi_speaker_F_PA_S_6, 'F_PA_S_6'],
-                        [Lang.Blocks.modi_speaker_F_SOL_S_6, 'F_SOL_S_6'],
-                        [Lang.Blocks.modi_speaker_F_RA_S_6, 'F_RA_S_6'],
+                        // [Lang.Blocks.modi_speaker_F_DO_S_6, 'F_DO_S_6'],
+                        // [Lang.Blocks.modi_speaker_F_RE_S_6, 'F_RE_S_6'],
+                        // [Lang.Blocks.modi_speaker_F_PA_S_6, 'F_PA_S_6'],
+                        // [Lang.Blocks.modi_speaker_F_SOL_S_6, 'F_SOL_S_6'],
+                        // [Lang.Blocks.modi_speaker_F_RA_S_6, 'F_RA_S_6'],
                         [Lang.Blocks.modi_speaker_F_DO_7, 'F_DO_7'],
-                        [Lang.Blocks.modi_speaker_F_RE_7, 'F_RE_7'],
-                        [Lang.Blocks.modi_speaker_F_MI_7, 'F_MI_7'],
-                        [Lang.Blocks.modi_speaker_F_DO_S_7, 'F_DO_S_7'],
-                        [Lang.Blocks.modi_speaker_F_RE_S_7, 'F_RE_S_7'],
+                        // [Lang.Blocks.modi_speaker_F_RE_7, 'F_RE_7'],
+                        // [Lang.Blocks.modi_speaker_F_MI_7, 'F_MI_7'],
+                        // [Lang.Blocks.modi_speaker_F_DO_S_7, 'F_DO_S_7'],
+                        // [Lang.Blocks.modi_speaker_F_RE_S_7, 'F_RE_S_7'],
                     ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -1427,25 +1492,19 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-
-        modi_play_speaker: {
+        modi_speaker_melody : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '스피커의 기본 멜로디를 크기 %3(으)로 재생하기 %4',
+            template: '스피커의 멜로디는 %1 크기는 %2(으)로 재생하기 %3',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
-                    menuName: Entry.MODI.speakerList,
+                    menuName: Entry.MODI.speakerMelodyList,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
-                },
-                {
-                    type: 'Block',
-                    accept: 'string',
-                    defaultType: 'number',
                 },
                 {
                     type: 'Block',
@@ -1458,56 +1517,36 @@ Entry.MODI.getBlocks = function() {
                     size: 12,
                 },
             ],
+            events: {},
             def: {
                 params: [
                     null,
                     {
-                        type: 'number',
-                        params: ['100'],
-                    },
-                    {
-                        type: 'number',
-                        params: ['100'],
-                    },
+                        type: 'text',
+                        params: ["100"],
+                    }
                 ],
-                type: 'modi_play_speaker',
+                type: 'modi_speaker_melody',
             },
             paramsKeyMap: {
                 name: 0,
-                frequence: 1,
-                volume: 2,
+                text: 1,
             },
             class: 'speaker',
             isNotFor: ['modi'],
             func: function(sprite, script) {
-                if (!Entry.hw.sendQueue.moduleValue) {
-                    Entry.MODI.initSend();
-                }
-                var key = script.getStringField('name'),
-                    frequence = script.getNumberValue('frequence'),
-                    volume = script.getNumberValue('volume', script);
-                var moduleID = JSON.parse(Entry.hw.portData.module['speaker'][key]).id;
-
-                var sq = Entry.hw.sendQueue.moduleValue;
-                sq['speaker'][key] = JSON.stringify({
-                    module: 'SPEAKER_BUZZER',
-                    id: moduleID,
-                    value1: frequence,
-                    value2: volume,
-                });
-
                 return script.callReturn();
             },
-
             syntax: {
                 c: [
                     {
-                        syntax: 'speaker0.?%2?%3',
-                        template: 'speaker0.?%2?%3',
+                        // tag : chris
+                        // TODO: syntax 수정!!
+                        syntax: 'speaker0.playMelody(%1,%2);',
+                        template: 'speaker0.playMelody(%1,%2);',
                     },
                 ],
             }
-          
         },
         modi_print_display_by_value: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
@@ -1685,7 +1724,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '화면 모두 지우기 %1',
+            template: '화면 전체 지우기 %1',
             params: [
                 {
                     type: 'Indicator',
@@ -1722,17 +1761,19 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '화면을 %1 방향으로 %2 만큼 이동하기 %3',
+            template: '화면을 %1 (으)로 %2 만큼 이동하기 %3',
             params: [
                 {
                     type: 'Dropdown',
                     options: [
-                        ['위', 'Vertical\('],
-                        ['아래', 'Vertical\(-1*'],
-                        ['오른쪽', 'Horizontal\('],
-                        ['왼쪽', 'Horizontal\(-1*'],
+                        ['양 옆', 'Horizontal'],
+                        ['위 아래', 'Vertical'],
+                        // ['위', 'Vertical\('],
+                        // ['아래', 'Vertical\(-1*'],
+                        // ['오른쪽', 'Horizontal\('],
+                        // ['왼쪽', 'Horizontal\(-1*'],
                     ],
-                    value: 'Vertical\(',
+                    value: 'Horizontal',
                     fontSize: 10,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
@@ -1771,8 +1812,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'display0.set%1%2);',
-                        template: 'display0.set%1%2);',
+                        syntax: 'display0.set%1(%2);',
+                        template: 'display0.set%1(%2);',
                     },
                 ],
             }
@@ -1781,13 +1822,13 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '네트워크 알람 %1 %2',
+            template: '네트워크 벨 소리를 %1 으로 정하기 %2',
             params: [
                 {
                     type: 'Dropdown',
                     options: [
-                        ['켜기', 'BUZZER_ON'],
-                        ['끄기', 'BUZZER_OFF'],
+                        ['울림', 'BUZZER_ON'],
+                        ['안 울림', 'BUZZER_OFF'],
                     ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -1838,9 +1879,10 @@ Entry.MODI.getBlocks = function() {
                     type: 'Dropdown',
                     options: [
                         ['클릭', 'getButtonClick'],
-                        ['두번 클릭', 'getButtonDoubleClick'],
-                        ['스위치', 'getButtonToggle'],
-                        ['누름상태', 'getButtonPressed']],
+                        ['두 번 클릭', 'getButtonDoubleClick'],
+                        ['누름 상태', 'getButtonPressed'],
+                        ['스위치', 'getButtonToggle']
+                    ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
@@ -1886,9 +1928,10 @@ Entry.MODI.getBlocks = function() {
                     type: 'Dropdown',
                     options: [
                         ['클릭', 'getButtonClick'],
-                        ['두번 클릭', 'getButtonDoubleClick'],
+                        ['두 번 클릭', 'getButtonDoubleClick'],
+                        ['누름 상태', 'getButtonPressed'],
                         ['스위치', 'getButtonToggle'],
-                        ['누름상태', 'getButtonPressed']],
+                    ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
@@ -1897,7 +1940,7 @@ Entry.MODI.getBlocks = function() {
                     type: 'Dropdown',
                     options: [
                         ['눌림', 'TRUE'],
-                        ['안눌림', 'FALSE'],
+                        ['안 눌림', 'FALSE'],
                     ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -2119,7 +2162,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '네트워크 %2 슬라이더의 값',
+            template: '네트워크 %2 슬라이더',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -2165,7 +2208,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '네트워크 다이얼의 회전위치',
+            template: '네트워크 다이얼의 위치',
             params: [
                 {
                     type: 'DropdownDynamic',
