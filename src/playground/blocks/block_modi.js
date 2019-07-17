@@ -1663,8 +1663,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'display0.setText(%2);',
-                        template: 'display0.setText(%2);',
+                        syntax: 'display0.?%2',
+                        template: 'display0.?%2',
                     },
                 ],
             }

@@ -752,7 +752,51 @@ class TextCodingUtil {
 
     }
 
+    assembleDisplayBlock(block, syntax) {
+        let result = '';
+        const blockToken = syntax.split('?'); 
+        console.log("modi_print_display_by_value option0 : ", blockToken);
+        const option1 = blockToken[1];
 
+        function isNotInASCII(str) {
+            for(let i=0;i<str.length;i++){
+                console.log(str[i], str.charCodeAt(i))
+                if(str.charCodeAt(i) > 127){
+                    return true
+                }
+            }
+            return false
+        }
+
+        result = `display0.setText(${option1});`; // text 영문 및 기호인 경우
+
+        function convertToImg(str) {
+            let x = document.createElement("CANVAS");
+            let ctx = x.getContext("2d");
+            ctx.font = '9pt lighter sans-serif';
+            ctx.textBaseline="top"; 
+            ctx.fillText(str, 0, 0);
+            let bin = ctx.getImageData(0,0,64,32)
+            // console.log(bin.data.toString())
+            return bin.data.toString()
+            // document.body.appendChild(x);
+        }
+        if(isNotInASCII(option1)){ // 영문이 아닌 경우
+            console.log('isNotInASCII, make this str to img')
+            // TODO: make this to img
+            const data = convertToImg(option1)
+            console.log('img',data)
+            result = `display0.drawPicture("image0");`;
+        }
+
+        if(option1[0] !== '"'){ // 숫자인 경우
+            result = `display0.setText("${option1}");`;
+        }
+        console.log("modi_print_display_by_value option1 : ", option1, typeof option1);
+        console.log("modi_print_display_by_value result : ", result);
+
+        return result;
+    }
 
 
 

@@ -307,7 +307,13 @@ Entry.BlockToCParser = class {
                         
                     }
                     
-            
+                    case 'modi_print_display_by_value' : {
+                        resultTextCode = Entry.TextCodingUtil.assembleDisplayBlock(
+                            block,
+                            resultTextCode
+                        );
+                        break;
+                    }
                 }
             }
 
