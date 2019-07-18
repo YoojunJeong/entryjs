@@ -1892,7 +1892,7 @@ Entry.MODI.getBlocks = function() {
             paramsKeyMap: {
                 property: 0,
             },
-            class: 'button',
+            class: 'network',
             isNotFor: ['modi'],
 
             syntax: {
@@ -1994,7 +1994,7 @@ Entry.MODI.getBlocks = function() {
                 },
             ],
             def: {
-                params: [null, 'getButtonPressed', 'TRUE'],
+                params: [null, 'getButtonClick', 'TRUE'],
                 type: 'modi_network_button_judgement',
             },
             paramsKeyMap: {
@@ -2036,7 +2036,7 @@ Entry.MODI.getBlocks = function() {
                 params: ['TRUE'],
                 type: 'modi_network_button_menu',
             },
-            class: 'button',
+            class: 'network',
             isNotFor: ['modi'],
             syntax: {
                 js: [],
