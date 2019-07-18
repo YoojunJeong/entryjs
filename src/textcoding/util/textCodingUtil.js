@@ -1066,14 +1066,13 @@ class TextCodingUtil {
     }
 
     assembleModiDisplayBlock(block, syntax) {
-        let result = '';
         const blockToken = syntax.split('?'); 
-        console.log("modi_print_display_by_value option0 : ", blockToken);
         const option1 = blockToken[1];
+        let result = `display0.setText(${option1});`; 
+        console.log("assembleModiDisplayBlock : ", blockToken);
 
         function isNotInASCII(str) {
             for(let i=0;i<str.length;i++){
-                console.log(str[i], str.charCodeAt(i))
                 if(str.charCodeAt(i) > 127){
                     return true
                 }
@@ -1081,62 +1080,55 @@ class TextCodingUtil {
             return false
         }
 
-        result = 'display0.setText(' + option1 + ');'; // text 영문 및 기호인 경우
-
         function convertToImg(str) {
+            // canvas 에서 text를 img bin으로 전환함
             let x = document.createElement("CANVAS");
             let ctx = x.getContext("2d");
             ctx.font = 'bold 9pt lighter sans-serif';
             ctx.textBaseline="top"; 
             ctx.fillText(str, 2, 2);
-            let bin = ctx.getImageData(0,0,64,48)
-            return bin; //bin.data.toString()
-        }
-        if(isNotInASCII(option1)){ // 영문이 아닌 경우
-            console.log('isNotInASCII, make this str to img')
-            // TODO: make this to img
-            const imgData = convertToImg(option1);
-            console.log('img', imgData)
+            let ctxImgData = ctx.getImageData(0,0,64,48)
+
+            // ctxImgData을 gray data 로 변환
             let gray_data = [];
-            for (let i = 0; i < imgData.data.length; i += 4) {
-                let pixel = [imgData.data[i], imgData.data[i + 1], imgData.data[i + 2], imgData.data[i + 3]];
-                let gray = imgData.data[i + 3]; //(a.data[i] + a.data[i+1] + a.data[i+2] + a.data[i+3]) >> 2
+            for (let i = 0; i < ctxImgData.data.length; i += 4) {
+                let gray = ctxImgData.data[i + 3];
                 gray_data.push(gray)
             }
+
             // TODO: gyay to binary의 변홤 품질이 좋지않음. 다른 알고리즘으로 대체
             let binary_data = [];
             for (let i = 0; i < gray_data.length; i++) {
                 let bin = gray_data[i] > 90 ? 1 : 0;
                 binary_data.push(bin);
             }
-            let modi_display_data = [];
+            
+            let modiDisplayData = [];
             for (let i = 0; i < binary_data.length; i += 8) {
                 let byte = 0x00;
                 for (let j = 0; j < 8; j++) {
                     byte = (byte << 1) | binary_data[i + j];
                 }
-                modi_display_data.push(byte);
+                modiDisplayData.push(byte);
             }
-            // console.log(a.data.toString())
-            this.imgData = modi_display_data.toString();
-            console.log(modi_display_data.length);
-            console.log(this.imgData) //modi_display_data.toString()
 
-            // TODO: "image0"는 변경되어야 함. => 한글 to image 맵 가지고 있기
-            var korean_text_image_name = "image0";
-            result = 'display0.drawPicture("' + korean_text_image_name + '");';
+            return modiDisplayData;
         }
 
-        if(option1[0] !== '"'){ // 숫자인 경우
-            result = 'display0.setText(' + option1 + ');';
+        if(isNotInASCII(option1)){ // 영문, 숫자가 아닌 경우 이미지로 출력
+            console.log('isNotInASCII, make this str to img')
+            const imgData = convertToImg(option1.replace(/"/g,""));
+            this.imgData = imgData.toString();
+            console.log(imgData.length);
+            console.log(this.imgData) 
+
+            // TODO: "image0"는 변경되어야 함
+            let textVariable = "image0";
+            result = `display0.drawPicture("${textVariable}");`;
         }
-        console.log("modi_print_display_by_value option1 : ", option1, typeof option1);
-        console.log("modi_print_display_by_value result : ", result);
 
         return result;
     }
-
-
 
     jsAdjustSyntax(block, syntax) {
         let result = '';
