@@ -206,9 +206,7 @@ Entry.ZoomController = class ZoomController {
                         let imgData = Entry.TextCodingUtil.data || ''
                         console.log("images", images, imgData)
                         for(let i =0 ; i < images.length ; i++){
-                            binary += `const char picture${i}[${imgData.split(',').length + 1}] = {
-                                ${imgData}
-                            };`
+                            binary += `const char picture${i}[${imgData.split(',').length + 1}] = {\n${imgData}\n};\n`
                         }
                         
                         binary += '\nvoid doUserTask()\n{\n';
@@ -222,7 +220,9 @@ Entry.ZoomController = class ZoomController {
 
                         binary += '\n\n';
                         binary += cOutput;
-                        binary += '\nsleep(1);\n}\n}'
+                        binary += '\n    sleep(1);\n}\n}'
+                        binary = binary.replace(/\t/g, "    ")
+
                         console.log("binary")
                         console.log(JSON.stringify(binary))
                         console.log(binary)
