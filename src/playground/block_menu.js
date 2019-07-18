@@ -275,7 +275,7 @@ class BlockMenu {
 
             const className = Entry.block[type].class;
             if (pastClass && pastClass !== className) {
-                // this._createSplitter(marginFromTop);
+                this._createSplitter(marginFromTop + 30);
                 marginFromTop += vPadding;
             }
             pastClass = className;

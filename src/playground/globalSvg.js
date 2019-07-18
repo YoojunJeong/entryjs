@@ -198,7 +198,7 @@ class GlobalSvg {
         offsetY += 1;
         this._offsetX = offsetX;
         this._offsetY = offsetY;
-        const transform = `translate(${offsetX}, ${offsetY})`;
+        const transform = `translate(${offsetX}, ${offsetY+30})`;
         this.svgGroup.attr({ transform });
         if (this.svgCommentGroup) {
             this.svgCommentGroup.attr({ transform });

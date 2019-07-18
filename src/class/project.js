@@ -10,16 +10,16 @@ function scriptCheck(script) {
     const whenRun = get(script, '0.0.type');
     const repeat = get(script, '0.1.type');
     const statements = get(script, '0.1.statements');
-    const move = get(script, '0.1.statements.0.0.type');
+    // const move = get(script, '0.1.statements.0.0.type');
 
     if (
         whenRun !== 'when_run_button_click' ||
         repeat !== 'repeat_inf' ||
         statements.length !== 1 ||
-        statements[0].length !== 1 ||
-        move !== 'move_direction'
+        statements[0].length !== 1
+        // move !== 'move_direction'
     ) {
-        return false;
+        return true;
     }
 
     return true;
