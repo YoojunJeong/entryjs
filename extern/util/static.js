@@ -192,8 +192,7 @@ EntryStatic.getAllBlocks = function() {
                 'stop_repeat',
                 '_if',
                 'if_else',
-                // 'wait_until_true',
-                // 'restart_project',
+                'wait_until_true',
             ],
         },
         {
@@ -220,6 +219,10 @@ EntryStatic.getAllBlocks = function() {
             ],
         },
         {
+            category: 'text',
+            blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
+        },
+        {
             category: 'arduino',
             blocks: [
                 'modi_dial_value',
@@ -233,9 +236,21 @@ EntryStatic.getAllBlocks = function() {
                 'modi_clear_led',
                 'modi_set_led_rgb',
                 'modi_set_led_color',
+                'modi_speaker_off',
                 'modi_set_basic_speaker',
                 'modi_melody_speaker',
                 'modi_print_display_by_value',
+                // 'modi_speaker_melody',
+                'modi_display_variable',
+                'modi_display_image',
+                'modi_display_reset',
+                'modi_display_move',
+                'modi_network_bell',
+                'modi_network_button_judgement',
+                'modi_network_joystick_judgement',
+                'modi_network_timer_judgement',
+                'modi_network_slider',
+                'modi_network_dial',
             ]
             //.concat(EntryStatic.DynamicHardwareBlocks),
         },

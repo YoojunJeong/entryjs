@@ -237,26 +237,26 @@ Entry.Playground = class {
 
 
             // 기본값 셋팅
-            const addSpaceInputLabel2 = Entry.createElement('label')
-                .addClass('entryVariableAddSpaceInputLabelWorkspace')
-                .appendTo(addSpaceNameWrapper);
-            addSpaceInputLabel2.setAttribute('for', 'entryVariableAddSpaceInputWorkspace');
-            addSpaceInputLabel2.innerText = Lang.Command[812];
+            // const addSpaceInputLabel2 = Entry.createElement('label')
+            //     .addClass('entryVariableAddSpaceInputLabelWorkspace')
+            //     .appendTo(addSpaceNameWrapper);
+            // addSpaceInputLabel2.setAttribute('for', 'entryVariableAddSpaceInputWorkspace');
+            // addSpaceInputLabel2.innerText = Lang.Command[812];
 
-            const attrInputWrapper = Entry.createElement('span')
-                .appendTo(addSpaceNameWrapper)
-                .addClass('val_inptbox');
-            const attrInput = Entry.createElement('input').appendTo(attrInputWrapper);
-            attrInput.setAttribute('type', 'text');
-            attrInput.value = 0;
-            attrInput.onkeypress = Entry.Utils.blurWhenEnter;
-            attrInput.onfocus = _setFocused;
-            attrInput.onblur = _setBlurredTimer(function() {
-                const v = that.selected;
-                Entry.do('variableSetDefaultValue', v.id_, this.value);
-            });
+            // const attrInputWrapper = Entry.createElement('span')
+            //     .appendTo(addSpaceNameWrapper)
+            //     .addClass('val_inptbox');
+            // const attrInput = Entry.createElement('input').appendTo(attrInputWrapper);
+            // attrInput.setAttribute('type', 'text');
+            // attrInput.value = 0;
+            // attrInput.onkeypress = Entry.Utils.blurWhenEnter;
+            // attrInput.onfocus = _setFocused;
+            // attrInput.onblur = _setBlurredTimer(function() {
+            //     const v = that.selected;
+            //     Entry.do('variableSetDefaultValue', v.id_, this.value);
+            // });
 
-            element.initValueInput = attrInput;
+            // element.initValueInput = attrInput;
             
    
             // 확인 취소 버튼

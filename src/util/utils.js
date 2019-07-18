@@ -344,13 +344,14 @@ Entry.resizeElement = function(interfaceModel) {
         Entry.engine.view_.style.width = 250;//`${canvasSize - 24}px`;
         Entry.stage.canvas.canvas.style.width = 255;//`${canvasSize - 26}px`;
 
+        // JYJ - 블록 메뉴 영역 사이즈 조절
         let menuWidth = interfaceModel.menuWidth;
         if (!menuWidth) {ㅋ
-            menuWidth = 258;
-        } else if (menuWidth < 258) {
-            menuWidth = 258;
-        } else if (menuWidth > 308) {
-            menuWidth = 308;
+            menuWidth = 300;
+        } else if (menuWidth < 300) {
+            menuWidth = 300;
+        } else if (menuWidth > 430) {
+            menuWidth = 430;
         }
         interfaceModel.menuWidth = menuWidth;
 

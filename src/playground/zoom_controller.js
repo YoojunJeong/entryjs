@@ -155,20 +155,13 @@ Entry.ZoomController = class ZoomController {
     doAction(mode) {
         switch(mode) {
             case 'RESET':
-                var yn = confirm('블록을 초기화 할까요?');
-                if(yn) {
                     window.android.callFuntion('RESET');
-                }
-                
-                
                 break;
             case 'EXPORT':
 
-                    var yn = confirm('코딩한 내용을 모디 블록으로 내보낼까요?');
-                    if(yn) {
-                        // c code로 내보낸다
-                    
-                        var startBtnCount = 0;
+                console.log(Entry.variableContainer.variables_);
+
+                    var startBtnCount = 0;
                         const blockMap = this.nowBoard.code._blockMap;
 
                         console.log(blockMap);
@@ -210,7 +203,7 @@ Entry.ZoomController = class ZoomController {
                         var binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
                         let images = cOutput.match(/image\d/g)||[]
                         
-                        let imgData = Entry.TextCodingUtil.data
+                        let imgData = Entry.TextCodingUtil.data || ''
                         console.log("images", images, imgData)
                         for(let i =0 ; i < images.length ; i++){
                             binary += `const char picture${i}[${imgData.split(',').length + 1}] = {
@@ -257,9 +250,6 @@ Entry.ZoomController = class ZoomController {
                             
                             // window.android.exportProject(JSON.stringify(project));
                             window.android.uploadCode(binaryOutput.block);
-                            
-                        
-                    }
                 
 
              

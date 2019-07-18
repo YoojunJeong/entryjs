@@ -235,7 +235,7 @@ module.exports = {
                     ],
 
                     c: [ {
-                        syntax: 'while(TRUE)\n{\n$1\n}',
+                        syntax: 'while(true)\n{\n$1\n}',
                         template: 'while(%2)\n{\n}',
                         textParams: [
                             undefined,
@@ -267,7 +267,7 @@ module.exports = {
                             [Lang.Blocks.FLOW_repeat_while_true_until, 'until'],
                             [Lang.Blocks.FLOW_repeat_while_true_while, 'while'],
                         ],
-                        value: 'until',
+                        value: 'while',
                         fontSize: 10,
                         bgColor: EntryStatic.colorSet.block.darken.FLOW,
                         arrowColor: EntryStatic.colorSet.arrow.default.DEFAULT,
