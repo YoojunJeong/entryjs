@@ -440,7 +440,7 @@ EntryStatic.getAllBlocks = function() {
                 'modi_network_button_judgement',
                 'modi_network_joystick_judgement',
                 'modi_network_timer_judgement',
-
+                'modi_button_judgement',
                 // 'modi_network_button',
                 // 'modi_network_button_true',
                 // 'modi_network_button_false',

@@ -250,6 +250,7 @@ Entry.MODI.blockMenuBlocks = [
     'modi_network_button_judgement',
     'modi_network_joystick_judgement',
     'modi_network_timer_judgement',
+    'modi_button_judgement',
 
     // 'modi_network_button_true',
     // 'modi_network_button_false',
@@ -1900,6 +1901,65 @@ Entry.MODI.getBlocks = function() {
                     },
                 ],
             }
+        },
+        modi_button_judgement : {
+            color: EntryStatic.colorSet.block.default.HARDWARE,
+            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            fontColor: '#fff',
+            skeleton: 'basic_boolean_field',
+            template: '버튼의 %2이(가) %3',
+            params: [
+                {
+                    type: 'DropdownDynamic',
+                    value: null,
+                    fontSize: 11,
+                    menuName: Entry.MODI.buttonList,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Dropdown',
+                    options: [
+                        ['클릭', 'getClick'],
+                        ['두 번 클릭', 'getDoubleClick'],
+                        ['누름 상태', 'getPressStatus'],
+                        ['스위치', 'getToggle'],
+                    ],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Dropdown',
+                    options: [
+                        ['눌림', 'TRUE'],
+                        ['안 눌림', 'FALSE'],
+                    ],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+            ],
+            def: {
+                params: [null, 'getClick', 'TRUE'],
+                type: 'modi_button_judgement',
+            },
+            paramsKeyMap: {
+                property: 0,
+            },
+            class: 'button',
+            isNotFor: ['modi'],
+
+            syntax: {
+                js: [],
+                py: [],
+                c: [
+                    {
+                        syntax: '(button0.%2() == %3)',
+                        template: '(button0.%2() == %3)',
+                    },
+                ],
+            },
         },
         modi_network_button : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
