@@ -203,13 +203,17 @@ Entry.ZoomController = class ZoomController {
                         var binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
                         let images = cOutput.match(/image\d/g)||[]
                         
-                        let imgData = Entry.TextCodingUtil.data || ''
+                        let imgData = Entry.TextCodingUtil.imgData || ''
                         console.log("images", images, imgData)
                         for(let i =0 ; i < images.length ; i++){
                             binary += `const char picture${i}[${imgData.split(',').length + 1}] = {\n${imgData}\n};\n`
                         }
-                        
                         binary += '\nvoid doUserTask()\n{\n';
+
+                        if(Entry.TextCodingUtil.melodyData.length){
+                            binary += '\nfloat __melodyVolume = 0.0;\n\n';
+                        }
+
                         binary += Entry.module;
                         console.log(`Entry.module`)
                         console.log(Entry.module)
