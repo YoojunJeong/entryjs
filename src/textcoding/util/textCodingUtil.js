@@ -1066,9 +1066,11 @@ class TextCodingUtil {
     }
 
     assembleModiDisplayBlock(block, syntax) {
+        // 영문, (영+수), |  숫자, 변수, 인풋, | 한글, (한글+수), (영+한글)
         const blockToken = syntax.split('?'); 
-        const option1 = blockToken[1];
-        let result = `display0.setText(${option1});`; 
+        const positionY = blockToken[1];
+        const contents = blockToken[2];
+        let result = `display0.setText(${contents});`; // 영문이 포함된 경우
         console.log("assembleModiDisplayBlock : ", blockToken);
 
         function isNotInASCII(str) {
@@ -1086,7 +1088,7 @@ class TextCodingUtil {
             let ctx = x.getContext("2d");
             ctx.font = 'bold 9pt lighter sans-serif';
             ctx.textBaseline="top"; 
-            ctx.fillText(str, 2, 2);
+            ctx.fillText(str, 2, positionY);
             let ctxImgData = ctx.getImageData(0,0,64,48)
 
             // ctxImgData을 gray data 로 변환
@@ -1115,9 +1117,9 @@ class TextCodingUtil {
             return modiDisplayData;
         }
 
-        if(isNotInASCII(option1)){ // 영문, 숫자가 아닌 경우 이미지로 출력
+        if(isNotInASCII(contents)){ // 한글이 포함된 경우 이미지로 출력
             console.log('isNotInASCII, make this str to img')
-            const imgData = convertToImg(option1.replace(/"/g,""));
+            const imgData = convertToImg(contents.replace(/"/g,""));
             this.imgData = imgData.toString();
             console.log(imgData.length);
             console.log(this.imgData) 
@@ -1125,6 +1127,10 @@ class TextCodingUtil {
             // TODO: "image0"는 변경되어야 함
             let textVariable = "image0";
             result = `display0.drawPicture("${textVariable}");`;
+        }
+
+        if(contents[0] !== '"'){ // 숫자, 인풋, (변수?)
+            let result = `display0.setVariable(2,${positionY},${contents});`; 
         }
 
         return result;
