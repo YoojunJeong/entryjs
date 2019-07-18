@@ -1081,7 +1081,7 @@ class TextCodingUtil {
             return false
         }
 
-        result = `display0.setText(${option1});`; // text 영문 및 기호인 경우
+        result = 'display0.setText(${option1});'; // text 영문 및 기호인 경우
 
         function convertToImg(str) {
             let x = document.createElement("CANVAS");
@@ -1090,12 +1090,12 @@ class TextCodingUtil {
             ctx.textBaseline="top"; 
             ctx.fillText(str, 2, 2);
             let bin = ctx.getImageData(0,0,64,48)
-            return bin //bin.data.toString()
+            return bin; //bin.data.toString()
         }
         if(isNotInASCII(option1)){ // 영문이 아닌 경우
             console.log('isNotInASCII, make this str to img')
             // TODO: make this to img
-            const imgData = convertToImg(option1)
+            const imgData = convertToImg(option1);
             console.log('img', imgData)
             let gray_data = [];
             for (let i = 0; i < imgData.data.length; i += 4) {
@@ -1122,12 +1122,11 @@ class TextCodingUtil {
             console.log(modi_display_data.length);
             console.log(this.imgData) //modi_display_data.toString()
 
-
-            result = `display0.drawPicture("image0");`;
+            result = 'display0.drawPicture("image0");';
         }
 
         if(option1[0] !== '"'){ // 숫자인 경우
-            result = `display0.setText("${option1}");`;
+            result = 'display0.setText("${option1}");';
         }
         console.log("modi_print_display_by_value option1 : ", option1, typeof option1);
         console.log("modi_print_display_by_value result : ", result);
