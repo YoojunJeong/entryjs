@@ -219,7 +219,7 @@ Entry.ZoomController = class ZoomController {
                         console.log(Entry.module)
 
                         for(let i =0 ; i < images.length ; i++){
-                            binary += `display0.addPicture("${images[i]}",(char*)picture${i});`;
+                            binary += `display0.addPicture("${images[i]}",picture${i});`;
                         }
 
                         binary += '\n\n';
