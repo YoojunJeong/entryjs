@@ -207,12 +207,15 @@ Entry.ZoomController = class ZoomController {
                         var cOutput = blockToCParser.Thread(block.getThread());
         
                         // Entry.module = 'Network network0(0x07B4573);\nIr ir0(0x206080B18920);\nDisplay display0(0x4000323AEE9C);\n';
-                        var binary = '"#include "user.hpp"\n\nusing namespace math;\n';
-                        let images = cOutput.match(/image\d/g)
+                        var binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
+                        let images = cOutput.match(/image\d/g)||[]
+                        
                         let imgData = Entry.TextCodingUtil.data
                         console.log("images", images, imgData)
                         for(let i =0 ; i < images.length ; i++){
-                            binary += `const char picture${i}[${imgData.split(',').length + 1}] = {${imgData}};`
+                            binary += `const char picture${i}[${imgData.split(',').length + 1}] = {
+                                ${imgData}
+                            };`
                         }
                         
                         binary += '\nvoid doUserTask()\n{\n';
