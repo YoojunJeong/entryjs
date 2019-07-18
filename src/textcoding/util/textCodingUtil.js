@@ -1081,7 +1081,7 @@ class TextCodingUtil {
             return false
         }
 
-        result = 'display0.setText(${option1});'; // text 영문 및 기호인 경우
+        result = 'display0.setText(' + option1 + ');'; // text 영문 및 기호인 경우
 
         function convertToImg(str) {
             let x = document.createElement("CANVAS");
@@ -1122,11 +1122,13 @@ class TextCodingUtil {
             console.log(modi_display_data.length);
             console.log(this.imgData) //modi_display_data.toString()
 
-            result = 'display0.drawPicture("image0");';
+            // TODO: "image0"는 변경되어야 함. => 한글 to image 맵 가지고 있기
+            var korean_text_image_name = "image0";
+            result = 'display0.drawPicture("' + korean_text_image_name + '");';
         }
 
         if(option1[0] !== '"'){ // 숫자인 경우
-            result = 'display0.setText("${option1}");';
+            result = 'display0.setText(' + option1 + ');';
         }
         console.log("modi_print_display_by_value option1 : ", option1, typeof option1);
         console.log("modi_print_display_by_value result : ", result);
