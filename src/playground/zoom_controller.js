@@ -201,39 +201,44 @@ Entry.ZoomController = class ZoomController {
         
                         // Entry.module = 'Network network0(0x07B4573);\nIr ir0(0x206080B18920);\nDisplay display0(0x4000323AEE9C);\n';
                         var binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
-                        let images = cOutput.match(/image\d/g)||[]
-                        
-                        let imgData = Entry.TextCodingUtil.imgData || ''
-                        console.log("images", images, imgData)
+                        let images = cOutput.match(/(?<=drawPicture\().*(?=\))/g)||[]
+                        let imgData = Entry.TextCodingUtil.imgData
+                        // 이미지 데이터
                         for(let i =0 ; i < images.length ; i++){
-                            binary += `const char picture${i}[${imgData.split(',').length + 1}] = {\n${imgData}\n};\n`
+                            binary += `const char picture${i}[${imgData[i].split(',').length + 1}] = {\n${imgData[i]}\n};\n\n`
                         }
                         binary += '\nvoid doUserTask()\n{\n';
 
+                        //  변수 선언
                         if(Entry.TextCodingUtil.melodyData.length){
                             binary += '\nfloat __melodyVolume = 0.0;\n\n';
                         }
 
-                        binary += Entry.module;
-                        console.log(`Entry.module`)
-                        console.log(Entry.module)
+                        // 모듈 블럭 선언
+                        binary += `${Entry.module}\n`;
 
+                        // 이미지 변수 선언
                         for(let i =0 ; i < images.length ; i++){
-                            binary += `display0.addPicture("${images[i]}",picture${i});`;
+                            binary += `display0.addPicture(${images[i]},picture${i});\n`;
                         }
 
-                        binary += '\n\n';
-                        binary += cOutput;
-                        binary += '\n    sleep(1);\n}\n}'
+                        // 코드
+                        binary += `\n${cOutput}\n`;
+                        binary += '    sleep(1);\n}\n}'
                         binary = binary.replace(/\t/g, "    ")
 
+                        console.log(`Entry.module`)
+                        console.log(Entry.module)
                         console.log("binary")
                         console.log(JSON.stringify(binary))
                         console.log(binary)
 
                         let binaryOutput = Interpreter.makeFrame(binary);
-                           
                         console.log(binaryOutput.block)
+
+                        // data 초기화
+                        Entry.TextCodingUtil.imgData = []
+                        Entry.TextCodingUtil.melodyData = []
 
                             let project = Entry.exportProject();
 

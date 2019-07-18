@@ -196,7 +196,8 @@ Entry.MODI = {
     displayImageList: function() {
         // TODO: 이미지 리소스와 연결
         var list = [
-            ['기본이미지', 'basic_image0']
+            ['기본이미지1', 'basic_image0'],
+            ['기본이미지2', 'basic_image1'],
         ];
 
         return list;
@@ -1566,7 +1567,7 @@ Entry.MODI.getBlocks = function() {
                     null,
                     {
                         type: 'text',
-                        params: ['text'],
+                        params: ['한글, 숫자'],
                     },
                 ],
                 type: 'modi_print_display_by_value',
@@ -1701,8 +1702,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'display0.drawPicture(%1);',
-                        template: 'display0.drawPicture(%1);',
+                        syntax: 'display0.drawPicture?%1',
+                        template: 'display0.drawPicture?%1',
                     },
                 ],
             }
