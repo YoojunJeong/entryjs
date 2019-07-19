@@ -1613,11 +1613,11 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '화면의 %1 줄에 변수 %2 보이기 %3',
+            template: '화면의 %1 에 변수 %2 보이기 %3',
             params: [
                 {
                     type: 'Dropdown',
-                    options: [['첫 번째', 0], ['두 번째', 15], ['세 번째', 30]],
+                    options: [['첫째줄', 0], ['둘째줄', 15], ['셋째줄', 30]],
                     value: 0,
                     fontSize: 10,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
