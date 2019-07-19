@@ -954,14 +954,16 @@ function convertArgumentToConditionBlocks(args) {
 
 function convertArgumentToBlocks(args) {
     var args = luxcParer.parse(args);
-
-    var blocks = [];
-    for (var i = 0; i < args.length; i ++) {
-        var block = argsToBlock(args[i]);
-        blocks.push(block);
+    if (Array.isArray(args)) {
+        var blocks = [];
+        for (var i = 0; i < args.length; i ++) {
+            var block = argsToBlock(args[i]);
+            blocks.push(block);
+        }
+        return blocks;
     }
 
-    return blocks;
+    return [argsToBlock(args)];
 }
 
 function convertValueToBlock(arg) {
