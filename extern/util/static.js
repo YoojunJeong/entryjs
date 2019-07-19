@@ -192,7 +192,7 @@ EntryStatic.getAllBlocks = function() {
                 'stop_repeat',
                 '_if',
                 'if_else',
-                'wait_until_true',
+                // 'wait_until_true',
             ],
         },
         {

@@ -144,7 +144,7 @@ class BlockMenuScroller {
             svgDom = board.svgDom,
             realHeight = board.blockMenuContainer.height();
 
-        var vRatio = (bRect.height + 20) / realHeight;
+        var vRatio = (bRect.height + 60) / realHeight;
         this.vRatio = vRatio;
         if (vRatio <= 1) this.setVisible(false);
         else this.setVisible(true);
