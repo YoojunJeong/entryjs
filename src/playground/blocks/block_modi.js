@@ -196,7 +196,8 @@ Entry.MODI = {
     displayImageList: function() {
         // TODO: 이미지 리소스와 연결
         var list = [
-            ['기본이미지', 'basic_image0']
+            ['기본이미지1', 'basic_image0'],
+            ['기본이미지2', 'basic_image1'],
         ];
 
         return list;
@@ -1539,13 +1540,13 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '화면에 %2 보이기 %3',
+            template: '화면의 %1 줄에 %2 보이기 %3',
             params: [
                 {
-                    type: 'DropdownDynamic',
-                    value: null,
-                    fontSize: 11,
-                    menuName: Entry.MODI.displayList,
+                    type: 'Dropdown',
+                    options: [['첫 번째', 0], ['두 번째', 15], ['세 번째', 30]],
+                    value: 0,
+                    fontSize: 10,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
@@ -1566,7 +1567,7 @@ Entry.MODI.getBlocks = function() {
                     null,
                     {
                         type: 'text',
-                        params: ['text'],
+                        params: ['한글, 숫자'],
                     },
                 ],
                 type: 'modi_print_display_by_value',
@@ -1602,8 +1603,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'display0.?%2',
-                        template: 'display0.?%2',
+                        syntax: 'display0.?%1?%2',
+                        template: 'display0.?%1?%2',
                     },
                 ],
             }
@@ -1701,8 +1702,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'display0.drawPicture(%1);',
-                        template: 'display0.drawPicture(%1);',
+                        syntax: 'display0.drawPicture?%1',
+                        template: 'display0.drawPicture?%1',
                     },
                 ],
             }
@@ -1892,7 +1893,7 @@ Entry.MODI.getBlocks = function() {
             paramsKeyMap: {
                 property: 0,
             },
-            class: 'button',
+            class: 'network',
             isNotFor: ['modi'],
 
             syntax: {
@@ -1994,7 +1995,7 @@ Entry.MODI.getBlocks = function() {
                 },
             ],
             def: {
-                params: [null, 'getButtonPressed', 'TRUE'],
+                params: [null, 'getButtonClick', 'TRUE'],
                 type: 'modi_network_button_judgement',
             },
             paramsKeyMap: {
@@ -2036,7 +2037,7 @@ Entry.MODI.getBlocks = function() {
                 params: ['TRUE'],
                 type: 'modi_network_button_menu',
             },
-            class: 'button',
+            class: 'network',
             isNotFor: ['modi'],
             syntax: {
                 js: [],

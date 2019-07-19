@@ -310,6 +310,14 @@ Entry.BlockToCParser = class {
                         );
                         break;
                     }
+
+                    case 'modi_display_image' : {
+                        resultTextCode = Entry.TextCodingUtil.assembleModiDisplayImgBlock(
+                            block,
+                            resultTextCode
+                        );
+                        break;
+                    }
                 }
             }
 
