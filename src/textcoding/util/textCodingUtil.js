@@ -295,6 +295,69 @@ sleep(300);
 speaker0.setTune(F_SOL_6, 13);
 sleep(1500);
 speaker0.setTune(F_SOL_6, 0);
+sleep(300);`,
+"엘리제를 위하여" : `
+speaker0.setTune(F_RE_7, 100);
+sleep(900);
+speaker0.setTune(F_SI_6, 100);
+sleep(300);
+speaker0.setTune(F_DO_7, 100);
+sleep(300);
+speaker0.setTune(F_RE_7, 100);
+sleep(300);
+speaker0.setTune(3135, 100);
+sleep(600);
+speaker0.setTune(2959, 100);
+sleep(300);
+speaker0.setTune(F_MI_7, 100);
+sleep(600);
+speaker0.setTune(F_DO_7, 0);
+sleep(300);
+speaker0.setTune(F_DO_7, 100);
+sleep(600);
+speaker0.setTune(F_SI_6, 100);
+sleep(300);
+speaker0.setTune(F_RA_6, 100);
+sleep(600);
+speaker0.setTune(F_PA_S_6, 0);
+sleep(300);
+speaker0.setTune(F_MI_7, 100);
+sleep(600);
+speaker0.setTune(F_RE_7, 100);
+sleep(300);
+speaker0.setTune(F_SI_6, 100);
+sleep(600);
+speaker0.setTune(F_SOL_6, 0);
+sleep(300);
+speaker0.setTune(F_RE_7, 100);
+sleep(900);
+speaker0.setTune(F_SI_6, 100);
+sleep(300);
+speaker0.setTune(F_DO_7, 100);
+sleep(300);
+speaker0.setTune(F_RE_7, 100);
+sleep(300);
+speaker0.setTune(3135, 100);
+sleep(600);
+speaker0.setTune(2925, 100);
+sleep(300);
+speaker0.setTune(F_MI_7, 100);
+sleep(600);
+speaker0.setTune(F_DO_7, 0);
+sleep(300);
+speaker0.setTune(F_DO_7, 100);
+sleep(600);
+speaker0.setTune(F_SI_6, 100);
+sleep(300);
+speaker0.setTune(F_RA_6, 100);
+sleep(300);
+speaker0.setTune(F_MI_7, 100);
+sleep(300);
+speaker0.setTune(F_RE_7, 100);
+sleep(300);
+speaker0.setTune(F_SOL_6, 100);
+sleep(1500);
+speaker0.setTune(F_SOL_6, 0);
 sleep(300);`
 }
 
@@ -1170,7 +1233,7 @@ class TextCodingUtil {
     assembleModiDisplayBlock(block, syntax) {
         // 영문, (영+수), |  숫자, 변수, 인풋, | 한글, (한글+수), (영+한글)
         const blockToken = syntax.split('?'); 
-        const positionY = blockToken[1];
+        const positionY = blockToken[1] || 0 ;
         const contents = blockToken[2];
         let result = `display0.setText(${contents});`; // 영문이 포함된 경우 줄선택 불가
         console.log("assembleModiDisplayBlock : ", blockToken);
@@ -1184,13 +1247,66 @@ class TextCodingUtil {
             return false
         }
 
+        function fillTextMultiLine(ctx, text, x, y) {
+            const lineHeight = ctx.measureText("M").width * 1.2;
+            const textWidth = ctx.measureText(text).width + 5
+            let line = "";
+            let lines = [];
+            const words = text.split("")
+            if (textWidth > 64) {
+                for (let word of words) {
+                    if (word === "\n") {
+                        lines.push({
+                            text: line,
+                            x: x,
+                            y: y
+                        });
+                        y += lineHeight;
+                        lines.push({
+                            text: word,
+                            x: x,
+                            y: y
+                        });
+                        line = "";
+                    } else {
+                        let linePlus = line + word + "";
+                        if (ctx.measureText(linePlus).width + 5 > 64) {
+                            lines.push({
+                                text: line,
+                                x: x,
+                                y: y
+                            });
+                            line = word;
+                            y += lineHeight;
+                        } else {
+                            line = linePlus;
+                        }
+                    }
+                }
+                lines.push({
+                    text: line,
+                    x: x,
+                    y: y
+                });
+                for (let line of lines) {
+                    ctx.fillText(line.text, line.x, line.y);
+                }
+            } else {
+                let oneLine = text.split("\n");
+                for (var i = 0; i < oneLine.length; ++i) {
+                    ctx.fillText(oneLine[i], x, y);
+                    y += lineHeight;
+                }
+            }
+        }
+
         function convertToImg(str) {
             // canvas 에서 text를 img bin으로 전환함
             let x = document.createElement("CANVAS");
             let ctx = x.getContext("2d");
             ctx.font = 'bold 9pt lighter sans-serif';
             ctx.textBaseline="top"; 
-            ctx.fillText(str, 2, positionY);
+            fillTextMultiLine(ctx, str, 2, positionY);
             let ctxImgData = ctx.getImageData(0,0,64,48)
 
             // ctxImgData을 gray data 로 변환
@@ -1227,8 +1343,9 @@ class TextCodingUtil {
             result = `display0.drawPicture("${textImgVariable}");`;
         }
 
-        if(contents[0] !== '"'){ // 숫자, 인풋, (변수?)
-            result = `display0.setVariable(2,${positionY},${contents});`; 
+        if(contents[0] !== '"' && typeof contents[0] !== "number"){ // 숫자, 인풋, (변수?)
+            result = ``;
+            // result = `display0.setVariable(2,${positionY},${contents});`; 
         }
 
         return result;

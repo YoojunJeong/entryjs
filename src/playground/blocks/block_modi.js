@@ -1540,7 +1540,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '화면의 %1 줄에 %2 보이기 %3',
+            template: '화면에 글자 %2 보이기 %3',
             params: [
                 {
                     type: 'Dropdown',
@@ -1567,7 +1567,7 @@ Entry.MODI.getBlocks = function() {
                     null,
                     {
                         type: 'text',
-                        params: ['한글, 숫자'],
+                        params: ['안녕!'],
                     },
                 ],
                 type: 'modi_print_display_by_value',
@@ -1613,7 +1613,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '화면의 %1 줄에 %2 보이기 %3',
+            template: '화면의 %1 줄에 변수 %2 보이기 %3',
             params: [
                 {
                     type: 'Dropdown',
@@ -1667,7 +1667,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '화면의 %1 그림 보이기 %2',
+            template: '화면에 %1 그림 보이기 %2',
             params: [
                 {
                     type: 'DropdownDynamic',
