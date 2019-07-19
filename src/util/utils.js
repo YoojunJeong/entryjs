@@ -346,13 +346,15 @@ Entry.resizeElement = function(interfaceModel) {
 
         // JYJ - 블록 메뉴 영역 사이즈 조절
         let menuWidth = interfaceModel.menuWidth;
-        if (!menuWidth) {ㅋ
+        if (!menuWidth) {
             menuWidth = 300;
         } else if (menuWidth < 300) {
             menuWidth = 300;
         } else if (menuWidth > 430) {
             menuWidth = 430;
         }
+
+        menuWidth = 400
         interfaceModel.menuWidth = menuWidth;
 
         const blockMenu = mainWorkspace.blockMenu;

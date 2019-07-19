@@ -196,7 +196,8 @@ Entry.MODI = {
     displayImageList: function() {
         // TODO: 이미지 리소스와 연결
         var list = [
-            ['기본이미지', 'basic_image0']
+            ['기본이미지1', 'basic_image0'],
+            ['기본이미지2', 'basic_image1'],
         ];
 
         return list;
@@ -231,8 +232,7 @@ Entry.MODI.blockMenuBlocks = [
     'modi_set_led_color',
     'modi_speaker_off',
     'modi_set_basic_speaker',
-    'modi_set_custom_speaker',
-    'modi_speaker_melody',
+    'modi_melody_speaker',
     'modi_print_display_by_value',
     'modi_display_variable',
     'modi_display_image',
@@ -1451,13 +1451,13 @@ Entry.MODI.getBlocks = function() {
                     },
                 ],
             },
-          
         },
-        modi_set_custom_speaker: {
+        modi_melody_speaker: {
+            // melodyBlock: ['송어', '은파'],
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '스피커의 진동수는 %2 크기는 %3(으)로 정하기 %4',
+            template: '스피커의 %2 멜로디 크기는 %3(으)로 정하기 %4',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1468,9 +1468,15 @@ Entry.MODI.getBlocks = function() {
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
-                    type: 'Block',
-                    accept: 'string',
-                    defaultType: 'number',
+                    type: 'Dropdown',
+                    options: [
+                        ['송어', '송어'],
+                        ['은파', '은파'],
+                        ['엘리제를 위하여', '엘리제를 위하여'],
+                    ],
+                    fontSize: 11,
+                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
                     type: 'Block',
@@ -1483,25 +1489,21 @@ Entry.MODI.getBlocks = function() {
                     size: 12,
                 },
             ],
+            events: {},
             def: {
                 params: [
                     null,
-                    {
-                        type: 'number',
-                        params: ['100'],
-                    },
-                    
+                    '송어',
                     {
                         type: 'number',
                         params: ['100'],
                     },
                 ],
-                type: 'modi_set_custom_speaker',
+                type: 'modi_melody_speaker',
             },
             paramsKeyMap: {
                 name: 0,
-                frequence: 1,
-                volume: 2,
+                text: 1,
             },
             class: 'speaker',
             isNotFor: ['modi'],
@@ -1510,7 +1512,7 @@ Entry.MODI.getBlocks = function() {
                     Entry.MODI.initSend();
                 }
                 var key = script.getStringField('name'),
-                    frequence = script.getNumberValue('frequence'),
+                    frequence = script.getStringField('frequence'),
                     volume = script.getNumberValue('volume', script);
                 var moduleID = JSON.parse(Entry.hw.portData.module['speaker'][key]).id;
 
@@ -1524,83 +1526,27 @@ Entry.MODI.getBlocks = function() {
 
                 return script.callReturn();
             },
-
             syntax: {
                 c: [
                     {
-                        syntax: 'speaker0.?%2?%3',
-                        template: 'speaker0.?%2?%3',
+                        syntax: 'speacker0.?%2?%3',
+                        template: 'speacker0.?%2?%3',
                     },
                 ],
             },
-        },
-        modi_speaker_melody : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
-            skeleton: 'basic',
-            template: '스피커의 멜로디는 %1 크기는 %2(으)로 재생하기 %3',
-            params: [
-                {
-                    type: 'DropdownDynamic',
-                    value: null,
-                    fontSize: 11,
-                    menuName: Entry.MODI.speakerMelodyList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
-                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
-                },
-                {
-                    type: 'Block',
-                    accept: 'string',
-                    defaultType: 'number',
-                },
-                {
-                    type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
-                    size: 12,
-                },
-            ],
-            events: {},
-            def: {
-                params: [
-                    null,
-                    {
-                        type: 'text',
-                        params: ["100"],
-                    }
-                ],
-                type: 'modi_speaker_melody',
-            },
-            paramsKeyMap: {
-                name: 0,
-                text: 1,
-            },
-            class: 'speaker',
-            isNotFor: ['modi'],
-            func: function(sprite, script) {
-                return script.callReturn();
-            },
-            syntax: {
-                c: [
-                    {
-                        // tag : chris
-                        // TODO: syntax 수정!!
-                        syntax: 'speaker0.playMelody(%1,%2);',
-                        template: 'speaker0.playMelody(%1,%2);',
-                    },
-                ],
-            }
+          
         },
         modi_print_display_by_value: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '화면에 %2 보이기 %3',
+            template: '화면의 %1 줄에 %2 보이기 %3',
             params: [
                 {
-                    type: 'DropdownDynamic',
-                    value: null,
-                    fontSize: 11,
-                    menuName: Entry.MODI.displayList,
+                    type: 'Dropdown',
+                    options: [['첫 번째', 0], ['두 번째', 15], ['세 번째', 30]],
+                    value: 0,
+                    fontSize: 10,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
@@ -1621,7 +1567,7 @@ Entry.MODI.getBlocks = function() {
                     null,
                     {
                         type: 'text',
-                        params: ['text'],
+                        params: ['한글, 숫자'],
                     },
                 ],
                 type: 'modi_print_display_by_value',
@@ -1657,8 +1603,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'display0.setText(%2);',
-                        template: 'display0.setText(%2);',
+                        syntax: 'display0.?%1?%2',
+                        template: 'display0.?%1?%2',
                     },
                 ],
             }
@@ -1756,8 +1702,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'display0.drawPicture(%1);',
-                        template: 'display0.drawPicture(%1);',
+                        syntax: 'display0.drawPicture?%1',
+                        template: 'display0.drawPicture?%1',
                     },
                 ],
             }

@@ -286,7 +286,6 @@ Entry.BlockToCParser = class {
 
                         break;
                     }
-                    case 'modi_set_custom_speaker' :
                     case 'modi_set_basic_speaker' : {
                         resultTextCode = Entry.TextCodingUtil.assembleModiSetBasicSpeakerBlock(
                             block,
@@ -296,7 +295,29 @@ Entry.BlockToCParser = class {
                         break;
                         
                     }
-            
+                    case 'modi_melody_speaker' : {
+                        resultTextCode = Entry.TextCodingUtil.assembleModiMelodySpeakerBlock(
+                            block,
+                            resultTextCode
+                        );
+                        break;
+                    }
+                    
+                    case 'modi_print_display_by_value' : {
+                        resultTextCode = Entry.TextCodingUtil.assembleModiDisplayBlock(
+                            block,
+                            resultTextCode
+                        );
+                        break;
+                    }
+
+                    case 'modi_display_image' : {
+                        resultTextCode = Entry.TextCodingUtil.assembleModiDisplayImgBlock(
+                            block,
+                            resultTextCode
+                        );
+                        break;
+                    }
                 }
             }
 
