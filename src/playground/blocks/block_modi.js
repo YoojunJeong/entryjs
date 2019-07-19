@@ -196,8 +196,8 @@ Entry.MODI = {
     displayImageList: function() {
         // TODO: 이미지 리소스와 연결
         var list = [
-            ['기본이미지1', 'basic_image0'],
-            ['기본이미지2', 'basic_image1'],
+            ['기본이미지', 'basic_image0'],
+            ['기본이미지1', 'basic_image1'],
         ];
 
         return list;
@@ -891,7 +891,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '모터 %2의 1번을 %3만큼 바꾸기 %4',
+            template: '모터 %2의 1번을 %3으로 정하기 %4',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -981,7 +981,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '모터 %2의 2번을 %3만큼 바꾸기 %4',
+            template: '모터 %2의 2번을 %3으로 정하기 %4',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1544,7 +1544,7 @@ Entry.MODI.getBlocks = function() {
             params: [
                 {
                     type: 'Dropdown',
-                    options: [['첫 번째', 0], ['두 번째', 15], ['세 번째', 30]],
+                    options: [['첫째줄', 0], ['둘째줄', 15], ['샛째줄', 30]],
                     value: 0,
                     fontSize: 10,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
