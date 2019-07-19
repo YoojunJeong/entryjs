@@ -1196,6 +1196,42 @@ class TextCodingUtil {
 
     }
 
+    assembleModiChangeMotorUpperValueBlock(block, syntax) {
+        let result = '';
+        const blockToken = syntax.split('?'); // space 로 split 하되, : 도 자르지만 토큰에 포함
+        const option = blockToken[1];
+        const option1 = blockToken[2];
+
+        if (option == 'MOTOR_ANGLE') {
+            result = 'motor0.setAngleUpper(' + option1 + ');';
+        } else if (option == 'MOTOR_SPEED') {
+            result = 'motor0.setSpeedUpper(' + option1 + ');';
+        } 
+        else if  (option == 'MOTOR_TORQUE') {
+            result = 'motor0.setTorqueUpper(' + option1 + ');';
+        } 
+
+        return result;
+    }
+
+    assembleModiSetChangeMotorBottomValueBlock(block, syntax) {
+        let result = '';
+        const blockToken = syntax.split('?'); // space 로 split 하되, : 도 자르지만 토큰에 포함
+        const option = blockToken[1];
+        const option1 = blockToken[2];
+
+        if (option == 'MOTOR_ANGLE') {
+            result = 'motor0.setAngleBottom(' + option1 + ');';
+        } else if (option == 'MOTOR_SPEED') {
+            result = 'motor0.setSpeedBottom(' + option1 + ');';
+        } 
+        else if  (option == 'MOTOR_TORQUE') {
+            result = 'motor0.setTorqueBottom(' + option1 + ');';
+        }
+
+        return result;
+    }
+
     assembleModiSetBasicSpeakerBlock(block, syntax) {
 
         let result = '';

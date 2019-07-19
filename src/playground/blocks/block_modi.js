@@ -969,13 +969,14 @@ Entry.MODI.getBlocks = function() {
 
                 return script.callReturn();
             },
-
-            c: [
-                {
-                    syntax: 'motor0.%2.%3',
-                    template: 'motor0.%2.%3',
-                },
-            ],
+            syntax: {
+                c: [
+                    {
+                        syntax: 'motor0.?%2?%3',
+                        template: 'motor0.?%2?%3',
+                    },
+                ],
+            },
         },
         modi_change_motor_bottom_value: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
@@ -1060,13 +1061,14 @@ Entry.MODI.getBlocks = function() {
 
                 return script.callReturn();
             },
-
-            c: [
-                {
-                    syntax: 'motor0.%2.%3',
-                    template: 'motor0.%2.%3',
-                },
-            ],
+            syntax : {
+                c: [
+                    {
+                        syntax: 'motor0.?%2?%3',
+                        template: 'motor0.?%2?%3',
+                    },
+                ],
+            }
         },
         modi_clear_led: {
             color: EntryStatic.colorSet.block.default.HARDWARE,

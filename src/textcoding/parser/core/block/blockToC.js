@@ -286,6 +286,23 @@ Entry.BlockToCParser = class {
 
                         break;
                     }
+                    
+                    case 'modi_change_motor_upper_value': {
+                        resultTextCode = Entry.TextCodingUtil.assembleModiChangeMotorUpperValueBlock(
+                            block,
+                            resultTextCode
+                        );
+
+                        break;
+                    }
+                    case 'modi_change_motor_bottom_value': {
+                        resultTextCode = Entry.TextCodingUtil.assembleModiSetChangeMotorBottomValueBlock(
+                            block,
+                            resultTextCode
+                        );
+
+                        break;
+                    }
                     case 'modi_set_basic_speaker' : {
                         resultTextCode = Entry.TextCodingUtil.assembleModiSetBasicSpeakerBlock(
                             block,
