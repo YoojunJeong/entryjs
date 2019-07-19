@@ -96,25 +96,25 @@ Entry.init = function(container, options) {
     }
 
     Entry.soundQueue = new createjs.LoadQueue();
-    Entry.soundQueue.installPlugin(createjs.Sound);
+    // Entry.soundQueue.installPlugin(createjs.Sound);
     Entry.soundInstances = [];
 
-    Entry.loadAudio_(
-        [
-            `${Entry.mediaFilePath}sounds/click.mp3`,
-            `${Entry.mediaFilePath}sounds/click.wav`,
-            `${Entry.mediaFilePath}sounds/click.ogg`,
-        ],
-        'entryMagneting'
-    );
-    Entry.loadAudio_(
-        [
-            `${Entry.mediaFilePath}sounds/delete.mp3`,
-            `${Entry.mediaFilePath}sounds/delete.ogg`,
-            `${Entry.mediaFilePath}sounds/delete.wav`,
-        ],
-        'entryDelete'
-    );
+    // Entry.loadAudio_(
+    //     [
+    //         `${Entry.mediaFilePath}sounds/click.mp3`,
+    //         `${Entry.mediaFilePath}sounds/click.wav`,
+    //         `${Entry.mediaFilePath}sounds/click.ogg`,
+    //     ],
+    //     'entryMagneting'
+    // );
+    // Entry.loadAudio_(
+    //     [
+    //         `${Entry.mediaFilePath}sounds/delete.mp3`,
+    //         `${Entry.mediaFilePath}sounds/delete.ogg`,
+    //         `${Entry.mediaFilePath}sounds/delete.wav`,
+    //     ],
+    //     'entryDelete'
+    // );
 
     createjs.Sound.stop();
     BigNumber.config({ ERRORS: false });
