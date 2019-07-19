@@ -817,16 +817,18 @@ var luxcParer = new class {
         var repair_args = this._repair(replace_object[0], split_array);
 
         if (repair_args.length == 1) {
-                var match_results = replace_object[0];
-                if (match_results.length == 1) {
-                    // match results means => "func"("args")
-                    var func = replace_object[0][0][1];
-                    var args = replace_object[0][0][2];
-
-                    if (func !== "")
-                {
-                        // getRandom(10, 20) or dial0.getTurn() ...
-                        return {call : func, args : this.parse(args)};
+            var match_results = replace_object[0];
+            if (match_results.length == 1) {
+                // match results means => "func"("args")
+                var func = replace_object[0][0][1];
+                var args = replace_object[0][0][2];
+                
+                if (func !== "") {
+                    // getRandom(10, 20) or dial0.getTurn() ...
+                    return {call : func, args : this.parse(args)};
+                } else {
+                    // (ir0.getProximity() >= 50)
+                    return this.parse(args);
                 }
             }
 
@@ -851,7 +853,6 @@ var luxcParer = new class {
                 args[i] = result;
             }
         } else if (args.length == 1) {
-
             // check string match
             if (this.regex.string.exec(args[0])) {
                 return args;
