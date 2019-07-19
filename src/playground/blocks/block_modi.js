@@ -1895,7 +1895,7 @@ Entry.MODI.getBlocks = function() {
             paramsKeyMap: {
                 property: 0,
             },
-            class: 'network',
+            class: 'button',
             isNotFor: ['modi'],
 
             syntax: {
