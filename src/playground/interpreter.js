@@ -530,10 +530,12 @@ function getCodeBlock(luxc) {
                         logicStack.push(block);
                     } else if ((match = regex.block.setVariable.exec(code))) {
                         var variableName = match[1];
-                        var polynomial = convertPolynomial(match[2], modules);
+                        var value_block = convertArgumentToBlocks(match[2]);
+                        // var polynomial = convertPolynomial(match[2], modules);
                         var block = new VariableSetValue(
                             new StringValue(variableName),
-                            new PolynomialStringValue(polynomial)
+                            value_block[0]
+                            //new PolynomialStringValue(polynomial)
                         );
                         if (logicStack.length()) {
                             var logic = logicStack.peek();
