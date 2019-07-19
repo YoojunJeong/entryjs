@@ -412,7 +412,7 @@ Entry.BlockView = class BlockView {
             this.svgCommentGroup && this.svgCommentGroup.removeAttr('transform');
         } else {
 
-            const transform = `translate(${this.x / scale},${(this.y / scale) + 30  })`;
+            const transform = `translate(${this.x / scale},${this.y / scale})`;
             this.svgGroup.attr('transform', transform);
             this.svgCommentGroup && this.svgCommentGroup.attr('transform', transform);
         }
