@@ -1464,7 +1464,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '스피커의 %2 멜로디 크기는 %3(으)로 정하기 %4',
+            template: '스피커의 멜로디는 %2 크기는 %3 (으)로 재생하기 %4',
             params: [
                 {
                     type: 'DropdownDynamic',
