@@ -2114,7 +2114,7 @@ Entry.Playground = class {
                 listener = Entry.documentMousemove.attach(this, ({ clientX }) => {
                     if (that.resizing) {
                         Entry.resizeElement({
-                            menuWidth: clientX - Entry.interfaceState.canvasWidth,
+                            menuWidth: clientX -30 //- Entry.interfaceState.canvasWidth,
                         });
                     }
                 });

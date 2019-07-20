@@ -195,7 +195,7 @@ Entry.loadInterfaceState = function(interfaceState) {
             interfaceState = JSON.parse(interfaceModel);
         } else {
             interfaceState = {
-                menuWidth: 280,
+                menuWidth: 400,
                 canvasWidth: 480,
             };
         }
@@ -335,26 +335,26 @@ Entry.resizeElement = function(interfaceModel) {
             canvasSize = 640;
         }
         // JYJ - canvas size forced set.
-        canvasSize = 260;
+        // canvasSize = 260;
 
         interfaceModel.canvasWidth = canvasSize;
 
         const engineContainer = Entry.engine.view_.parentElement;
         engineContainer.style.width = `${canvasSize}px`;
-        Entry.engine.view_.style.width = 250;//`${canvasSize - 24}px`;
-        Entry.stage.canvas.canvas.style.width = 255;//`${canvasSize - 26}px`;
+        Entry.engine.view_.style.width = `${canvasSize - 24}px`;//250
+        Entry.stage.canvas.canvas.style.width = `${canvasSize - 26}px`;//255
 
         // JYJ - 블록 메뉴 영역 사이즈 조절
         let menuWidth = interfaceModel.menuWidth;
         if (!menuWidth) {
-            menuWidth = 300;
+            menuWidth = 400;
         } else if (menuWidth < 300) {
             menuWidth = 300;
-        } else if (menuWidth > 430) {
-            menuWidth = 430;
+        } else if (menuWidth > 530) {
+            menuWidth = 530;
         }
 
-        menuWidth = 400
+        // menuWidth = 400
         interfaceModel.menuWidth = menuWidth;
 
         const blockMenu = mainWorkspace.blockMenu;
