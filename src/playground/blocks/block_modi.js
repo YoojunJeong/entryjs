@@ -698,7 +698,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '적외선의 빛 반사량(%)',
+            template: '적외선의 빛 반사량',
             params: [
                 {
                     type: 'DropdownDynamic',
