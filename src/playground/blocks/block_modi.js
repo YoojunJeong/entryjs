@@ -543,7 +543,12 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Dropdown',
-                    options: [['클릭', 2], ['두번 클릭', 3], ['토글', 5], ['누름상태', 4]],
+                    options: [
+                        ['클릭', '2'],
+                        ['두번 클릭', '3'],
+                        ['토글', '5'],
+                        ['누른 상태', '4']
+                    ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
@@ -1870,7 +1875,7 @@ Entry.MODI.getBlocks = function() {
                     options: [
                         ['클릭', 'getClick'],
                         ['두 번 클릭', 'getDoubleClick'],
-                        ['누름 상태', 'getPressStatus'],
+                        ['누른 상태', 'getPressStatus'],
                         ['스위치', 'getToggle'],
                     ],
                     fontSize: 11,
@@ -1929,7 +1934,7 @@ Entry.MODI.getBlocks = function() {
                     options: [
                         ['클릭', 'getButtonClick'],
                         ['두 번 클릭', 'getButtonDoubleClick'],
-                        ['누름 상태', 'getButtonPressed'],
+                        ['누른 상태', 'getButtonPressed'],
                         ['스위치', 'getButtonToggle']
                     ],
                     fontSize: 11,
@@ -1978,7 +1983,7 @@ Entry.MODI.getBlocks = function() {
                     options: [
                         ['클릭', 'getButtonClick'],
                         ['두 번 클릭', 'getButtonDoubleClick'],
-                        ['누름 상태', 'getButtonPressed'],
+                        ['누른 상태', 'getButtonPressed'],
                         ['스위치', 'getButtonToggle'],
                     ],
                     fontSize: 11,
