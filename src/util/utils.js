@@ -347,11 +347,11 @@ Entry.resizeElement = function(interfaceModel) {
         // JYJ - 블록 메뉴 영역 사이즈 조절
         let menuWidth = interfaceModel.menuWidth;
         if (!menuWidth) {
-            menuWidth = 400;
-        } else if (menuWidth < 300) {
-            menuWidth = 300;
-        } else if (menuWidth > 530) {
-            menuWidth = 530;
+            menuWidth = 337 + 64 ;
+        } else if (menuWidth < 337 + 64) {
+            menuWidth = 337 + 64;
+        } else if (menuWidth > 484) {
+            menuWidth = 484;
         }
 
         // menuWidth = 400
@@ -364,8 +364,8 @@ Entry.resizeElement = function(interfaceModel) {
         $('.blockMenuContainer>div').css({ width: `${menuWidth + adjust - 2}px` });
         blockMenu.setWidth();
         
-        $('.entryWorkspaceBoard').css({ left: `${menuWidth + 20 }px` });
-        Entry.playground.resizeHandle_.style.left = `${menuWidth + 30}px`;
+        $('.entryWorkspaceBoard').css({ left: `${menuWidth + 20 }px` }); //`${menuWidth + 20 }px`
+        Entry.playground.resizeHandle_.style.left = `${menuWidth}px`;
         Entry.playground.variableViewWrapper_.style.width = `${menuWidth - 4}px`;
 
         this.interfaceState = interfaceModel;
