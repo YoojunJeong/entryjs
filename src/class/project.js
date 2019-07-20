@@ -118,7 +118,7 @@ Entry.getStartProject = function(mediaFilePath) {
                             y: 50,
                         },
                         {
-                            type: 'repeat_basic',
+                            type: 'repeat_inf',
                             statements: [[{ type: 'move_direction' }]],
                         },
                     ],
