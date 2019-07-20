@@ -4797,6 +4797,12 @@ Lang.Users = {
     "not_valid_email": "올바른 형식의 이메일 주소를 입력해주세요."
 };
 Lang.Workspace = {
+    "hue":"색상",
+    "saturation":"채도",
+    "brightness":"명도",
+    "red":"빨강(R)",
+    "green":"초록(G)",
+    "blue":"파랑(B)",
     "follow": "따라해보기",
     "SaveWithPicture": "저장되지 않은 그림이 있습니다. 저장하시겠습니까?",
     "RecursiveCallWarningTitle": "함수 호출 제한",
