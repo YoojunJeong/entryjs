@@ -399,7 +399,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '다이얼의 %2',
+            template: '다이얼의 위치',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -2370,7 +2370,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '네트워크 다이얼의 %2',
+            template: '네트워크 다이얼의 위치',
             params: [
                 {
                     type: 'DropdownDynamic',
