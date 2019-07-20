@@ -1964,7 +1964,7 @@ Lang.Blocks = {
     "modi_motor_speed": "속도",
     "modi_motor_torque": "회전",
     "modi_speaker_F_DO_5": "도5",
-    "modi_speaker_F_DO_6": "낮은도",
+    "modi_speaker_F_DO_6": "도",
     "modi_speaker_F_DO_7": "높은도",
     "modi_speaker_F_DO_S_5": "도#5",
     "modi_speaker_F_DO_S_6": "도#6",
