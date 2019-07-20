@@ -1379,11 +1379,11 @@ class TextCodingUtil {
             result = `display0.drawPicture("${textImgVariable}");`;
         }
 
-        if(contents[0] !== '"' && typeof contents[0] !== "number"){ // 숫자, 인풋, (변수?)
+        if(contents[0] !== '"' && isNaN(Number(contents)) === true){ // 인풋, (변수?)
             result = ``;
             // result = `display0.setVariable(2,${positionY},${contents});`; 
         }
-
+        
         return result;
     }
 
