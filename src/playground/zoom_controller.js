@@ -207,7 +207,7 @@ Entry.ZoomController = class ZoomController {
                         for(let i =0 ; i < images.length ; i++){
                             binary += `const char picture${i}[${imgData[i].split(',').length + 1}] = {\n${imgData[i]}\n};\n\n`
                         }
-                        binary += '\nvoid doUserTask()\n{\n';
+                        binary += 'void doUserTask()';
 
                         //  변수 선언
                         if(Entry.TextCodingUtil.melodyData.length){
@@ -223,8 +223,8 @@ Entry.ZoomController = class ZoomController {
                         }
 
                         // 코드
-                        binary += `\n${cOutput}\n`;
-                        binary += '    sleep(1);\n}\n}'
+                        binary += `${cOutput}\n`;
+                        binary += '    sleep(1);\n}\n'
                         binary = binary.replace(/\t/g, "    ")
 
                         console.log(`Entry.module`)

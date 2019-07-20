@@ -39,7 +39,7 @@ module.exports = {
 
                     c: [
                         {
-                            syntax:'while(true)\n{\n',
+                            syntax:'{', //'while(true)\n{\n',
                             blockType: 'event'
                         }
                     ]
