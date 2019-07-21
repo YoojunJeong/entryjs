@@ -161,102 +161,70 @@ Entry.ZoomController = class ZoomController {
 
                 console.log(Entry.variableContainer.variables_);
 
-                    var startBtnCount = 0;
-                        const blockMap = this.nowBoard.code._blockMap;
+                var startBtnCount = 0;
+                const blockMap = this.nowBoard.code._blockMap;
 
-                        console.log(blockMap);
+                console.log(blockMap);
 
-                        const keys = Object.keys(blockMap) || [];
-
-                        console.log('key', keys);
-
-                        keys.forEach((id) => {
-                            var block = blockMap[id];
-
-                            console.log('block ',block);
-
-                            if(block.data.type == 'when_run_button_click') {
-                                startBtnCount++;
-
-                                if(startBtnCount > 1) {
-                                    window.android.failUpload('시작버튼은 1개만 사용할 수 있어요.');
-                                    throw new Error('시작버튼이 2개 입니다.');
-                                }
-                                // console.log(block.data.type);
-
-                            }                                
-                        
-                        });
-
-
-                        const block = blockMap[keys[0]];
-                        var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
-                        var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
-                        // var blockToPyParser = new Entry.BlockToPyParser(syntax);
-                        var blockToCParser = new Entry.BlockToCParser(syntax);
-                        // var pyToBlockParser = new Entry.PyToBlockParser(syntax);
-    
-                        blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
-                        var cOutput = blockToCParser.Thread(block.getThread());
-        
-                        // Entry.module = 'Network network0(0x07B4573);\nIr ir0(0x206080B18920);\nDisplay display0(0x4000323AEE9C);\n';
-                        var binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
-                        let images = cOutput.match(/(?<=drawPicture\().*(?=\))/g)||[]
-                        let imgData = Entry.TextCodingUtil.imgData
-                        // 이미지 데이터
-                        for(let i =0 ; i < images.length ; i++){
-                            binary += `const char picture${i}[${imgData[i].split(',').length + 1}] = {\n${imgData[i]}\n};\n\n`
+                const keys = Object.keys(blockMap) || [];
+                keys.forEach((id) => {
+                    var block = blockMap[id];
+                    if(block.data.type == 'when_run_button_click') {
+                        startBtnCount++;
+                        if(startBtnCount > 1) {
+                            window.android.failUpload('시작버튼은 1개만 사용할 수 있어요.');
+                            throw new Error('시작버튼이 2개 입니다.');
                         }
-                        binary += 'void doUserTask()';
+                    }                                
+                });
 
+                const block = blockMap[keys[0]];
+                var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
+                var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
+                // var blockToPyParser = new Entry.BlockToPyParser(syntax);
+                var blockToCParser = new Entry.BlockToCParser(syntax);
+                // var pyToBlockParser = new Entry.PyToBlockParser(syntax);
 
-                        // 모듈 블럭 선언
-                        binary += `${Entry.module}\n`;
+                blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
+                var cOutput = blockToCParser.Thread(block.getThread());
 
-                        // 이미지 변수 선언
-                        for(let i =0 ; i < images.length ; i++){
-                            binary += `display0.addPicture(${images[i]},picture${i});\n`;
-                        }
+                let binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
+                // 이미지 데이터
+                let images = cOutput.match(/(?<=drawPicture\().*(?=\))/g)||[]
+                let imgData = Entry.TextCodingUtil.imgData
+                for(let i =0 ; i < images.length ; i++){
+                    binary += `const char picture${i}[${imgData[i].split(',').length + 1}] = {\n${imgData[i]}\n};\n\n`
+                }
+                binary += 'void doUserTask()\n';
 
-                        // 코드
-                        binary += `${cOutput}\n`;
-                        binary += '    sleep(1);\n}\n'
-                        binary = binary.replace(/\t/g, "    ")
+                // 모듈 블럭 선언
+                let moduleList = `${Entry.module}\n`;
 
-                        console.log(`Entry.module`)
-                        console.log(Entry.module)
-                        console.log("binary")
-                        console.log(JSON.stringify(binary))
-                        console.log(binary)
+                // 이미지 변수 선언
+                for(let i =0 ; i < images.length ; i++){
+                    moduleList += `display0.addPicture(${images[i]},picture${i});\n`;
+                }
 
-                        let binaryOutput = Interpreter.makeFrame(binary);
-                        console.log(binaryOutput.block)
+                // 코드
+                binary += `${cOutput}\n`;
+                binary += '    sleep(1);\n}\n'
+                binary = binary.replace(/temp/g, moduleList)
+                binary = binary.replace(/\t/g, "    ")
 
-                        // data 초기화
-                        Entry.TextCodingUtil.imgData = []
+                console.log(Entry.module)
+                console.log("binary")
+                console.log(binary)
 
-                            let project = Entry.exportProject();
+                let binaryOutput = Interpreter.makeFrame(binary);
 
-                            Entry.binaryOutput = binaryOutput.block
-                            Entry.project = project
+                // data 초기화
+                Entry.TextCodingUtil.imgData = []
 
-                            // uploadCode(binaryOutput.block);
+                let project = Entry.exportProject();
 
-                            // alert(JSON.stringify(project));
-                            // console.log('project',project);
-
-                            // alert(binary);
-                            // alert(Entry.module);
-                            // alert(JSON.stringify(binaryOutput.block));
-                            // console.log('binary',binary);
-                            // console.log('binaryOutput',binaryOutput);
-                            // console.log('binaryOutput',JSON.stringify(binaryOutput.block));
-                            
-                            // window.android.exportProject(JSON.stringify(project));
-                            window.android.uploadCode(binaryOutput.block);
-                
-
-             
+                Entry.binaryOutput = binaryOutput.block
+                Entry.project = project
+                window.android.uploadCode(binaryOutput.block);
                 
                 break;
             case 'REMOTE':
