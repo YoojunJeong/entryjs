@@ -248,7 +248,7 @@ class BlockMenu {
         this._clearSplitters();
 
         const vPadding = 15;
-        let marginFromTop = 10;
+        let marginFromTop = 30;
         const hPadding = this._align === 'LEFT' ? 10 : this.svgDom.width() / 2;
 
         let pastClass;
