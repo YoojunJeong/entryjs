@@ -545,7 +545,7 @@ Entry.MODI.getBlocks = function() {
                     type: 'Dropdown',
                     options: [
                         ['클릭', '2'],
-                        ['두번 클릭', '3'],
+                        ['두 번 클릭', '3'],
                         ['토글', '5'],
                         ['누른 상태', '4']
                     ],
