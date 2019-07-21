@@ -159,7 +159,6 @@ Entry.ZoomController = class ZoomController {
                 break;
             case 'EXPORT':
 
-                console.log(Entry.variableContainer.variables_);
 
                 var startBtnCount = 0;
                 const blockMap = this.nowBoard.code._blockMap;
@@ -189,6 +188,7 @@ Entry.ZoomController = class ZoomController {
                 var cOutput = blockToCParser.Thread(block.getThread());
 
                 let binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
+
                 // 이미지 데이터
                 let images = cOutput.match(/(?<=drawPicture\().*(?=\))/g)||[]
                 let imgData = Entry.TextCodingUtil.imgData
@@ -197,12 +197,18 @@ Entry.ZoomController = class ZoomController {
                 }
                 binary += 'void doUserTask()\n';
 
+                let moduleList = ''
+                const variables = Entry.variableContainer.variables_
+                variables.forEach((el)=>{
+                    moduleList += `float ${el.id_} = 0.0\n`
+                })
+
                 // 모듈 블럭 선언
-                let moduleList = `${Entry.module}\n`;
+                moduleList = `\n${Entry.module}\n`;
 
                 // 이미지 변수 선언
                 for(let i =0 ; i < images.length ; i++){
-                    moduleList += `display0.addPicture(${images[i]},picture${i});\n`;
+                    moduleList += `\ndisplay0.addPicture(${images[i]},picture${i});\n`;
                 }
 
                 // 코드

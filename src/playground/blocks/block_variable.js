@@ -348,7 +348,7 @@ module.exports = {
                     js: [],
                     py: [
                         {
-                            syntax: '%1',
+                            syntax: '%1의 값1',
                             passTest: true,
                             keyOption: 'get_variable',
                             blockType: 'param',
@@ -362,6 +362,11 @@ module.exports = {
                                     converter: Entry.block.converters.returnRawStringKey,
                                 },
                             ],
+                        },
+                    ],
+                    c: [
+                        {
+                            syntax: '%1',
                         },
                     ],
                 },
@@ -502,6 +507,11 @@ module.exports = {
                             ],
                         },
                     ],
+                    c: [
+                        {
+                            syntax: '%1 = %1 + %2',
+                        },
+                    ],
                 },
             },
             set_variable: {
@@ -602,6 +612,11 @@ module.exports = {
                                     accept: 'string',
                                 },
                             ],
+                        },
+                    ],
+                    c: [
+                        {
+                            syntax: '%1 = %2',
                         },
                     ],
                 },
