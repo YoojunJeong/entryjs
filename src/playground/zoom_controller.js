@@ -209,10 +209,6 @@ Entry.ZoomController = class ZoomController {
                         }
                         binary += 'void doUserTask()';
 
-                        //  변수 선언
-                        if(Entry.TextCodingUtil.melodyData.length){
-                            binary += '\nfloat __melodyVolume = 0.0;\n\n';
-                        }
 
                         // 모듈 블럭 선언
                         binary += `${Entry.module}\n`;
@@ -238,7 +234,6 @@ Entry.ZoomController = class ZoomController {
 
                         // data 초기화
                         Entry.TextCodingUtil.imgData = []
-                        Entry.TextCodingUtil.melodyData = []
 
                             let project = Entry.exportProject();
 
