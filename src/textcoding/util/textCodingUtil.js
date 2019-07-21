@@ -1,10 +1,7 @@
 'use strict';
 
 function getMelodyCode(name, vol) {
-    let code = ""
-    code += `__melodyVolume = ${vol};`;
-    code += melodyLibrary[name]
-    return code
+    return melodyLibrary[name].replace(/__melodyVolume/g, `${vol}`)
 }
 
 const melodyLibrary = {
@@ -466,7 +463,6 @@ const imgLibrary = {
 class TextCodingUtil {
     constructor(){
         this.imgData = []
-        this.melodyData = []
     }
 
     // Entry 에서 사용 중
@@ -1258,10 +1254,9 @@ class TextCodingUtil {
 
     assembleModiMelodySpeakerBlock(block, syntax) {
         const blockToken = syntax.split('?'); 
-        const melodyName = blockToken[1] || "송어" // TODO: 없으면 default 넣음
+        const melodyName = blockToken[1]
         const melodyVolume = blockToken[2] || 50;
         console.log("assembleModiMelodySpeakerBlock", blockToken)
-        this.melodyData.push(melodyName)
         let result = getMelodyCode(melodyName,melodyVolume)
         return result;
     }
@@ -1383,7 +1378,7 @@ class TextCodingUtil {
             result = ``;
             // result = `display0.setVariable(2,${positionY},${contents});`; 
         }
-        
+
         return result;
     }
 
