@@ -200,7 +200,7 @@ Entry.ZoomController = class ZoomController {
                 let moduleList = ''
                 const variables = Entry.variableContainer.variables_
                 variables.forEach((el)=>{
-                    moduleList += `float ${el.id_} = 0.0\n`
+                    moduleList += `float ${el.id_} = 0.0;\n`
                 })
 
                 // 모듈 블럭 선언

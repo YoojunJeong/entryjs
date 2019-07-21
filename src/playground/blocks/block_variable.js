@@ -366,7 +366,7 @@ module.exports = {
                     ],
                     c: [
                         {
-                            syntax: '%1',
+                            syntax: '%1;',
                         },
                     ],
                 },
@@ -509,7 +509,7 @@ module.exports = {
                     ],
                     c: [
                         {
-                            syntax: '%1 = %1 + %2',
+                            syntax: '%1 = %1 + %2;',
                         },
                     ],
                 },
@@ -616,7 +616,7 @@ module.exports = {
                     ],
                     c: [
                         {
-                            syntax: '%1 = %2',
+                            syntax: '%1 = %2;',
                         },
                     ],
                 },
