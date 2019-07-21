@@ -204,7 +204,7 @@ Entry.ZoomController = class ZoomController {
                 })
 
                 // 모듈 블럭 선언
-                moduleList = `\n${Entry.module}\n`;
+                moduleList += `\n${Entry.module}\n`;
 
                 // 이미지 변수 선언
                 for(let i =0 ; i < images.length ; i++){
