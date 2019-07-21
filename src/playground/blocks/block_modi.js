@@ -844,11 +844,11 @@ Entry.MODI.getBlocks = function() {
                     'MOTOR_ANGLE',
                     {
                         type: 'number',
-                        params: ['100'],
+                        params: ['0'],
                     },
                     {
                         type: 'number',
-                        params: ['100'],
+                        params: ['0'],
                     },
                 ],
                 type: 'modi_set_motor_value',
@@ -1761,8 +1761,8 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Dropdown',
                     options: [
-                        ['양 옆', 'Horizontal'],
-                        ['위 아래', 'Vertical'],
+                        ['오른쪽', 'Horizontal'],
+                        ['아래', 'Vertical'],
                         // ['위', 'Vertical\('],
                         // ['아래', 'Vertical\(-1*'],
                         // ['오른쪽', 'Horizontal\('],

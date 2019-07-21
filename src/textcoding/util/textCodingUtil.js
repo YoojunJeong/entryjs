@@ -14,7 +14,7 @@ for(int i=0; i<2; i++)
     speaker0.setTune(F_DO_7, __melodyVolume);
     sleep(250);
     speaker0.setTune(F_DO_7, 0);
-    sleep(__melodyVolume);
+    sleep(100);
     sleep(1);
 }
 for(int i=0; i<2; i++)
@@ -22,25 +22,25 @@ for(int i=0; i<2; i++)
     speaker0.setTune(F_MI_7, __melodyVolume);
     sleep(250);
     speaker0.setTune(F_MI_7, 0);
-    sleep(__melodyVolume);
+    sleep(100);
     sleep(1);
 }
 speaker0.setTune(F_DO_7, __melodyVolume);
 sleep(600);
 speaker0.setTune(F_DO_7, 0);
-sleep(__melodyVolume);
+sleep(100);
 for(int i=0; i<2; i++)
 {
     speaker0.setTune(F_SOL_6, __melodyVolume);
     sleep(250);
     speaker0.setTune(F_SOL_6, 0);
-    sleep(__melodyVolume);
+    sleep(100);
     sleep(1);
 }
 speaker0.setTune(F_SOL_6, __melodyVolume);
 sleep(400);
 speaker0.setTune(F_SOL_6, 0);
-sleep(__melodyVolume);
+sleep(100);
 speaker0.setTune(F_SOL_6, __melodyVolume);
 sleep(200);
 speaker0.setTune(F_RE_7, __melodyVolume);
@@ -62,7 +62,7 @@ for(int i=0; i<2; i++)
     speaker0.setTune(F_DO_7, __melodyVolume);
     sleep(250);
     speaker0.setTune(F_DO_7, 0);
-    sleep(__melodyVolume);
+    sleep(100);
     sleep(1);
 }
 for(int i=0; i<2; i++)
@@ -70,13 +70,13 @@ for(int i=0; i<2; i++)
     speaker0.setTune(F_MI_7, __melodyVolume);
     sleep(250);
     speaker0.setTune(F_MI_7, 0);
-    sleep(__melodyVolume);
+    sleep(100);
     sleep(1);
 }
 speaker0.setTune(F_DO_7, __melodyVolume);
 sleep(600);
 speaker0.setTune(F_DO_7, 0);
-sleep(__melodyVolume);
+sleep(100);
 speaker0.setTune(F_SOL_6, __melodyVolume);
 sleep(350);
 speaker0.setTune(F_DO_7, __melodyVolume);
@@ -104,7 +104,7 @@ for(int i=0; i<2; i++)
     speaker0.setTune(F_SI_6, __melodyVolume);
     sleep(250);
     speaker0.setTune(F_SI_6, 0);
-    sleep(__melodyVolume);
+    sleep(100);
     sleep(1);
 }
 speaker0.setTune(F_DO_7, __melodyVolume);
@@ -118,7 +118,7 @@ sleep(180);
 speaker0.setTune(F_DO_7, __melodyVolume);
 sleep(500);
 speaker0.setTune(F_DO_7, 0);
-sleep(__melodyVolume);
+sleep(100);
 speaker0.setTune(F_SOL_6, __melodyVolume);
 sleep(350);
 speaker0.setTune(F_DO_7, __melodyVolume);
@@ -128,7 +128,7 @@ for(int i=0; i<2; i++)
     speaker0.setTune(F_SI_6, __melodyVolume);
     sleep(250);
     speaker0.setTune(F_SI_6, 0);
-    sleep(__melodyVolume);
+    sleep(100);
     sleep(1);
 }
 speaker0.setTune(F_SI_6, __melodyVolume);
@@ -150,7 +150,7 @@ for(int i=0; i<2; i++)
     speaker0.setTune(F_RA_6, __melodyVolume);
     sleep(250);
     speaker0.setTune(F_RA_6, 0);
-    sleep(__melodyVolume);
+    sleep(100);
     sleep(1);
 }
 speaker0.setTune(F_RA_6, __melodyVolume);
@@ -158,23 +158,23 @@ sleep(350);
 speaker0.setTune(F_DO_7, __melodyVolume);
 sleep(250);
 speaker0.setTune(F_DO_7, 0);
-sleep(__melodyVolume);
+sleep(100);
 speaker0.setTune(F_DO_7, __melodyVolume);
 sleep(500);
 speaker0.setTune(F_DO_7, 0);
-sleep(__melodyVolume);
+sleep(100);
 for(int i=0; i<2; i++)
 {
     speaker0.setTune(F_SOL_6, __melodyVolume);
     sleep(250);
     speaker0.setTune(F_SOL_6, 0);
-    sleep(__melodyVolume);
+    sleep(100);
     sleep(1);
 }
 speaker0.setTune(F_SOL_6, __melodyVolume);
 sleep(400);
 speaker0.setTune(F_SOL_6, 0);
-sleep(__melodyVolume);
+sleep(100);
 speaker0.setTune(F_SOL_6, __melodyVolume);
 sleep(200);
 speaker0.setTune(F_RE_7, __melodyVolume);
@@ -184,7 +184,7 @@ sleep(300);
 speaker0.setTune(F_DO_7, __melodyVolume);
 sleep(750);
 speaker0.setTune(F_DO_6, 0);
-sleep(__melodyVolume);
+sleep(100);
 speaker0.setTune(F_DO_7, __melodyVolume);
 sleep(200);
 speaker0.setTune(F_SI_6, __melodyVolume);
@@ -192,11 +192,11 @@ sleep(200);
 speaker0.setTune(F_RA_6, __melodyVolume);
 sleep(200);
 speaker0.setTune(F_RA_6, 0);
-sleep(__melodyVolume);
+sleep(100);
 speaker0.setTune(F_RA_6, __melodyVolume);
 sleep(300);
 speaker0.setTune(F_RA_6, 0);
-sleep(__melodyVolume);
+sleep(100);
 speaker0.setTune(F_RA_6, __melodyVolume);
 sleep(180);
 speaker0.setTune(F_DO_7, __melodyVolume);
@@ -208,19 +208,19 @@ sleep(180);
 speaker0.setTune(F_DO_7, __melodyVolume);
 sleep(500);
 speaker0.setTune(F_DO_7, 0);
-sleep(__melodyVolume);
+sleep(100);
 for(int i=0; i<2; i++)
 {
     speaker0.setTune(F_SOL_6, __melodyVolume);
     sleep(250);
     speaker0.setTune(F_SOL_6, 0);
-    sleep(__melodyVolume);
+    sleep(100);
     sleep(1);
 }
 speaker0.setTune(F_SOL_6, __melodyVolume);
 sleep(400);
 speaker0.setTune(F_SOL_6, 0);
-sleep(__melodyVolume);
+sleep(100);
 speaker0.setTune(F_SOL_6, __melodyVolume);
 sleep(200);
 speaker0.setTune(F_RE_7, __melodyVolume);
