@@ -1264,7 +1264,7 @@ class TextCodingUtil {
     assembleModiDisplayBlock(block, syntax) {
         // 영문, (영+수), |  숫자, 변수, 인풋, | 한글, (한글+수), (영+한글)
         const blockToken = syntax.split('?'); 
-        const positionY = blockToken[1] || 0 ;
+        const positionY = Number(blockToken[1]) || 0 ;
         const contents = blockToken[2];
         let result = `display0.setText(${contents});`; // 영문이 포함된 경우 줄선택 불가
         console.log("assembleModiDisplayBlock : ", blockToken);
@@ -1279,7 +1279,7 @@ class TextCodingUtil {
         }
 
         function fillTextMultiLine(ctx, text, x, y) {
-            const lineHeight = ctx.measureText("M").width * 1.2;
+            const lineHeight = 15 // ctx.measureText("M").width * 1.2;
             const textWidth = ctx.measureText(text).width + 5
             let line = "";
             let lines = [];
