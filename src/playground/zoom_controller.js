@@ -219,9 +219,17 @@ Entry.ZoomController = class ZoomController {
 
                 const designatedModules = cOutput.match(/[a-z]*(?=0\.)\d/g) || []
                 const connectedModules = Entry.module.match(/[a-z]*(?=0\()\d/g) || []
-                const unconnectedModules = designatedModules.filter(module => {
+                const unconnectedModules = 
+                designatedModules
+                .filter(module => {
                     return !connectedModules.includes(module)
-                });
+                })
+                .reduce((accArr,el)=>{
+                    if(!accArr.includes(el)){
+                        accArr.push(el)
+                    }
+                    return accArr
+                },[])
 
                 if(unconnectedModules.length){
                     console.log('err')
