@@ -546,8 +546,8 @@ Entry.MODI.getBlocks = function() {
                     options: [
                         ['클릭', '2'],
                         ['두 번 클릭', '3'],
-                        ['토글', '5'],
                         ['누른 상태', '4']
+                        ['스위치', '5'],
                     ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
