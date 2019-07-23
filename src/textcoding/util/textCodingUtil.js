@@ -1390,6 +1390,15 @@ class TextCodingUtil {
         return result
     }
 
+    assembleModiDisplayMoveBlock(block, syntax) {
+        const blockToken = syntax.split('?'); 
+        const direction = blockToken[1];
+        const sign = blockToken[2];
+        const distance = blockToken[3];
+        const result = `display0.set${direction}(${sign}*${distance});`;
+        return result
+    }
+
     jsAdjustSyntax(block, syntax) {
         let result = '';
         if (block.data.type == 'ai_boolean_distance') {
