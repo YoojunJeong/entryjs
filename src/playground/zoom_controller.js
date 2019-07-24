@@ -214,9 +214,29 @@ Entry.ZoomController = class ZoomController {
                 // 코드
                 binary += `${cOutput}\n`;
                 binary += '    sleep(1);\n}\n'
-                binary = binary.replace(/temp/g, moduleList)
+                binary = binary.replace(/temp__/g, moduleList)
                 binary = binary.replace(/\t/g, "    ")
 
+                const designatedModules = cOutput.match(/[a-z]*(?=0\.)\d/g) || []
+                const connectedModules = Entry.module.match(/[a-z]*(?=0\()\d/g) || []
+                const unconnectedModules = 
+                designatedModules
+                .filter(module => {
+                    return !connectedModules.includes(module)
+                })
+                .reduce((accArr,el)=>{
+                    if(!accArr.includes(el)){
+                        accArr.push(el)
+                    }
+                    return accArr
+                },[])
+
+                if(unconnectedModules.length){
+                    console.log('err')
+                    console.log(unconnectedModules)
+                    alert(`${unconnectedModules} 모듈의 연결을 확인 하세요`);
+                }
+            
                 console.log(Entry.module)
                 console.log("binary")
                 console.log(binary)

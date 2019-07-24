@@ -335,6 +335,14 @@ Entry.BlockToCParser = class {
                         );
                         break;
                     }
+
+                    case 'modi_display_move' : {
+                        resultTextCode = Entry.TextCodingUtil.assembleModiDisplayMoveBlock(
+                            block,
+                            resultTextCode
+                        );
+                        break;
+                    }
                 }
             }
 

@@ -1761,14 +1761,11 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Dropdown',
                     options: [
-                        ['오른쪽', 'Horizontal'],
-                        ['아래', 'Vertical'],
-                        // ['위', 'Vertical\('],
-                        // ['아래', 'Vertical\(-1*'],
-                        // ['오른쪽', 'Horizontal\('],
-                        // ['왼쪽', 'Horizontal\(-1*'],
+                        ['오른쪽', 'Horizontal?1'],
+                        ['왼쪽', 'Horizontal?-1'],
+                        ['아래', 'Vertical?1'],
+                        ['위', 'Vertical?-1'],
                     ],
-                    value: 'Horizontal',
                     fontSize: 10,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
@@ -1787,7 +1784,7 @@ Entry.MODI.getBlocks = function() {
             events: {},
             def: {
                 params: [
-                    null,
+                    'Horizontal?1',
                     {
                         type: 'text',
                         params: ['10'],
@@ -1807,8 +1804,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'display0.set%1(%2);',
-                        template: 'display0.set%1(%2);',
+                        syntax: 'display0.set?%1?%2',
+                        template: 'display0.set?%1?%2',
                     },
                 ],
             }
