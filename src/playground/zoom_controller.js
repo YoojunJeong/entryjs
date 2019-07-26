@@ -10,6 +10,7 @@ import Interpreter from './interpreter'
 Entry.ZoomController = class ZoomController {
     constructor(board) {
         this.boardMap = new Map();
+        this.firstZoom = false;
         if (board) {
             this.setBoard(board);
         }
@@ -308,7 +309,11 @@ Entry.ZoomController = class ZoomController {
         
         this.align();
 
-        this.setScale(1.2);
+        // TODO: 임시 코드 (생성자 firstZoom)
+        if (!this.firstZoom) {
+            this.setScale(1.2);
+            this.firstZoom = true;
+        }
     }
 
     getPosition() {
