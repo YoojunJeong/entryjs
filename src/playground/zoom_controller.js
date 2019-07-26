@@ -204,6 +204,26 @@ Entry.ZoomController = class ZoomController {
                     moduleList += `float ${el.id_} = 0.0;\n`
                 })
 
+                // 멜로디 템포 변수 선언
+                if(Entry.TextCodingUtil.melodyTempo.length){
+                    let melodyTempoVariable = ''
+                    Entry.TextCodingUtil.melodyTempo.forEach(el =>{
+                        melodyTempoVariable += el 
+                    })
+                    let melArr = melodyTempoVariable
+                    .replace(/[\n\t]*/g,"")
+                    .replace(/\s*(?=float)/g,"")
+                    .split(';')
+                    .reduce((accArr,el)=>{
+                        if(!accArr.includes(el)){
+                            accArr.push(el)
+                        }
+                        return accArr
+                    },[])
+                    .join(';\n')
+                    moduleList += melArr
+                }
+
                 // 모듈 블럭 선언
                 moduleList += `\n${Entry.module}\n`;
 
@@ -218,24 +238,27 @@ Entry.ZoomController = class ZoomController {
                 binary = binary.replace(/temp__/g, moduleList)
                 binary = binary.replace(/\t/g, "    ")
 
+                // 모듈 연결 상태를 체크
                 const designatedModules = cOutput.match(/[a-z]*(?=0\.)\d/g) || []
                 const connectedModules = Entry.module.match(/[a-z]*(?=0\()\d/g) || []
                 const unconnectedModules = 
                 designatedModules
                 .filter(module => {
                     return !connectedModules.includes(module)
-                })
+                }) // designatedModules에 포함된 모듈이 connectedModules에 없으면 unconnectedModules에 추가
                 .reduce((accArr,el)=>{
                     if(!accArr.includes(el)){
                         accArr.push(el)
                     }
                     return accArr
-                },[])
+                },[]) // 중복 모듈 정리
 
                 if(unconnectedModules.length){
-                    console.log('err')
+                    console.log('unconnectedModules')
                     console.log(unconnectedModules)
-                    alert(`${unconnectedModules} 모듈의 연결을 확인 하세요`);
+                    if(window.android){
+                        window.android.checkModules(unconnectedModules) // app에 리스트를 전달
+                    }
                 }
             
                 console.log(Entry.module)
@@ -246,6 +269,7 @@ Entry.ZoomController = class ZoomController {
 
                 // data 초기화
                 Entry.TextCodingUtil.imgData = []
+                Entry.TextCodingUtil.melodyTempo = []
 
                 let project = Entry.exportProject();
 

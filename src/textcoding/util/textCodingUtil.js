@@ -1,10 +1,16 @@
 'use strict';
 
 function getMelodyCode(name, vol) {
-    return melodyLibrary[name].replace(/__melodyVolume/g, `${vol}`)
+    const melodyRaw = melodyLibrary[name].replace(/__melodyVolume/g, `${vol}`)
+    const mainRegex = /(?<=while\s*\(\s*true\s*\)\s*\n*{\n*)[\n\t\s\w\d\;\=\*\+\-\/\_\.\,\(\)]*/g
+    const tempoVariablesRegex = /[\n\t\s\w\d\;\=\*\/\_\.\,\(\)]*(?=while\s*\(\s*true\s*\)\s*\n*{\n*)/g
+    const melodyMain = melodyRaw.match(mainRegex)[0].replace(/\t/g, "")
+    const melodytempoVariables = melodyRaw.match(tempoVariablesRegex)[0]
+
+    return {melodyMain,melodytempoVariables}
 }
 
-const melodyLibrary = {
+const melodyLibrary = EntryStatic.speakerMelody.data || {
 "송어" : 
 `
 speaker0.setTune(F_SOL_6, __melodyVolume);
@@ -358,7 +364,7 @@ speaker0.setTune(F_SOL_6, 0);
 sleep(300);`
 }
 
-const imgLibrary = {
+const imgLibrary = EntryStatic.displayImage.data ||{
     basic_image0 : `
     0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 
     0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 
@@ -463,6 +469,7 @@ const imgLibrary = {
 class TextCodingUtil {
     constructor(){
         this.imgData = []
+        this.melodyTempo = []
     }
 
     // Entry 에서 사용 중
@@ -1257,8 +1264,9 @@ class TextCodingUtil {
         const melodyName = blockToken[1]
         const melodyVolume = blockToken[2] || 50;
         console.log("assembleModiMelodySpeakerBlock", blockToken)
-        let result = getMelodyCode(melodyName,melodyVolume)
-        return result;
+        const melodyCode = getMelodyCode(melodyName,melodyVolume)
+        this.melodyTempo.push(melodyCode.melodytempoVariables)
+        return melodyCode.melodyMain
     }
 
     assembleModiDisplayBlock(block, syntax) {
@@ -1385,7 +1393,7 @@ class TextCodingUtil {
     assembleModiDisplayImgBlock(block, syntax) {
         const blockToken = syntax.split('?'); 
         const contents = blockToken[1];
-        this.imgData.push(imgLibrary[contents])
+        this.imgData.push(imgLibrary[contents].toString())
         const result = `display0.drawPicture("${contents}");`;
         return result
     }

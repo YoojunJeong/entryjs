@@ -194,8 +194,7 @@ Entry.MODI = {
         return list;
     },
     displayImageList: function() {
-        // TODO: 이미지 리소스와 연결
-        var list = [
+        var list = EntryStatic.displayImage.list || [
             ['기본이미지', 'basic_image0'],
             ['기본이미지1', 'basic_image1'],
         ];
@@ -203,9 +202,10 @@ Entry.MODI = {
         return list;
     },
     speakerMelodyList: function() {
-        // TODO: 멜로디 리소스와 연결
-        var list = [
-            ['기본소리', 'basic_melody0']
+        var list = EntryStatic.speakerMelody.list || [
+            ['송어', '송어'],
+            ['은파', '은파'],
+            ['엘리제를 위하여', '엘리제를 위하여'],
         ];
         return list;
     }
@@ -1464,13 +1464,13 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '스피커의 멜로디는 %2 크기는 %3 (으)로 재생하기 %4',
+            template: '스피커의 멜로디는 %1 크기는 %3 (으)로 재생하기 %4',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
-                    menuName: Entry.MODI.speakerList,
+                    menuName: Entry.MODI.speakerMelodyList,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
@@ -1536,8 +1536,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'speacker0.?%2?%3',
-                        template: 'speacker0.?%2?%3',
+                        syntax: 'speacker0.?%1?%3',
+                        template: 'speacker0.?%1?%3',
                     },
                 ],
             },
@@ -1551,7 +1551,7 @@ Entry.MODI.getBlocks = function() {
             params: [
                 {
                     type: 'Dropdown',
-                    options: [['첫째줄', 0], ['둘째줄', 15], ['샛째줄', 30]],
+                    options: [['첫째 줄', 0], ['둘째 줄', 15], ['샛째 줄', 30]],
                     value: 0,
                     fontSize: 10,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -1564,7 +1564,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_display_green.svg',
                     size: 12,
                 },
             ],
@@ -1624,7 +1624,7 @@ Entry.MODI.getBlocks = function() {
             params: [
                 {
                     type: 'Dropdown',
-                    options: [['첫째줄', 0], ['둘째줄', 15], ['셋째줄', 30]],
+                    options: [['첫째 줄', 0], ['둘째 줄', 15], ['셋째 줄', 30]],
                     value: 0,
                     fontSize: 10,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -1637,7 +1637,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_display_green.svg',
                     size: 12,
                 },
             ],
@@ -1686,7 +1686,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_display_green.svg',
                     size: 12,
                 },
             ],
@@ -1723,7 +1723,7 @@ Entry.MODI.getBlocks = function() {
             params: [
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_display_green.svg',
                     size: 12,
                 },
             ],
@@ -1777,7 +1777,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_display_green.svg',
                     size: 12,
                 },
             ],

@@ -173,114 +173,221 @@ EntryStatic.categoryProjectOption = [
     },
 ];
 
+EntryStatic.speakerMelody = {data:{},list:[]}
+
+EntryStatic.displayImage = {data:{},list:[]}
+
+EntryStatic.getImgDataFromImageUrl = function (source) {
+    const {url, name} = source
+    let img = new Image();
+    img.setAttribute('crossOrigin', 'anonymous');
+    img.onload = function () {
+        let canvas = document.createElement("canvas");
+        canvas.width = this.width;
+        canvas.height = this.height;
+
+        let ctx = canvas.getContext("2d");
+        ctx.drawImage(this, 0, 0, 64, 48);
+        let imgData = ctx.getImageData(0, 0, 64, 48)
+
+        let gray_data = [];
+        for (let i = 0; i < imgData.data.length; i += 4) {
+        let gray = imgData.data[i + 3];
+        gray_data.push(gray)
+        }
+
+        let binary_data = [];
+        for (let i = 0; i < gray_data.length; i++) {
+        let bin = gray_data[i] > 90 ? 1 : 0;
+        binary_data.push(bin);
+        }
+
+        let modi_display_data = [];
+        for (let i = 0; i < binary_data.length; i += 8) {
+            let byte = 0x00;
+            for (let j = 0; j < 8; j++) {
+                byte = (byte << 1) | binary_data[i + j];
+            }
+            modi_display_data.push(byte);
+        }
+        EntryStatic.displayImage.data[name] = modi_display_data
+    };
+
+    img.src = url;
+}
+
+EntryStatic.getMelodyDataFromUrl = function(source) {
+    const {url, name} = source
+    $.ajax({
+        url: url,
+        type: "GET",
+    })
+    .done(function(json) {
+        EntryStatic.speakerMelody.data[name]=json
+    })
+    .fail(function(xhr, status, errorThrown) {
+        console.log('fail', xhr, status, errorThrown)
+        //TODO: 멜로디 다운 안될 경우 처리
+    })
+}
+
 // JYJ - 사이드 메뉴 항목 설정
 EntryStatic.getAllBlocks = function() {
-    return [
-        {
-            category: 'start',
-            blocks: [
-                'when_run_button_click',
-            ],
-        },
-        {
-            category: 'flow',
-            blocks: [
-                'wait_second',
-                'repeat_basic',
-                'repeat_inf',
-                'repeat_while_true',
-                'stop_repeat',
-                '_if',
-                'if_else',
-                // 'wait_until_true',
-            ],
-        },
-        {
-            category: 'judgement',
-            blocks: [
-                'boolean_basic_operator',
-                'boolean_and_or',
-            ],
-        },
-        {
-            category: 'calc',
-            blocks: [
-                'calc_basic',
-                'calc_rand',
-            ],
-        },
-        {
-            category: 'variable',
-            blocks: [
-                'variableAddButton',
-                'get_variable',
-                'change_variable',
-                'set_variable',
-            ],
-        },
-        {
-            category: 'text',
-            blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
-        },
-        {
-            category: 'arduino',
-            blocks: [
-                'modi_dial_value',
-                'modi_button_value',
-                'modi_button_menu',
-                'modi_button_judgement',
-                // 'modi_button_judgement',
-                // 'modi_button_true',
-                // 'modi_button_false',
-                'modi_infrared_value',
-                'modi_set_motor_value',
-                // 'modi_change_motor_upper_value',
-                // 'modi_change_motor_bottom_value',
-                'modi_clear_led',
-                'modi_set_led_rgb',
-                'modi_set_led_color',
-                'modi_speaker_off',
-                'modi_set_basic_speaker',
-                'modi_melody_speaker',
-                'modi_print_display_by_value',
-                // 'modi_speaker_melody',
-                'modi_display_variable',
-                'modi_display_image',
-                'modi_display_reset',
-                'modi_display_move',
-                'modi_network_button',
-                'modi_network_button_menu',
-                'modi_network_button_judgement',
-                'modi_network_joystick',
-                'modi_network_joystick_menu',
-                'modi_network_joystick_judgement',
-                'modi_network_slider',
-                'modi_network_dial',
-                'modi_network_timer',
-                'modi_network_timer_menu',
-                'modi_network_timer_judgement',
-                'modi_network_bell',
-                // 'modi_network_button',
-                // 'modi_network_button_true',
-                // 'modi_network_button_false',
-                // 'modi_network_joystick',
-                // 'modi_network_joystick_unpressed',
-                // 'modi_network_joystick_up',
-                // 'modi_network_joystick_down',
-                // 'modi_network_joystick_left',
-                // 'modi_network_joystick_right',
-                // 'modi_network_slider_left',
-                // 'modi_network_slider_right',
-                // 'modi_network_timer',
-                // 'modi_network_timer_unreached',
-                // 'modi_network_timer_reached',
-            ].concat(EntryStatic.DynamicHardwareBlocks),
-        },
-    ];
+    const blocks = EntryStatic.defaultModiBlocks
+    if (Entry.modiData && Entry.modiData.blocks) {
+        console.log(0, Entry.modiData)
+        blocks = Entry.modiData.blocks
+    }
+    const melodyBlock = blocks.filter( el => (el.category === "CONTENTS_MELODY_BASIC"))[0].blocks
+    const imgBlock = blocks.filter( el => (el.category === "CONTENTS_IMG_BASIC"))[0].blocks
+    const modiBlocks = blocks.filter( el => (el.category !== "CONTENTS_MELODY_BASIC" && el.category !== "CONTENTS_IMG_BASIC"))
+
+    EntryStatic.speakerMelody.list = melodyBlock.map(el=>{
+        EntryStatic.getMelodyDataFromUrl(el)
+        return [el.name,el.name]
+    })
+
+    EntryStatic.displayImage.list = imgBlock.map(el=>{
+        EntryStatic.getImgDataFromImageUrl(el)
+        return [el.name,el.name]
+    })
+
+    return modiBlocks
 };
-EntryStatic.DynamicHardwareBlocks = [
-    
+
+EntryStatic.defaultModiBlocks = [
+    {
+        category: 'start',
+        blocks: [
+            'when_run_button_click',
+        ],
+    },
+    {
+        category: 'flow',
+        blocks: [
+            'wait_second',
+            'repeat_basic',
+            'repeat_inf',
+            'repeat_while_true',
+            'stop_repeat',
+            '_if',
+            'if_else',
+            // 'wait_until_true',
+        ],
+    },
+    {
+        category: 'judgement',
+        blocks: [
+            'boolean_basic_operator',
+            'boolean_and_or',
+        ],
+    },
+    {
+        category: 'calc',
+        blocks: [
+            'calc_basic',
+            'calc_rand',
+        ],
+    },
+    {
+        category: 'variable',
+        blocks: [
+            'variableAddButton',
+            'get_variable',
+            'change_variable',
+            'set_variable',
+        ],
+    },
+    {
+        category: 'text',
+        blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
+    },
+    {
+        category: 'arduino',
+        blocks: [
+            'modi_dial_value',
+            'modi_button_value',
+            'modi_button_menu',
+            'modi_button_judgement',
+            // 'modi_button_judgement',
+            // 'modi_button_true',
+            // 'modi_button_false',
+            'modi_infrared_value',
+            'modi_set_motor_value',
+            // 'modi_change_motor_upper_value',
+            // 'modi_change_motor_bottom_value',
+            'modi_clear_led',
+            'modi_set_led_rgb',
+            'modi_set_led_color',
+            'modi_speaker_off',
+            'modi_set_basic_speaker',
+            'modi_melody_speaker',
+            'modi_print_display_by_value',
+            // 'modi_speaker_melody',
+            'modi_display_variable',
+            'modi_display_image',
+            'modi_display_reset',
+            'modi_display_move',
+            'modi_network_button',
+            'modi_network_button_menu',
+            'modi_network_button_judgement',
+            'modi_network_joystick',
+            'modi_network_joystick_menu',
+            'modi_network_joystick_judgement',
+            'modi_network_slider',
+            'modi_network_dial',
+            'modi_network_timer',
+            'modi_network_timer_menu',
+            'modi_network_timer_judgement',
+            'modi_network_bell',
+            // 'modi_network_button',
+            // 'modi_network_button_true',
+            // 'modi_network_button_false',
+            // 'modi_network_joystick',
+            // 'modi_network_joystick_unpressed',
+            // 'modi_network_joystick_up',
+            // 'modi_network_joystick_down',
+            // 'modi_network_joystick_left',
+            // 'modi_network_joystick_right',
+            // 'modi_network_slider_left',
+            // 'modi_network_slider_right',
+            // 'modi_network_timer',
+            // 'modi_network_timer_unreached',
+            // 'modi_network_timer_reached',
+        ]
+        //.concat(EntryStatic.DynamicHardwareBlocks),
+    }, 
+    // {
+    //     "category" : "CONTENTS_MELODY_BASIC",{
+    //       "name" : "사랑의 인사",
+    //       "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/9.+%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1.cpp"
+    //     } ]
+    //   },
+      {
+        "category" : "CONTENTS_MELODY_BASIC",
+        "blocks" : [ {
+          "name" : "반짝반짝 작은별",
+          "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EB%B0%98%EC%A7%9D%EB%B0%98%EC%A7%9D+%EC%9E%91%EC%9D%80%EB%B3%84.cpp"
+        }, {
+          "name" : "징글벨",
+          "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%A7%95%EA%B8%80%EB%B2%A8.cpp"
+        } ]
+      },
+    {
+        "category" : "CONTENTS_IMG_BASIC",
+        "blocks" : [ {
+          "name" : "Welcome",
+          "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/welcome_1.png"
+        }, {
+          "name" : "REDPEN",
+          "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/redpen_2.png"
+        },{
+            "name" : "Coding",
+            "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/coding_3.png"
+          } ]
+      },
 ];
+
 EntryStatic.discussCategories = [
     // 'notice',
     'qna',
