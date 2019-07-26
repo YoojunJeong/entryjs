@@ -203,6 +203,26 @@ Entry.ZoomController = class ZoomController {
                     moduleList += `float ${el.id_} = 0.0;\n`
                 })
 
+                // 멜로디 템포 변수 선언
+                if(Entry.TextCodingUtil.melodyTempo.length){
+                    let melodyTempoVariable = ''
+                    Entry.TextCodingUtil.melodyTempo.forEach(el =>{
+                        melodyTempoVariable += el 
+                    })
+                    let melArr = melodyTempoVariable
+                    .replace(/[\n\t]*/g,"")
+                    .replace(/\s*(?=float)/g,"")
+                    .split(';')
+                    .reduce((accArr,el)=>{
+                        if(!accArr.includes(el)){
+                            accArr.push(el)
+                        }
+                        return accArr
+                    },[])
+                    .join(';\n')
+                    moduleList += melArr
+                }
+
                 // 모듈 블럭 선언
                 moduleList += `\n${Entry.module}\n`;
 
@@ -248,6 +268,7 @@ Entry.ZoomController = class ZoomController {
 
                 // data 초기화
                 Entry.TextCodingUtil.imgData = []
+                Entry.TextCodingUtil.melodyTempo = []
 
                 let project = Entry.exportProject();
 

@@ -174,12 +174,52 @@ EntryStatic.categoryProjectOption = [
 ];
 
 
+EntryStatic.speakerMelody = {data:{},list:[]}
+EntryStatic.displayImage = {data:{},list:[]}
+
 // JYJ - 사이드 메뉴 항목 설정
 EntryStatic.getAllBlocks = function() {
-    const blocks = EntryStatic.defaultModiBlocks.slice(0, -2) 
-    // melogy, image block을 제외
-    console.log(111,blocks)
-    return blocks
+    const blocks = EntryStatic.defaultModiBlocks
+    if (Entry.modiData && Entry.modiData.blocks) {
+        console.log(0, Entry.modiData)
+        blocks = Entry.modiData.blocks
+    }
+    const melodyBlock = blocks.filter( el => (el.category === "CONTENTS_MELODY_BASIC"))[0].blocks
+    const imgBlock = blocks.filter( el => (el.category === "CONTENTS_IMG_BASIC"))[0].blocks
+    const modiBlocks = blocks.filter( el => (el.category !== "CONTENTS_MELODY_BASIC" && el.category !== "CONTENTS_IMG_BASIC"))
+
+    EntryStatic.speakerMelody.list = melodyBlock.map(el=>{
+        $.ajax({
+            url: el.url,
+            type: "GET",
+        })
+        .done(function(json) {
+            EntryStatic.speakerMelody.data[el.name]=json
+        })
+        .fail(function(xhr, status, errorThrown) {
+            console.log('fail', xhr, status, errorThrown)
+            //TODO: 멜로디 다운 안될 경우 처리
+        })
+        return [el.name,el.name]
+    })
+
+    EntryStatic.displayImage.list = imgBlock.map(el=>{
+        $.ajax({
+            url: el.url,
+            type: "GET",
+        })
+        .done(function(json) {
+            EntryStatic.displayImage.data[el.name]=json
+        })
+        .fail(function(xhr, status, errorThrown) {
+            console.log('fail', xhr, status, errorThrown)
+            //TODO: 이미지 다운 안될 경우 처리
+
+        })
+        return [el.name,el.name]
+    })
+
+    return modiBlocks
 };
 EntryStatic.defaultModiBlocks = [
     {
@@ -282,13 +322,36 @@ EntryStatic.defaultModiBlocks = [
             // 'modi_network_timer_reached',
         ]
         //.concat(EntryStatic.DynamicHardwareBlocks),
-    }, {
-        category: 'melody',
-        blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
-    }, {
-        category: 'img',
-        blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
-    },
+    }, 
+    // {
+    //     "category" : "CONTENTS_MELODY_BASIC",{
+    //       "name" : "사랑의 인사",
+    //       "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/9.+%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1.cpp"
+    //     } ]
+    //   },
+      {
+        "category" : "CONTENTS_MELODY_BASIC",
+        "blocks" : [ {
+          "name" : "반짝반짝 작은별",
+          "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EB%B0%98%EC%A7%9D%EB%B0%98%EC%A7%9D+%EC%9E%91%EC%9D%80%EB%B3%84.cpp"
+        }, {
+          "name" : "징글벨",
+          "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%A7%95%EA%B8%80%EB%B2%A8.cpp"
+        } ]
+      },
+    {
+        "category" : "CONTENTS_IMG_BASIC",
+        "blocks" : [ {
+          "name" : "Welcome",
+          "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/welcome_1.png"
+        }, {
+          "name" : "REDPEN",
+          "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/redpen_2.png"
+        },{
+            "name" : "Coding",
+            "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/coding_3.png"
+          } ]
+      },
 ];
 
 EntryStatic.discussCategories = [
