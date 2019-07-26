@@ -1393,7 +1393,7 @@ class TextCodingUtil {
     assembleModiDisplayImgBlock(block, syntax) {
         const blockToken = syntax.split('?'); 
         const contents = blockToken[1];
-        this.imgData.push(imgLibrary[contents])
+        this.imgData.push(imgLibrary[contents].toString())
         const result = `display0.drawPicture("${contents}");`;
         return result
     }

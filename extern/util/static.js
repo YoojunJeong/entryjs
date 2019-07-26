@@ -173,9 +173,63 @@ EntryStatic.categoryProjectOption = [
     },
 ];
 
-
 EntryStatic.speakerMelody = {data:{},list:[]}
+
 EntryStatic.displayImage = {data:{},list:[]}
+
+EntryStatic.getImgDataFromImageUrl = function (source) {
+    const {url, name} = source
+    let img = new Image();
+    img.setAttribute('crossOrigin', 'anonymous');
+    img.onload = function () {
+        let canvas = document.createElement("canvas");
+        canvas.width = this.width;
+        canvas.height = this.height;
+
+        let ctx = canvas.getContext("2d");
+        ctx.drawImage(this, 0, 0, 64, 48);
+        let imgData = ctx.getImageData(0, 0, 64, 48)
+
+        let gray_data = [];
+        for (let i = 0; i < imgData.data.length; i += 4) {
+        let gray = imgData.data[i + 3];
+        gray_data.push(gray)
+        }
+
+        let binary_data = [];
+        for (let i = 0; i < gray_data.length; i++) {
+        let bin = gray_data[i] > 90 ? 1 : 0;
+        binary_data.push(bin);
+        }
+
+        let modi_display_data = [];
+        for (let i = 0; i < binary_data.length; i += 8) {
+            let byte = 0x00;
+            for (let j = 0; j < 8; j++) {
+                byte = (byte << 1) | binary_data[i + j];
+            }
+            modi_display_data.push(byte);
+        }
+        EntryStatic.displayImage.data[name] = modi_display_data
+    };
+
+    img.src = url;
+}
+
+EntryStatic.getMelodyDataFromUrl = function(source) {
+    const {url, name} = source
+    $.ajax({
+        url: url,
+        type: "GET",
+    })
+    .done(function(json) {
+        EntryStatic.speakerMelody.data[name]=json
+    })
+    .fail(function(xhr, status, errorThrown) {
+        console.log('fail', xhr, status, errorThrown)
+        //TODO: 멜로디 다운 안될 경우 처리
+    })
+}
 
 // JYJ - 사이드 메뉴 항목 설정
 EntryStatic.getAllBlocks = function() {
@@ -189,38 +243,18 @@ EntryStatic.getAllBlocks = function() {
     const modiBlocks = blocks.filter( el => (el.category !== "CONTENTS_MELODY_BASIC" && el.category !== "CONTENTS_IMG_BASIC"))
 
     EntryStatic.speakerMelody.list = melodyBlock.map(el=>{
-        $.ajax({
-            url: el.url,
-            type: "GET",
-        })
-        .done(function(json) {
-            EntryStatic.speakerMelody.data[el.name]=json
-        })
-        .fail(function(xhr, status, errorThrown) {
-            console.log('fail', xhr, status, errorThrown)
-            //TODO: 멜로디 다운 안될 경우 처리
-        })
+        EntryStatic.getMelodyDataFromUrl(el)
         return [el.name,el.name]
     })
 
     EntryStatic.displayImage.list = imgBlock.map(el=>{
-        $.ajax({
-            url: el.url,
-            type: "GET",
-        })
-        .done(function(json) {
-            EntryStatic.displayImage.data[el.name]=json
-        })
-        .fail(function(xhr, status, errorThrown) {
-            console.log('fail', xhr, status, errorThrown)
-            //TODO: 이미지 다운 안될 경우 처리
-
-        })
+        EntryStatic.getImgDataFromImageUrl(el)
         return [el.name,el.name]
     })
 
     return modiBlocks
 };
+
 EntryStatic.defaultModiBlocks = [
     {
         category: 'start',
