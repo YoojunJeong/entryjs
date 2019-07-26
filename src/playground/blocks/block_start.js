@@ -9,7 +9,7 @@ module.exports = {
                 params: [
                     {
                         type: 'Indicator',
-                        img: 'block_icon/start_icon_play.svg',
+                        img: 'block_icon/modi_icon/studio_icon_send_white.svg',
                         size: 14,
                         position: {
                             x: 0,

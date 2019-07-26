@@ -834,7 +834,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_motorcontroller_green.svg',
                     size: 12,
                 },
             ],
@@ -923,7 +923,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_motorcontroller_green.svg',
                     size: 12,
                 },
             ],
@@ -1014,7 +1014,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_motorcontroller_green.svg',
                     size: 12,
                 },
             ],
@@ -1091,7 +1091,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_led_green.svg',
                     size: 12,
                 },
             ],
@@ -1161,7 +1161,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_led_green.svg',
                     size: 12,
                 },
             ],
@@ -1242,7 +1242,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_led_green.svg',
                     size: 12,
                 },
             ],
@@ -1307,7 +1307,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_speaker_green.svg',
                     size: 12,
                 },
             ],
@@ -1407,7 +1407,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_speaker_green.svg',
                     size: 12,
                 },
             ],
@@ -1492,7 +1492,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_speaker_green.svg',
                     size: 12,
                 },
             ],
@@ -1828,7 +1828,7 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/hardware_icon.svg',
+                    img: 'block_icon/modi_icon/studio_icon_network_green.svg',
                     size: 12,
                 },
             ],
