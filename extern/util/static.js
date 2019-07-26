@@ -173,114 +173,124 @@ EntryStatic.categoryProjectOption = [
     },
 ];
 
+
 // JYJ - 사이드 메뉴 항목 설정
 EntryStatic.getAllBlocks = function() {
-    return [
-        {
-            category: 'start',
-            blocks: [
-                'when_run_button_click',
-            ],
-        },
-        {
-            category: 'flow',
-            blocks: [
-                'wait_second',
-                'repeat_basic',
-                'repeat_inf',
-                'repeat_while_true',
-                'stop_repeat',
-                '_if',
-                'if_else',
-                // 'wait_until_true',
-            ],
-        },
-        {
-            category: 'judgement',
-            blocks: [
-                'boolean_basic_operator',
-                'boolean_and_or',
-            ],
-        },
-        {
-            category: 'calc',
-            blocks: [
-                'calc_basic',
-                'calc_rand',
-            ],
-        },
-        {
-            category: 'variable',
-            blocks: [
-                'variableAddButton',
-                'get_variable',
-                'change_variable',
-                'set_variable',
-            ],
-        },
-        {
-            category: 'text',
-            blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
-        },
-        {
-            category: 'arduino',
-            blocks: [
-                'modi_dial_value',
-                'modi_button_value',
-                'modi_button_menu',
-                'modi_button_judgement',
-                // 'modi_button_judgement',
-                // 'modi_button_true',
-                // 'modi_button_false',
-                'modi_infrared_value',
-                'modi_set_motor_value',
-                // 'modi_change_motor_upper_value',
-                // 'modi_change_motor_bottom_value',
-                'modi_clear_led',
-                'modi_set_led_rgb',
-                'modi_set_led_color',
-                'modi_speaker_off',
-                'modi_set_basic_speaker',
-                'modi_melody_speaker',
-                'modi_print_display_by_value',
-                // 'modi_speaker_melody',
-                'modi_display_variable',
-                'modi_display_image',
-                'modi_display_reset',
-                'modi_display_move',
-                'modi_network_button',
-                'modi_network_button_menu',
-                'modi_network_button_judgement',
-                'modi_network_joystick',
-                'modi_network_joystick_menu',
-                'modi_network_joystick_judgement',
-                'modi_network_slider',
-                'modi_network_dial',
-                'modi_network_timer',
-                'modi_network_timer_menu',
-                'modi_network_timer_judgement',
-                'modi_network_bell',
-                // 'modi_network_button',
-                // 'modi_network_button_true',
-                // 'modi_network_button_false',
-                // 'modi_network_joystick',
-                // 'modi_network_joystick_unpressed',
-                // 'modi_network_joystick_up',
-                // 'modi_network_joystick_down',
-                // 'modi_network_joystick_left',
-                // 'modi_network_joystick_right',
-                // 'modi_network_slider_left',
-                // 'modi_network_slider_right',
-                // 'modi_network_timer',
-                // 'modi_network_timer_unreached',
-                // 'modi_network_timer_reached',
-            ].concat(EntryStatic.DynamicHardwareBlocks),
-        },
-    ];
+    const blocks = EntryStatic.defaultModiBlocks.slice(0, -2) 
+    // melogy, image block을 제외
+    console.log(111,blocks)
+    return blocks
 };
-EntryStatic.DynamicHardwareBlocks = [
-    
+EntryStatic.defaultModiBlocks = [
+    {
+        category: 'start',
+        blocks: [
+            'when_run_button_click',
+        ],
+    },
+    {
+        category: 'flow',
+        blocks: [
+            'wait_second',
+            'repeat_basic',
+            'repeat_inf',
+            'repeat_while_true',
+            'stop_repeat',
+            '_if',
+            'if_else',
+            // 'wait_until_true',
+        ],
+    },
+    {
+        category: 'judgement',
+        blocks: [
+            'boolean_basic_operator',
+            'boolean_and_or',
+        ],
+    },
+    {
+        category: 'calc',
+        blocks: [
+            'calc_basic',
+            'calc_rand',
+        ],
+    },
+    {
+        category: 'variable',
+        blocks: [
+            'variableAddButton',
+            'get_variable',
+            'change_variable',
+            'set_variable',
+        ],
+    },
+    {
+        category: 'text',
+        blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
+    },
+    {
+        category: 'arduino',
+        blocks: [
+            'modi_dial_value',
+            'modi_button_value',
+            'modi_button_menu',
+            'modi_button_judgement',
+            // 'modi_button_judgement',
+            // 'modi_button_true',
+            // 'modi_button_false',
+            'modi_infrared_value',
+            'modi_set_motor_value',
+            // 'modi_change_motor_upper_value',
+            // 'modi_change_motor_bottom_value',
+            'modi_clear_led',
+            'modi_set_led_rgb',
+            'modi_set_led_color',
+            'modi_speaker_off',
+            'modi_set_basic_speaker',
+            'modi_melody_speaker',
+            'modi_print_display_by_value',
+            // 'modi_speaker_melody',
+            'modi_display_variable',
+            'modi_display_image',
+            'modi_display_reset',
+            'modi_display_move',
+            'modi_network_button',
+            'modi_network_button_menu',
+            'modi_network_button_judgement',
+            'modi_network_joystick',
+            'modi_network_joystick_menu',
+            'modi_network_joystick_judgement',
+            'modi_network_slider',
+            'modi_network_dial',
+            'modi_network_timer',
+            'modi_network_timer_menu',
+            'modi_network_timer_judgement',
+            'modi_network_bell',
+            // 'modi_network_button',
+            // 'modi_network_button_true',
+            // 'modi_network_button_false',
+            // 'modi_network_joystick',
+            // 'modi_network_joystick_unpressed',
+            // 'modi_network_joystick_up',
+            // 'modi_network_joystick_down',
+            // 'modi_network_joystick_left',
+            // 'modi_network_joystick_right',
+            // 'modi_network_slider_left',
+            // 'modi_network_slider_right',
+            // 'modi_network_timer',
+            // 'modi_network_timer_unreached',
+            // 'modi_network_timer_reached',
+        ]
+        //.concat(EntryStatic.DynamicHardwareBlocks),
+    }, {
+        category: 'melody',
+        blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
+    }, {
+        category: 'img',
+        blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
+    },
 ];
+
 EntryStatic.discussCategories = [
     // 'notice',
     'qna',
