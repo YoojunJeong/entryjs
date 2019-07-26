@@ -1551,7 +1551,7 @@ Entry.MODI.getBlocks = function() {
             params: [
                 {
                     type: 'Dropdown',
-                    options: [['첫째줄', 0], ['둘째줄', 15], ['샛째줄', 30]],
+                    options: [['첫째 줄', 0], ['둘째 줄', 15], ['샛째 줄', 30]],
                     value: 0,
                     fontSize: 10,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -1624,7 +1624,7 @@ Entry.MODI.getBlocks = function() {
             params: [
                 {
                     type: 'Dropdown',
-                    options: [['첫째줄', 0], ['둘째줄', 15], ['셋째줄', 30]],
+                    options: [['첫째 줄', 0], ['둘째 줄', 15], ['셋째 줄', 30]],
                     value: 0,
                     fontSize: 10,
                     bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
