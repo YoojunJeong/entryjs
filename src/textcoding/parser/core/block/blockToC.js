@@ -154,6 +154,11 @@ Entry.BlockToCParser = class {
                     resultTextCode += Entry.TextCodingUtil.indent(
                         this.Thread(block.statements[index - 1])
                     );
+                    if(!block.statements[0]._data.length){
+                        if(syntaxObj.key!=='_if' && syntaxObj.key!=='if_else'){
+                            resultTextCode += 'sleep(1);'
+                        }
+                    }
                 });
             }
 
