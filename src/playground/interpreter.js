@@ -645,6 +645,27 @@ var luxcParer = new class {
             replacement: /\$[0-9]+/, // $0 $1 $2 $92 ... replace characters for inner polynomials
             string: /^"([\x20-\x7E]*)"/, // "MODI"
         }
+
+        this.unary_op_priority = [
+            '++', '--',                                                       // 증감 연산
+            '+', '-',                                                         // Unary plus and minus
+            '!', '~',                                                         // 비트 (!, ~)
+        ];
+
+        this.binary_op_priority = [
+            '*', '/', '%',                                                    // 산술연산
+            '+', '-',
+            '<<', '>>',                                                       // 쉬프트 연산
+            '<', '<=', '>', '>=',                                             // 비교연산
+            '==', '!=',
+            '&', '^', '|',                                                    // 비트연산
+            '&&', '||',                                                       // 논리연산
+            '=', '+=', '-=', '*=', '/=', '%=', '<<=', '>>=', '&=', '^=', '|=' // 대입연산
+        ];
+    }
+
+    _isOperator(unit) {
+        return this.unary_op_priority.includes(unit) || this.binary_op_priority.includes(unit);
     }
 
     _match(str) {
@@ -690,26 +711,17 @@ var luxcParer = new class {
 
     _ordering(args) {
         // TODO: 연산자 우선순위 정렬
-        var unary_op_priority = [
-            '++', '--',                                                       // 증감 연산
-            '!', '~',                                                         // 비트 (!, ~)
-        ];
-
-        var op_priority = [
-            '*', '/', '%',                                                    // 산술연산
-            '+', '-',
-            '<<', '>>',                                                       // 쉬프트 연산
-            '<', '<=', '>', '>=',                                             // 비교연산
-            '==', '!=',
-            '&', '^', '|',                                                    // 비트연산
-            '&&', '||',                                                       // 논리연산
-            '=', '+=', '-=', '*=', '/=', '%=', '<<=', '>>=', '&=', '^=', '|=' // 대입연산
-        ];
-
         var prev = (args, i) => {
             var idx = i - 1;
             if (idx >= args.length || idx < 0)
-                throw 'invaild index';
+                return undefined;
+            return idx;
+        };
+
+        var next = (args, i) => {
+            var idx = i + 1;
+            if (idx >= args.length || idx < 0)
+                return undefined;
             return idx;
         };
 
@@ -736,10 +748,60 @@ var luxcParer = new class {
             return operator_group;
         }
 
-        var unary_op_group = sort(args, unary_op_priority);
+        // Operation Cases
+        // undefind, [op], undefind   => invalid expression
+        // undefind, [op], op         => invalid expression
+        // undefind, [op], value      => suffix
+        // op, [op], undefind         => invalid expression
+        // op, [op], op               => invalid expression
+        // op, [op], value            => suffix
+        // value, [op], undefind      => postfix or invalid expression
+        // value, [op], op            => postfix or invalid expression
+        // value, [op], value         => binary operator
+
+        var type_ = (args, index) => {
+            if (index == undefined)
+                return 0x00; // undefined
+            if (this._isOperator(args[index]))
+                return 0x01; // operator
+            return 0x02; // value
+        };
+
+        var check = (args, value) => {
+            var checkIdx = [prev(args, value.idx), next(args, value.idx)];
+            var checkType = [
+                type_(args, checkIdx[0]),
+                type_(args, checkIdx[1])
+            ];
+            var decisionCode = (checkType[0] << 4) | checkType[1];
+            switch (decisionCode) {
+                // suffix operator
+                case 0x02: case 0x12: return 'suffix';
+                // postfix operator
+                case 0x20: return 'postfix';
+                // pass through binary operator
+                case 0x21: // return 'postfix';
+                case 0x22: return 'binary';
+                default:
+                    throw new Exception("invaild expression");
+            }
+        };
+
+        var unary_op_group = sort(args, this.unary_op_priority);
         while (unary_op_group.length) {
             var value = unary_op_group.shift();
-            var offset = value.idx;
+            var type = check(args, value);
+            var offset;
+            switch (type) {
+                case 'suffix':
+                    offset = value.idx;
+                    break;
+                case 'postfix':
+                    offset = prev(value.idx);
+                    break;
+                default:
+                    continue;
+            }
 
             args = group(args, offset, 2);
             unary_op_group.forEach((v) => {
@@ -749,7 +811,7 @@ var luxcParer = new class {
             });
         }
 
-        var binary_op_group = sort(args, op_priority);
+        var binary_op_group = sort(args, this.binary_op_priority);
         while (binary_op_group.length) {
             var value = binary_op_group.shift();
             var offset = prev(args, value.idx);
@@ -788,13 +850,13 @@ var luxcParer = new class {
                 // option 'repair_with_bracket' is used to split comma arguments
                 if (match[1] != "" || repair_with_bracket)
                     repair = match[1] + "(" + repair + ")";
-                
+
                 repair_context.push([match_text, repair]);
                 index_match = indexing.exec(args[i]);
             }
-            
+
             var repair_arg = args[i];
-            for (var j = 0; j < repair_context.length; j ++) {
+            for (var j = 0; j < repair_context.length; j++) {
                 repair_arg = repair_arg.replace(repair_context[j][0], repair_context[j][1]);
             }
 
@@ -822,10 +884,10 @@ var luxcParer = new class {
                 // match results means => "func"("args")
                 var func = replace_object[0][0][1];
                 var args = replace_object[0][0][2];
-                
+
                 if (func !== "") {
                     // getRandom(10, 20) or dial0.getTurn() ...
-                    return {call : func, args : this.parse(args)};
+                    return { call: func, args: this.parse(args) };
                 } else {
                     // (ir0.getProximity() >= 50)
                     return this.parse(args);
@@ -836,7 +898,7 @@ var luxcParer = new class {
         }
 
         for (var i = 0; i < repair_args.length; i++) {
-                var result = this._parsePolynomial(repair_args[i]);
+            var result = this._parsePolynomial(repair_args[i]);
             repair_args[i] = result;
         }
 
@@ -848,7 +910,7 @@ var luxcParer = new class {
         var args = this._splitArgs(text);
 
         if (args.length > 1) {
-            for (var i = 0; i < args.length; i ++) {
+            for (var i = 0; i < args.length; i++) {
                 var result = this.parse(args[i]);
                 args[i] = result;
             }
@@ -875,33 +937,47 @@ function argsToBlock(args) {
     }
 
     if (Array.isArray(args)) {
-        if (args.length < 3) {
-            throw "too few arguments" + args;
-        } else if (args.length > 3) {
-            throw "too many arguments" + args;
-        }
-
         const logical = ['&&', '||', '==', '>=', '<=', '>', '<', '!=']
         const arthmatic = ['+', '-', '*', '/', '%']
 
-        var lhs = argsToBlock(args[0]);
-        var op = new Operator(args[1]);
-        var rhs = argsToBlock(args[2]);
+        switch (args.length) {
+        case 2: {
+                if (args[0] == '-') {
+                    var lhs = new NumberValue(-1);
+                    var op = new Operator('*');
+                    var rhs = argsToBlock(args[1]);
+                    return new CalculatorBlock(lhs, op, rhs);
+                } else if (args[0] == '!') {
+                    var lhs = argsToBlock(args[1]);
+                    var op = new Operator('==');
+                    var rhs = new NumberValue(0); // false
+                } else {
+                    throw new Exception("Not Implemented Expressions : " + args);
+                }
+            } break;
+        case 3: {
+                var lhs = argsToBlock(args[0]);
+                var op = new Operator(args[1]);
+                var rhs = argsToBlock(args[2]);
 
-        var block;
-        if (logical.includes(args[1])) {
-            block = new ConditionBlock(lhs, op, rhs);
-        }
-        else if (arthmatic.includes(args[1])) {
-            block = new CalculatorBlock(lhs, op, rhs);
-        }
-        else {
-            throw "Invaild Operator" + op;
+                var block;
+                if (logical.includes(args[1])) {
+                    block = new ConditionBlock(lhs, op, rhs);
+                }
+                else if (arthmatic.includes(args[1])) {
+                    block = new CalculatorBlock(lhs, op, rhs);
+                }
+                else {
+                    throw new Exception("Invaild Operator" + op);
+                }
+            } break;
+        default:
+            throw new Exception("too many arguments" + args);
         }
 
         return block;
 
-    } else if (typeof args == "object"){
+    } else if (typeof args == "object") {
         var func = args.call;
         var func_args = args.args;
 
@@ -909,7 +985,7 @@ function argsToBlock(args) {
             throw "invaild object" + func_args;
         }
 
-        for (var i = 0; i < func_args.length; i ++) {
+        for (var i = 0; i < func_args.length; i++) {
             func_args[i] = argsToBlock(func_args[i]);
         }
 
@@ -928,7 +1004,7 @@ function argsToBlock(args) {
             var type = module_info.type;
             var uuid = module_info.uuid;
             var property = Property[type][method];
-            
+
             return new FunctionGetValue(uuid, property);
         }
 
@@ -945,8 +1021,7 @@ function convertArgumentToConditionBlocks(args) {
     var split_results = luxcParer.parse(args);
     var block = argsToBlock(split_results);
 
-    if (block.getType() == FrameType.CALTULATOR)
-    {
+    if (block.getType() == FrameType.CALTULATOR) {
         block = new ConditionBlock(block, new Operator(OperatorType.INEQUALITY), new NumberValue(0));
     }
 
@@ -954,10 +1029,10 @@ function convertArgumentToConditionBlocks(args) {
 }
 
 function convertArgumentToBlocks(args) {
-    var args = luxcParer.parse(args);
+    var args = luxcParer.parse(args.replace(/\(char\*\)/, ""));
     if (Array.isArray(args)) {
         var blocks = [];
-        for (var i = 0; i < args.length; i ++) {
+        for (var i = 0; i < args.length; i++) {
             var block = argsToBlock(args[i]);
             blocks.push(block);
         }
