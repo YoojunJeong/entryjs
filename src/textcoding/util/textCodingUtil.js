@@ -1089,151 +1089,79 @@ class TextCodingUtil {
     assembleSetLedColoreBlock(blcok, syntax) {
 
         const blockToken = syntax.split('.'); // space 로 split 하되, : 도 자르지만 토큰에 포함
-        let lastIndex = blockToken.length - 1;
-        const option = blockToken[lastIndex];
+        const option = blockToken[blockToken.length - 1];
 
-        console.log("HW_LED_BASIC result : ", option);
-
-        var hex = option.replace( "#", "" ); 
-        var value = hex.match( /[a-f\d]/gi ); 
-
+        let hex = option.replace( "#", "" ); 
+        let value = hex.match( /[a-f\d]/gi ); 
 
         // 헥사값이 세자리일 경우, 여섯자리로. 
         if ( value.length == 3 ) hex = value[0] + value[0] + value[1] + value[1] + value[2] + value[2]; 
-
-
         value = hex.match( /[a-f\d]{2}/gi ); 
 
-        var r = (parseInt( value[0], 16 ) / 256) * 100; 
-        var g = (parseInt( value[1], 16 ) / 256) * 100; 
-        var b = (parseInt( value[2], 16 ) / 256) * 100; 
+        let transferedValue = value.map(el => {
+            return Math.round((parseInt( el, 16 ) / 255) * 100)
+        })
 
-        console.log("HW_LED_BASIC r : ", r);
-
-        var rgbType = "led0.setRgb(" + Math.round(r) + "," + Math.round(g) + "," + Math.round(b) + ");"; 
-
-        return rgbType; 
-    }
-
-    assembleSetLedRgbBlock(blcok, syntax) {
-
-        const blockToken = syntax.split('.'); // space 로 split 하되, : 도 자르지만 토큰에 포함
-        const rInput = blockToken[1];
-        const gInput = blockToken[2];
-        const bInput = blockToken[3];
-
-    
-        var hexR = rInput.replace( "#", "" ); 
-        var rValue = hexR.match( /[a-f\d]/gi ); 
-
-        var hexG = gInput.replace( "#", "" ); 
-        var gValue = hexG.match( /[a-f\d]/gi ); 
-
-        var hexB = bInput.replace( "#", "" ); 
-        var bValue = hexB.match( /[a-f\d]/gi ); 
-
-        console.log("HW_LED_BASIC_rgb  rValue : ", rValue);
-        console.log("HW_LED_BASIC_rgb  gValue : ", gValue);
-        console.log("HW_LED_BASIC_rgb  bValue : ", bValue);
-
-
-
-        // 헥사값이 세자리일 경우, 여섯자리로. 
-        if ( rValue.length == 3 ) hexR = rValue[0] + rValue[0]; 
-        if ( gValue.length == 3 ) hexG = gValue[0] + gValue[0]; 
-        if ( bValue.length == 3 ) hexB = bValue[0] + bValue[0]; 
-
-        var r = (parseInt( rValue[0], 16 ) / 256) * 100; 
-        var g = (parseInt( gValue[0], 16 ) / 256) * 100; 
-        var b = (parseInt( bValue[0], 16 ) / 256) * 100; 
-
-        console.log("HW_LED_BASIC_rgb : ", r);
-        console.log("HW_LED_BASIC_rgb : ", g);
-        console.log("HW_LED_BASIC_rgb : ", b);
-
-        var rgbType = "led0.setRgb(" + Math.round(rInput) + "," + Math.round(gInput) + "," + Math.round(bInput) + ");"; 
-
+        let rgbType = `led0.setRgb(${transferedValue[0]},${transferedValue[1]},${transferedValue[2]});`; 
         return rgbType; 
     }
 
     assembleModiSetMotorValueBlock(block, syntax) {
-
         let result = '';
-
         const blockToken = syntax.split('?'); // space 로 split 하되, : 도 자르지만 토큰에 포함
-      
         const option = blockToken[1];
         const option1 = blockToken[2];
         const option2 = blockToken[3];
 
-        console.log("HW_MOTOR_BOTH option1 : ", option);
-        console.log("HW_MOTOR_BOTH option2: ", option1);
-        console.log("HW_MOTOR_BOTH option3: ", option2);
-    
-
         if (block.data.type === 'HW_MOTOR_BOTH') {
-
             if (option == 'MOTOR_ANGLE') {
-              
                 result = 'motor0.setAngle(' + option1 + ',' + option2+');';
-        
-            
             } else if (option == 'MOTOR_SPEED') {
-              
                 result = 'motor0.setSpeed(' + option1 + ',' + option2+');';
-                
-            } 
-
-            else if  (option == 'MOTOR_TORQUE') {
-              
+            } else if  (option == 'MOTOR_TORQUE') {
                 result = 'motor0.setTorque(' + option1 + ',' + option2+');';
-                
             } 
-
-    
         } else {
             result = syntax;
         }
 
         return result;
-
     }
 
-    assembleModiChangeMotorUpperValueBlock(block, syntax) {
-        let result = '';
-        const blockToken = syntax.split('?'); // space 로 split 하되, : 도 자르지만 토큰에 포함
-        const option = blockToken[1];
-        const option1 = blockToken[2];
+    // assembleModiChangeMotorUpperValueBlock(block, syntax) {
+    //     let result = '';
+    //     const blockToken = syntax.split('?'); // space 로 split 하되, : 도 자르지만 토큰에 포함
+    //     const option = blockToken[1];
+    //     const option1 = blockToken[2];
 
-        if (option == 'MOTOR_ANGLE') {
-            result = 'motor0.setAngleUpper(' + option1 + ');';
-        } else if (option == 'MOTOR_SPEED') {
-            result = 'motor0.setSpeedUpper(' + option1 + ');';
-        } 
-        else if  (option == 'MOTOR_TORQUE') {
-            result = 'motor0.setTorqueUpper(' + option1 + ');';
-        } 
+    //     if (option == 'MOTOR_ANGLE') {
+    //         result = 'motor0.setAngleUpper(' + option1 + ');';
+    //     } else if (option == 'MOTOR_SPEED') {
+    //         result = 'motor0.setSpeedUpper(' + option1 + ');';
+    //     } 
+    //     else if  (option == 'MOTOR_TORQUE') {
+    //         result = 'motor0.setTorqueUpper(' + option1 + ');';
+    //     } 
+    //     return result;
+    // }
 
-        return result;
-    }
+    // assembleModiSetChangeMotorBottomValueBlock(block, syntax) {
+    //     let result = '';
+    //     const blockToken = syntax.split('?'); // space 로 split 하되, : 도 자르지만 토큰에 포함
+    //     const option = blockToken[1];
+    //     const option1 = blockToken[2];
 
-    assembleModiSetChangeMotorBottomValueBlock(block, syntax) {
-        let result = '';
-        const blockToken = syntax.split('?'); // space 로 split 하되, : 도 자르지만 토큰에 포함
-        const option = blockToken[1];
-        const option1 = blockToken[2];
+    //     if (option == 'MOTOR_ANGLE') {
+    //         result = 'motor0.setAngleBottom(' + option1 + ');';
+    //     } else if (option == 'MOTOR_SPEED') {
+    //         result = 'motor0.setSpeedBottom(' + option1 + ');';
+    //     } 
+    //     else if  (option == 'MOTOR_TORQUE') {
+    //         result = 'motor0.setTorqueBottom(' + option1 + ');';
+    //     }
 
-        if (option == 'MOTOR_ANGLE') {
-            result = 'motor0.setAngleBottom(' + option1 + ');';
-        } else if (option == 'MOTOR_SPEED') {
-            result = 'motor0.setSpeedBottom(' + option1 + ');';
-        } 
-        else if  (option == 'MOTOR_TORQUE') {
-            result = 'motor0.setTorqueBottom(' + option1 + ');';
-        }
-
-        return result;
-    }
+    //     return result;
+    // }
 
     assembleModiSetBasicSpeakerBlock(block, syntax) {
 

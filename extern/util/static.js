@@ -313,10 +313,10 @@ EntryStatic.defaultModiBlocks = [
             'set_variable',
         ],
     },
-    {
-        category: 'text',
-        blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
-    },
+    // {
+    //     category: 'text',
+    //     blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
+    // },
     {
         category: 'arduino',
         blocks: [
