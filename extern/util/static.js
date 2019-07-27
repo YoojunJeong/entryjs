@@ -233,11 +233,15 @@ EntryStatic.getMelodyDataFromUrl = function(source) {
 
 // JYJ - 사이드 메뉴 항목 설정
 EntryStatic.getAllBlocks = function() {
-    const blocks = EntryStatic.defaultModiBlocks
-    if (Entry.modiData && Entry.modiData.blocks) {
-        console.log(0, Entry.modiData)
-        blocks = Entry.modiData.blocks
+    var blocks = EntryStatic.defaultModiBlocks
+
+    if (Entry.modiData != null ) {
+        console.log('getAllBlocks if', Entry.modiData)
+        blocks = Entry.modiData
     }
+
+    console.log('getAllBlocks blocks : ', blocks)
+
     const melodyBlock = blocks.filter( el => (el.category === "CONTENTS_MELODY_BASIC"))[0].blocks
     const imgBlock = blocks.filter( el => (el.category === "CONTENTS_IMG_BASIC"))[0].blocks
     const modiBlocks = blocks.filter( el => (el.category !== "CONTENTS_MELODY_BASIC" && el.category !== "CONTENTS_IMG_BASIC"))

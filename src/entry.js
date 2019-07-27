@@ -10,6 +10,7 @@ global.Entry = Entry;
 global.Entry.module = '';
 global.Entry.project = '';
 global.Entry.binaryOutput = '';
+Entry.modiData = null;
 
 require('core-js/fn/object/values');
 require('./graphicEngine/FakePIXI');
