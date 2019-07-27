@@ -194,19 +194,11 @@ Entry.MODI = {
         return list;
     },
     displayImageList: function() {
-        var list = EntryStatic.displayImage.list || [
-            ['기본이미지', 'basic_image0'],
-            ['기본이미지1', 'basic_image1'],
-        ];
-
+        let list = EntryStatic.displayImage.list;
         return list;
     },
     speakerMelodyList: function() {
-        var list = EntryStatic.speakerMelody.list || [
-            ['송어', '송어'],
-            ['은파', '은파'],
-            ['엘리제를 위하여', '엘리제를 위하여'],
-        ];
+        let list = EntryStatic.speakerMelody.list;
         return list;
     }
 };
