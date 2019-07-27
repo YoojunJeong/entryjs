@@ -210,62 +210,7 @@ Entry.MODI = {
         return list;
     }
 };
-Entry.MODI.blockMenuBlocks = [
-    //MODI
-    'modi_microphone_value',
-    'modi_environment_value',
-    'modi_gyroscope_value',
-    'modi_ultrasonic_value',
-
-    'modi_dial_value',
-    // 'modi_button_judgement',
-    'modi_button_value',
-    'modi_button_menu',
-    'modi_button_true',
-    'modi_button_false',
-    'modi_infrared_value',
-    'modi_set_motor_value',
-    'modi_change_motor_upper_value',
-    'modi_change_motor_bottom_value',
-    'modi_clear_led',
-    'modi_set_led_rgb',
-    'modi_set_led_color',
-    'modi_speaker_off',
-    'modi_set_basic_speaker',
-    'modi_melody_speaker',
-    'modi_print_display_by_value',
-    'modi_display_variable',
-    'modi_display_image',
-    'modi_display_reset',
-    'modi_display_move',
-    'modi_network_button',
-    'modi_network_button_menu',
-    'modi_network_joystick',
-    'modi_network_joystick_menu',
-    'modi_network_slider',
-    'modi_network_dial',
-    'modi_network_timer',
-    'modi_network_timer_menu',
-    'modi_network_bell',
-    'modi_network_button_judgement',
-    'modi_network_joystick_judgement',
-    'modi_network_timer_judgement',
-    'modi_button_judgement',
-
-    // 'modi_network_button_true',
-    // 'modi_network_button_false',
-    // 'modi_network_joystick',
-    // 'modi_network_joystick_unpressed',
-    // 'modi_network_joystick_up',
-    // 'modi_network_joystick_down',
-    // 'modi_network_joystick_left',
-    // 'modi_network_joystick_right',
-    // 'modi_network_slider_left',
-    // 'modi_network_slider_right',
-    // 'modi_network_timer',
-    // 'modi_network_timer_unreached',
-    // 'modi_network_timer_reached',
-];
+Entry.MODI.blockMenuBlocks = [];
 //region modi 모디
 Entry.MODI.getBlocks = function() {
     return {
