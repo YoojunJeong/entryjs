@@ -233,7 +233,7 @@ EntryStatic.getMelodyDataFromUrl = function(source) {
 
 // JYJ - 사이드 메뉴 항목 설정
 EntryStatic.getAllBlocks = function() {
-    var blocks = EntryStatic.defaultModiBlocks
+    let blocks = EntryStatic.defaultModiBlocks
 
     if (Entry.modiData != null ) {
         console.log('getAllBlocks if', Entry.modiData)
@@ -242,19 +242,32 @@ EntryStatic.getAllBlocks = function() {
 
     console.log('getAllBlocks blocks : ', blocks)
 
-    const melodyBlock = blocks.filter( el => (el.category === "CONTENTS_MELODY_BASIC"))[0].blocks
-    const imgBlock = blocks.filter( el => (el.category === "CONTENTS_IMG_BASIC"))[0].blocks
-    const modiBlocks = blocks.filter( el => (el.category !== "CONTENTS_MELODY_BASIC" && el.category !== "CONTENTS_IMG_BASIC"))
-
-    EntryStatic.speakerMelody.list = melodyBlock.map(el=>{
-        EntryStatic.getMelodyDataFromUrl(el)
-        return [el.name,el.name]
+    let melodyBlock = blocks.filter( el => (el.category === "CONTENTS_MELODY_BASIC"))[0]
+    let imgBlock = blocks.filter( el => (el.category === "CONTENTS_IMG_BASIC"))[0]
+    const modiBlocks = blocks
+    .filter( el => (el.category !== "CONTENTS_MELODY_BASIC" && el.category !== "CONTENTS_IMG_BASIC"))
+    .map( el => {
+        if(el.category === "HW"){
+            el.category = 'arduino'
+        } 
+        return el
     })
 
-    EntryStatic.displayImage.list = imgBlock.map(el=>{
-        EntryStatic.getImgDataFromImageUrl(el)
-        return [el.name,el.name]
-    })
+    if(melodyBlock && melodyBlock.blocks){
+        melodyBlock = melodyBlock.blocks
+        EntryStatic.speakerMelody.list = melodyBlock.map(el=>{
+            EntryStatic.getMelodyDataFromUrl(el)
+            return [el.name,el.name]
+        })
+    }
+
+    if(imgBlock && imgBlock.blocks){
+        imgBlock = imgBlock.blocks
+        EntryStatic.displayImage.list = imgBlock.map(el=>{
+            EntryStatic.getImgDataFromImageUrl(el)
+            return [el.name,el.name]
+        })
+    }
 
     return modiBlocks
 };
