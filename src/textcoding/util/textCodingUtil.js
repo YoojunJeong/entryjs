@@ -986,10 +986,10 @@ class TextCodingUtil {
         let lastIndex = blockToken.length - 1;
         const option = blockToken[lastIndex];
 
-        console.log("modi_button_value blockToken : ", blockToken);
-        console.log("modi_button_value option : ", option);
+        console.log("HW_BTN_VALUE blockToken : ", blockToken);
+        console.log("HW_BTN_VALUE option : ", option);
 
-        if (block.data.type === 'modi_button_value') {
+        if (block.data.type === 'HW_BTN_VALUE') {
 
             if (option == '2') {
               
@@ -1049,11 +1049,11 @@ class TextCodingUtil {
         let lastIndex = blockToken.length - 1;
         const option = blockToken[lastIndex];
 
-        console.log("modi_dial_value blockToken : ", blockToken);
-        console.log("modi_dial_value option : ", option);
+        console.log("HW_DIAL_VALUE blockToken : ", blockToken);
+        console.log("HW_DIAL_VALUE option : ", option);
         
 
-        if (block.data.type === 'modi_dial_value') {
+        if (block.data.type === 'HW_DIAL_VALUE') {
 
             if (option == '2') {
               
@@ -1080,7 +1080,7 @@ class TextCodingUtil {
             result = syntax;
         }
 
-        console.log("modi_dial_value option : ", result);
+        console.log("HW_DIAL_VALUE option : ", result);
        
         return result;
 
@@ -1092,7 +1092,7 @@ class TextCodingUtil {
         let lastIndex = blockToken.length - 1;
         const option = blockToken[lastIndex];
 
-        console.log("modi_set_led_color result : ", option);
+        console.log("HW_LED_BASIC result : ", option);
 
         var hex = option.replace( "#", "" ); 
         var value = hex.match( /[a-f\d]/gi ); 
@@ -1108,7 +1108,7 @@ class TextCodingUtil {
         var g = (parseInt( value[1], 16 ) / 256) * 100; 
         var b = (parseInt( value[2], 16 ) / 256) * 100; 
 
-        console.log("modi_set_led_color r : ", r);
+        console.log("HW_LED_BASIC r : ", r);
 
         var rgbType = "led0.setRgb(" + Math.round(r) + "," + Math.round(g) + "," + Math.round(b) + ");"; 
 
@@ -1132,9 +1132,9 @@ class TextCodingUtil {
         var hexB = bInput.replace( "#", "" ); 
         var bValue = hexB.match( /[a-f\d]/gi ); 
 
-        console.log("modi_set_led_color_rgb  rValue : ", rValue);
-        console.log("modi_set_led_color_rgb  gValue : ", gValue);
-        console.log("modi_set_led_color_rgb  bValue : ", bValue);
+        console.log("HW_LED_BASIC_rgb  rValue : ", rValue);
+        console.log("HW_LED_BASIC_rgb  gValue : ", gValue);
+        console.log("HW_LED_BASIC_rgb  bValue : ", bValue);
 
 
 
@@ -1147,9 +1147,9 @@ class TextCodingUtil {
         var g = (parseInt( gValue[0], 16 ) / 256) * 100; 
         var b = (parseInt( bValue[0], 16 ) / 256) * 100; 
 
-        console.log("modi_set_led_color_rgb : ", r);
-        console.log("modi_set_led_color_rgb : ", g);
-        console.log("modi_set_led_color_rgb : ", b);
+        console.log("HW_LED_BASIC_rgb : ", r);
+        console.log("HW_LED_BASIC_rgb : ", g);
+        console.log("HW_LED_BASIC_rgb : ", b);
 
         var rgbType = "led0.setRgb(" + Math.round(rInput) + "," + Math.round(gInput) + "," + Math.round(bInput) + ");"; 
 
@@ -1166,12 +1166,12 @@ class TextCodingUtil {
         const option1 = blockToken[2];
         const option2 = blockToken[3];
 
-        console.log("modi_set_motor_value option1 : ", option);
-        console.log("modi_set_motor_value option2: ", option1);
-        console.log("modi_set_motor_value option3: ", option2);
+        console.log("HW_MOTOR_BOTH option1 : ", option);
+        console.log("HW_MOTOR_BOTH option2: ", option1);
+        console.log("HW_MOTOR_BOTH option3: ", option2);
     
 
-        if (block.data.type === 'modi_set_motor_value') {
+        if (block.data.type === 'HW_MOTOR_BOTH') {
 
             if (option == 'MOTOR_ANGLE') {
               
@@ -1249,9 +1249,9 @@ class TextCodingUtil {
         result = 'speaker0.setTune(' + option1 + ', ' + option2+');';
         
     
-        console.log("modi_set_basic_speaker option1 : ", option1);
-        console.log("modi_set_basic_speaker option2 : ", option2);
-        console.log("modi_set_basic_speaker result : ", result);
+        console.log("HW_SPEAKER_TUNE option1 : ", option1);
+        console.log("HW_SPEAKER_TUNE option2 : ", option2);
+        console.log("HW_SPEAKER_TUNE result : ", result);
 
         
 

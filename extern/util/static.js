@@ -239,19 +239,18 @@ EntryStatic.getAllBlocks = function() {
         console.log('getAllBlocks if', Entry.modiData)
         blocks = Entry.modiData
     }
-
     console.log('getAllBlocks blocks : ', blocks)
-
+    
     let melodyBlock = blocks.filter( el => (el.category === "CONTENTS_MELODY_BASIC"))[0]
     let imgBlock = blocks.filter( el => (el.category === "CONTENTS_IMG_BASIC"))[0]
-    const modiBlocks = blocks
-    .filter( el => (el.category !== "CONTENTS_MELODY_BASIC" && el.category !== "CONTENTS_IMG_BASIC"))
-    .map( el => {
-        if(el.category === "HW"){
-            el.category = 'arduino'
-        } 
-        return el
-    })
+    let modiBlocks = blocks
+                    .filter( el => (el.category !== "CONTENTS_MELODY_BASIC" && el.category !== "CONTENTS_IMG_BASIC"))
+                    .map( el => {
+                        if(el.category === "HW"){
+                            el.category = 'arduino'
+                        } 
+                        return el
+                    })
 
     if(melodyBlock && melodyBlock.blocks){
         melodyBlock = melodyBlock.blocks
@@ -289,7 +288,6 @@ EntryStatic.defaultModiBlocks = [
             'stop_repeat',
             '_if',
             'if_else',
-            // 'wait_until_true',
         ],
     },
     {
@@ -322,65 +320,38 @@ EntryStatic.defaultModiBlocks = [
     {
         category: 'arduino',
         blocks: [
-            'modi_dial_value',
-            'modi_button_value',
-            'modi_button_menu',
-            'modi_button_judgement',
-            // 'modi_button_judgement',
-            // 'modi_button_true',
-            // 'modi_button_false',
-            'modi_infrared_value',
-            'modi_set_motor_value',
-            // 'modi_change_motor_upper_value',
-            // 'modi_change_motor_bottom_value',
-            'modi_clear_led',
-            'modi_set_led_rgb',
-            'modi_set_led_color',
-            'modi_speaker_off',
-            'modi_set_basic_speaker',
-            'modi_melody_speaker',
-            'modi_print_display_by_value',
-            // 'modi_speaker_melody',
-            'modi_display_variable',
-            'modi_display_image',
-            'modi_display_reset',
-            'modi_display_move',
-            'modi_network_button',
-            'modi_network_button_menu',
-            'modi_network_button_judgement',
-            'modi_network_joystick',
-            'modi_network_joystick_menu',
-            'modi_network_joystick_judgement',
-            'modi_network_slider',
-            'modi_network_dial',
-            'modi_network_timer',
-            'modi_network_timer_menu',
-            'modi_network_timer_judgement',
-            'modi_network_bell',
-            // 'modi_network_button',
-            // 'modi_network_button_true',
-            // 'modi_network_button_false',
-            // 'modi_network_joystick',
-            // 'modi_network_joystick_unpressed',
-            // 'modi_network_joystick_up',
-            // 'modi_network_joystick_down',
-            // 'modi_network_joystick_left',
-            // 'modi_network_joystick_right',
-            // 'modi_network_slider_left',
-            // 'modi_network_slider_right',
-            // 'modi_network_timer',
-            // 'modi_network_timer_unreached',
-            // 'modi_network_timer_reached',
+            'HW_DIAL_VALUE',
+            'HW_BTN_VALUE',
+            'HW_BTN_MENU',
+            'HW_BTN_JUDGEMENT',
+            'HW_IR_VALUE',
+            'HW_MOTOR_BOTH',
+            'HW_LED_OFF',
+            'HW_LED_CUSTOM',
+            'HW_LED_BASIC',
+            'HW_SPEAKER_OFF',
+            'HW_SPEAKER_TUNE',
+            'HW_SPEAKER_MELODY',
+            'HW_DISPLAY_TEXT',
+            'HW_DISPLAY_DATA',
+            'HW_DISPLAY_IMAGE',
+            'HW_DISPLAY_RESET',
+            'HW_DISPLAY_MOVE',
+            'HW_NETWORK_BTN',
+            'HW_NETWORK_BTN_MENU',
+            'HW_NETWORK_BTN_JUDGEMENT',
+            'HW_NETWORK_JOYSTICK',
+            'HW_NETWORK_JOYSTICK_MENU',
+            'HW_NETWORK_JOYSTICK_JUDGEMENT',
+            'HW_NETWORK_SLIDER',
+            'HW_NETWORK_DIAL',
+            'HW_NETWORK_TIMER',
+            'HW_NETWORK_TIMER_MENU',
+            'HW_NETWORK_TIMER_JUDGEMENT',
+            'HW_NETWORK_BELL',
         ]
-        //.concat(EntryStatic.DynamicHardwareBlocks),
     }, 
-    // {
-    //     "category" : "CONTENTS_MELODY_BASIC",{
-    //       "name" : "사랑의 인사",
-    //       "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/9.+%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1.cpp"
-    //     } ]
-    //   },
-      {
+    {
         "category" : "CONTENTS_MELODY_BASIC",
         "blocks" : [ {
           "name" : "반짝반짝 작은별",
@@ -389,7 +360,7 @@ EntryStatic.defaultModiBlocks = [
           "name" : "징글벨",
           "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%A7%95%EA%B8%80%EB%B2%A8.cpp"
         } ]
-      },
+    },
     {
         "category" : "CONTENTS_IMG_BASIC",
         "blocks" : [ {
@@ -402,7 +373,7 @@ EntryStatic.defaultModiBlocks = [
             "name" : "Coding",
             "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/coding_3.png"
           } ]
-      },
+    },
 ];
 
 EntryStatic.discussCategories = [

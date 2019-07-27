@@ -227,7 +227,7 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
-                    case 'modi_button_value' : {
+                    case 'HW_BTN_VALUE' : {
                         
 
                         resultTextCode = Entry.TextCodingUtil.assembleModiButtonValueBlock(
@@ -254,7 +254,7 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
-                    case 'modi_dial_value' : {
+                    case 'HW_DIAL_VALUE' : {
 
                         resultTextCode = Entry.TextCodingUtil.assembleModiDialValueBlock(
                             block,
@@ -265,7 +265,7 @@ Entry.BlockToCParser = class {
                     }
 
                    
-                    case 'modi_set_led_color' : {
+                    case 'HW_LED_BASIC' : {
                         resultTextCode = Entry.TextCodingUtil.assembleSetLedColoreBlock(
                             block,
                             resultTextCode
@@ -274,7 +274,7 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
-                    // case 'modi_set_led_rgb' : {
+                    // case 'HW_LED_CUSTOM' : {
                     //     resultTextCode = Entry.TextCodingUtil.assembleSetLedRgbBlock(
                     //         block,
                     //         resultTextCode
@@ -283,7 +283,7 @@ Entry.BlockToCParser = class {
                     //     break;
                     // }
 
-                    case 'modi_set_motor_value': {
+                    case 'HW_MOTOR_BOTH': {
                         resultTextCode = Entry.TextCodingUtil.assembleModiSetMotorValueBlock(
                             block,
                             resultTextCode
@@ -308,7 +308,7 @@ Entry.BlockToCParser = class {
 
                         break;
                     }
-                    case 'modi_set_basic_speaker' : {
+                    case 'HW_SPEAKER_TUNE' : {
                         resultTextCode = Entry.TextCodingUtil.assembleModiSetBasicSpeakerBlock(
                             block,
                             resultTextCode
@@ -317,7 +317,7 @@ Entry.BlockToCParser = class {
                         break;
                         
                     }
-                    case 'modi_melody_speaker' : {
+                    case 'HW_SPEAKER_MELODY' : {
                         resultTextCode = Entry.TextCodingUtil.assembleModiMelodySpeakerBlock(
                             block,
                             resultTextCode
@@ -325,7 +325,7 @@ Entry.BlockToCParser = class {
                         break;
                     }
                     
-                    case 'modi_print_display_by_value' : {
+                    case 'HW_DISPLAY_TEXT' : {
                         resultTextCode = Entry.TextCodingUtil.assembleModiDisplayBlock(
                             block,
                             resultTextCode
@@ -333,7 +333,7 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
-                    case 'modi_display_image' : {
+                    case 'HW_DISPLAY_IMAGE' : {
                         resultTextCode = Entry.TextCodingUtil.assembleModiDisplayImgBlock(
                             block,
                             resultTextCode
@@ -341,7 +341,7 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
-                    case 'modi_display_move' : {
+                    case 'HW_DISPLAY_MOVE' : {
                         resultTextCode = Entry.TextCodingUtil.assembleModiDisplayMoveBlock(
                             block,
                             resultTextCode

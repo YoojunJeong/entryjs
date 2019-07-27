@@ -339,7 +339,7 @@ Entry.MODI.getBlocks = function() {
 
             
         },
-        modi_dial_value: {
+        HW_DIAL_VALUE: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -364,7 +364,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null, 2],
-                type: 'modi_dial_value',
+                type: 'HW_DIAL_VALUE',
             },
             paramsKeyMap: {
                 name: 0,
@@ -471,7 +471,7 @@ Entry.MODI.getBlocks = function() {
         //         return pd.value[property];
         //     },
         // },
-        modi_button_value: {
+        HW_BTN_VALUE: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -501,7 +501,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null, 2],
-                type: 'modi_button_value',
+                type: 'HW_BTN_VALUE',
             },
             paramsKeyMap: {
             
@@ -549,7 +549,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_button_menu : {
+        HW_BTN_MENU : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -569,7 +569,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: ['TRUE'],
-                type: 'modi_button_menu',
+                type: 'HW_BTN_MENU',
             },
             class: 'button',
             isNotFor: ['modi'],
@@ -638,7 +638,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_infrared_value: {
+        HW_IR_VALUE: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -656,7 +656,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null],
-                type: 'modi_infrared_value',
+                type: 'HW_IR_VALUE',
             },
             paramsKeyMap: {
                 name: 0,
@@ -743,7 +743,7 @@ Entry.MODI.getBlocks = function() {
         //         return pd.value[2];
         //     },
         // },
-        modi_set_motor_value: {
+        HW_MOTOR_BOTH: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -796,7 +796,7 @@ Entry.MODI.getBlocks = function() {
                         params: ['0'],
                     },
                 ],
-                type: 'modi_set_motor_value',
+                type: 'HW_MOTOR_BOTH',
             },
             paramsKeyMap: {
                 name: 0,
@@ -1020,7 +1020,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
-        modi_clear_led: {
+        HW_LED_OFF: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -1042,7 +1042,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null],
-                type: 'modi_clear_led',
+                type: 'HW_LED_OFF',
             },
             paramsKeyMap: {
                 name: 0,
@@ -1078,7 +1078,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_set_led_rgb: {
+        HW_LED_CUSTOM: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -1126,7 +1126,7 @@ Entry.MODI.getBlocks = function() {
                         params: ['100'],
                     },
                 ],
-                type: 'modi_set_led_rgb',
+                type: 'HW_LED_CUSTOM',
             },
             paramsKeyMap: {
                 name: 0,
@@ -1168,7 +1168,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_set_led_color: {
+        HW_LED_BASIC: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -1193,7 +1193,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null],
-                type: 'modi_set_led_color',
+                type: 'HW_LED_BASIC',
             },
             paramsKeyMap: {
                 // name: 0,
@@ -1236,7 +1236,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_speaker_off: {
+        HW_SPEAKER_OFF: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -1261,7 +1261,7 @@ Entry.MODI.getBlocks = function() {
                 params: [
                     null,
                 ],
-                type: 'modi_speaker_off',
+                type: 'HW_SPEAKER_OFF',
             },
             paramsKeyMap: {
                 name: 0,
@@ -1299,7 +1299,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_set_basic_speaker: {
+        HW_SPEAKER_TUNE: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -1366,7 +1366,7 @@ Entry.MODI.getBlocks = function() {
                         params: ['100'],
                     },
                 ],
-                type: 'modi_set_basic_speaker',
+                type: 'HW_SPEAKER_TUNE',
             },
             paramsKeyMap: {
                 name: 0,
@@ -1404,7 +1404,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_melody_speaker: {
+        HW_SPEAKER_MELODY: {
             // melodyBlock: ['송어', '은파'],
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
@@ -1451,7 +1451,7 @@ Entry.MODI.getBlocks = function() {
                         params: ['100'],
                     },
                 ],
-                type: 'modi_melody_speaker',
+                type: 'HW_SPEAKER_MELODY',
             },
             paramsKeyMap: {
                 name: 0,
@@ -1488,7 +1488,7 @@ Entry.MODI.getBlocks = function() {
             },
           
         },
-        modi_print_display_by_value: {
+        HW_DISPLAY_TEXT: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -1522,7 +1522,7 @@ Entry.MODI.getBlocks = function() {
                         params: ['안녕!'],
                     },
                 ],
-                type: 'modi_print_display_by_value',
+                type: 'HW_DISPLAY_TEXT',
             },
             paramsKeyMap: {
                 name: 0,
@@ -1561,7 +1561,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
-        modi_display_variable : {
+        HW_DISPLAY_DATA : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -1595,7 +1595,7 @@ Entry.MODI.getBlocks = function() {
                         params: ['10'],
                     },
                 ],
-                type: 'modi_display_variable',
+                type: 'HW_DISPLAY_DATA',
             },
             paramsKeyMap: {
                 name: 0,
@@ -1615,7 +1615,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
-        modi_display_image : {
+        HW_DISPLAY_IMAGE : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -1640,7 +1640,7 @@ Entry.MODI.getBlocks = function() {
                 params: [
                     null,
                 ],
-                type: 'modi_display_image',
+                type: 'HW_DISPLAY_IMAGE',
             },
             paramsKeyMap: {
                 name: 0,
@@ -1660,7 +1660,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
-        modi_display_reset : {
+        HW_DISPLAY_RESET : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -1677,7 +1677,7 @@ Entry.MODI.getBlocks = function() {
                 params: [
                     null,
                 ],
-                type: 'modi_display_reset',
+                type: 'HW_DISPLAY_RESET',
             },
             paramsKeyMap: {
                 name: 0,
@@ -1697,7 +1697,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
-        modi_display_move : {
+        HW_DISPLAY_MOVE : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -1735,7 +1735,7 @@ Entry.MODI.getBlocks = function() {
                         params: ['10'],
                     }
                 ],
-                type: 'modi_display_move',
+                type: 'HW_DISPLAY_MOVE',
             },
             paramsKeyMap: {
                 name: 0,
@@ -1755,7 +1755,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
-        modi_network_bell: {
+        HW_NETWORK_BELL: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
@@ -1782,7 +1782,7 @@ Entry.MODI.getBlocks = function() {
                 params: [
                     'BUZZER_ON'
                 ],
-                type: 'modi_network_bell',
+                type: 'HW_NETWORK_BELL',
             },
 
             class: 'network',
@@ -1797,7 +1797,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
-        modi_button_judgement : {
+        HW_BTN_JUDGEMENT : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -1837,7 +1837,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null, 'getClick', 'TRUE'],
-                type: 'modi_button_judgement',
+                type: 'HW_BTN_JUDGEMENT',
             },
             paramsKeyMap: {
                 property: 0,
@@ -1856,7 +1856,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_button : {
+        HW_NETWORK_BTN : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -1886,7 +1886,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null, 'getButtonClick'],
-                type: 'modi_network_button',
+                type: 'HW_NETWORK_BTN',
             },
             paramsKeyMap: {
                 property: 0,
@@ -1905,7 +1905,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_button_judgement : {
+        HW_NETWORK_BTN_JUDGEMENT : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -1945,7 +1945,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null, 'getButtonClick', 'TRUE'],
-                type: 'modi_network_button_judgement',
+                type: 'HW_NETWORK_BTN_JUDGEMENT',
             },
             paramsKeyMap: {
                 property: 0,
@@ -1964,7 +1964,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_button_menu : {
+        HW_NETWORK_BTN_MENU : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -1984,7 +1984,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: ['TRUE'],
-                type: 'modi_network_button_menu',
+                type: 'HW_NETWORK_BTN_MENU',
             },
             class: 'network',
             isNotFor: ['modi'],
@@ -2001,7 +2001,7 @@ Entry.MODI.getBlocks = function() {
         },
         // modi_network_button_true : {},
         // modi_network_button_false : {},
-        modi_network_joystick_judgement : {
+        HW_NETWORK_JOYSTICK_JUDGEMENT : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2030,7 +2030,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null, 'JOYSTICK_UP'],
-                type: 'modi_network_joystick_judgement',
+                type: 'HW_NETWORK_JOYSTICK_JUDGEMENT',
             },
             paramsKeyMap: {
                 property: 0,
@@ -2049,7 +2049,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_joystick : {
+        HW_NETWORK_JOYSTICK : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2067,7 +2067,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null],
-                type: 'modi_network_joystick',
+                type: 'HW_NETWORK_JOYSTICK',
             },
             paramsKeyMap: {
                 property: 0,
@@ -2086,7 +2086,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_joystick_menu : {
+        HW_NETWORK_JOYSTICK_MENU : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2109,7 +2109,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: ['JOYSTICK_UP'],
-                type: 'modi_network_joystick_menu',
+                type: 'HW_NETWORK_JOYSTICK_MENU',
             },
             class: 'network',
             isNotFor: ['modi'],
@@ -2261,7 +2261,7 @@ Entry.MODI.getBlocks = function() {
         },
         modi_network_slider_left : {},
         modi_network_slider_right : {},
-        modi_network_slider: {
+        HW_NETWORK_SLIDER: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2289,7 +2289,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null, 'Left'],
-                type: 'modi_network_slider',
+                type: 'HW_NETWORK_SLIDER',
             },
             paramsKeyMap: {
                 name: 0,
@@ -2307,7 +2307,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_dial : {
+        HW_NETWORK_DIAL : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2332,7 +2332,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null, 2],
-                type: 'modi_network_dial',
+                type: 'HW_NETWORK_DIAL',
             },
             paramsKeyMap: {
                 name: 0,
@@ -2351,7 +2351,7 @@ Entry.MODI.getBlocks = function() {
             },
         },
 
-        modi_network_timer_judgement : {
+        HW_NETWORK_TIMER_JUDGEMENT : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2379,7 +2379,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null, 'TIMER_UNREACHED'],
-                type: 'modi_network_timer_judgement',
+                type: 'HW_NETWORK_TIMER_JUDGEMENT',
             },
             paramsKeyMap: {
                 name: 0,
@@ -2397,7 +2397,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_timer : {
+        HW_NETWORK_TIMER : {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2415,7 +2415,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: [null],
-                type: 'modi_network_timer',
+                type: 'HW_NETWORK_TIMER',
             },
             paramsKeyMap: {
                 name: 0,
@@ -2433,7 +2433,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_timer_menu: {
+        HW_NETWORK_TIMER_MENU: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2453,7 +2453,7 @@ Entry.MODI.getBlocks = function() {
             ],
             def: {
                 params: ['TIMER_UNREACHED'],
-                type: 'modi_network_timer_menu',
+                type: 'HW_NETWORK_TIMER_MENU',
             },
             class: 'network',
             isNotFor: ['modi'],
