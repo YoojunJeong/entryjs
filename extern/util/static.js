@@ -355,7 +355,10 @@ EntryStatic.defaultModiBlocks = [
         }, {
           "name" : "징글벨",
           "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%A7%95%EA%B8%80%EB%B2%A8.cpp"
-        } ]
+        },{
+            "name" : "생일 축하 노래",
+            "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%83%9D%EC%9D%BC+%EC%B6%95%ED%95%98+%EB%85%B8%EB%9E%98.cpp"
+        }]
     },
     {
         "category" : "CONTENTS_IMG_BASIC",
