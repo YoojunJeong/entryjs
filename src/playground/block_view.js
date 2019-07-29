@@ -1117,6 +1117,9 @@ Entry.BlockView = class BlockView {
 
     _setMovable() {
         this.movable = this.block.isMovable() || this._skeleton.movable || true;
+        if(this.block.data.type==='number'){
+            this.movable = false
+        }
     }
 
     _setReadOnly() {
