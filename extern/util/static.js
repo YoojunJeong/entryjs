@@ -358,6 +358,12 @@ EntryStatic.defaultModiBlocks = [
         },{
             "name" : "생일 축하 노래",
             "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%83%9D%EC%9D%BC+%EC%B6%95%ED%95%98+%EB%85%B8%EB%9E%98.cpp"
+        },{
+            "name" : "사랑의 인사",
+            "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1.cpp"
+        },{
+            "name" : "슈베르트 송어",
+            "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%B2%E1%84%87%E1%85%A6%E1%84%85%E1%85%B3%E1%84%90%E1%85%B3+'%E1%84%89%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%A5'.cpp"
         }]
     },
     {
