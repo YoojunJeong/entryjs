@@ -403,6 +403,9 @@ const regex = {
     replacement: /\$[0-9]+/, // $0 $1 $2 $92 ... replace characters for inner polynomials
 };
 
+// TAG : MODULE_SET_BUG
+const MODULE_SET_BUG = true;
+
 var module_map = new Map();
 
 function makeFrame(luxc) {
@@ -474,6 +477,12 @@ function getSetupBlock(luxc) {
         setupList.push(new Variable(new StringValue(name), new PictureValue(data)));
     }
 
+    // TAG : MODULE_SET_BUG
+    if (MODULE_SET_BUG == true) {
+        setupList.push(new Variable(new StringValue("__cal0"), new NumberValue(0)));
+        setupList.push(new Variable(new StringValue("__cal1"), new NumberValue(0)));
+        setupList.push(new Variable(new StringValue("__cal2"), new NumberValue(0)));
+    }
     return new SetupBlock(setupList);
 }
 
@@ -556,12 +565,51 @@ function getCodeBlock(luxc) {
                                 }
                             }
 
-                            var block = new FunctionSetValue(uuid, property, argumentsBlocks);
-                            if (logicStack.length()) {
-                                var logic = logicStack.peek();
-                                logic.addChild(block);
+                            if (MODULE_SET_BUG == true) {
+                                // TAG : MODULE_SET_BUG
+                                // Module SetProperty 시 argument값에 Calculator 블록 처리 못하는 버그
+                                // SetVariable은 Calculator 블록 처리 가능하므로, 임시 argument 변수에
+                                // 계산값을 넣고, 후처리로 GetVariable 블록으로 대체
+                                // ex) 
+                                //  코드
+                                //      led0.setRgb(10+10, 100)
+                                //  ----------------------------------
+                                //  변환 코드
+                                //      __cal0 = 10 + 10
+                                //      led0.setRgb(__cal0, 100)
+                                //  ----------------------------------
+
+                                var tempVariableBlocks = [];
+                                for (var i = 0; i < argumentsBlocks.length; i ++) {
+                                    if (argumentsBlocks[i].type == FrameType.CALTULATOR) {
+                                        // Replace to value
+                                        var variable_name = "__cal" + i;
+                                        tempVariableBlocks.push(new VariableSetValue(new StringValue(variable_name), argumentsBlocks[i]));
+                                        argumentsBlocks[i] = new VariableGetValue(new StringValue(variable_name));
+                                    }
+                                }
+    
+                                var block = new FunctionSetValue(uuid, property, argumentsBlocks);
+                                if (logicStack.length()) {
+                                    var logic = logicStack.peek();
+                                    for (var i = 0; i < tempVariableBlocks.length; i ++)
+                                        logic.addChild(tempVariableBlocks[i]);
+    
+                                    logic.addChild(block);
+                                } else {
+                                    for (var i = 0; i < tempVariableBlocks.length; i ++)
+                                        blocks.push(tempVariableBlocks[i]);
+    
+                                    blocks.push(block);
+                                }
                             } else {
-                                blocks.push(block);
+                                var block = new FunctionSetValue(uuid, property, argumentsBlocks);
+                                if (logicStack.length()) {
+                                    var logic = logicStack.peek();
+                                    logic.addChild(block);
+                                } else {
+                                    blocks.push(block);
+                                }
                             }
                         } else {
                             throw "'" + name + "' was not declared in this scope";
