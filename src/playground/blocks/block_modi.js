@@ -336,12 +336,12 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '%1 다이얼의 위치',
+            template: '%1 다이얼의 위치  ',
             params: [
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_dial_green.svg',
-                    size: 12,
+                    size: 11,
                 },
                 {
                     type: 'Dropdown',
@@ -470,7 +470,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_button_green.svg',
-                    size: 12,
+                    size: 11,
                 },
                 {
                     type: 'Dropdown',
@@ -545,7 +545,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_button_green.svg',
-                    size: 12,
+                    size: 11,
                 },
                 {
                     type: 'Dropdown',
@@ -637,12 +637,12 @@ Entry.MODI.getBlocks = function() {
 
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '%1 적외선의 빛 반사량',
+            template: '%1 적외선의 빛 반사량  ',
             params: [
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_infrared_green.svg',
-                    size: 12,
+                    size: 11,
                 },
                 {
                     type: 'DropdownDynamic',
@@ -779,7 +779,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_motorcontroller_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -868,7 +868,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_motorcontroller_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -959,7 +959,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_motorcontroller_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             events: {},
@@ -1036,7 +1036,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_led_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -1106,7 +1106,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_led_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -1187,7 +1187,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_led_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -1252,7 +1252,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_speaker_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             events: {},
@@ -1352,7 +1352,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_speaker_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             events: {},
@@ -1437,7 +1437,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_speaker_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             events: {},
@@ -1509,7 +1509,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_display_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             events: {},
@@ -1582,7 +1582,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_display_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             events: {},
@@ -1631,7 +1631,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_display_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             events: {},
@@ -1668,7 +1668,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_display_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             events: {},
@@ -1722,7 +1722,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_display_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             events: {},
@@ -1773,7 +1773,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             events: {},
@@ -1801,12 +1801,12 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_boolean_field',
-            template: '%1 버튼의 %2이(가) %3',
+            template: '%1 버튼의 %2이(가) %3 ',
             params: [
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_button_green.svg',
-                    size: 12,
+                    size: 11,
                 },
                 {
                     type: 'Dropdown',
@@ -1882,7 +1882,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -1946,7 +1946,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -1990,7 +1990,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -2043,7 +2043,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -2085,7 +2085,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -2132,7 +2132,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -2317,7 +2317,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -2365,7 +2365,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -2417,7 +2417,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -2458,7 +2458,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
@@ -2501,7 +2501,7 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Indicator',
                     img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    size: 11,
                 },
             ],
             def: {
