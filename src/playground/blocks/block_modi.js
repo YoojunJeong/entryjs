@@ -483,7 +483,7 @@ Entry.MODI.getBlocks = function() {
                     options: [
                         ['클릭', '2'],
                         ['두 번 클릭', '3'],
-                        ['누른 상태', '4']
+                        ['누른 상태', '4'],
                         ['스위치', '5'],
                     ],
                     fontSize: 11,
@@ -492,7 +492,7 @@ Entry.MODI.getBlocks = function() {
                 },
             ],
             def: {
-                params: [null, 2],
+                params: [null, '2'],
                 type: 'HW_BTN_VALUE',
             },
             paramsKeyMap: {
