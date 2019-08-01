@@ -235,10 +235,20 @@ EntryStatic.getMelodyDataFromUrl = function(source) {
 EntryStatic.getAllBlocks = function() {
     let blocks = EntryStatic.defaultModiBlocks
 
-    if (Entry.modiData != null ) {
+    let moduleList;
+    if (Entry.modiData && Entry.modiData.modiList && Entry.modiData.modiList.length ) {
         console.log('getAllBlocks if', Entry.modiData)
-        blocks = Entry.modiData
+        moduleList = Entry.modiData.modiList //["BATTERY", "BUTTON", "IR", "LED"]
+    } else {
+        moduleList = EntryStatic.defaultModiList
     }
+    moduleList = moduleList.concat(EntryStatic.NetworkModule) // network 모듈은 기본으로 추가
+
+    let HwBlocks = []
+    moduleList.forEach( moduleItem => {
+        HwBlocks = HwBlocks.concat(EntryStatic.moduleToBlocks[moduleItem])
+    })
+    blocks.push({category:'arduino',blocks:HwBlocks})
     console.log('getAllBlocks blocks : ', blocks)
     
     let melodyBlock = blocks.filter( el => (el.category === "CONTENTS_MELODY_BASIC"))[0]
@@ -313,40 +323,40 @@ EntryStatic.defaultModiBlocks = [
             'set_variable',
         ],
     },
-    {
-        category: 'arduino',
-        blocks: [
-            'HW_DIAL_VALUE',
-            'HW_BTN_VALUE',
-            'HW_BTN_MENU',
-            'HW_BTN_JUDGEMENT',
-            'HW_IR_VALUE',
-            'HW_MOTOR_BOTH',
-            'HW_LED_OFF',
-            'HW_LED_CUSTOM',
-            'HW_LED_BASIC',
-            'HW_SPEAKER_OFF',
-            'HW_SPEAKER_TUNE',
-            'HW_SPEAKER_MELODY',
-            'HW_DISPLAY_TEXT',
-            'HW_DISPLAY_DATA',
-            'HW_DISPLAY_IMAGE',
-            'HW_DISPLAY_RESET',
-            'HW_DISPLAY_MOVE',
-            'HW_NETWORK_BTN',
-            'HW_NETWORK_BTN_MENU',
-            'HW_NETWORK_BTN_JUDGEMENT',
-            'HW_NETWORK_JOYSTICK',
-            'HW_NETWORK_JOYSTICK_MENU',
-            'HW_NETWORK_JOYSTICK_JUDGEMENT',
-            'HW_NETWORK_SLIDER',
-            'HW_NETWORK_DIAL',
-            'HW_NETWORK_TIMER',
-            'HW_NETWORK_TIMER_MENU',
-            'HW_NETWORK_TIMER_JUDGEMENT',
-            'HW_NETWORK_BELL',
-        ]
-    }, 
+    // {
+    //     category: 'arduino',
+    //     blocks: [
+    //         'HW_DIAL_VALUE',
+    //         'HW_BTN_VALUE',
+    //         'HW_BTN_MENU',
+    //         'HW_BTN_JUDGEMENT',
+    //         'HW_IR_VALUE',
+    //         'HW_MOTOR_BOTH',
+    //         'HW_LED_OFF',
+    //         'HW_LED_CUSTOM',
+    //         'HW_LED_BASIC',
+    //         'HW_SPEAKER_OFF',
+    //         'HW_SPEAKER_TUNE',
+    //         'HW_SPEAKER_MELODY',
+    //         'HW_DISPLAY_TEXT',
+    //         'HW_DISPLAY_DATA',
+    //         'HW_DISPLAY_IMAGE',
+    //         'HW_DISPLAY_RESET',
+    //         'HW_DISPLAY_MOVE',
+    //         'HW_NETWORK_BTN',
+    //         'HW_NETWORK_BTN_MENU',
+    //         'HW_NETWORK_BTN_JUDGEMENT',
+    //         'HW_NETWORK_JOYSTICK',
+    //         'HW_NETWORK_JOYSTICK_MENU',
+    //         'HW_NETWORK_JOYSTICK_JUDGEMENT',
+    //         'HW_NETWORK_SLIDER',
+    //         'HW_NETWORK_DIAL',
+    //         'HW_NETWORK_TIMER',
+    //         'HW_NETWORK_TIMER_MENU',
+    //         'HW_NETWORK_TIMER_JUDGEMENT',
+    //         'HW_NETWORK_BELL',
+    //     ]
+    // }, 
     {
         "category" : "CONTENTS_MELODY_BASIC",
         "blocks" : [ {
@@ -377,10 +387,69 @@ EntryStatic.defaultModiBlocks = [
         },{
             "name" : "Coding",
             "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/coding_3.png"
-          } ]
+        } ]
     },
 ];
 
+EntryStatic.defaultModiList =  [
+    "DIAL",
+    "BUTTON",
+    "IR",
+    "MOTOR",
+    "LED",
+    "SPEAKER",
+    "DISPLAY",
+]
+
+EntryStatic.NetworkModule = ["NETWORK"]
+
+EntryStatic.moduleToBlocks = {
+    DIAL : [
+        'HW_DIAL_VALUE',
+    ],
+    BUTTON : [
+        'HW_BTN_VALUE',
+        'HW_BTN_MENU',
+        'HW_BTN_JUDGEMENT',
+    ],
+    IR : [
+        'HW_IR_VALUE',
+    ],
+    MOTOR:[
+        'HW_MOTOR_BOTH',
+    ],
+    LED:[
+        'HW_LED_OFF',
+        'HW_LED_CUSTOM',
+        'HW_LED_BASIC',
+    ],
+    SPEAKER : [
+        'HW_SPEAKER_OFF',
+        'HW_SPEAKER_TUNE',
+        'HW_SPEAKER_MELODY',
+    ],
+    DISPLAY : [
+        'HW_DISPLAY_TEXT',
+        'HW_DISPLAY_DATA',
+        'HW_DISPLAY_IMAGE',
+        'HW_DISPLAY_RESET',
+        'HW_DISPLAY_MOVE',
+    ],
+    NETWORK : [
+        'HW_NETWORK_BTN',
+        'HW_NETWORK_BTN_MENU',
+        'HW_NETWORK_BTN_JUDGEMENT',
+        'HW_NETWORK_JOYSTICK',
+        'HW_NETWORK_JOYSTICK_MENU',
+        'HW_NETWORK_JOYSTICK_JUDGEMENT',
+        'HW_NETWORK_SLIDER',
+        'HW_NETWORK_DIAL',
+        'HW_NETWORK_TIMER',
+        'HW_NETWORK_TIMER_MENU',
+        'HW_NETWORK_TIMER_JUDGEMENT',
+        'HW_NETWORK_BELL',
+    ]
+}
 EntryStatic.discussCategories = [
     // 'notice',
     'qna',
