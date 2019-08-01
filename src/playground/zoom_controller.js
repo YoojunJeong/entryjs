@@ -159,8 +159,6 @@ Entry.ZoomController = class ZoomController {
                     window.android.callFuntion('RESET');
                 break;
             case 'EXPORT':
-
-
                 var startBtnCount = 0;
                 const blockMap = this.nowBoard.code._blockMap;
 
@@ -253,29 +251,30 @@ Entry.ZoomController = class ZoomController {
                     return accArr
                 },[]) // 중복 모듈 정리
 
+                console.log(Entry.module)
+                console.log("binary")
+                console.log(binary)
+
+                let binaryOutput = Interpreter.makeFrame(binary);
+                Entry.binaryOutput = binaryOutput.block
+
+                // data 초기화
+                Entry.TextCodingUtil.imgData = []
+                Entry.TextCodingUtil.melodyTempo = []
+
+                // 프로젝트 저장
+                let project = Entry.exportProject();
+                Entry.project = project
+
                 if(unconnectedModules.length){
                     console.log('unconnectedModules')
                     console.log(unconnectedModules)
                     if(window.android){
                         window.android.checkModules(unconnectedModules) // app에 리스트를 전달
                     }
+                } else {
+                    window.android.uploadCode(binaryOutput.block);
                 }
-            
-                console.log(Entry.module)
-                console.log("binary")
-                console.log(binary)
-
-                let binaryOutput = Interpreter.makeFrame(binary);
-
-                // data 초기화
-                Entry.TextCodingUtil.imgData = []
-                Entry.TextCodingUtil.melodyTempo = []
-
-                let project = Entry.exportProject();
-
-                Entry.binaryOutput = binaryOutput.block
-                Entry.project = project
-                window.android.uploadCode(binaryOutput.block);
                 
                 break;
             case 'REMOTE':
