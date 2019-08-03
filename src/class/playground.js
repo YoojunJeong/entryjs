@@ -47,24 +47,36 @@ Entry.Playground = class {
         const guideList = this.mainWorkspace.guideList;
 
         // create video player
-        $("#entryMenuTop").html(`<video width="100%" controlsList="nodownload" id="myVideo" src=${guideList[videoNum].videoUrl}></video>`); //controls 
+        $("#entryMenuTop").html(`<video width="100%" height="100%" controlsList="nodownload" id="myVideo" src=${guideList[videoNum].videoUrl}></video>`); //controls 
         $("#entryMenuTop").css({'z-index':99, position:'absolute'})
-        $("#myVideo").css({position:'absolute','z-index':100})
+        $("#myVideo").css({position:'absolute'})
 
-        // create player btns
-        $("#entryMenuTop").append(`<div id="playBtns"></div>`)
-        $("#playBtns").append(`<img src="../images/modi_invenact_btn_prev.svg" id="previous">`)
-        $("#playBtns").append(`<img src="../images/modi_invenact_btn_play.svg" id="play">`)
-        $("#playBtns").append(`<img src="../images/modi_invenact_btn_replay.svg" id="replay">`)
-        $("#playBtns").append(`<img src="../images/modi_invenact_btn_pause.svg" id="pause">`)            
-        $("#playBtns").append(`<img src="../images/modi_invenact_btn_next.svg" id="next">`)
-        $("#playBtns").append(`<img src="../images/modi_invenact_btn_next_transparent.svg" id="next_t">`)  
-        $("#playBtns").append(`<img src="../images/modi_invenact_btn_fullscreen.svg" id="playerfullscreen">`)
+        // create play list
+        $("#entryMenuTop").append(`<div id="playlist"></div>`)
+
+        // create video-controls
+        $("#entryMenuTop").append(`<div id="video-controls"></div>`)
+        $("#video-controls").append(`<img src="../images/modi_invenact_btn_prev.svg" id="previous">`)
+        $("#video-controls").append(`<img src="../images/modi_invenact_btn_play.svg" id="play">`)
+        $("#video-controls").append(`<img src="../images/modi_invenact_btn_replay.svg" id="replay">`)
+        $("#video-controls").append(`<img src="../images/modi_invenact_btn_pause.svg" id="pause">`)            
+        $("#video-controls").append(`<img src="../images/modi_invenact_btn_next.svg" id="next">`)
+        $("#video-controls").append(`<img src="../images/modi_invenact_btn_next_transparent.svg" id="next_t">`)  
+        $("#video-controls").append(`<img src="../images/modi_invenact_btn_fullscreen.svg" id="playerfullscreen">`)
+        $("#video-controls").append(`<img src="../images/modi_invenact_btn_fullscreen_exit.svg" id="playerminscreen">`)
 
         // init
         $("#pause").hide();
         $("#replay").hide();
         $("#next_t").hide();
+        $("#playerminscreen").hide();
+        updatePlayList();
+
+        function updatePlayList(params) {
+            $("#playlist").text(`[ ${videoNum+1} / ${guideList.length} ]`)
+        }
+
+
 
         // createEvents
         function showPauseBtn() {
@@ -92,17 +104,20 @@ Entry.Playground = class {
         $("#previous").on('click',()=>{
             if(videoNum > 0){
                 videoNum--
+                updatePlayList()
                 $("#myVideo")[0].src = guideList[videoNum].videoUrl
                 showPlayBtn()
             }
             $("#next").show();
             $("#next_t").hide();
         })
+        
         $("#next").on('click',()=>{
             if (videoNum >= guideList.length-1) {
                 return
             } 
             videoNum++;
+            updatePlayList()
             $("#myVideo")[0].src = guideList[videoNum].videoUrl;
             showPlayBtn()
             if (videoNum >= guideList.length-1) {
@@ -110,18 +125,54 @@ Entry.Playground = class {
                 $("#next_t").show();
             } 
         })
+
         $("#play").on('click',()=>{
             $("#myVideo")[0].play();
         })
+
         $("#replay").on('click',()=>{
             $("#myVideo")[0].play();
         })
+
         $("#pause").on('click',()=>{
             $("#myVideo")[0].pause();
         })
+
         $("#playerfullscreen").on('click',()=>{
-            $("#myVideo")[0].requestFullscreen();
-            $("#myVideo")[0].controls = false;
+            if ($("#entryMenuTop")[0].requestFullscreen) {
+                $("#entryMenuTop")[0].requestFullscreen();
+            } else if ($("#entryMenuTop")[0].msRequestFullscreen) {
+                $("#entryMenuTop")[0].msRequestFullscreen();
+            } else if ($("#entryMenuTop")[0].mozRequestFullScreen) {
+                $("#entryMenuTop")[0].mozRequestFullScreen();
+            } else if ($("#entryMenuTop")[0].webkitRequestFullscreen) {
+                $("#entryMenuTop")[0].webkitRequestFullscreen();
+            }
+        })
+
+        $("#playerminscreen").on('click',()=>{
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        })
+
+        $(document).on('mozfullscreenchange webkitfullscreenchange fullscreenchange',()=>{
+            let fullscreenElement = document.fullscreenElement || document.mozFullScreenElement ||
+                document.webkitFullscreenElement || document.msFullscreenElement;
+            
+            if(fullscreenElement){
+                $("#playerminscreen").show();
+                $("#playerfullscreen").hide();   
+            } else {
+                $("#playerminscreen").hide();
+                $("#playerfullscreen").show();  
+            }
         })
     }
 

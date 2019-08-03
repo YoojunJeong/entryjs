@@ -1410,38 +1410,63 @@
 }
 
 
-#playBtns {
+video::-webkit-media-controls {
+    display:none !important;
+}
+video::-webkit-media-controls-enclosure {
+    display:none !important;
+}
+
+#playlist {
     position:absolute;
-    z-index: 110;
+    z-index: 2147483648;
+    top:50px;
+    right : 20px;
+    width: 74px;
+    text-align: center;
+    color:white;
+    font-size: 17px;
+}
+
+#video-controls {
+    position:absolute;
+    z-index: 2147483648;
     bottom: 0;
     width: 100%;
     height: 36px;
     text-align: center;
     background-color: rgba(100,100,100,0.5);
+    vertical-align: middle;
 
     img {
-        height: 36px;
-        width: 36px;
         margin-top: 1px;
+        height: 100%; 
+        height: 28px;
+        width: 28px;
+        vertical-align: middle;
     }
 
-    #play, #pause, #replay {
-        margin-left: 23px;
-        margin-right: 23px;
-    }
-
-    #pause {
-        margin-top: 3px;
+    #play, #pause, #replay, #playerfullscreen, #playerminscreen {
+        margin-top: 2px;
+        margin-left: 5.3%; // 23px
+        margin-right: 5.3%; // 23px
+        height: 32px;
+        width: 32px;
     }
 
     #replay {
         margin-top: 0px;
-        height: 38px;
-        width: 38px;
+        height: 34px;
+        width: 34px;
     }
 
-    #playerfullscreen {
-        position: absolute;
-        right: 19px;        
+    #previous {
+        margin-left: 11%; //47px
+    }
+
+    #playerfullscreen, #playerminscreen {
+        float: right;
+        margin-left: 0;
+        margin-right: 5%; //21.5px
     }
 }
