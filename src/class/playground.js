@@ -22,7 +22,6 @@ Entry.Playground = class {
         this._destroyer.destroy();
         this.isTextBGMode_ = false;
         this.enableArduino = false;
-        this.guideList = []
 
         /**
          * playground's current view type
@@ -45,86 +44,84 @@ Entry.Playground = class {
 
     createVideoPlayer () {
         let videoNum = 0;
-
-        // TODO: temp
-        Entry.modiData = {}
-        Entry.modiData.guideList = [
-            { "sort": 1, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/d304007d-ab25-4d9d-8628-767c0f8b2704.mp4", "imageUrl": null, "desc": null },
-            { "sort": 2, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/ef9d72e6-0389-4ed3-9483-7e62bf3722a2.mp4", "imageUrl": null, "desc": null },
-            { "sort": 3, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/c0578818-53fc-4dd6-a8a8-e5768fd7efbd.mp4", "imageUrl": null, "desc": null }
-        ]
-        // temp
-
-        if (Entry.modiData&&Entry.modiData.guideList) {
-            this.guideList = Entry.modiData.guideList;
-        }
-
-        if (!this.guideList.length){ 
-            console.log('video hide');
-            $(".entryWorkspaceBlockMenu").css({top:'-2px'});
-            return
-        }
+        const guideList = this.mainWorkspace.guideList;
 
         // create video player
-        $("#entryMenuTop").html(`<video controls width="100%" controlsList="nodownload" id="myVideo" src=${this.guideList[videoNum].videoUrl}></video>`);
-        $("#entryMenuTop").css({'z-index':999})
+        $("#entryMenuTop").html(`<video width="100%" controlsList="nodownload" id="myVideo" src=${guideList[videoNum].videoUrl}></video>`); //controls 
+        $("#entryMenuTop").css({'z-index':99, position:'absolute'})
+        $("#myVideo").css({position:'absolute','z-index':100})
 
         // create player btns
         $("#entryMenuTop").append(`<div id="playBtns"></div>`)
         $("#playBtns").append(`<img src="../images/modi_invenact_btn_prev.svg" id="previous">`)
         $("#playBtns").append(`<img src="../images/modi_invenact_btn_play.svg" id="play">`)
+        $("#playBtns").append(`<img src="../images/modi_invenact_btn_replay.svg" id="replay">`)
         $("#playBtns").append(`<img src="../images/modi_invenact_btn_pause.svg" id="pause">`)            
         $("#playBtns").append(`<img src="../images/modi_invenact_btn_next.svg" id="next">`)
+        $("#playBtns").append(`<img src="../images/modi_invenact_btn_next_transparent.svg" id="next_t">`)  
         $("#playBtns").append(`<img src="../images/modi_invenact_btn_fullscreen.svg" id="playerfullscreen">`)
 
+        // init
         $("#pause").hide();
+        $("#replay").hide();
+        $("#next_t").hide();
 
-        // $("#playBtns").css({align:center})
         // createEvents
-        $("#myVideo").on('ended',()=>{
-            if (videoNum < this.guideList.length - 1 ) {
-                videoNum++
-                $("#myVideo")[0].src = this.guideList[videoNum].videoUrl
-                $("#myVideo")[0].autoplay = true;
-            }
-        })
-
-        $("#myVideo").on('play',()=>{
+        function showPauseBtn() {
             $("#play").hide();
             $("#pause").show();
-        })
-
-        $("#myVideo").on('pause',()=>{
+            $("#replay").hide();
+        }
+        function showPlayBtn () {
             $("#play").show();
             $("#pause").hide();
-        })
+            $("#replay").hide();
+        }
 
+        $("#myVideo").on('ended',()=>{
+            $("#replay").show();
+            $("#play").hide();
+            // if (videoNum < guideList.length - 1 ) {
+            //     videoNum++
+            //     $("#myVideo")[0].src = guideList[videoNum].videoUrl
+            //     $("#myVideo")[0].autoplay = true;
+            // }
+        })
+        $("#myVideo").on('play',showPauseBtn)
+        $("#myVideo").on('pause', showPlayBtn)
         $("#previous").on('click',()=>{
             if(videoNum > 0){
                 videoNum--
-                $("#myVideo")[0].src = this.guideList[videoNum].videoUrl
-                $("#myVideo")[0].autoplay = true;
+                $("#myVideo")[0].src = guideList[videoNum].videoUrl
+                showPlayBtn()
             }
+            $("#next").show();
+            $("#next_t").hide();
         })
-
         $("#next").on('click',()=>{
-            if (videoNum < this.guideList.length - 1) {
-                videoNum++
-                $("#myVideo")[0].src = this.guideList[videoNum].videoUrl
-                $("#myVideo")[0].autoplay = true;
-            }
+            if (videoNum >= guideList.length-1) {
+                return
+            } 
+            videoNum++;
+            $("#myVideo")[0].src = guideList[videoNum].videoUrl;
+            showPlayBtn()
+            if (videoNum >= guideList.length-1) {
+                $("#next").hide();
+                $("#next_t").show();
+            } 
         })
-
         $("#play").on('click',()=>{
             $("#myVideo")[0].play();
         })
-
+        $("#replay").on('click',()=>{
+            $("#myVideo")[0].play();
+        })
         $("#pause").on('click',()=>{
             $("#myVideo")[0].pause();
         })
-
         $("#playerfullscreen").on('click',()=>{
-            $("#myVideo")[0].requestFullscreen()
+            $("#myVideo")[0].requestFullscreen();
+            $("#myVideo")[0].controls = false;
         })
     }
 

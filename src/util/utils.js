@@ -343,22 +343,22 @@ Entry.resizeElement = function(interfaceModel) {
         engineContainer.style.width = `${canvasSize}px`;
         Entry.engine.view_.style.width = `${canvasSize - 24}px`;//250
         Entry.stage.canvas.canvas.style.width = `${canvasSize - 26}px`;//255
+        const categorysize = 90;
 
         // JYJ - 블록 메뉴 영역 사이즈 조절
         let menuWidth = interfaceModel.menuWidth;
         if (!menuWidth) {
-            menuWidth = 337 + 64 ;
-        } else if (menuWidth < 337 + 64) {
-            menuWidth = 337 + 64;
+            menuWidth = 337 + categorysize ;
+        } else if (menuWidth < 337 + categorysize) {
+            menuWidth = 337 + categorysize;
         } else if (menuWidth > 484) {
             menuWidth = 484;
         }
 
         // menuWidth = 400
         interfaceModel.menuWidth = menuWidth;
-
         const blockMenu = mainWorkspace.blockMenu;
-        const adjust = blockMenu.hasCategory() ? -64 : 0;
+        const adjust = blockMenu.hasCategory() ? -1 * categorysize : 0;
 
         $('.blockMenuContainer').css({ width: `${menuWidth + adjust}px` });
         $('.blockMenuContainer>div').css({ width: `${menuWidth + adjust - 2}px` });
