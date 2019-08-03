@@ -1,17 +1,17 @@
 .entryWorkspaceBlockMenu {
     background-color: #fff;
     position: absolute;
-    top: 0;
-    // top: 250px;
+    // top: 0; TODO: video 
+    top: 250px;
     bottom: 0;
 }
 
 .entryMenuTop {
     position: absolute;
-    top: -250px;
+    top: -285px;
     bottom: 0;
     width: 100%;
-    height: 250px;
+    height: 285px;
     border: #474747 1px;
     background-color: #aac5d5;
 }
@@ -99,6 +99,7 @@
 
     .entryCategoryList {
         height: 100%;
+        width: 90px;
         overflow: hidden;
         overflow-y: scroll;
         &::-webkit-scrollbar { 
@@ -107,6 +108,33 @@
 
         .visiblePoint {
             margin: 0;
+            height: 0;
+        }
+
+        img {
+            position: absolute;
+        }
+
+        #imgContainer {
+            height: 43px;
+        }
+
+        #bg {
+            height: 36px;
+            width: 60px;
+            margin-left: 15px;
+            margin-right: 15px;
+            margin-bottom: 6px;
+        }
+
+        #openIcon, #closeIcon {
+            z-index: 100;
+            height: 12px;
+            width: 21px;
+            margin-left: 34px;
+            margin-right: 35px;
+            margin-top: 8px;
+            margin-bottom: 23px;
         }
     }
 }

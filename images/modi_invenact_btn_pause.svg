@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23" height="27">
+    <defs>
+        <filter id="a" width="13" height="27" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="2" in="SourceAlpha"/>
+            <feGaussianBlur result="blurOut" stdDeviation="2"/>
+            <feFlood flood-color="#000" result="floodOut"/>
+            <feComposite in="floodOut" in2="blurOut" operator="atop"/>
+            <feComponentTransfer>
+                <feFuncA slope=".25" type="linear"/>
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <filter id="b" width="13" height="27" x="10" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="2" in="SourceAlpha"/>
+            <feGaussianBlur result="blurOut" stdDeviation="2"/>
+            <feFlood flood-color="#000" result="floodOut"/>
+            <feComposite in="floodOut" in2="blurOut" operator="atop"/>
+            <feComponentTransfer>
+                <feFuncA slope=".25" type="linear"/>
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <path fill="#FFF" fill-rule="evenodd" d="M5 1h2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" filter="url(#a)"/>
+    <path fill="#FFF" fill-rule="evenodd" d="M15 1h2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" filter="url(#b)"/>
+</svg>

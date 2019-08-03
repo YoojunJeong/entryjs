@@ -42,6 +42,89 @@ Entry.Playground = class {
         this.mainWorkspace.setMode(mode);
     }
 
+    createVideoPlayer () {
+        let videoNum = 0;
+        const guideList = this.mainWorkspace.guideList;
+
+        // create video player
+        $("#entryMenuTop").html(`<video width="100%" controlsList="nodownload" id="myVideo" src=${guideList[videoNum].videoUrl}></video>`); //controls 
+        $("#entryMenuTop").css({'z-index':99, position:'absolute'})
+        $("#myVideo").css({position:'absolute','z-index':100})
+
+        // create player btns
+        $("#entryMenuTop").append(`<div id="playBtns"></div>`)
+        $("#playBtns").append(`<img src="../images/modi_invenact_btn_prev.svg" id="previous">`)
+        $("#playBtns").append(`<img src="../images/modi_invenact_btn_play.svg" id="play">`)
+        $("#playBtns").append(`<img src="../images/modi_invenact_btn_replay.svg" id="replay">`)
+        $("#playBtns").append(`<img src="../images/modi_invenact_btn_pause.svg" id="pause">`)            
+        $("#playBtns").append(`<img src="../images/modi_invenact_btn_next.svg" id="next">`)
+        $("#playBtns").append(`<img src="../images/modi_invenact_btn_next_transparent.svg" id="next_t">`)  
+        $("#playBtns").append(`<img src="../images/modi_invenact_btn_fullscreen.svg" id="playerfullscreen">`)
+
+        // init
+        $("#pause").hide();
+        $("#replay").hide();
+        $("#next_t").hide();
+
+        // createEvents
+        function showPauseBtn() {
+            $("#play").hide();
+            $("#pause").show();
+            $("#replay").hide();
+        }
+        function showPlayBtn () {
+            $("#play").show();
+            $("#pause").hide();
+            $("#replay").hide();
+        }
+
+        $("#myVideo").on('ended',()=>{
+            $("#replay").show();
+            $("#play").hide();
+            // if (videoNum < guideList.length - 1 ) {
+            //     videoNum++
+            //     $("#myVideo")[0].src = guideList[videoNum].videoUrl
+            //     $("#myVideo")[0].autoplay = true;
+            // }
+        })
+        $("#myVideo").on('play',showPauseBtn)
+        $("#myVideo").on('pause', showPlayBtn)
+        $("#previous").on('click',()=>{
+            if(videoNum > 0){
+                videoNum--
+                $("#myVideo")[0].src = guideList[videoNum].videoUrl
+                showPlayBtn()
+            }
+            $("#next").show();
+            $("#next_t").hide();
+        })
+        $("#next").on('click',()=>{
+            if (videoNum >= guideList.length-1) {
+                return
+            } 
+            videoNum++;
+            $("#myVideo")[0].src = guideList[videoNum].videoUrl;
+            showPlayBtn()
+            if (videoNum >= guideList.length-1) {
+                $("#next").hide();
+                $("#next_t").show();
+            } 
+        })
+        $("#play").on('click',()=>{
+            $("#myVideo")[0].play();
+        })
+        $("#replay").on('click',()=>{
+            $("#myVideo")[0].play();
+        })
+        $("#pause").on('click',()=>{
+            $("#myVideo")[0].pause();
+        })
+        $("#playerfullscreen").on('click',()=>{
+            $("#myVideo")[0].requestFullscreen();
+            $("#myVideo")[0].controls = false;
+        })
+    }
+
     /**
      * Control bar view generator.
      * @param {!Element} playgroundView playgroundView from Entry.
@@ -310,7 +393,7 @@ Entry.Playground = class {
 
 
             // JYJ - jquery는 여기에
-            // $("#entryMenuTop").html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/yInoAZwNSUs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+            this.createVideoPlayer();
             $(".engineContainer").hide();
             
         }
