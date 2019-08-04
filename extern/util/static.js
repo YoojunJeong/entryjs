@@ -236,9 +236,9 @@ EntryStatic.getAllBlocks = function() {
     let blocks = EntryStatic.defaultModiBlocks
 
     let moduleList;
-    if (Entry.modiData && Entry.modiData.modiList && Entry.modiData.modiList.length ) {
+    if (Entry.modiList && Entry.modiList.length ) {
         console.log('getAllBlocks if', Entry.modiData)
-        moduleList = Entry.modiData.modiList //["BATTERY", "BUTTON", "IR", "LED"]
+        moduleList = Entry.modiList //["BATTERY", "BUTTON", "IR", "LED"]
     } else {
         moduleList = EntryStatic.defaultModiList
     }

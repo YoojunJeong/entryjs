@@ -996,8 +996,8 @@ class BlockMenu {
     getVideoData () {
         // TODO: Entry.modiData.guideList 가 들어와야함
 
-        if (Entry.modiData && Entry.modiData.guideList) {
-            this.guideList = Entry.modiData.guideList;
+        if (Entry.guideList) {
+            this.guideList = Entry.guideList;
         } else {
             console.log('no video');
             $(".entryWorkspaceBlockMenu").css({top:'-2px'});

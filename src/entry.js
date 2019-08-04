@@ -10,7 +10,9 @@ global.Entry = Entry;
 global.Entry.module = '';
 global.Entry.project = '';
 global.Entry.binaryOutput = '';
-Entry.modiData = null;
+global.Entry.volume = '';
+global.Entry.guideList = [];
+global.Entry.modiList = [];
 
 require('core-js/fn/object/values');
 require('./graphicEngine/FakePIXI');
