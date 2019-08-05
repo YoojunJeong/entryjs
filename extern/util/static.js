@@ -725,12 +725,12 @@ EntryStatic.colorSet = {
             //Not guided emphasize color for EXPANSION
         },
         modi: {
-            OUTPUT : '#ff9900',
-            OUTPUT_OUTLINE : '#ee8800',
+            OUTPUT : '#ff9100',
+            OUTPUT_OUTLINE : '#f46300',
             INPUT : '#7873f0',
-            INPUT_OUTLINE : '#5651d0',
-            SETUP : '#ffcc00',
-            SETUP_OUTLINE : '#eebb00',
+            INPUT_OUTLINE : '#5959c9',
+            SETUP : '#ffbc00',
+            SETUP_OUTLINE : '#ff9100',
         }
     },
     common: {
