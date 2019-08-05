@@ -747,7 +747,7 @@ Entry.MODI.getBlocks = function() {
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic',
-            template: '%5 모터 %2의 1번은 %3 2번은 %4 (으)로 정하기 ',
+            template: '%5 모터 %2의 1번은 %3 2번은 %4 (으)로 정하기    ',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -840,7 +840,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '모터 %2의 1번을 %3으로 정하기 %4',
+            template: '모터 %2의 1번을 %3으로 정하기 %4   ',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -931,7 +931,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             skeleton: 'basic',
-            template: '모터 %2의 2번을 %3으로 정하기 %4',
+            template: '모터 %2의 2번을 %3으로 정하기 %4   ',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1023,7 +1023,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '%2 불빛 끄기',
+            template: '%2 불빛 끄기    ',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1081,7 +1081,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '%5 불빛을 빨간빛 %2 초록빛 %3 파란빛 %4 으로 정하기',
+            template: '%5 불빛을 빨간빛 %2 초록빛 %3 파란빛 %4 으로 정하기   ',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1171,7 +1171,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '%2 불빛을 %1 빛으로 정하기',
+            template: '%2 불빛을 %1 빛으로 정하기    ',
             params: [
                 // {
                 //     type: 'DropdownDynamic',
@@ -1239,7 +1239,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '%2 스피커 끄기 ',
+            template: '%2 스피커 끄기    ',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1302,7 +1302,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '%4 스피커의 음을 %2 크기는 %3(으)로 정하기 ',
+            template: '%4 스피커의 음을 %2 크기는 %3(으)로 정하기   ',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1408,7 +1408,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '%4 스피커의 멜로디는 %1 크기는 %3 (으)로 재생하기 ',
+            template: '%4 스피커의 멜로디는 %1 크기는 %3 (으)로 재생하기     ',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1491,7 +1491,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '%3 화면에 글자 %2 보이기 ',
+            template: '%3 화면에 글자 %2 보이기    ',
             params: [
                 {
                     type: 'Dropdown',
@@ -1564,7 +1564,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '%3 화면의 %1 에 변수 %2 보이기 ',
+            template: '%3 화면의 %1 에 변수 %2 보이기    ',
             params: [
                 {
                     type: 'Dropdown',
@@ -1618,7 +1618,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '%2 화면에 %1 그림 보이기 ',
+            template: '%2 화면에 %1 그림 보이기    ',
             params: [
                 {
                     type: 'DropdownDynamic',
@@ -1663,7 +1663,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '%1 화면 전체 지우기 ',
+            template: '%1 화면 전체 지우기    ',
             params: [
                 {
                     type: 'Indicator',
@@ -1700,7 +1700,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '%3 화면을 %1 (으)로 %2 만큼 이동하기 ',
+            template: '%3 화면을 %1 (으)로 %2 만큼 이동하기    ',
             params: [
                 {
                     type: 'Dropdown',
@@ -1758,7 +1758,7 @@ Entry.MODI.getBlocks = function() {
             color: EntryStatic.colorSet.block.modi.SETUP,
             outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             skeleton: 'basic',
-            template: '%2 네트워크 벨 소리를 %1 으로 정하기 ',
+            template: '%2 네트워크 벨 소리를 %1 으로 정하기   ',
             params: [
                 {
                     type: 'Dropdown',
