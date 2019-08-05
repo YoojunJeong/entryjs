@@ -994,8 +994,12 @@ class BlockMenu {
     }
 
     getVideoData () {
-        // TODO: Entry.modiData.guideList 가 들어와야함
-
+        // TODO: 임시 영상 삭제 필요
+        // Entry.guideList = [
+        //     { "sort": 1, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/d304007d-ab25-4d9d-8628-767c0f8b2704.mp4", "imageUrl": null, "desc": null },
+        //     { "sort": 2, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/ef9d72e6-0389-4ed3-9483-7e62bf3722a2.mp4", "imageUrl": null, "desc": null },
+        //     { "sort": 3, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/c0578818-53fc-4dd6-a8a8-e5768fd7efbd.mp4", "imageUrl": null, "desc": null }
+        // ]
         if (Entry.guideList) {
             this.guideList = Entry.guideList;
         } else {
@@ -1003,12 +1007,6 @@ class BlockMenu {
             $(".entryWorkspaceBlockMenu").css({top:'-2px'});
             $("#imgContainer").css({height:0, marginTop:'10px'})
             this.playerShowStatus = false
-            // TODO: 임시 영상 삭제 필요
-            this.guideList = [
-                { "sort": 1, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/d304007d-ab25-4d9d-8628-767c0f8b2704.mp4", "imageUrl": null, "desc": null },
-                { "sort": 2, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/ef9d72e6-0389-4ed3-9483-7e62bf3722a2.mp4", "imageUrl": null, "desc": null },
-                { "sort": 3, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/c0578818-53fc-4dd6-a8a8-e5768fd7efbd.mp4", "imageUrl": null, "desc": null }
-            ]
         }
     }
 
@@ -1016,32 +1014,37 @@ class BlockMenu {
         this.getVideoData()
 
         $('#imgContainer').append('<img src="../images/modi_invenact_icon_close.svg" id="closeIcon">');
-        $('#imgContainer').append('<img src="../images/modi_invenact_icon_open.svg" id="openIcon">');    
+        // $('#imgContainer').append('<img src="../images/modi_invenact_icon_open.svg" id="openIcon">');    
         $('#imgContainer').append('<img src="../images/modi_invenact_img_dropdown_close.svg" id="bg">');
         
+        $("#videoPlayerShowBtnContainer").append('<span id="videoPlayerShowText">학습 영상</span>')
+        $("#videoPlayerShowBtnContainer").append('<img src="../images/modi_invenact_img_dropdown_open.svg" id="bg_open">')
+        $("#videoPlayerShowBtnContainer").append('<img src="../images/modi_invenact_icon_open.svg" id="openIcon">'); 
+
         function showPlayer() {
             $('#openIcon').hide();
             $('#closeIcon').show();
             $("#entryMenuTop").show()
-            $(".entryWorkspaceBlockMenu").css({top:'250px'});
+            $("#videoPlayerShowBtnContainer").hide();
+            $(".entryWorkspaceBlockMenu").css({top:'285px'});
         }
 
         function hidePlayer() {
             $('#openIcon').show();
             $('#closeIcon').hide();
-            $(".entryWorkspaceBlockMenu").css({top:'-2px'});
+            $("#videoPlayerShowBtnContainer").show();
+            $(".entryWorkspaceBlockMenu").css({top:'67px'});
             $("#entryMenuTop").hide()
         }
 
         if (this.playerShowStatus){
             showPlayer()
         } else {
-            hidePlayer()
+            // hidePlayer()
         }
 
         $('#closeIcon').on('click',hidePlayer)
-        $('#openIcon').on('click',showPlayer)
-        $('#bg').on('click',() => {
+        $('#bg, #videoPlayerShowBtnContainer').on('click',() => {
             let isNone = $("#entryMenuTop")[0].attributes[2].textContent.includes('none')
             if (isNone){
                 showPlayer()

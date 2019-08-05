@@ -1169,6 +1169,13 @@ Entry.Playground = class {
             class: 'entryMenuTop',
         });
 
+        // icon 영영 추가
+        const videoPlayerShowBtnContainer = Entry.Dom('div', {
+            parent: blockMenuView,
+            id: 'videoPlayerShowBtnContainer',
+            class: 'videoPlayerShowBtnContainer',
+        });
+
         const initOpts = {
             blockMenu: {
                 dom: blockMenuView,
