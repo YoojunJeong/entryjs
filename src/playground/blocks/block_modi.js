@@ -2407,8 +2407,8 @@ Entry.MODI.getBlocks = function() {
                 {
                     type: 'Dropdown',
                     options: [
-                        ['진행 중', 'TIMER_UNREACHED'],
-                        ['종료', 'TIMER_REACHED'],
+                        ['진행 중', '100'],
+                        ['종료', '0'],
                     ],
                     fontSize: 11,
                     bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
@@ -2421,7 +2421,7 @@ Entry.MODI.getBlocks = function() {
                 },
             ],
             def: {
-                params: [null, 'TIMER_UNREACHED'],
+                params: [null, '0'],
                 type: 'HW_NETWORK_TIMER_JUDGEMENT',
             },
             paramsKeyMap: {
