@@ -799,7 +799,7 @@ EntryStatic.colorSet = {
             INPUT : '#7873f0',
             INPUT_OUTLINE : '#5959c9',
             SETUP : '#ffbc00',
-            SETUP_OUTLINE : '#ff9100',
+            SETUP_OUTLINE : '#f97c00',
         }
     },
     common: {
