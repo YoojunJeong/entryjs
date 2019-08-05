@@ -332,25 +332,22 @@ Entry.MODI.getBlocks = function() {
             
         },
         HW_DIAL_VALUE: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.INPUT,
+            outerLine: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '다이얼의 위치',
+            template: '%1 다이얼의 위치  ',
             params: [
                 {
-                    type: 'DropdownDynamic',
-                    value: null,
-                    fontSize: 11,
-                    menuName: Entry.MODI.dialList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
-                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/dial2.svg',
+                    size: 11,
                 },
                 {
                     type: 'Dropdown',
                     options: [['위치', 2]],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
             ],
@@ -464,19 +461,16 @@ Entry.MODI.getBlocks = function() {
         //     },
         // },
         HW_BTN_VALUE: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.INPUT,
+            outerLine: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '버튼의 %2',
+            template: '%1 버튼의 %2',
             params: [
                 {
-                    type: 'DropdownDynamic',
-                    value: null,
-                    fontSize: 11,
-                    menuName: Entry.MODI.buttonList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
-                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/button2.svg',
+                    size: 11,
                 },
                 {
                     type: 'Dropdown',
@@ -487,7 +481,7 @@ Entry.MODI.getBlocks = function() {
                         ['스위치', '5'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
             ],
@@ -542,12 +536,17 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_BTN_MENU : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.INPUT,
+            outerLine: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '%1',
+            template: ' %1 %2',
             params: [
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/button2.svg',
+                    size: 11,
+                },
                 {
                     type: 'Dropdown',
                     options: [
@@ -555,12 +554,12 @@ Entry.MODI.getBlocks = function() {
                         ['안 눌림', 'FALSE'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
             ],
             def: {
-                params: ['TRUE'],
+                params: [null, 'TRUE'],
                 type: 'HW_BTN_MENU',
             },
             class: 'button',
@@ -570,8 +569,8 @@ Entry.MODI.getBlocks = function() {
                 py: [],
                 c: [
                     {
-                        syntax: '%1',
-                        template: '%1',
+                        syntax: '%2',
+                        template: '%2',
                     },
                 ],
             },
@@ -631,18 +630,26 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_IR_VALUE: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            // color: EntryStatic.colorSet.block.default.HARDWARE,
+            // outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.INPUT,
+            outerLine: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
+
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '적외선의 빛 반사량',
+            template: '%1 적외선의 빛 반사량  ',
             params: [
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/ir2.svg',
+                    size: 11,
+                },
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.infraredList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
             ],
@@ -736,18 +743,18 @@ Entry.MODI.getBlocks = function() {
         //     },
         // },
         HW_MOTOR_BOTH: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic',
-            template: '모터 %2의 1번은 %3 2번은 %4 (으)로 정하기 %5',
+            template: '%5 모터 %2의 1번은 %3 2번은 %4 (으)로 정하기 ',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.motorList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -758,7 +765,7 @@ Entry.MODI.getBlocks = function() {
                         // [Lang.Blocks.modi_motor_torque, 'MOTOR_TORQUE'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -771,8 +778,8 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_motorcontroller_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/motor1.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -860,8 +867,8 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_motorcontroller_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/motor1.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -951,8 +958,8 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_motorcontroller_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/motor1.svg',
+                    size: 11,
                 },
             ],
             events: {},
@@ -1013,23 +1020,23 @@ Entry.MODI.getBlocks = function() {
             }
         },
         HW_LED_OFF: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '불빛 끄기 %2',
+            template: '%2 불빛 끄기',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.ledList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_led_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/led1.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -1071,17 +1078,17 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_LED_CUSTOM: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '불빛을 빨간빛 %2 초록빛 %3 파란빛 %4 으로 정하기 %5',
+            template: '%5 불빛을 빨간빛 %2 초록빛 %3 파란빛 %4 으로 정하기',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.ledList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1098,8 +1105,8 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_led_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/led1.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -1161,10 +1168,10 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_LED_BASIC: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '불빛을 %1 빛으로 정하기 %2',
+            template: '%2 불빛을 %1 빛으로 정하기',
             params: [
                 // {
                 //     type: 'DropdownDynamic',
@@ -1179,8 +1186,8 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_led_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/led1.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -1229,23 +1236,23 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_SPEAKER_OFF: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '스피커 끄기 %2',
+            template: '%2 스피커 끄기 ',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.speakerList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_speaker_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/speaker1.svg',
+                    size: 11,
                 },
             ],
             events: {},
@@ -1292,17 +1299,17 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_SPEAKER_TUNE: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '스피커의 음을 %2 크기는 %3(으)로 정하기 %4',
+            template: '%4 스피커의 음을 %2 크기는 %3(으)로 정하기 ',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.speakerList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1334,7 +1341,7 @@ Entry.MODI.getBlocks = function() {
                         // [Lang.Blocks.modi_speaker_F_RE_S_7, 'F_RE_S_7'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1344,8 +1351,8 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_speaker_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/speaker1.svg',
+                    size: 11,
                 },
             ],
             events: {},
@@ -1398,17 +1405,17 @@ Entry.MODI.getBlocks = function() {
         },
         HW_SPEAKER_MELODY: {
             // melodyBlock: ['송어', '은파'],
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '스피커의 멜로디는 %1 크기는 %3 (으)로 재생하기 %4',
+            template: '%4 스피커의 멜로디는 %1 크기는 %3 (으)로 재생하기 ',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.speakerMelodyList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1419,7 +1426,7 @@ Entry.MODI.getBlocks = function() {
                         ['엘리제를 위하여', '엘리제를 위하여'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1429,8 +1436,8 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_speaker_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/speaker1.svg',
+                    size: 11,
                 },
             ],
             events: {},
@@ -1481,17 +1488,17 @@ Entry.MODI.getBlocks = function() {
           
         },
         HW_DISPLAY_TEXT: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '화면에 글자 %2 보이기 %3',
+            template: '%3 화면에 글자 %2 보이기 ',
             params: [
                 {
                     type: 'Dropdown',
                     options: [['첫째 줄', 0], ['둘째 줄', 15], ['샛째 줄', 30]],
                     value: 0,
                     fontSize: 10,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1501,8 +1508,8 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_display_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/display1.svg',
+                    size: 11,
                 },
             ],
             events: {},
@@ -1554,17 +1561,17 @@ Entry.MODI.getBlocks = function() {
             }
         },
         HW_DISPLAY_DATA : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '화면의 %1 에 변수 %2 보이기 %3',
+            template: '%3 화면의 %1 에 변수 %2 보이기 ',
             params: [
                 {
                     type: 'Dropdown',
                     options: [['첫째 줄', 0], ['둘째 줄', 15], ['셋째 줄', 30]],
                     value: 0,
                     fontSize: 10,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1574,8 +1581,8 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_display_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/display1.svg',
+                    size: 11,
                 },
             ],
             events: {},
@@ -1608,23 +1615,23 @@ Entry.MODI.getBlocks = function() {
             }
         },
         HW_DISPLAY_IMAGE : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '화면에 %1 그림 보이기 %2',
+            template: '%2 화면에 %1 그림 보이기 ',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.displayImageList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_display_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/display1.svg',
+                    size: 11,
                 },
             ],
             events: {},
@@ -1653,15 +1660,15 @@ Entry.MODI.getBlocks = function() {
             }
         },
         HW_DISPLAY_RESET : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '화면 전체 지우기 %1',
+            template: '%1 화면 전체 지우기 ',
             params: [
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_display_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/display1.svg',
+                    size: 11,
                 },
             ],
             events: {},
@@ -1690,10 +1697,10 @@ Entry.MODI.getBlocks = function() {
             }
         },
         HW_DISPLAY_MOVE : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.OUTPUT,
+            outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
-            template: '화면을 %1 (으)로 %2 만큼 이동하기 %3',
+            template: '%3 화면을 %1 (으)로 %2 만큼 이동하기 ',
             params: [
                 {
                     type: 'Dropdown',
@@ -1704,7 +1711,7 @@ Entry.MODI.getBlocks = function() {
                         ['위', 'Vertical?-1'],
                     ],
                     fontSize: 10,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1714,8 +1721,8 @@ Entry.MODI.getBlocks = function() {
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_display_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/display1.svg',
+                    size: 11,
                 },
             ],
             events: {},
@@ -1748,10 +1755,10 @@ Entry.MODI.getBlocks = function() {
             }
         },
         HW_NETWORK_BELL: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             skeleton: 'basic',
-            template: '네트워크 벨 소리를 %1 으로 정하기 %2',
+            template: '%2 네트워크 벨 소리를 %1 으로 정하기 ',
             params: [
                 {
                     type: 'Dropdown',
@@ -1760,13 +1767,13 @@ Entry.MODI.getBlocks = function() {
                         ['안 울림', 'BUZZER_OFF'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
                     type: 'Indicator',
-                    img: 'block_icon/modi_icon/studio_icon_network_green.svg',
-                    size: 12,
+                    img: 'block_icon/modi_icon/network1.svg',
+                    size: 11,
                 },
             ],
             events: {},
@@ -1790,19 +1797,16 @@ Entry.MODI.getBlocks = function() {
             }
         },
         HW_BTN_JUDGEMENT : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.INPUT,
+            outerLine: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_boolean_field',
-            template: '버튼의 %2이(가) %3',
+            template: '%1 버튼의 %2이(가) %3 ',
             params: [
                 {
-                    type: 'DropdownDynamic',
-                    value: null,
-                    fontSize: 11,
-                    menuName: Entry.MODI.buttonList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
-                    arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/button2.svg',
+                    size: 11,
                 },
                 {
                     type: 'Dropdown',
@@ -1813,7 +1817,7 @@ Entry.MODI.getBlocks = function() {
                         ['스위치', 'getToggle'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1823,7 +1827,7 @@ Entry.MODI.getBlocks = function() {
                         ['안 눌림', 'FALSE'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
             ],
@@ -1849,18 +1853,18 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_NETWORK_BTN : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '네트워크 버튼의 %2',
+            template: '%3 네트워크 버튼의 %2',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.buttonList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1872,8 +1876,13 @@ Entry.MODI.getBlocks = function() {
                         ['스위치', 'getButtonToggle']
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/network2.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -1898,18 +1907,18 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_NETWORK_BTN_JUDGEMENT : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_boolean_field',
-            template: '네트워크 버튼의 %2이(가) %3',
+            template: '%4 네트워크 버튼의 %2이(가) %3',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.buttonList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1921,7 +1930,7 @@ Entry.MODI.getBlocks = function() {
                         ['스위치', 'getButtonToggle'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -1931,8 +1940,13 @@ Entry.MODI.getBlocks = function() {
                         ['안 눌림', 'FALSE'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/network2.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -1957,11 +1971,11 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_NETWORK_BTN_MENU : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '%1',
+            template: '%2 %1',
             params: [
                 {
                     type: 'Dropdown',
@@ -1970,8 +1984,13 @@ Entry.MODI.getBlocks = function() {
                         ['안 눌림', 'FALSE'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/network2.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -1994,18 +2013,18 @@ Entry.MODI.getBlocks = function() {
         // modi_network_button_true : {},
         // modi_network_button_false : {},
         HW_NETWORK_JOYSTICK_JUDGEMENT : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_boolean_field',
-            template: '네트워크 조이스틱 %2',
+            template: '%3 네트워크 조이스틱 %2',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.buttonList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -2018,8 +2037,13 @@ Entry.MODI.getBlocks = function() {
                         ['안 눌림', 'FALSE'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/network2.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -2044,19 +2068,24 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_NETWORK_JOYSTICK : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '네트워크 조이스틱',
+            template: '%2 네트워크 조이스틱',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.buttonList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/network2.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -2081,11 +2110,11 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_NETWORK_JOYSTICK_MENU : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '%1',
+            template: '%2 %1',
             params: [
                 {
                     type: 'Dropdown',
@@ -2097,8 +2126,13 @@ Entry.MODI.getBlocks = function() {
                         ['안 눌림', 'FALSE'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/network2.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -2256,18 +2290,18 @@ Entry.MODI.getBlocks = function() {
         modi_network_slider_left : {},
         modi_network_slider_right : {},
         HW_NETWORK_SLIDER: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '네트워크 %2 슬라이더',
+            template: '%3 네트워크 %2 슬라이더',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.dialList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -2277,9 +2311,14 @@ Entry.MODI.getBlocks = function() {
                         ['오른쪽', 'Right']
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
-                }
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/network2.svg',
+                    size: 11,
+                },
             ],
             def: {
                 params: [null, 'Left'],
@@ -2302,26 +2341,31 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_NETWORK_DIAL : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '네트워크 다이얼의 위치',
+            template: '%3 네트워크 다이얼의 위치',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.dialList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
                     type: 'Dropdown',
                     options: [['위치', 2]],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/network2.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -2346,18 +2390,18 @@ Entry.MODI.getBlocks = function() {
         },
 
         HW_NETWORK_TIMER_JUDGEMENT : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_boolean_field',
-            template: '네트워크 타이머 %2',
+            template: '%3 네트워크 타이머 %2',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.dialList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
                 },
                 {
@@ -2367,8 +2411,13 @@ Entry.MODI.getBlocks = function() {
                         ['종료', 'TIMER_REACHED'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/network2.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -2392,19 +2441,24 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_NETWORK_TIMER : {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '네트워크 타이머',
+            template: '%2 네트워크 타이머',
             params: [
                 {
                     type: 'DropdownDynamic',
                     value: null,
                     fontSize: 11,
                     menuName: Entry.MODI.dialList,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/network2.svg',
+                    size: 11,
                 },
             ],
             def: {
@@ -2428,11 +2482,11 @@ Entry.MODI.getBlocks = function() {
             },
         },
         HW_NETWORK_TIMER_MENU: {
-            color: EntryStatic.colorSet.block.default.HARDWARE,
-            outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
+            color: EntryStatic.colorSet.block.modi.SETUP,
+            outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
             skeleton: 'basic_string_field',
-            template: '%1',
+            template: '%2 %1',
             params: [
                 {
                     type: 'Dropdown',
@@ -2441,8 +2495,13 @@ Entry.MODI.getBlocks = function() {
                         ['종료', 'TIMER_REACHED'],
                     ],
                     fontSize: 11,
-                    bgColor: EntryStatic.colorSet.block.darken.HARDWARE,
+                    bgColor: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
                     arrowColor: EntryStatic.colorSet.arrow.default.HARDWARE,
+                },
+                {
+                    type: 'Indicator',
+                    img: 'block_icon/modi_icon/network2.svg',
+                    size: 11,
                 },
             ],
             def: {
