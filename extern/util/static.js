@@ -793,6 +793,14 @@ EntryStatic.colorSet = {
             '#00b6b1': '#09BAB5', //HARDWARE
             //Not guided emphasize color for EXPANSION
         },
+        modi: {
+            OUTPUT : '#ff9100',
+            OUTPUT_OUTLINE : '#f46300',
+            INPUT : '#7873f0',
+            INPUT_OUTLINE : '#5959c9',
+            SETUP : '#ffbc00',
+            SETUP_OUTLINE : '#ff9100',
+        }
     },
     common: {
         WHITE: '#FFFFFF',
