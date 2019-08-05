@@ -43,8 +43,8 @@ Entry.Workspace = class Workspace {
             this._destroyer.add(this.blockMenu);
             this.blockMenu.workspace = this;
             this.blockMenu.observe(this, '_setSelectedBlockView', ['selectedBlockView'], false);
+            this.guideList = this.blockMenu.guideList
         }
-        this.guideList = this.blockMenu.guideList
         option = options.board;
         if (option) {
             option.workspace = this;

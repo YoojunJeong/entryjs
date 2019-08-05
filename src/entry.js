@@ -11,7 +11,7 @@ global.Entry.module = '';
 global.Entry.project = '';
 global.Entry.binaryOutput = '';
 global.Entry.volume = '';
-global.Entry.guideList = [];
+global.Entry.guideList = undefined;
 global.Entry.modiList = [];
 
 require('core-js/fn/object/values');

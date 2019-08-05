@@ -1001,6 +1001,7 @@ class BlockMenu {
         } else {
             console.log('no video');
             $(".entryWorkspaceBlockMenu").css({top:'-2px'});
+            $("#imgContainer").css({height:0, marginTop:'10px'})
             this.playerShowStatus = false
             // TODO: 임시 영상 삭제 필요
             this.guideList = [
