@@ -1015,9 +1015,9 @@ class BlockMenu {
     generaterPlayerHideShowIcon () {
         this.getVideoData()
 
-        $('#imgContainer').append('<img src="../images/modi_invenact_icon_close.svg" id="closeIcon">');
-        $('#imgContainer').append('<img src="../images/modi_invenact_icon_open.svg" id="openIcon">');    
-        $('#imgContainer').append('<img src="../images/modi_invenact_img_dropdown_close.svg" id="bg">');
+        $('#imgContainer').append('<img src="./images/modi_invenact_icon_close.svg" id="closeIcon">');
+        $('#imgContainer').append('<img src="./images/modi_invenact_icon_open.svg" id="openIcon">');    
+        $('#imgContainer').append('<img src="./images/modi_invenact_img_dropdown_close.svg" id="bg">');
         
         function showPlayer() {
             $('#openIcon').hide();

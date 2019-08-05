@@ -56,14 +56,14 @@ Entry.Playground = class {
 
         // create video-controls
         $("#entryMenuTop").append(`<div id="video-controls"></div>`)
-        $("#video-controls").append(`<img src="../images/modi_invenact_btn_prev.svg" id="previous">`)
-        $("#video-controls").append(`<img src="../images/modi_invenact_btn_play.svg" id="play">`)
-        $("#video-controls").append(`<img src="../images/modi_invenact_btn_replay.svg" id="replay">`)
-        $("#video-controls").append(`<img src="../images/modi_invenact_btn_pause.svg" id="pause">`)            
-        $("#video-controls").append(`<img src="../images/modi_invenact_btn_next.svg" id="next">`)
-        $("#video-controls").append(`<img src="../images/modi_invenact_btn_next_transparent.svg" id="next_t">`)  
-        $("#video-controls").append(`<img src="../images/modi_invenact_btn_fullscreen.svg" id="playerfullscreen">`)
-        $("#video-controls").append(`<img src="../images/modi_invenact_btn_fullscreen_exit.svg" id="playerminscreen">`)
+        $("#video-controls").append(`<img src="./images/modi_invenact_btn_prev.svg" id="previous">`)
+        $("#video-controls").append(`<img src="./images/modi_invenact_btn_play.svg" id="play">`)
+        $("#video-controls").append(`<img src="./images/modi_invenact_btn_replay.svg" id="replay">`)
+        $("#video-controls").append(`<img src="./images/modi_invenact_btn_pause.svg" id="pause">`)            
+        $("#video-controls").append(`<img src="./images/modi_invenact_btn_next.svg" id="next">`)
+        $("#video-controls").append(`<img src="./images/modi_invenact_btn_next_transparent.svg" id="next_t">`)  
+        $("#video-controls").append(`<img src="./images/modi_invenact_btn_fullscreen.svg" id="playerfullscreen">`)
+        $("#video-controls").append(`<img src="./images/modi_invenact_btn_fullscreen_exit.svg" id="playerminscreen">`)
 
         // init
         $("#pause").hide();
