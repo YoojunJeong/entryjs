@@ -82,7 +82,7 @@ Entry.ZoomController = class ZoomController {
             onClick :`window.android.uploadCode(${Entry.binaryOutput})`
         });
         zoomGroup.plus = zoomGroup.svgZoom.elem('image', {
-            href: `${Entry.mediaFilePath}custom/modi_btn_remote_dis.png`,
+            href: `${Entry.mediaFilePath}custom/modi_btn_remote_nor.png`,
             x: 181,
             y: 3,
             width: 83,
@@ -263,12 +263,14 @@ Entry.ZoomController = class ZoomController {
                 Entry.TextCodingUtil.melodyTempo = []
 
                 // 프로젝트 저장
+                console.log('exportProject')
                 let project = Entry.exportProject();
                 Entry.project = project
 
                 if(unconnectedModules.length){
                     console.log('unconnectedModules')
                     console.log(unconnectedModules)
+                
                     if(window.android){
                         window.android.checkModules(unconnectedModules) // app에 리스트를 전달
                     }
