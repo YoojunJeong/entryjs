@@ -615,22 +615,23 @@ class BlockMenu {
 
         doNotFold = doNotFold || !this.hasCategory();
 
+        // chris : 폴드 되지 않도록 변경
         if (elem == oldView && !doNotFold) {
-            boardView.addClass('folding');
+            // boardView.addClass('folding');
             this._selectedCategoryView = null;
-            if (elem) {
-                elem.removeClass(className);
-                elem.addClass(className2);
-            }
-            Entry.playground.hideTabs();
+            // if (elem) {
+            //     elem.removeClass(className);
+            //     elem.addClass(className2);
+            // }
+            // Entry.playground.hideTabs();
             animate = true;
             this.visible = false;
         } else if (!oldView && this.hasCategory()) {
-            if (!this.visible) {
-                animate = true;
-                boardView.addClass('foldOut');
-                Entry.playground.showTabs();
-            }
+            // if (!this.visible) {
+            //     animate = true;
+            //     boardView.addClass('foldOut');
+            //     Entry.playground.showTabs();
+            // }
             boardView.removeClass('folding');
             this.visible = true;
         } else if (!name) {
@@ -995,11 +996,11 @@ class BlockMenu {
 
     getVideoData () {
         // TODO: 임시 영상 삭제 필요
-        // Entry.guideList = [
-        //     { "sort": 1, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/d304007d-ab25-4d9d-8628-767c0f8b2704.mp4", "imageUrl": null, "desc": null },
-        //     { "sort": 2, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/ef9d72e6-0389-4ed3-9483-7e62bf3722a2.mp4", "imageUrl": null, "desc": null },
-        //     { "sort": 3, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/c0578818-53fc-4dd6-a8a8-e5768fd7efbd.mp4", "imageUrl": null, "desc": null }
-        // ]
+        Entry.guideList = [
+            { "sort": 1, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/d304007d-ab25-4d9d-8628-767c0f8b2704.mp4", "imageUrl": null, "desc": null },
+            { "sort": 2, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/ef9d72e6-0389-4ed3-9483-7e62bf3722a2.mp4", "imageUrl": null, "desc": null },
+            { "sort": 3, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/c0578818-53fc-4dd6-a8a8-e5768fd7efbd.mp4", "imageUrl": null, "desc": null }
+        ]
         if (Entry.guideList) {
             this.guideList = Entry.guideList;
         } else {
