@@ -1,23 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="430" height="110">
-    <defs>
-        <filter id="a" width="430" height="110" x="0" y="0" filterUnits="userSpaceOnUse">
-            <feOffset dy="4" in="SourceAlpha"/>
-            <feGaussianBlur result="blurOut" stdDeviation="1"/>
-            <feFlood flood-color="#000" result="floodOut"/>
-            <feComposite in="floodOut" in2="blurOut" operator="atop"/>
-            <feComponentTransfer>
-                <feFuncA slope=".08" type="linear"/>
-            </feComponentTransfer>
-            <feMerge>
-                <feMergeNode/>
-                <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-        </filter>
-        <linearGradient id="b" x1="0%" x2="0%" y1="100%" y2="0%">
-            <stop offset="0%" stop-opacity=".16"/>
-            <stop offset="80%" stop-opacity="0"/>
-        </linearGradient>
-    </defs>
-    <path fill="#FFA507" fill-rule="evenodd" d="M427 72H76v12c0 11.046-8.954 20-20 20H36c-11.046 0-20-8.954-20-20V72H2a1 1 0 0 1-1-1V4h427v67a1 1 0 0 1-1 1z" filter="url(#a)"/>
-    <path fill="url(#b)" d="M427 72H76v12c0 11.046-8.954 20-20 20H36c-11.046 0-20-8.954-20-20V72H2a1 1 0 0 1-1-1V4h427v67a1 1 0 0 1-1 1z"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="레이어_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 909.5 110" style="enable-background:new 0 0 909.5 110;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#FFA507;}
+	.st1{fill:url(#SVGID_1_);}
+</style>
+<path class="st0" d="M907.5,72H76v12c0,11-9,20-20,20H36c-11,0-20-9-20-20V72H2c-0.6,0-1-0.4-1-1V4h907.5v67
+	C908.5,71.6,908,72,907.5,72z"/>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-741.1949" y1="590.16" x2="-741.1949" y2="591.16" gradientTransform="matrix(427 0 0 -100 316945 59120)">
+	<stop  offset="0" style="stop-color:#000000;stop-opacity:0.16"/>
+	<stop  offset="0.8" style="stop-color:#000000;stop-opacity:0"/>
+</linearGradient>
+<path class="st1" d="M907.5,72H76v12c0,11-9,20-20,20H36c-11,0-20-9-20-20V72H2c-0.6,0-1-0.4-1-1V4h907.5v67
+	C908.5,71.6,908,72,907.5,72z"/>
 </svg>
