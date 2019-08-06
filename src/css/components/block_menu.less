@@ -1,9 +1,56 @@
 .entryWorkspaceBlockMenu {
     background-color: #fff;
     position: absolute;
-    // top: 0; TODO: video 
-    top: 250px;
+    top: 285px;
     bottom: 0;
+}
+
+.entryWorkspaceBlockMenu.folding {
+    .animation-duration(0.7s);
+    .animation-name(foldInPlayer);
+    .animation-fill-mode(forwards);
+}
+
+@keyframes foldInPlayer {
+    from {}
+    to {top: 67px;}
+}
+
+@-ms-keyframes foldInPlayer {
+    from {}
+    to {top: 67px;}
+}
+
+@-moz-keyframes foldInPlayer {
+    from {}
+    to {top: 67px;}
+}
+
+@-webkit-keyframes foldInPlayer {
+    from {}
+    to {top: 67px;}
+}
+
+.entryWorkspaceBlockMenu.foldOut {
+    .animation-duration(0.7s);
+    .animation-name(foldOutplayer);
+    .animation-fill-mode(forwards);
+}
+
+@keyframes foldOutplayer {
+    from {top: 0px;}
+}
+
+@-ms-keyframes foldOutplayer {
+    from {top: 0px;}
+}
+
+@-moz-keyframes foldOutplayer {
+    from {top: 0px;}
+}
+
+@-webkit-keyframes foldOutplayer {
+    from {top: 0px;}
 }
 
 .entryMenuTop {

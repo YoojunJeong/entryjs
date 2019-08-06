@@ -1014,8 +1014,7 @@ class BlockMenu {
     generaterPlayerHideShowIcon () {
         this.getVideoData()
 
-        $('#imgContainer').append('<img src="./images/modi_invenact_icon_close.svg" id="closeIcon">');
-        // $('#imgContainer').append('<img src="./images/modi_invenact_icon_open.svg" id="openIcon">');    
+        $('#imgContainer').append('<img src="./images/modi_invenact_icon_close.svg" id="closeIcon">'); 
         $('#imgContainer').append('<img src="./images/modi_invenact_img_dropdown_close.svg" id="bg">');
         
         $("#videoPlayerShowBtnContainer").append('<span id="videoPlayerShowText">학습 영상</span>')
@@ -1023,25 +1022,40 @@ class BlockMenu {
         $("#videoPlayerShowBtnContainer").append('<img src="./images/modi_invenact_icon_open.svg" id="openIcon">'); 
 
         function showPlayer() {
+            console.log("show")
             $('#openIcon').hide();
             $('#closeIcon').show();
+
             $("#entryMenuTop").show()
-            $("#videoPlayerShowBtnContainer").hide();
-            $(".entryWorkspaceBlockMenu").css({top:'285px'});
+
+            $(".entryWorkspaceBlockMenu").removeClass("folding");
+            $(".entryWorkspaceBlockMenu").addClass("foldOut");
+
+            setTimeout(() => {
+                $("#videoPlayerShowBtnContainer").hide();
+            }, 500);
+            $("#videoPlayerShowBtnContainer").addClass("folding");
         }
 
         function hidePlayer() {
+            console.log('hide')
             $('#openIcon').show();
             $('#closeIcon').hide();
+
+            $("#entryMenuTop").css({zIndex:0})
+            setTimeout(() => {
+                $("#entryMenuTop").hide()
+            }, 500);
+
+            $(".entryWorkspaceBlockMenu").removeClass("foldOut");
+            $(".entryWorkspaceBlockMenu").addClass("folding");
+
             $("#videoPlayerShowBtnContainer").show();
-            $(".entryWorkspaceBlockMenu").css({top:'67px'});
-            $("#entryMenuTop").hide()
+            $("#videoPlayerShowBtnContainer").removeClass("folding");
         }
 
         if (this.playerShowStatus){
             showPlayer()
-        } else {
-            // hidePlayer()
         }
 
         $('#closeIcon').on('click',hidePlayer)

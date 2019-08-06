@@ -1444,6 +1444,28 @@
     }
 }
 
+#videoPlayerShowBtnContainer.folding {
+    .animation-duration(0.5s);
+    .animation-name(extinguishContainer);
+    .animation-fill-mode(forwards);
+}
+
+@keyframes extinguishContainer {
+    100% {opacity: 0;}
+}
+
+@-ms-keyframes extinguishContainer {
+    100% {opacity: 0;}
+}
+
+@-moz-keyframes extinguishContainer {
+    100% {opacity: 0;}
+}
+
+@-webkit-keyframes extinguishContainer {
+    100% {opacity: 0;}
+}
+
 
 video::-webkit-media-controls {
     display:none !important;
