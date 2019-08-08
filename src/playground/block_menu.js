@@ -163,14 +163,14 @@ class BlockMenu {
                 return;
             }
             Entry.playground.focusBlockMenu = true;
-            const bBox = that.svgGroup.getBBox();
-            const adjust = that.hasCategory() ? 64 : 0;
-            const expandWidth = bBox.width + bBox.x + adjust + 2;
-            const { menuWidth } = Entry.interfaceState;
-            if (expandWidth > menuWidth) {
-                this.widthBackup = menuWidth - adjust - 2;
-                $(that.blockMenuWrapper).css('width', expandWidth - adjust);
-            }
+            // const bBox = that.svgGroup.getBBox();
+            // const adjust = that.hasCategory() ? 90 : 0;
+            // const expandWidth = bBox.width + bBox.x + adjust + 2;
+            // const { menuWidth } = Entry.interfaceState;
+            // if (expandWidth > menuWidth) {
+            //     this.widthBackup = menuWidth - adjust - 2;
+            //     $(that.blockMenuWrapper).css('width', expandWidth - adjust);
+            // }
         });
 
         this.svgDom.mouseleave(function() {
