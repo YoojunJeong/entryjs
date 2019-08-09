@@ -237,18 +237,20 @@ EntryStatic.getAllBlocks = function() {
 
     let moduleList;
     if (Entry.modiList && Entry.modiList.length ) {
-        console.log('getAllBlocks if', Entry.modiData)
+        console.log('getAllBlocks if', Entry.modiList)
         moduleList = Entry.modiList //["BATTERY", "BUTTON", "IR", "LED"]
     } else {
         moduleList = EntryStatic.defaultModiList
     }
-    moduleList = moduleList.concat(EntryStatic.NetworkModule) // network 모듈은 기본으로 추가
+    // moduleList = moduleList.concat(EntryStatic.NetworkModule) // network 모듈은 기본으로 추가
 
+    // console.log('getAllBlocks moduleList', moduleList)
     let HwBlocks = []
     moduleList.forEach( moduleItem => {
         HwBlocks = HwBlocks.concat(EntryStatic.moduleToBlocks[moduleItem])
     })
     blocks.push({category:'arduino',blocks:HwBlocks})
+    console.log('getAllBlocks blocks:HwBlocks : ', {category:'arduino',blocks:HwBlocks})
     console.log('getAllBlocks blocks : ', blocks)
     
     let melodyBlock = blocks.filter( el => (el.category === "CONTENTS_MELODY_BASIC"))[0]
