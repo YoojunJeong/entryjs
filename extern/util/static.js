@@ -247,9 +247,26 @@ EntryStatic.getAllBlocks = function() {
     // console.log('getAllBlocks moduleList', moduleList)
     let HwBlocks = []
     moduleList.forEach( moduleItem => {
-        HwBlocks = HwBlocks.concat(EntryStatic.moduleToBlocks[moduleItem])
+        if(moduleItem !="NETWORK") {
+            HwBlocks = HwBlocks.concat(EntryStatic.moduleToBlocks[moduleItem])
+        }
+
     })
+
+    // network 모듈은 마지막에 추가
+    let networkList = EntryStatic.moduleToBlocks["NETWORK"]
+
+    networkList.forEach(item => {
+        HwBlocks = HwBlocks.concat(item)
+    })
+
+    // console.log('getAllBlocks EntryStatic.moduleToBlocks[moduleItem] : ', EntryStatic.moduleToBlocks["NETWORK"])
+
+    console.log('getAllBlocks HwBlocks : ', HwBlocks)
+
     blocks.push({category:'arduino',blocks:HwBlocks})
+    // blocks.push(EntryStatic.moduleToBlocks["NETWORK"])
+
     console.log('getAllBlocks blocks:HwBlocks : ', {category:'arduino',blocks:HwBlocks})
     console.log('getAllBlocks blocks : ', blocks)
     
