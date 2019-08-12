@@ -340,6 +340,7 @@ module.exports = {
                         type: 'Dropdown',
                         options: [
                             ['=', 'EQUAL'],
+                            ['!=', 'NOTEQUAL'],
                             ['>', 'GREATER'],
                             ['<', 'LESS'],
                             ['≥', 'GREATER_OR_EQUAL'],
@@ -392,6 +393,20 @@ module.exports = {
                                 params: ['10'],
                             },
                             'EQUAL',
+                            {
+                                type: 'text',
+                                params: ['10'],
+                            },
+                        ],
+                        type: 'boolean_basic_operator',
+                    },
+                    {
+                        params: [
+                            {
+                                type: 'text',
+                                params: ['10'],
+                            },
+                            'NOTEQUAL',
                             {
                                 type: 'text',
                                 params: ['10'],
@@ -485,6 +500,8 @@ module.exports = {
                     switch (operator) {
                         case 'EQUAL':
                             return leftValue === rightValue;
+                        case 'NOTEQUAL':
+                            return leftValue !== rightValue;
                         case 'GREATER':
                             return leftValue > rightValue;
                         case 'LESS':
@@ -545,6 +562,7 @@ module.exports = {
                                     type: 'Dropdown',
                                     options: [
                                         ['=', 'EQUAL'],
+                                        ['!=', 'NOTEQUAL'],
                                         ['>', 'GREATER'],
                                         ['<', 'LESS'],
                                         ['≥', 'GREATER_OR_EQUAL'],
@@ -668,7 +686,7 @@ module.exports = {
                             ],
                         },
                     ],
-                    c:[
+                    c: [
                         {
                             syntax: '(%1 %2 %3)',
                             template: '%1 %2 %3',
@@ -693,8 +711,8 @@ module.exports = {
                                     accept: 'boolean',
                                 },
                             ],
-                         },
-                     ],
+                        },
+                    ],
                 },
             },
             boolean_not: {
@@ -751,7 +769,7 @@ module.exports = {
                             ],
                         },
                     ],
-                    c:[
+                    c: [
                         {
                             syntax: '(%1 %2 %3)',
                             template: '%1 %2 %3',
@@ -776,8 +794,8 @@ module.exports = {
                                     accept: 'boolean',
                                 },
                             ],
-                         },
-                     ],
+                        },
+                    ],
                 },
             },
         };

@@ -39,7 +39,7 @@ module.exports = {
 
                     c: [
                         {
-                            syntax:'{\ntemp__', //'while(true)\n{\n',
+                            syntax: '{\ntemp__', //'while(true)\n{\n',
                             blockType: 'event'
                         }
                     ]
@@ -381,7 +381,7 @@ module.exports = {
                 ],
                 events: {
                     dataAdd: [
-                        function(block) {
+                        function (block) {
                             const vc = Entry.variableContainer;
                             if (vc) {
                                 vc.addRef('_messageRefs', block);
@@ -389,7 +389,7 @@ module.exports = {
                         },
                     ],
                     viewDestroy: [
-                        function(block) {
+                        function (block) {
                             const vc = Entry.variableContainer;
                             if (vc) {
                                 vc.removeRef('_messageRefs', block);
@@ -461,7 +461,7 @@ module.exports = {
                 ],
                 events: {
                     dataAdd: [
-                        function(block) {
+                        function (block) {
                             const vc = Entry.variableContainer;
                             if (vc) {
                                 vc.addRef('_messageRefs', block);
@@ -469,7 +469,7 @@ module.exports = {
                         },
                     ],
                     viewDestroy: [
-                        function(block) {
+                        function (block) {
                             const vc = Entry.variableContainer;
                             if (vc) {
                                 vc.removeRef('_messageRefs', block);
@@ -500,7 +500,7 @@ module.exports = {
                         throw new Error('value can not be null or undefined');
                     }
 
-                    setTimeout(function() {
+                    setTimeout(function () {
                         Entry.engine.raiseMessage(value);
                     });
                 },
@@ -548,7 +548,7 @@ module.exports = {
                 ],
                 events: {
                     dataAdd: [
-                        function(block) {
+                        function (block) {
                             const vc = Entry.variableContainer;
                             if (vc) {
                                 vc.addRef('_messageRefs', block);
@@ -556,7 +556,7 @@ module.exports = {
                         },
                     ],
                     dataDestroy: [
-                        function(block) {
+                        function (block) {
                             const vc = Entry.variableContainer;
                             if (vc) {
                                 vc.removeRef('_messageRefs', block);
@@ -895,6 +895,9 @@ module.exports = {
                         case 'EQUAL':
                             returnVal = leftValue == rightValue;
                             break;
+                        case 'NOTEQUAL':
+                            returnVal = leftValue != rightValue;
+                            break;
                         case 'GREATER':
                             returnVal = Number(leftValue) > Number(rightValue);
                             break;
@@ -1068,7 +1071,7 @@ module.exports = {
                     } else if (this.isSubmitted === false) {
                         return Entry.STATIC.BREAK;
                     }
-                    const checkFunc = function() {
+                    const checkFunc = function () {
                         that.isSubmitted = true;
                     };
                     this.isSubmitted = false;
@@ -1106,7 +1109,7 @@ module.exports = {
                 ],
                 events: {
                     dataAdd: [
-                        function(block) {
+                        function (block) {
                             Entry.registerAchievement(block);
                         },
                     ],
@@ -1275,7 +1278,7 @@ module.exports = {
                 },
                 class: 'checker',
                 isNotFor: ['checker'],
-                func(sprite, script) {},
+                func(sprite, script) { },
             },
             wildcard_boolean: {
                 color: '#7C7C7C',
@@ -1292,7 +1295,7 @@ module.exports = {
                 paramsKeyMap: {},
                 class: 'checker',
                 isNotFor: ['checker'],
-                func(sprite, script) {},
+                func(sprite, script) { },
             },
             register_score: {
                 color: '#7C7C7C',
