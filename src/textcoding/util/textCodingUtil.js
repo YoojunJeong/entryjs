@@ -110,7 +110,7 @@ class txtToImg {
         let imgData = this.ctx.getImageData(0, 0, this.width, this.height);
         // console.log(1, imgData, imgData.data[2419])
         for (let i = 0; i < imgData.data.length; i++) {
-            let bin = imgData.data[i] > 90 ? 255 : 0;
+            let bin = imgData.data[i] > 60 ? 1 : 0;
             if (bin && isFirst) {
                 console.log(1, i, imgData.data[i])
             }
