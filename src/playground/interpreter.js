@@ -398,13 +398,13 @@ const regex = {
         number: /^(\s*[-0-9.]+)/ // 8421
     },
 
-    polynomial: /([\w.\$]+)|(--|\+\+|&&|\|\||>=|<=|==|<|>|&|\||!|[+\-*\/%])/g,
+    polynomial: /([\w.\$]+)|(--|\+\+|&&|\|\||>=|<=|==|!=|<|>|&|\||!|[+\-*\/%])/g,
     braket: /([\w.]*)\(((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*)\)/g,
     replacement: /\$[0-9]+/, // $0 $1 $2 $92 ... replace characters for inner polynomials
 };
 
 // TAG : MODULE_SET_BUG
-const MODULE_SET_BUG = true;
+var MODULE_SET_BUG = true;
 
 var module_map = new Map();
 
@@ -580,7 +580,7 @@ function getCodeBlock(luxc) {
                                 //  ----------------------------------
 
                                 var tempVariableBlocks = [];
-                                for (var i = 0; i < argumentsBlocks.length; i ++) {
+                                for (var i = 0; i < argumentsBlocks.length; i++) {
                                     if (argumentsBlocks[i].type == FrameType.CALTULATOR) {
                                         // Replace to value
                                         var variable_name = "__cal" + i;
@@ -588,18 +588,18 @@ function getCodeBlock(luxc) {
                                         argumentsBlocks[i] = new VariableGetValue(new StringValue(variable_name));
                                     }
                                 }
-    
+
                                 var block = new FunctionSetValue(uuid, property, argumentsBlocks);
                                 if (logicStack.length()) {
                                     var logic = logicStack.peek();
-                                    for (var i = 0; i < tempVariableBlocks.length; i ++)
+                                    for (var i = 0; i < tempVariableBlocks.length; i++)
                                         logic.addChild(tempVariableBlocks[i]);
-    
+
                                     logic.addChild(block);
                                 } else {
-                                    for (var i = 0; i < tempVariableBlocks.length; i ++)
+                                    for (var i = 0; i < tempVariableBlocks.length; i++)
                                         blocks.push(tempVariableBlocks[i]);
-    
+
                                     blocks.push(block);
                                 }
                             } else {
@@ -688,7 +688,7 @@ function convertPolynomial(src, modules) {
 var luxcParer = new class {
     constructor() {
         this.regex = {
-            polynomial: /([\w.\$]+)|(--|\+\+|&&|\|\||>=|<=|==|<|>|&|\||!|[+\-*\/%])/g,
+            polynomial: /([\w.\$]+)|(--|\+\+|&&|\|\||>=|<=|==|!=|<|>|&|\||!|[+\-*\/%])/g,
             braket: /([\w.]*)\(((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*)\)/g,
             replacement: /\$[0-9]+/, // $0 $1 $2 $92 ... replace characters for inner polynomials
             string: /^"([\x20-\x7E]*)"/, // "MODI"
@@ -989,7 +989,7 @@ function argsToBlock(args) {
         const arthmatic = ['+', '-', '*', '/', '%']
 
         switch (args.length) {
-        case 2: {
+            case 2: {
                 if (args[0] == '-') {
                     var lhs = new NumberValue(-1);
                     var op = new Operator('*');
@@ -1003,7 +1003,7 @@ function argsToBlock(args) {
                     throw new Exception("Not Implemented Expressions : " + args);
                 }
             } break;
-        case 3: {
+            case 3: {
                 var lhs = argsToBlock(args[0]);
                 var op = new Operator(args[1]);
                 var rhs = argsToBlock(args[2]);
@@ -1019,8 +1019,8 @@ function argsToBlock(args) {
                     throw new Exception("Invaild Operator" + op);
                 }
             } break;
-        default:
-            throw new Exception("too many arguments" + args);
+            default:
+                throw new Exception("too many arguments" + args);
         }
 
         return block;
