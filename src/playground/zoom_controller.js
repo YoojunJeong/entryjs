@@ -82,7 +82,8 @@ Entry.ZoomController = class ZoomController {
             onClick :`window.android.uploadCode(${Entry.binaryOutput})`
         });
         zoomGroup.plus = zoomGroup.svgZoom.elem('image', {
-            href: `${Entry.mediaFilePath}custom/modi_btn_remote_nor.png`,
+            id:'remote',
+            href: `${Entry.mediaFilePath}custom/modi_btn_remote_dis.png`,
             x: 181,
             y: 3,
             width: 83,
@@ -275,7 +276,12 @@ Entry.ZoomController = class ZoomController {
                         window.android.checkModules(unconnectedModules) // app에 리스트를 전달
                     }
                 } else {
+
                     window.android.uploadCode(binaryOutput.block);
+                    let remote = document.getElementById('remote');
+
+                    remote.setAttribute('href',`${Entry.mediaFilePath}custom/modi_btn_remote_nor.png`)
+                    
                 }
                 
                 break;
