@@ -22,6 +22,7 @@ Entry.Playground = class {
         this._destroyer.destroy();
         this.isTextBGMode_ = false;
         this.enableArduino = false;
+        this._maxNameLength = 10;
 
         /**
          * playground's current view type
