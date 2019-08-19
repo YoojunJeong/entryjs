@@ -22,7 +22,6 @@ Entry.FieldTrashcan = class FieldTrashcan {
         const path = `${Entry.mediaFilePath}delete_`;
         this.svgGroup.elem('image', {
             href: `${path}body.svg`,
-            y: 19,
             width: 61,
             height: 70,
         });
@@ -95,7 +94,12 @@ Entry.FieldTrashcan = class FieldTrashcan {
             mouseX = instance.offsetX;
             mouseY = instance.offsetY;
         }
-        const isOver = mouseX >= trashcanX && mouseY >= trashcanY;
+        // const isOver = mouseX >= trashcanX && mouseY >= trashcanY;
+        const isOver = mouseX <= trashcanX + 60 && mouseY >= trashcanY;
+        // if (mouseX >= trashcanX && mouseX <= trashcanX + 60 && mouseY >= trashcanY) {
+        //     isOver = true;
+        // }
+
         this.tAnimation(isOver);
     }
 
@@ -134,7 +138,7 @@ Entry.FieldTrashcan = class FieldTrashcan {
         isOver = isOver === undefined ? true : isOver;
         const trashTop = this.trashcanTop;
         if (isOver) {
-            $(trashTop).attr('transform', 'translate(20, -25) rotate(30)');
+            $(trashTop).attr('transform', 'translate(-10, 0) rotate(-30)');
             // $(trashTop).attr('class', 'trashcanOpen');
         } else {
             $(trashTop).attr('transform', 'translate(0, 0) rotate(0)');
