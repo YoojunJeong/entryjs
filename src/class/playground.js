@@ -177,6 +177,17 @@ Entry.Playground = class {
         })
     }
 
+    renderVariableModal (variable) {
+        // console.log(variable)
+        const variableItem = Entry.createElement('div')
+        .addClass('variableItem')
+        .appendTo(this.varList);
+
+        variableItem.innerHTML = variable
+        // console.log("renderVariableModal", this.variableModel, this.varList)
+    
+    }
+
     /**
      * Control bar view generator.
      * @param {!Element} playgroundView playgroundView from Entry.
@@ -319,6 +330,7 @@ Entry.Playground = class {
             //     }
             // });
 
+
             addSpaceInput.onfocus = _setFocused;
             const doBlur = _setBlurredTimer(function() {
                 this.isBlurred = false;
@@ -330,6 +342,16 @@ Entry.Playground = class {
                 doBlur.apply(this);
             };
             this.variableAddPanel.view.name = addSpaceInput;
+
+            // 만들기 버튼 생성
+            const addSpaceConfirmButton = Entry.createElement('a')
+            .addClass('entryVariableAddSpaceConfirmWorkspace')
+            .addClass('entryVariableAddSpaceButtonWorkspace')
+            .bindOnClick(() => {
+                that._addVariable();
+            })
+            .appendTo(addSpaceNameWrapper);
+            this.listAddConfirmButton = addSpaceConfirmButton;
 
             // 모든 오브젝트에서 사용
             const addSpaceGlobalWrapper = Entry.createElement('div')
@@ -393,6 +415,10 @@ Entry.Playground = class {
 
             // element.initValueInput = attrInput;
             
+            // 변수 리스트 블럭
+            this.varList = Entry.createElement('div')
+            .addClass('varList')
+            .appendTo(this.variableModel);
    
             // 확인 취소 버튼
             const addSpaceButtonWrapper = Entry.createElement('div')
@@ -403,26 +429,13 @@ Entry.Playground = class {
                 .addClass('entryVariableAddSpaceCancelWorkspace')
                 .addClass('entryVariableAddSpaceButtonWorkspace')
                 .bindOnClick(() => {
+                    console.log("var",Entry.variableContainer.variables_)
                     // this.variableAddPanel.view.addClass('off');
                     // this.resetVariableAddPanel('list');
                     $("#variableModal").addClass('entryRemove');
                 })
                 .appendTo(addSpaceButtonWrapper);
-            addSpaceCancelButton.href = '#';
-            addSpaceCancelButton.innerHTML = Lang.Buttons.cancel;
     
-            const addSpaceConfirmButton = Entry.createElement('a')
-                .addClass('entryVariableAddSpaceConfirmWorkspace')
-                .addClass('entryVariableAddSpaceButtonWorkspace')
-                .bindOnClick(() => {
-                    that._addVariable();
-                })
-                .appendTo(addSpaceButtonWrapper);
-            addSpaceConfirmButton.href = '#';
-            addSpaceConfirmButton.innerHTML = Lang.Buttons.save;
-            this.listAddConfirmButton = addSpaceConfirmButton;
-                                                        
-
 
             // JYJ - 소리 추가하기
             const soundModal = Entry.createElement('div', 'soundModal')
@@ -456,18 +469,36 @@ Entry.Playground = class {
         this.variableAddPanel.view.addClass('off');
         const blurCallback = () => {
             delete variableInput.blurCallback;
-            Entry.do(
-                'variableContainerAddVariable',
-                Entry.Variable.create(this._makeVariableData('variable'))
-            );
-            // const [variable] = this.variables_;
-            const [variable] = Entry.variableContainer.variables_;
-            this.updateSelectedVariable(variable);
-            const { nameField } = variable.listElement;
-            nameField.removeAttribute('disabled');
+            let isNewVar = Entry.variableContainer.variables_.every(el=>{
+                if(el.name_ === this._makeVariableData('variable').name){
+                    return false
+                }
+                return true
+            })
+
+            if(!Entry.variableContainer.variables_.length || isNewVar){
+                Entry.do(
+                    'variableContainerAddVariable',
+                    Entry.Variable.create(this._makeVariableData('variable'))
+                );
+                // const [variable] = this.variables_;
+                const [variable] = Entry.variableContainer.variables_;
+                // this.updateSelectedVariable(variable); //TODO: remove 
+    
+                const { nameField } = variable.listElement;
+                nameField.removeAttribute('disabled');
+            } else {
+                //TODO: toast
+            }
+
+            // 변수 rerender
+            this.varList.innerHTML = ''
+            Entry.variableContainer.variables_.forEach(el =>{
+                this.renderVariableModal(el.name_)
+            })
         };
 
-        $("#variableModal").hide();
+        // $("#variableModal").hide();
 
         try {
             if (variableInput.isBlurred) {
@@ -839,7 +870,7 @@ Entry.Playground = class {
         //     minValue.setAttribute('disabled', 'disabled');
         //     maxValue.setAttribute('disabled', 'disabled');
         // }
-
+        console.log('updateVariableSettingView')
         initValue.value = v.getValue();
         v.listElement.appendChild(view);
     }
