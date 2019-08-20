@@ -232,8 +232,9 @@ Entry.ZoomController = class ZoomController {
                 }
 
                 // 코드
+                console.log(cOutput)
                 binary += `${cOutput}\n`;
-                binary += '    sleep(1);\n}\n'
+                binary += '}\n'
                 binary = binary.replace(/temp__/g, moduleList)
                 binary = binary.replace(/\t/g, "    ")
 
