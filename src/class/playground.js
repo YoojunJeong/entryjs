@@ -211,11 +211,12 @@ Entry.Playground = class {
         }
 
         // 삭제창 생성
+        const deleteItem = Entry.variableContainer.variables_[index]
         const variableItemIcon = Entry.createElement('span')
         .addClass('variableItemIcon')
         .appendTo(variableItem)
         .bindOnClick((e) => {
-            Entry.do('variableContainerRemoveVariable', Entry.variableContainer.variables_[index]);
+            Entry.do('variableContainerRemoveVariable', deleteItem);
             variableItem.remove();
         });
     }
