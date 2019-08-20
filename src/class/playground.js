@@ -177,15 +177,47 @@ Entry.Playground = class {
         })
     }
 
-    renderVariableModal (variable) {
-        // console.log(variable)
+    renderVariableModal (variable, index) {
+
+        // 변수 블럭 생성
         const variableItem = Entry.createElement('div')
         .addClass('variableItem')
         .appendTo(this.varList);
 
-        variableItem.innerHTML = variable
-        // console.log("renderVariableModal", this.variableModel, this.varList)
-    
+        // 인풋창 생성
+        const variableItemInput = Entry.createElement('input')
+        .addClass('variableItemInput')
+        .appendTo(variableItem)
+        variableItemInput.value = variable
+
+        variableItemInput.onkeyup = (e)=>{
+            let isNewVar = Entry.variableContainer.variables_.every(el=>{
+                if(el.name_ === e.currentTarget.value){
+                    return false
+                }
+                return true
+            })
+
+            if(isNewVar) {
+                Entry.variableContainer.variables_[index].name_ = e.currentTarget.value
+                Entry.playground.reloadPlayground();
+            } else {
+                Entry.toast.warning(
+                    "변수명 중복",
+                    "동일한 변수명이 이미 사용 중입니다"
+                );
+                variableItemInput.value = Entry.variableContainer.variables_[index].name_
+            }
+        }
+
+        // 삭제창 생성
+        const variableItemIcon = Entry.createElement('span')
+        .addClass('variableItemIcon')
+        .appendTo(variableItem)
+        .bindOnClick((e) => {
+            Entry.do('variableContainerRemoveVariable', Entry.variableContainer.variables_[index]);
+            variableItem.remove();
+        });
     }
 
     /**
@@ -313,7 +345,7 @@ Entry.Playground = class {
                 .addClass('entryVariableAddSpaceInputLabelWorkspace')
                 .appendTo(addSpaceNameWrapper);
             addSpaceInputLabel.setAttribute('for', 'entryVariableAddSpaceInputWorkspace');
-            addSpaceInputLabel.innerText = Lang.Workspace.Variable_placeholder_name;
+            addSpaceInputLabel.innerText = '변수 만들기'
 
             const addSpaceInput = Entry.createElement('input')
                 .addClass('entryVariableAddSpaceInputWorkspace')
@@ -488,13 +520,16 @@ Entry.Playground = class {
                 const { nameField } = variable.listElement;
                 nameField.removeAttribute('disabled');
             } else {
-                //TODO: toast
+                Entry.toast.warning(
+                    "변수명 중복",
+                    "동일한 변수명이 이미 사용 중입니다"
+                );
             }
 
             // 변수 rerender
             this.varList.innerHTML = ''
-            Entry.variableContainer.variables_.forEach(el =>{
-                this.renderVariableModal(el.name_)
+            Entry.variableContainer.variables_.forEach((el,i) =>{
+                this.renderVariableModal(el.name_,i)
             })
         };
 
