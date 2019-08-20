@@ -341,6 +341,13 @@ Entry.Playground = class {
                 .addClass('entryVariableAddSpaceNameWrapperWorkspace')
                 .appendTo(this.variableModel);
 
+            const variableExit = Entry.createElement('span')
+            .addClass('variableExit')
+            .appendTo(addSpaceNameWrapper)
+            .bindOnClick(() => {
+                $("#variableModal").addClass('entryRemove');
+            });
+
             const addSpaceInputLabel = Entry.createElement('label')
                 .addClass('entryVariableAddSpaceInputLabelWorkspace')
                 .appendTo(addSpaceNameWrapper);
@@ -461,7 +468,6 @@ Entry.Playground = class {
                 .addClass('entryVariableAddSpaceCancelWorkspace')
                 .addClass('entryVariableAddSpaceButtonWorkspace')
                 .bindOnClick(() => {
-                    console.log("var",Entry.variableContainer.variables_)
                     // this.variableAddPanel.view.addClass('off');
                     // this.resetVariableAddPanel('list');
                     $("#variableModal").addClass('entryRemove');
