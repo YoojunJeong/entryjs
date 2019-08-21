@@ -107,6 +107,7 @@ Entry.Playground = class {
                 videoNum--
                 updatePlayList()
                 $("#myVideo")[0].src = guideList[videoNum].videoUrl
+                $("#myVideo")[0].play();
                 showPlayBtn()
             }
             $("#next").show();
@@ -120,6 +121,7 @@ Entry.Playground = class {
             videoNum++;
             updatePlayList()
             $("#myVideo")[0].src = guideList[videoNum].videoUrl;
+            $("#myVideo")[0].play();
             showPlayBtn()
             if (videoNum >= guideList.length-1) {
                 $("#next").hide();
