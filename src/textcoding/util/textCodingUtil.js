@@ -16,11 +16,12 @@ function getMelodyCode(name, vol) {
 class txtToImg {
     constructor(txt, size, options) {
         this.txt = txt
-        this.options = options || { des: '', append: false }
+        this.options = options || { des: '', render: false }
         this.width = size || 64;
         this.height = this.width * 3 / 4;
-        console.log(`w ${this.width} h ${this.height}`)
+        console.log(`${this.options.des} : w ${this.width} h ${this.height}`)
         this.fontSize;
+        this.font = 'sans-serif'
         this.ctx;
         this.canvas;
         this.init()
@@ -28,9 +29,9 @@ class txtToImg {
 
     setFontSize() {
         if (this.width === 64) {
-            this.fontSize = Math.round(this.width / 7) + 1
+            this.fontSize = Math.trunc(this.width / 6)
         } else {
-            this.fontSize = Math.round(this.width / 7) + 2
+            this.fontSize = Math.trunc(this.width / 6)
         }
     }
 
@@ -39,12 +40,12 @@ class txtToImg {
         this.canvas.width = `${this.width}`;
         this.canvas.height = `${this.height}`;
         const ctx = this.canvas.getContext('2d');
-        console.log('font', `${this.fontSize}pt sans-serif`)
+        console.log('  font', `${this.fontSize}pt ${this.font}`)
         ctx.textBaseline = "top";
-        ctx.font = `${this.fontSize}pt sans-serif`;
+        ctx.font = `${this.fontSize}pt ${this.font}`;
 
-        const { append } = options
-        if (append) {
+        const { render } = options
+        if (render) {
             document.body.appendChild(this.canvas);
             this.description()
         }
@@ -53,7 +54,7 @@ class txtToImg {
     }
 
     fillTextMultiLine(ctx, text, x, y) {
-        const lineHeight = 15 //ctx.measureText("M").width * 1.2;
+        const lineHeight = ctx.measureText("M").width * 1.2;
         const textWidth = ctx.measureText(text).width + 5
         let line = "";
         let lines = [];
@@ -105,28 +106,27 @@ class txtToImg {
         }
     }
 
-    convertToBin() {
+    convertToBin(threshold = 130, max = 1) {
         let isFirst = true
+
         let imgData = this.ctx.getImageData(0, 0, this.width, this.height);
-        // console.log(1, imgData, imgData.data[2419])
         for (let i = 0; i < imgData.data.length; i++) {
-            let bin = imgData.data[i] > 60 ? 1 : 0;
+            let bin = imgData.data[i] > threshold ? max : 0;
             if (bin && isFirst) {
-                console.log(1, i, imgData.data[i])
+                console.log('  before', i, imgData.data[i])
             }
             imgData.data[i] = bin
             if (bin && isFirst) {
-                console.log(2, i, imgData.data[i])
+                console.log('  after', i, imgData.data[i])
                 isFirst = false
             }
         }
-        // console.log(2, imgData, imgData.data[2419])
-        this.ctx.putImageData(imgData, 0, 0);
+        this.putImg(imgData);
     }
 
     copy(ctx) {
         let imgData = ctx.getImageData(0, 0, this.width, this.height);
-        ctx.putImageData(imgData, this.width * 1.5, 0);
+        this.putImg(imgData);
     }
 
     ivect(ix, iy, w) {
@@ -299,14 +299,18 @@ class txtToImg {
         this.height = this.height * scale;
         this.canvas.width = `${this.width}`;
         this.canvas.height = `${this.height}`;
-        this.ctx.putImageData(srcImg, 0, 10);
+        this.putImg(srcImg);
     }
 
     description() {
-        let element = document.createElement('div')
+        let element = document.createElement('span')
         let description = this.options.des || ''
         element.innerText = description
+        // element.style.width = '100px'
         document.body.appendChild(element)
+        let br = document.createElement('br')
+        document.body.appendChild(br)
+
     }
 
     getGrayData() {
@@ -329,14 +333,96 @@ class txtToImg {
             }
             modiDisplayData.push(byte);
         }
-        console.log("getModuleData", modiDisplayData)
+        console.log("getModuleData", JSON.stringify(modiDisplayData))
         return modiDisplayData
+    }
+
+    createImageData(w, h) {
+        let canvas = this.getCanvas(w, h);
+        let ctx = canvas.getContext('2d');
+        return ctx.createImageData(w, h);
+    };
+
+    getCanvas(w, h) {
+        let canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        return canvas;
+    };
+
+    scale(ctx, x, y) {
+        ctx.scale(x, y)
+    }
+
+    convolute(weights, opaque) {
+        let pixels = this.ctx.getImageData(0, 0, this.width, this.height);
+
+        console.log(pixels, weights, opaque)
+        // console.log(this.ctx.getImageData())
+
+        let side = Math.round(Math.sqrt(weights.length));
+        let halfSide = Math.floor(side / 2);
+        let src = pixels.data;
+        let sw = pixels.width;
+        let sh = pixels.height;
+        // pad output by the convolution matrix
+        let w = sw;
+        let h = sh;
+
+        let imgData = this.createImageData(w, h);
+        let dst = imgData.data;
+        // go through the destination image pixels
+        let alphaFac = opaque ? 1 : 0;
+        for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+                let sy = y;
+                let sx = x;
+                let dstOff = (y * w + x) * 4;
+                // calculate the weighed sum of the source image pixels that
+                // fall under the convolution matrix
+                let r = 0, g = 0, b = 0, a = 0;
+                for (let cy = 0; cy < side; cy++) {
+                    for (let cx = 0; cx < side; cx++) {
+                        let scy = sy + cy - halfSide;
+                        let scx = sx + cx - halfSide;
+                        if (scy >= 0 && scy < sh && scx >= 0 && scx < sw) {
+                            let srcOff = (scy * sw + scx) * 4;
+                            let wt = weights[cy * side + cx];
+                            r += src[srcOff] * wt;
+                            g += src[srcOff + 1] * wt;
+                            b += src[srcOff + 2] * wt;
+                            a += src[srcOff + 3] * wt;
+                        }
+                    }
+                }
+                dst[dstOff] = r;
+                dst[dstOff + 1] = g;
+                dst[dstOff + 2] = b;
+                dst[dstOff + 3] = a + alphaFac * (255 - a);
+            }
+        }
+
+        this.putImg(imgData);
+    };
+
+    putImg(imgData, x = 0, y = 0) {
+        this.ctx.putImageData(imgData, x, y);
     }
 
     init() {
         this.setFontSize();
         this.ctx = this.createCanvas(this.options);
-        this.fillTextMultiLine(this.ctx, this.txt, 0, 10);
+        if (this.options.scale) {
+            if (this.options.scale === 1) {
+                this.scale(this.ctx, 0.2, 0.2)
+            } else if (this.options.scale === 2) {
+                this.canvas.width = 64
+                this.canvas.height = 48
+                console.log(this.canvas)
+            }
+        }
+        this.fillTextMultiLine(this.ctx, this.txt, 0, 3);
+
     }
 }
 
@@ -1097,6 +1183,7 @@ class TextCodingUtil {
             // get image data from text (which is enhanced by bilinear algorithm)
             let imgData = new txtToImg(contents.replace(/"/g,""), 320);
             imgData.bilinear(0.2);
+            imgData.convertToBin(150, 1);
             imgData = imgData.getModuleData();
 
             this.imgData.push(imgData.toString())
