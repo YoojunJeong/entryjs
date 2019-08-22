@@ -172,13 +172,18 @@ Entry.ZoomController = class ZoomController {
                     if(block.data.type == 'when_run_button_click') {
                         startBtnCount++;
                         if(startBtnCount > 1) {
-                            window.android.failUpload('시작버튼은 1개만 사용할 수 있어요.');
-                            throw new Error('시작버튼이 2개 입니다.');
+                             window.android.failUpload('코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤 내보내기를\n다시 시도해 주세요.');
+                            throw new Error('코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤 내보내기를 다시 시도해 주세요.');
                         }
                     }         
 
                     if(keys.length == 2 && blockMap[keys[1]].data.type == 'repeat_inf') {
-                    
+                        window.android.failUpload('DEFAULT_CODE');
+                        throw new Error('기본 코딩입니다.');
+                    }
+
+                    if(startBtnCount == 0) {
+                        window.android.failUpload('내보내기 블록이 없어요. 내보내기 버튼을 넣어서 코딩해 주세요.');
                         throw new Error('기본 코딩입니다.');
                     }
                 });
