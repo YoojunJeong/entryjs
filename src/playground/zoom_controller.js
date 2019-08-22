@@ -164,6 +164,7 @@ Entry.ZoomController = class ZoomController {
                 const blockMap = this.nowBoard.code._blockMap;
 
                 console.log(blockMap);
+                
 
                 const keys = Object.keys(blockMap) || [];
                 keys.forEach((id) => {
@@ -174,7 +175,12 @@ Entry.ZoomController = class ZoomController {
                             window.android.failUpload('시작버튼은 1개만 사용할 수 있어요.');
                             throw new Error('시작버튼이 2개 입니다.');
                         }
-                    }                                
+                    }         
+
+                    if(keys.length == 2 && blockMap[keys[1]].data.type == 'repeat_inf') {
+                    
+                        throw new Error('기본 코딩입니다.');
+                    }
                 });
 
                 const block = blockMap[keys[0]];
@@ -253,9 +259,9 @@ Entry.ZoomController = class ZoomController {
                     return accArr
                 },[]) // 중복 모듈 정리
 
-                console.log(Entry.module)
-                console.log("binary")
-                console.log(binary)
+                // console.log(Entry.module)
+                // console.log("binary")
+                // console.log(binary)
 
                 let binaryOutput = Interpreter.makeFrame(binary);
                 Entry.binaryOutput = binaryOutput.block
@@ -268,6 +274,7 @@ Entry.ZoomController = class ZoomController {
                 console.log('exportProject')
                 let project = Entry.exportProject();
                 Entry.project = project
+            
 
                 if(unconnectedModules.length){
                     console.log('unconnectedModules')
