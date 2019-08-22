@@ -46,7 +46,6 @@ class BlockMenu {
         this.categoryRendered = false;
         this.readOnly = readOnly === undefined ? true : readOnly;
         this.playerShowStatus = true;
-        this.guideList = [{"videoUrl":""}]
         this._threadsMap = {};
         let $dom;
 
@@ -988,87 +987,10 @@ class BlockMenu {
         this.firstSelector = _.head(data).category;
         // player hide/show icon 만들기
         this._categoryCol.append('<li id="imgContainer"></li>')
-        this.generaterPlayerHideShowIcon()
         
         this._categoryCol[0].appendChild(fragment);
         this.makeScrollIndicator();
     }
-
-    getVideoData () {
-        // TODO: 임시 영상 삭제 필요
-        // Entry.guideList = [
-        //     { "sort": 1, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/d304007d-ab25-4d9d-8628-767c0f8b2704.mp4", "imageUrl": null, "desc": null },
-        //     { "sort": 2, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/ef9d72e6-0389-4ed3-9483-7e62bf3722a2.mp4", "imageUrl": null, "desc": null },
-        //     { "sort": 3, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/c0578818-53fc-4dd6-a8a8-e5768fd7efbd.mp4", "imageUrl": null, "desc": null }
-        // ]
-        if (Entry.guideList) {
-            this.guideList = Entry.guideList;
-        } else {
-            console.log('no video');
-            $(".entryWorkspaceBlockMenu").css({top:'-2px'});
-            $("#imgContainer").css({height:0, marginTop:'10px'})
-            this.playerShowStatus = false
-        }
-    }
-
-    generaterPlayerHideShowIcon () {
-        this.getVideoData()
-
-        $('#imgContainer').append('<img src="./images/modi_invenact_icon_close.svg" id="closeIcon">'); 
-        $('#imgContainer').append('<img src="./images/modi_invenact_img_dropdown_close.svg" id="bg">');
-        
-        $("#videoPlayerShowBtnContainer").append('<span id="videoPlayerShowText">학습 영상</span>')
-        $("#videoPlayerShowBtnContainer").append('<img src="./images/modi_invenact_img_dropdown_open.svg" id="bg_open">')
-        $("#videoPlayerShowBtnContainer").append('<img src="./images/modi_invenact_icon_open.svg" id="openIcon">'); 
-
-        function showPlayer() {
-            console.log("show")
-            $('#openIcon').hide();
-            $('#closeIcon').show();
-
-            $("#entryMenuTop").show()
-
-            $(".entryWorkspaceBlockMenu").removeClass("folding");
-            $(".entryWorkspaceBlockMenu").addClass("foldOut");
-
-            setTimeout(() => {
-                $("#videoPlayerShowBtnContainer").hide();
-            }, 500);
-            $("#videoPlayerShowBtnContainer").addClass("folding");
-        }
-
-        function hidePlayer() {
-            console.log('hide')
-            $('#openIcon').show();
-            $('#closeIcon').hide();
-
-            $("#entryMenuTop").css({zIndex:0})
-            setTimeout(() => {
-                $("#entryMenuTop").hide()
-            }, 500);
-
-            $(".entryWorkspaceBlockMenu").removeClass("foldOut");
-            $(".entryWorkspaceBlockMenu").addClass("folding");
-
-            $("#videoPlayerShowBtnContainer").show();
-            $("#videoPlayerShowBtnContainer").removeClass("folding");
-        }
-
-        if (this.playerShowStatus){
-            showPlayer()
-        }
-
-        $('#closeIcon').on('click',hidePlayer)
-        $('#bg, #videoPlayerShowBtnContainer').on('click',() => {
-            let isNone = $("#entryMenuTop")[0].attributes[2].textContent.includes('none')
-            if (isNone){
-                showPlayer()
-            } else {
-                hidePlayer()
-            }
-        })
-    }
-
 
     makeScrollIndicator() {
         ['append', 'prepend'].forEach((action) => {
