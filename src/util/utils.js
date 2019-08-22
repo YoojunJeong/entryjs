@@ -110,6 +110,20 @@ Entry.clearProject = function() {
     }
 };
 
+Entry.enableRemote = function() {
+
+    let remote = document.getElementById('remote');
+    remote.setAttribute('href',`${Entry.mediaFilePath}custom/modi_btn_remote_nor.png`)
+    
+}
+
+Entry.disableRemote = function() {
+
+    let remote = document.getElementById('remote');
+    remote.setAttribute('href',`${Entry.mediaFilePath}custom/modi_btn_remote_dis.png`)
+    
+}
+
 /**
  * Export project
  * @param {?Project} project

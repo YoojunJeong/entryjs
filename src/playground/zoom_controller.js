@@ -279,9 +279,7 @@ Entry.ZoomController = class ZoomController {
                 } else {
 
                     window.android.uploadCode(binaryOutput.block);
-                    let remote = document.getElementById('remote');
-
-                    remote.setAttribute('href',`${Entry.mediaFilePath}custom/modi_btn_remote_nor.png`)
+                   
                     
                 }
                 
@@ -295,6 +293,8 @@ Entry.ZoomController = class ZoomController {
                 break;
         }
     }
+
+    
 
     zoomChange(mode) {
         switch (mode) {
