@@ -1008,7 +1008,7 @@ class BlockMenu {
             $(".entryWorkspaceBlockMenu").css({top:'-2px'});
             $("#imgContainer").css({height:0, marginTop:'10px'})
             this.playerShowStatus = false
-        }
+        }        
     }
 
     generaterPlayerHideShowIcon () {
@@ -1033,6 +1033,7 @@ class BlockMenu {
 
             setTimeout(() => {
                 $("#videoPlayerShowBtnContainer").hide();
+                Entry.windowResized.notify()
             }, 500);
             $("#videoPlayerShowBtnContainer").addClass("folding");
         }
@@ -1045,6 +1046,7 @@ class BlockMenu {
             $("#entryMenuTop").css({zIndex:0})
             setTimeout(() => {
                 $("#entryMenuTop").hide()
+                Entry.windowResized.notify()
             }, 500);
 
             $(".entryWorkspaceBlockMenu").removeClass("foldOut");
