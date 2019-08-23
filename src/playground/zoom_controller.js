@@ -172,7 +172,7 @@ Entry.ZoomController = class ZoomController {
                     if(block.data.type == 'when_run_button_click') {
                         startBtnCount++;
                         if(startBtnCount > 1) {
-                             window.android.failUpload('코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤 내보내기를\n다시 시도해 주세요.');
+                             window.android.failUpload('코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤\n내보내기를 다시 시도해 주세요.');
                             throw new Error('코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤 내보내기를 다시 시도해 주세요.');
                         }
                     }         
