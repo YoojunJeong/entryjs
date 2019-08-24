@@ -342,9 +342,9 @@ Entry.resizeElement = function(interfaceModel) {
 
         let canvasSize = interfaceModel.canvasWidth;
         if (!canvasSize) {
-            canvasSize = 324;
-        } else if (canvasSize < 324) {
-            canvasSize = 324;
+            canvasSize = 200;
+        } else if (canvasSize < 200) {
+            canvasSize = 200;
         } else if (canvasSize > 640) {
             canvasSize = 640;
         }
@@ -362,11 +362,11 @@ Entry.resizeElement = function(interfaceModel) {
         // JYJ - 블록 메뉴 영역 사이즈 조절
         let menuWidth = interfaceModel.menuWidth;
         if (!menuWidth) {
-            menuWidth = 337 + categorysize ;
-        } else if (menuWidth < 337 + categorysize) {
-            menuWidth = 337 + categorysize;
-        } else if (menuWidth > 484) {
-            menuWidth = 484;
+            menuWidth = 250 + categorysize ;
+        } else if (menuWidth < 250 + categorysize) {
+            menuWidth = 250 + categorysize;
+        } else if (menuWidth > 550) {
+            menuWidth = 550;
         }
 
         // menuWidth = 400
