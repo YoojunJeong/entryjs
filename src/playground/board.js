@@ -378,7 +378,7 @@ Entry.Board = class Board {
         }
 
         this.initCommentSchema();
-
+        
         const verticalGap = 15;
         let acculmulatedTop = 15;
         let columWidth = 0;
@@ -1136,7 +1136,8 @@ Entry.Board = class Board {
         if (block) {
             block = block.view;
             const { x, y } = block.getAbsoluteCoordinate();
-            this.scroller.scroll(50 - x, 30 - y, true);
+            // chris: 블록 시작 위치 수정
+            this.scroller.scroll(100 +50 - x, 150 + 30 - y, true);
         }
     }
 
