@@ -399,14 +399,17 @@ EntryStatic.defaultModiBlocks = [
     {
         "category" : "CONTENTS_IMG_BASIC",
         "blocks" : [ {
-          "name" : "Welcome",
-          "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/welcome_1.png"
+            "name" : "Welcome",
+            "url": 'extern/asset/img/elementary/welcome_1.png'
+        //   "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/welcome_1.png"
         }, {
-          "name" : "REDPEN",
-          "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/redpen_2.png"
+            "name" : "REDPEN",
+            "url": 'extern/asset/img/elementary/redpen_2.png'
+        //   "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/redpen_2.png"
         },{
             "name" : "Coding",
-            "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/coding_3.png"
+            "url": 'extern/asset/img/elementary/coding_3.png'
+        //  "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/coding_3.png"
         } ]
     },
 ];
