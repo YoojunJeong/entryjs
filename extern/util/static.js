@@ -283,8 +283,9 @@ EntryStatic.getAllBlocks = function() {
 
     if(melodyBlock && melodyBlock.blocks){
         melodyBlock = melodyBlock.blocks
+        EntryStatic.speakerMelody.data = Entry.getLocalMelody() // local 에서 받아오기
         EntryStatic.speakerMelody.list = melodyBlock.map(el=>{
-            EntryStatic.getMelodyDataFromUrl(el)
+            // EntryStatic.getMelodyDataFromUrl(el) webserver에서 받아오기
             return [el.name,el.name]
         })
     }
@@ -379,7 +380,7 @@ EntryStatic.defaultModiBlocks = [
     {
         "category" : "CONTENTS_MELODY_BASIC",
         "blocks" : [ {
-          "name" : "반짝반짝 작은별",
+          "name" : "반짝반짝 작은별",
           "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EB%B0%98%EC%A7%9D%EB%B0%98%EC%A7%9D+%EC%9E%91%EC%9D%80%EB%B3%84.cpp"
         }, {
           "name" : "징글벨",
