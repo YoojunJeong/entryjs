@@ -1,5 +1,4 @@
-exports.content = 
-`doUserTask
+doUserTask
 {
 float number0 = 0.0;
 float number1 = 0.0;
@@ -96,4 +95,4 @@ while(true)
 	sleep(100);
 
 }
-}`
+}

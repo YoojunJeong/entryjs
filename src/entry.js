@@ -14,7 +14,6 @@ global.Entry.volume = '';
 global.Entry.guideList = undefined;
 global.Entry.modiList = [];
 
-require('../extern/asset/melody/melodyMain')
 require('core-js/fn/object/values');
 require('./graphicEngine/FakePIXI');
 require('./css/entry.less');
