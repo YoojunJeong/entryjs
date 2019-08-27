@@ -48,7 +48,7 @@ Entry.Playground = class {
         const guideList = this.mainWorkspace.guideList;
 
         // create video player
-        $("#entryMenuTop").html(`<video width="100%" height="100%" poster controlsList="nodownload" id="myVideo" src=${guideList[videoNum].videoUrl}></video>`); //controls 
+        $("#entryMenuTop").html(`<video width="100%" height="100%" preload="metadata" controlsList="nodownload" id="myVideo" src=${guideList[videoNum].videoUrl}></video>`); //controls 
         $("#entryMenuTop").css({'z-index':99, position:'absolute'})
         $("#myVideo").css({position:'absolute'})
 
