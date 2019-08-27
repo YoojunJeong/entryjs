@@ -140,6 +140,7 @@ Entry.FieldTrashcan = class FieldTrashcan {
         if (isOver) {
             $(trashTop).attr('transform', 'translate(-10, 0) rotate(-30)');
             // $(trashTop).attr('class', 'trashcanOpen');
+            createjs.Sound.play('entryTrashOpen');
         } else {
             $(trashTop).attr('transform', 'translate(0, 0) rotate(0)');
             // $(trashTop).attr('class', 'trashcanClose');

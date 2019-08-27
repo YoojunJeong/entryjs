@@ -125,6 +125,7 @@ Entry.BlockView = class BlockView {
             });
         }
 
+        this.tabSound = Entry.Utils.debounce(() => { createjs.Sound.play('entryBlockTab'); }, 50);
         this.onMouseMove = this.onMouseMove.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
     }
@@ -490,7 +491,7 @@ Entry.BlockView = class BlockView {
         }
     }
 
-    onMouseDown(e) {
+    onMouseDown(e, noSound) {
         if (!this.isInBlockMenu && e.stopPropagation) {
             e.stopPropagation();
         }
@@ -503,6 +504,9 @@ Entry.BlockView = class BlockView {
         }
 
         this.longPressTimer = null;
+        if (!noSound) {
+            this.tabSound();
+        }
 
         const board = this.getBoard();
         if (board.workingEvent) {

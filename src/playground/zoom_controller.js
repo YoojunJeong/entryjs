@@ -157,9 +157,11 @@ Entry.ZoomController = class ZoomController {
     doAction(mode) {
         switch(mode) {
             case 'RESET':
+                    createjs.Sound.play('entryMenuClick');
                     window.android.callFuntion('RESET');
                 break;
             case 'EXPORT':
+                createjs.Sound.play('entryMenuClick');
                 var startBtnCount = 0;
                 const blockMap = this.nowBoard.code._blockMap;
 
@@ -304,6 +306,7 @@ Entry.ZoomController = class ZoomController {
                 
                 break;
             case 'REMOTE':
+                createjs.Sound.play('entryMenuClick');
                 window.android.callFuntion('REMOTE');
 
                 break;

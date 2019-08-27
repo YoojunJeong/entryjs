@@ -375,7 +375,7 @@ class BlockMenu {
 
                 this._boardBlockView = newBlockView;
 
-                newBlockView.onMouseDown.call(newBlockView, e);
+                newBlockView.onMouseDown.call(newBlockView, e, true);
                 if (newBlockView.dragInstance) {
                     newBlockView.dragInstance.set({
                         isNew: true,
@@ -1022,6 +1022,8 @@ class BlockMenu {
         $("#videoPlayerShowBtnContainer").append('<img src="./images/modi_invenact_icon_open.svg" id="openIcon">'); 
 
         function showPlayer() {
+            createjs.Sound.play('entryMenuClick');
+
             console.log("show")
             $('#openIcon').hide();
             $('#closeIcon').show();
@@ -1039,6 +1041,8 @@ class BlockMenu {
         }
 
         function hidePlayer() {
+            createjs.Sound.play('entryMenuClick');
+
             console.log('hide')
             $('#openIcon').show();
             $('#closeIcon').hide();
@@ -1140,6 +1144,8 @@ class BlockMenu {
             ],
         })
             .bindOnClick(() => {
+                createjs.Sound.play('entryMenuClick');
+
                 this._cancelDynamic(true, () => {
                     this.selectMenu(name, undefined, true);
                     this.align();

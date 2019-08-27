@@ -101,19 +101,45 @@ Entry.init = function(container, options) {
 
     Entry.loadAudio_(
         [
-            `${Entry.mediaFilePath}sounds/click.mp3`,
-            `${Entry.mediaFilePath}sounds/click.wav`,
-            `${Entry.mediaFilePath}sounds/click.ogg`,
+            `${Entry.mediaFilePath}sounds/sfx_block_assembly.mp3`,
+            // `${Entry.mediaFilePath}sounds/click.mp3`,
+            // `${Entry.mediaFilePath}sounds/click.wav`,
+            // `${Entry.mediaFilePath}sounds/click.ogg`,
         ],
         'entryMagneting'
     );
+    // Entry.loadAudio_(
+    //     [
+    //         `${Entry.mediaFilePath}sounds/sfx_block_assembly_fail.mp3`,
+    //     ],
+    //     'entryMagentingFail'
+    // );
     Entry.loadAudio_(
         [
-            `${Entry.mediaFilePath}sounds/delete.mp3`,
-            `${Entry.mediaFilePath}sounds/delete.ogg`,
-            `${Entry.mediaFilePath}sounds/delete.wav`,
+            `${Entry.mediaFilePath}sounds/sfx_block_delete.mp3`,
+            // `${Entry.mediaFilePath}sounds/delete.mp3`,
+            // `${Entry.mediaFilePath}sounds/delete.ogg`,
+            // `${Entry.mediaFilePath}sounds/delete.wav`,
         ],
         'entryDelete'
+    );
+    Entry.loadAudio_(
+        [
+            `${Entry.mediaFilePath}sounds/sfx_trash_can_open.mp3`,
+        ],
+        'entryTrashOpen'
+    );
+    Entry.loadAudio_(
+        [
+            `${Entry.mediaFilePath}sounds/sfx_btn_basic1.mp3`,
+        ],
+        'entryMenuClick'
+    );
+    Entry.loadAudio_(
+        [
+            `${Entry.mediaFilePath}sounds/sfx_block_tab.mp3`,
+        ],
+        'entryBlockTab'
     );
 
     createjs.Sound.stop();
