@@ -87,6 +87,8 @@ Entry.FieldBlock = class FieldBlock extends Entry.Field {
         if (!(x || y)) {
             svgGroup.removeAttr('transform');
         } else {
+
+            // console.log('block ->  align -> transform')
             const transform = `translate(${x},${y})`;
             if (animate) {
                 svgGroup.animate(

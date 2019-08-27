@@ -166,7 +166,13 @@ Entry.Scroller = class Scroller {
         };
 
         const sWidth = svgRect.width;
-        const sHeight = svgRect.height;
+        var sHeight = svgRect.height;
+
+        if(sHeight == 0) {
+            sHeight = 300;
+        }
+        console.log('scroll1');
+        console.log(sHeight);
 
         if (bBox.width && bBox.height) {
             if (sWidth / 2 > bBox.width) {
@@ -187,6 +193,10 @@ Entry.Scroller = class Scroller {
 
         this._scroll(x, y);
         if (skipCommand !== true) {
+
+            console.log('scroll2 skipCommand !== true');
+           
+
             if (!this._diffs) {
                 this._diffs = [0, 0];
             }

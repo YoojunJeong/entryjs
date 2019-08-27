@@ -444,6 +444,9 @@ Entry.Board = class Board {
         }
 
         if (this.btnWrapper) {
+
+            // console.log('block ->  updateOffset -> transform')
+
             this.btnWrapper.attr({
                 transform: `translate(${offset.width / 2 - 65},${offset.height - 200})`,
             });
@@ -1117,6 +1120,9 @@ Entry.Board = class Board {
     }
 
     adjustThreadsPosition() {
+
+        console.log('adjustThreadsPosition');
+
         const code = this.code;
         if (!code) {
             return;
@@ -1126,6 +1132,7 @@ Entry.Board = class Board {
         }
 
         let threads = code.getThreads();
+        
         if (!threads || threads.length === 0) {
             return;
         }
@@ -1133,11 +1140,21 @@ Entry.Board = class Board {
         threads = threads.sort((a, b) => a.getFirstBlock().view.x - b.getFirstBlock().view.x);
 
         let block = threads[0].getFirstBlock();
+
+        
         if (block) {
             block = block.view;
             const { x, y } = block.getAbsoluteCoordinate();
+            
+            console.log(y);
+
+            const adjustX = 100 +50 - x;
+            const adjustY = 150 + 30 - y;
+
+            console.log('adjustX : ', adjustX, ' adjustY :', adjustY);
+            console.log(adjustY);
             // chris: 블록 시작 위치 수정
-            this.scroller.scroll(100 +50 - x, 150 + 30 - y, true);
+            this.scroller.scroll(adjustX,adjustY , true);
         }
     }
 

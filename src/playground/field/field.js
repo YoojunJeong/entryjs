@@ -90,7 +90,7 @@ Entry.Field = class Field {
                 y = this._position.y;
             }
         }
-
+        // console.log('field ->  align -> transform')
         const transform = `translate(${x},${y})`;
 
         if (animate) {
