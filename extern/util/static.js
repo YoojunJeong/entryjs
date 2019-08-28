@@ -217,9 +217,9 @@ EntryStatic.getImgDataFromImageUrl = function (source) {
 }
 
 EntryStatic.getMelodyDataFromUrl = function(source) {
-    const {url, name} = source
+    const {remoteUrl, name} = source
     $.ajax({
-        url: url,
+        url: remoteUrl,
         type: "GET",
     })
     .done(function(json) {
@@ -400,24 +400,45 @@ EntryStatic.defaultModiBlocks = [
         "category" : "CONTENTS_MELODY_BASIC",
         "blocks" : [ {
             "name" : "반짝반짝 작은별",
-            "url":"extern/asset/melody/elementary/반짝반짝 작은별.txt"
-            //  "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EB%B0%98%EC%A7%9D%EB%B0%98%EC%A7%9D+%EC%9E%91%EC%9D%80%EB%B3%84.cpp"
+            "url":"extern/asset/melody/elementary/반짝반짝 작은별.txt",
+            "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EB%B0%98%EC%A7%9D%EB%B0%98%EC%A7%9D+%EC%9E%91%EC%9D%80%EB%B3%84.cpp"
         }, {
             "name" : "징글벨",
-            "url":"extern/asset/melody/elementary/징글벨.txt"
-            //  "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%A7%95%EA%B8%80%EB%B2%A8.cpp"
+            "url":"extern/asset/melody/elementary/징글벨.txt",
+            "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%A7%95%EA%B8%80%EB%B2%A8.cpp"
         },{
             "name" : "생일 축하 노래",
-            "url":"extern/asset/melody/elementary/생일 축하 노래.txt"
-            //  "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%83%9D%EC%9D%BC+%EC%B6%95%ED%95%98+%EB%85%B8%EB%9E%98.cpp"
+            "url":"extern/asset/melody/elementary/생일 축하 노래.txt",
+            "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%83%9D%EC%9D%BC+%EC%B6%95%ED%95%98+%EB%85%B8%EB%9E%98.cpp"
         },{
             "name" : "사랑의 인사",
-            "url":"extern/asset/melody/elementary/사랑의 인사.txt"
-            //  "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1.cpp"
+            "url":"extern/asset/melody/elementary/사랑의 인사.txt",
+            "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1.cpp"
         },{
             "name" : "슈베르트 송어",
-            "url":"extern/asset/melody/elementary/슈베르트 송어.txt"
-            //  "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%B2%E1%84%87%E1%85%A6%E1%84%85%E1%85%B3%E1%84%90%E1%85%B3+'%E1%84%89%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%A5'.cpp"
+            "url":"extern/asset/melody/elementary/슈베르트 송어.txt",
+            "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%B2%E1%84%87%E1%85%A6%E1%84%85%E1%85%B3%E1%84%90%E1%85%B3+'%E1%84%89%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%A5'.cpp"
+        },{
+            "name" : "멘델스존 '결혼 행진곡'",
+            "url":"extern/asset/melody/멘델스존 '결혼 행진곡'.txt"
+        },{
+            "name" : "모차르트 '터키 행진곡'",
+            "url":"extern/asset/melody/모차르트 '터키 행진곡'.txt"
+        },{
+            "name" : "바그너 '결혼 행진곡'",
+            "url":"extern/asset/melody/바그너 '결혼 행진곡'.txt"
+        },{
+            "name" : "베토벤 '엘리제를 위하여'",
+            "url":"extern/asset/melody/베토벤 '엘리제를 위하여'.txt"
+        },{
+            "name" : "비발디 사계 '봄'",
+            "url":"extern/asset/melody/비발디 사계 '봄'.txt"
+        },{
+            "name" : "와이만 '은파'",
+            "url":"extern/asset/melody/와이만 '은파'.txt"
+        },{
+            "name" : "요나손 '뻐꾹 왈츠'",
+            "url":"extern/asset/melody/요나손 '뻐꾹 왈츠'.txt"
         }]
     },
     {
