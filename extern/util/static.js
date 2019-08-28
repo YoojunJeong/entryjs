@@ -415,7 +415,7 @@ EntryStatic.defaultModiBlocks = [
             "url":"extern/asset/melody/elementary/사랑의 인사.txt",
             "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1.cpp"
         },{
-            "name" : "슈베르트 송어",
+            "name" : "슈베르트 '송어'",
             "url":"extern/asset/melody/elementary/슈베르트 송어.txt",
             "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%B2%E1%84%87%E1%85%A6%E1%84%85%E1%85%B3%E1%84%90%E1%85%B3+'%E1%84%89%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%A5'.cpp"
         },{
