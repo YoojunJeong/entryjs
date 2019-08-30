@@ -23,6 +23,7 @@ Entry.Playground = class {
         this.isTextBGMode_ = false;
         this.enableArduino = false;
         this._maxNameLength = 10;
+        
 
         /**
          * playground's current view type
@@ -45,6 +46,7 @@ Entry.Playground = class {
 
     createVideoPlayer () {
         let videoNum = 0;
+        let isPlayVideo = false;
         const guideList = this.mainWorkspace.guideList;
 
         // create video player
@@ -131,38 +133,43 @@ Entry.Playground = class {
 
         $("#play").on('click',()=>{
             $("#myVideo")[0].play();
+            isPlayVideo= true;
         })
 
         $("#replay").on('click',()=>{
             $("#myVideo")[0].play();
+            isPlayVideo= true;
         })
 
         $("#pause").on('click',()=>{
             $("#myVideo")[0].pause();
+            isPlayVideo= false;
         })
 
         $("#playerfullscreen").on('click',()=>{
-            if ($("#entryMenuTop")[0].requestFullscreen) {
-                $("#entryMenuTop")[0].requestFullscreen();
-            } else if ($("#entryMenuTop")[0].msRequestFullscreen) {
-                $("#entryMenuTop")[0].msRequestFullscreen();
-            } else if ($("#entryMenuTop")[0].mozRequestFullScreen) {
-                $("#entryMenuTop")[0].mozRequestFullScreen();
-            } else if ($("#entryMenuTop")[0].webkitRequestFullscreen) {
-                $("#entryMenuTop")[0].webkitRequestFullscreen();
-            }
+            
+            const currentTime =  $("#myVideo")[0].currentTime;
+            
+            const videoData =currentTime+'#'+isPlayVideo+"#"+videoNum;
+
+            window.android.setPlayerFullScreen(videoData);
+            $("#myVideo")[0].pause();
         })
 
         $("#playerminscreen").on('click',()=>{
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            }
+           const videoData = Entry.videoData;
+
+           const dataToken = videoData.split('#');
+           const currentTime = dataToken[0];
+           const isPlayVideo = dataToken[1];
+           const tempVideoNum = dataToken[2];
+
+           $("#myVideo")[0].currentTime = currentTime
+           videoNum = tempVideoNum
+
+           if(isPlayVideo) {
+            $("#myVideo")[0].play()
+           }
         })
 
         $(document).on('mozfullscreenchange webkitfullscreenchange fullscreenchange',()=>{

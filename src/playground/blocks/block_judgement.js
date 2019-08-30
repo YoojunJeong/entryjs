@@ -340,7 +340,7 @@ module.exports = {
                         type: 'Dropdown',
                         options: [
                             ['=', 'EQUAL'],
-                            ['!=', 'NOTEQUAL'],
+                            // ['!=', 'NOTEQUAL'],
                             ['>', 'GREATER'],
                             ['<', 'LESS'],
                             ['≥', 'GREATER_OR_EQUAL'],
@@ -400,20 +400,20 @@ module.exports = {
                         ],
                         type: 'boolean_basic_operator',
                     },
-                    {
-                        params: [
-                            {
-                                type: 'text',
-                                params: ['10'],
-                            },
-                            'NOTEQUAL',
-                            {
-                                type: 'text',
-                                params: ['10'],
-                            },
-                        ],
-                        type: 'boolean_basic_operator',
-                    },
+                    // {
+                    //     params: [
+                    //         {
+                    //             type: 'text',
+                    //             params: ['10'],
+                    //         },
+                    //         'NOTEQUAL',
+                    //         {
+                    //             type: 'text',
+                    //             params: ['10'],
+                    //         },
+                    //     ],
+                    //     type: 'boolean_basic_operator',
+                    // },
                     {
                         params: [
                             {
@@ -771,31 +771,10 @@ module.exports = {
                     ],
                     c: [
                         {
-                            syntax: '(%1 %2 %3)',
-                            template: '%1 %2 %3',
-                            blockType: 'param',
-                            textParams: [
-                                {
-                                    type: 'Block',
-                                    accept: 'boolean',
-                                },
-                                {
-                                    type: 'Dropdown',
-                                    options: [
-                                        [Lang.Blocks.JUDGEMENT_boolean_and, 'AND'],
-                                        [Lang.Blocks.JUDGEMENT_boolean_or, 'OR'],
-                                    ],
-                                    converter: Entry.block.converters.returnOperator,
-                                    value: 'AND',
-                                    fontSize: 11,
-                                },
-                                {
-                                    type: 'Block',
-                                    accept: 'boolean',
-                                },
-                            ],
+                            syntax: '(!%2)',
+                            template: '(!%2)',
                         },
-                    ],
+                    ], 
                 },
             },
         };
