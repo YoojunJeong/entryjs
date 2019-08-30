@@ -227,6 +227,14 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
+                    case 'boolean_not': {
+                        resultTextCode = Entry.TextCodingUtil.assembleBoolenNot(
+                            block,
+                            resultTextCode
+                        );
+                        break;
+                    }
+
                     case 'HW_BTN_VALUE' : {
                         
 

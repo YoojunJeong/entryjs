@@ -344,6 +344,7 @@ EntryStatic.defaultModiBlocks = [
         blocks: [
             'boolean_basic_operator',
             'boolean_and_or',
+            'boolean_not'
         ],
     },
     {

@@ -939,6 +939,64 @@ class TextCodingUtil {
         return result;
     }
 
+    assembleBoolenNot(block, syntax) {
+        
+        let result = '';
+        let option = '';
+        let optIndex = 0;
+
+        const blockToken = syntax.split(/(?=:)|[ ]/gi); // space 로 split 하되, : 도 자르지만 토큰에 포함
+        
+    
+        for (var i = 0; i < blockToken.length; i++) {
+            
+            if(blockToken[i] == 'and' || blockToken[i]=='or') {
+                option = blockToken[i];
+                optIndex = i;
+            }
+        }
+        
+
+        console.log("boolean_and_or blockToken : ", blockToken);
+        console.log("boolean_and_or option : ", option);
+
+        if (block.data.type === 'boolean_not') {
+
+            if (option == 'and') {
+              
+                const condition = '&&';
+                blockToken.splice(optIndex, 0, condition);
+                optIndex += 1;
+                blockToken.splice(optIndex, 1);
+
+                result = blockToken.join(' ').replace(' ( ', '(');
+                result = result.replace('( ', '(');
+                result = result.replace(' )', ')');
+
+                console.log("boolean_and_or result3 : ", result);
+                
+            } else if (option == 'or') {
+              
+                const condition = '||';
+                blockToken.splice(optIndex, 0, condition);
+                optIndex += 1;
+                blockToken.splice(optIndex, 1);
+
+                result = blockToken.join(' ').replace(' ( ', '(');
+                result = result.replace('( ', '(');
+                result = result.replace(' )', ')');
+            } else {
+                result = syntax;
+            }
+
+        } else {
+            result = syntax;
+        }
+
+        return result;
+
+    }
+
     assembleModiButtonValueBlock(block, syntax) {
 
         let result = '';

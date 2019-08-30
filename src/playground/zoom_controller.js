@@ -275,7 +275,7 @@ Entry.ZoomController = class ZoomController {
 
                 // console.log(Entry.module)
                 // console.log("binary")
-                // console.log(binary)
+                console.log(binary)
 
                 let binaryOutput = Interpreter.makeFrame(binary);
                 Entry.binaryOutput = binaryOutput.block
