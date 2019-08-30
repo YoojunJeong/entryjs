@@ -124,12 +124,6 @@ Entry.disableRemote = function() {
     
 }
 
-Entry.minScreen = function(videoData) {
-
-    let video = document.getElementById('myVideo');
-    
-}
-
 /**
  * Export project
  * @param {?Project} project

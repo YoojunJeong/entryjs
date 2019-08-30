@@ -13,7 +13,6 @@ global.Entry.binaryOutput = '';
 global.Entry.volume = '';
 global.Entry.guideList = undefined;
 global.Entry.modiList = [];
-global.Entry.videoData = '';
 
 require('core-js/fn/object/values');
 require('./graphicEngine/FakePIXI');

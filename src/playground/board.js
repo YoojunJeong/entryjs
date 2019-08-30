@@ -1121,8 +1121,6 @@ Entry.Board = class Board {
 
     adjustThreadsPosition() {
 
-        console.log('adjustThreadsPosition');
-
         const code = this.code;
         if (!code) {
             return;
@@ -1150,9 +1148,6 @@ Entry.Board = class Board {
 
             const adjustX = 100 +50 - x;
             const adjustY = 150 + 30 - y;
-
-            console.log('adjustX : ', adjustX, ' adjustY :', adjustY);
-            console.log(adjustY);
             // chris: 블록 시작 위치 수정
             this.scroller.scroll(adjustX,adjustY , true);
         }
