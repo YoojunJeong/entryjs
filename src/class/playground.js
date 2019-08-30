@@ -176,17 +176,19 @@ Entry.Playground = class {
 
     minScreen(videoData) {
 
-        
+       
         const dataToken = videoData.split('#');
 
         const currentTime = dataToken[0];
         const isPlayVideo = dataToken[1];
-        const videoNum = dataToken[2];
+        const videoNum = dataToken[2] * 1;
+
+
 
         const guideList = this.mainWorkspace.guideList;
 
         console.log('minScreen : ', guideList[videoNum].videoUrl)
-        $("#playlist").text(`[ ${videoNum+1} / ${guideList.length} ]`)
+        $("#playlist").text(`[ ${videoNum + 1} / ${guideList.length} ]`)
     
     
         $("#myVideo")[0].src = guideList[videoNum].videoUrl;
