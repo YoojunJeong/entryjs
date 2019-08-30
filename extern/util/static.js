@@ -180,7 +180,7 @@ EntryStatic.displayImage = {data:{},list:[]}
 EntryStatic.getImgDataFromImageUrl = function (source) {
     const {url, name} = source
     let img = new Image();
-    img.setAttribute('crossOrigin', 'anonymous');
+    // img.setAttribute('crossOrigin', 'anonymous');
     img.onload = function () {
         let canvas = document.createElement("canvas");
         canvas.width = this.width;
@@ -235,7 +235,7 @@ EntryStatic.getMelodyDataFromLocal = function(source) {
     const {url, name} = source
 
     let rawFile = new XMLHttpRequest();
-    rawFile.open("GET", url, false);
+    rawFile.open("GET", url, true);
     rawFile.onreadystatechange = function ()
     {
         if(rawFile.readyState === 4)
@@ -246,8 +246,10 @@ EntryStatic.getMelodyDataFromLocal = function(source) {
                 EntryStatic.speakerMelody.data[name]=allText
             }
         }
+
+        rawFile.send(null);
     }
-    rawFile.send(null);
+    // rawFile.send(null);
 }
 
 // JYJ - 사이드 메뉴 항목 설정
