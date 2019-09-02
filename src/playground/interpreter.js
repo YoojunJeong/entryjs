@@ -362,6 +362,9 @@ const Property = {
         sendData: 2,
         setBuzzer: 0x100,
         setCamera: 0x101,
+        getButtonClick: 0x102,
+        getButtonDoubleClick: 0x103,
+        getButtonToggle: 0x104,
     }
 };
 
