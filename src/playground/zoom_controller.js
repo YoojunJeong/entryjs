@@ -67,7 +67,7 @@ Entry.ZoomController = class ZoomController {
             x: 0,
             y: 3,
             width: 83,
-            height: 85,
+            height: 91,
             filter: 'url(#entryButtonShadowFilter)',
             style: 'cursor: pointer;',
         });
@@ -76,7 +76,7 @@ Entry.ZoomController = class ZoomController {
             x: 93,
             y: 3,
             width: 83,
-            height: 85,
+            height: 91,
             filter: 'url(#entryButtonShadowFilter)',
             style: 'cursor: pointer;',
             onClick :`window.android.uploadCode(${Entry.binaryOutput})`
@@ -87,7 +87,7 @@ Entry.ZoomController = class ZoomController {
             x: 181,
             y: 3,
             width: 83,
-            height: 85,
+            height: 91,
             filter: 'url(#entryButtonShadowFilter)',
             style: 'cursor: pointer;',
         });

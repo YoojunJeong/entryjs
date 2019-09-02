@@ -235,7 +235,8 @@ EntryStatic.getMelodyDataFromLocal = function(source) {
     const {url, name} = source
 
     let rawFile = new XMLHttpRequest();
-    rawFile.open("GET", url, true);
+    rawFile.open("GET", url, false);
+    debugger;
     rawFile.onreadystatechange = function ()
     {
         if(rawFile.readyState === 4)
@@ -305,10 +306,11 @@ EntryStatic.getAllBlocks = function() {
     if(melodyBlock && melodyBlock.blocks){
         melodyBlock = melodyBlock.blocks
         EntryStatic.speakerMelody.list = melodyBlock.map(el=>{
-            // EntryStatic.getMelodyDataFromUrl(el) //webserver에서 받아오기
-            EntryStatic.getMelodyDataFromLocal(el) //local에서 받아오기
+            EntryStatic.getMelodyDataFromUrl(el) //webserver에서 받아오기
+            // EntryStatic.getMelodyDataFromLocal(el) //local에서 받아오기
             return [el.name,el.name]
         })
+        console.log('EntryStatic.speakerMelody',EntryStatic.speakerMelody);
     }
 
     if(imgBlock && imgBlock.blocks){
