@@ -43,7 +43,7 @@ entryjs는 HTML Canvas와 오디오, 벡터 이미지등을 다루기 위해 몇
 <script type='text/javascript' src='${LIBDIR}/entryjs/dist/entry.min.js'>
 ```
 
-### entryjs 스타일시트
+### entryjs 스타일시트.
 블록 디자인과 관련된 기본적인 스타일들이 정의되어 있습니다.
 ```html
 <link rel='stylesheet'  href='${LIBDIR}/entryjs/dist/entry.css'>
