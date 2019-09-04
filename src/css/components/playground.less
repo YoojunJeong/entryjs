@@ -1409,14 +1409,22 @@
     }
 }
 
-@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+// @import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+@font-face {
+    font-family: 'NanumSquareRound';
+    font-weight: 800;
+    src: url(../../images/font/NanumSquareEB.eot);
+    src: url(../../images/font/NanumSquareEB.woff) format('woff'),
+         url(../../images/font/NanumSquareEB.ttf) format('truetype');
+}
+
 #videoPlayerShowBtnContainer {
     position: absolute;
     z-index: 0;
     display: none;
     top:-71px;
     left:-1px;
-    width: 450px;
+    width: 100%;
     #openIcon {
         position: absolute;
         top:77px;
@@ -1435,6 +1443,7 @@
         text-align: center;
         color: #773b07;
         font-family: 'NanumSquareRound',sans-serif;
+        font-display: fallback;
         font-weight: 800;
     }
 
@@ -1443,28 +1452,53 @@
     }
 }
 
-#videoPlayerShowBtnContainer.folding {
+#videoPlayerShowBtnContainer.disappear {
     .animation-duration(0.5s);
-    .animation-name(extinguishContainer);
+    .animation-name(disappearContainer);
     .animation-fill-mode(forwards);
 }
 
-@keyframes extinguishContainer {
+@keyframes disappearContainer {
     100% {opacity: 0;}
 }
 
-@-ms-keyframes extinguishContainer {
+@-ms-keyframes disappearContainer {
     100% {opacity: 0;}
 }
 
-@-moz-keyframes extinguishContainer {
+@-moz-keyframes disappearContainer {
     100% {opacity: 0;}
 }
 
-@-webkit-keyframes extinguishContainer {
+@-webkit-keyframes disappearContainer {
     100% {opacity: 0;}
 }
 
+#videoPlayerShowBtnContainer.appear {
+    .animation-duration(0.5s);
+    .animation-name(appearContainer);
+    .animation-fill-mode(forwards);
+}
+
+@keyframes appearContainer {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@-ms-keyframes appearContainer {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@-moz-keyframes appearContainer {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@-webkit-keyframes appearContainer {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
 
 video::-webkit-media-controls {
     display:none !important;

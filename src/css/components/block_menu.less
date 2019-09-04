@@ -5,51 +5,51 @@
     bottom: 0;
 }
 
-.entryWorkspaceBlockMenu.folding {
-    .animation-duration(0.7s);
-    .animation-name(foldInPlayer);
+.entryWorkspaceBlockMenu.moveUp {
+    .animation-duration(0.6s);
+    .animation-name(moveUp);
     .animation-fill-mode(forwards);
 }
 
-@keyframes foldInPlayer {
+@keyframes moveUp {
     from {}
     to {top: 67px;}
 }
 
-@-ms-keyframes foldInPlayer {
+@-ms-keyframes moveUp {
     from {}
     to {top: 67px;}
 }
 
-@-moz-keyframes foldInPlayer {
+@-moz-keyframes moveUp {
     from {}
     to {top: 67px;}
 }
 
-@-webkit-keyframes foldInPlayer {
+@-webkit-keyframes moveUp {
     from {}
     to {top: 67px;}
 }
 
-.entryWorkspaceBlockMenu.foldOut {
-    .animation-duration(0.7s);
-    .animation-name(foldOutplayer);
+.entryWorkspaceBlockMenu.moveDown {
+    .animation-duration(0.6s);
+    .animation-name(moveDown);
     .animation-fill-mode(forwards);
 }
 
-@keyframes foldOutplayer {
+@keyframes moveDown {
     from {top: 0px;}
 }
 
-@-ms-keyframes foldOutplayer {
+@-ms-keyframes moveDown {
     from {top: 0px;}
 }
 
-@-moz-keyframes foldOutplayer {
+@-moz-keyframes moveDown {
     from {top: 0px;}
 }
 
-@-webkit-keyframes foldOutplayer {
+@-webkit-keyframes moveDown {
     from {top: 0px;}
 }
 
@@ -204,6 +204,7 @@
     border-radius: 0 0 6px 6px;
     margin: 0;
     padding: 0;
+    top:-1px;
     -ms-overflow-style: none;  // IE 10+
     overflow: -moz-scrollbars-none;  // Firefox
 
