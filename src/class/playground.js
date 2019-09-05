@@ -183,18 +183,16 @@ Entry.Playground = class {
         const isPlayVideo = dataToken[1];
         const videoNum = dataToken[2] * 1;
 
-
-
         const guideList = this.mainWorkspace.guideList;
 
-        console.log('minScreen : ', guideList[videoNum].videoUrl)
+        console.log('isPlayVideo',isPlayVideo)
         $("#playlist").text(`[ ${videoNum + 1} / ${guideList.length} ]`)
     
     
         $("#myVideo")[0].src = guideList[videoNum].videoUrl;
        
     
-        if(isPlayVideo) {
+        if(isPlayVideo == 'true') {
             $("#myVideo")[0].play();
             $("#myVideo")[0].currentTime = currentTime;
         }
