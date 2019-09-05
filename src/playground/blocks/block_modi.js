@@ -1790,8 +1790,8 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'network0.setBuzzer(%1);',
-                        template: 'network0.setBuzzer(%1);',
+                        syntax: 'network0.setBuzzer(%1);\n\tsleep(50);',
+                        template: 'network0.setBuzzer(%1);\n\tsleep(50);',
                     },
                 ],
             }
