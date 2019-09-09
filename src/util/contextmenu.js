@@ -21,7 +21,7 @@ Entry.ContextMenu = {};
     };
 
     ctx.show = function(options, className, coordinate) {
-        return; // remove right click event
+        // return; // remove right click event
 
         if (!options.length) {
             return;

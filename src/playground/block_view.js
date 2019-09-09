@@ -25,6 +25,7 @@ Entry.BlockView = class BlockView {
     };
 
     constructor(block, board, mode) {
+
         const that = this;
         Entry.Model(this, false);
         this.block = block;
@@ -170,7 +171,6 @@ Entry.BlockView = class BlockView {
             class: 'blockPath',
             blockId: this.id,
         };
-
         const blockSchema = this._schema;
         const { outerLine } = blockSchema;
         pathStyle.stroke = outerLine || skeleton.outerLine;
@@ -187,6 +187,7 @@ Entry.BlockView = class BlockView {
         if (this._board.disableMouseEvent !== true) {
             this._addControl();
         }
+        // debugger;
 
         const guide = this.guideSvgGroup;
         guide && svgGroup.insertBefore(guide, svgGroup.firstChild);
@@ -1286,6 +1287,7 @@ Entry.BlockView = class BlockView {
 
     getDataUrl(notClone, notPng) {
         return new Promise((resolve, reject) => {
+
             const svgGroup = notClone ? this.svgGroup : this.svgGroup.cloneNode(true);
             const svgCommentGroup = notClone
                 ? this.svgCommentGroup
@@ -1321,7 +1323,7 @@ Entry.BlockView = class BlockView {
                 "'NanumGothic', 'NanumGothic', '나눔고딕','NanumGothicWeb', '맑은 고딕', 'Malgun Gothic', Dotum";
             const boldTypes = ['≥', '≤'];
             const notResizeTypes = ['≥', '≤', '-', '>', '<', '=', '+', '-', 'x', '/'];
-
+            debugger;
             _.toArray(texts).forEach((text) => {
                 text.setAttribute('font-family', fontFamily);
                 const size = parseInt(text.getAttribute('font-size'), 10);
@@ -1354,6 +1356,7 @@ Entry.BlockView = class BlockView {
                     });
             } else {
                 _.toArray(images).forEach((img) => {
+
                     const href = img.getAttribute('href');
                     this.loadImage(
                         href,
@@ -1361,10 +1364,12 @@ Entry.BlockView = class BlockView {
                         img.getAttribute('height'),
                         notPng
                     ).then((src) => {
+                        src = './images/'+src.split('/').pop()
                         img.setAttribute('href', src);
                         if (++counts == images.length) {
                             this.processSvg(svgGroup, scale, defs, notPng)
                                 .then((data) => {
+                                    console.log('png',data)
                                     resolve(data);
                                 })
                                 .catch((err) => {
@@ -1378,14 +1383,15 @@ Entry.BlockView = class BlockView {
     }
 
     downloadAsImage(i) {
-        this.getDataUrl().then((data) => {
+        this.getDataUrl(0,1).then((data) => {
+            console.log('downloadAsImage',data)
             const download = document.createElement('a');
             download.href = data.src;
             let name = '엔트리 블록';
             if (i) {
                 name += i;
             }
-            download.download = `${name}.png`;
+            download.download = `${name}.svg`;
             download.click();
         });
     }
@@ -1672,12 +1678,18 @@ Entry.BlockView = class BlockView {
             const bBox = this.svgGroup.getBoundingClientRect();
             svgData = svgData
                 .replace('(svgGroup)', new XMLSerializer().serializeToString(svgGroup))
-                .replace('%W', bBox.width * scale + 20)
+                .replace('%W', bBox.width * scale + 50)
                 .replace('%H', bBox.height * scale + 5)
                 .replace('(defs)', new XMLSerializer().serializeToString(defs[0]))
                 .replace(/>\s+/g, '>')
-                .replace(/\s+</g, '<');
+                .replace(/\s+</g, '<')
+                .replace(/alignment-baseline="middle"/g,'')
+                .replace(/xml:space="preserve"\s*/g,'')
+                .replace(/style="white-space: pre;"/g,'')
+                // .replace('style="white-space: pre;"','');
             let src = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svgData)))}`;
+            console.log('svg',svgData)
+            debugger;
             svgData = null;
             if (notPng) {
                 resolve({
@@ -1689,6 +1701,7 @@ Entry.BlockView = class BlockView {
             } else {
                 this.loadImage(src, bBox.width, bBox.height, notPng, 1.5).then(
                     (src) => {
+                        console.log('src',src)
                         svgGroup = null;
                         resolve({
                             src,
@@ -1707,13 +1720,18 @@ Entry.BlockView = class BlockView {
 
     loadImage(src, width, height, notPng, multiplier = 1) {
         return new Promise((resolve, reject) => {
+
+
+
+
+
             if (Entry.BlockView.pngMap[src] !== undefined) {
                 return resolve(Entry.BlockView.pngMap[src]);
             }
 
-            if (notPng) {
-                return resolve(src);
-            }
+            // if (notPng) {
+            //     return resolve(src);
+            // }
 
             width *= multiplier;
             height *= multiplier;
@@ -1730,7 +1748,17 @@ Entry.BlockView = class BlockView {
             const ctx = canvas.getContext('2d');
 
             img.onload = function() {
-                ctx.drawImage(img, 0, 0, width, height);
+                ctx.drawImage(img, 0, 0);
+                debugger
+            var s = new XMLSerializer().serializeToString(canvas)
+
+            var encodedData = window.btoa(s);
+
+            console.log("encodedData",encodedData)
+            return resolve(encodedData)
+
+            ctx.drawImage(img, 0, 0, width, height);
+
                 const data = canvas.toDataURL('image/png');
                 if (/\.png$/.test(src)) {
                     Entry.BlockView.pngMap[src] = data;
