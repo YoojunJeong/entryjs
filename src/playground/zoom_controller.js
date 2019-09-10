@@ -190,7 +190,7 @@ Entry.ZoomController = class ZoomController {
 
                 if(startBtnCount == 0) {
                     console.log('failUpload3');
-                    window.android.failUpload('내보내기 블록이 없어요. 내보내기 버튼을 넣어서 코딩해 주세요.');
+                    window.android.failUpload('블록 없이는 내보내기를 할 수 없어요.\n다시 코딩을 한 뒤 내보내기를 시도해 주세요.');
                     throw new Error('기본 코딩입니다.');
                 }
 
