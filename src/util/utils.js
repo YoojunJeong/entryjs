@@ -381,7 +381,7 @@ Entry.resizeElement = function(interfaceModel) {
         // 가로 기링에 따라 동영상 플레이어 사이즈 및 위치 수정
         if(Entry.guideList){
             $('.entryWorkspaceBlockMenu').css({top:`${menuWidth*285/427}px`})  //285
-            $('.entryMenuTop').css({top:`-${menuWidth*285/427}px`,height:`${menuWidth*285/427}px`})
+            $('.entryMenuTop').css({top:`-${(menuWidth*285/427)+0.6}px`,height:`${(menuWidth*285/427)+0.6}px`})
         }
 
         $('.entryWorkspaceBoard').css({ left: `${menuWidth + 20 }px` }); //`${menuWidth + 20 }px`
