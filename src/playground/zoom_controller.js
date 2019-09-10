@@ -252,7 +252,7 @@ Entry.ZoomController = class ZoomController {
                 }
 
                 // 코드
-                console.log(cOutput)
+                // console.log("cOutput",cOutput)
                 binary += `${cOutput}\n`;
                 binary += '}\n'
                 binary = binary.replace(/temp__/g, moduleList)
@@ -273,9 +273,18 @@ Entry.ZoomController = class ZoomController {
                     return accArr
                 },[]) // 중복 모듈 정리
 
-                // console.log(Entry.module)
-                // console.log("binary")
-                console.log(binary)
+                const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/
+                const emojiMatch = binary.match(emojiRegex)
+                
+                if(emojiMatch){
+                    Entry.toast.warning(
+                        '사용할 수 없는 문자열',
+                        `${emojiMatch[0]}이모티콘은 사용할 수 없어요!`
+                    );
+                    throw new Error(emojiMatch[0])
+                }
+
+                console.log("binary",binary)
 
                 let binaryOutput = Interpreter.makeFrame(binary);
                 Entry.binaryOutput = binaryOutput.block
