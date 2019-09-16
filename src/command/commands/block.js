@@ -86,7 +86,9 @@
             }
             if (thread) {
                 const block = thread.getFirstBlock();
-                block.destroy(true, true);
+                if(block){
+                    block.destroy(true, true);
+                }
             }
         },
         state(thread) {
