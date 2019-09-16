@@ -176,7 +176,7 @@ Entry.ZoomController = class ZoomController {
                         if(startBtnCount > 1) {
 
                             console.log('failUpload1');
-                             window.android.failUpload('<내보내기 블럭을 클릭했을 때>\n코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤\n내보내기를 다시 시도해 주세요.');
+                             window.android.failUpload('<내보내기 버튼을 클릭했을 때>\n코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤\n내보내기를 다시 시도해 주세요.');
                             throw new Error('코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤 내보내기를 다시 시도해 주세요.');
                         }
                     }         
@@ -190,7 +190,7 @@ Entry.ZoomController = class ZoomController {
 
                 if(startBtnCount == 0) {
                     console.log('failUpload3');
-                    window.android.failUpload('<내보내기 블럭을 클릭했을 때>\n블록 없이는 내보내기를 할 수 없어요.\n다시 코딩을 한 뒤 내보내기를 시도해 주세요.');
+                    window.android.failUpload('<내보내기 버튼을 클릭했을 때>\n블록 없이는 내보내기를 할 수 없어요.\n다시 코딩을 한 뒤 내보내기를 시도해 주세요.');
                     throw new Error('기본 코딩입니다.');
                 }
 
