@@ -50,19 +50,19 @@ Entry.Playground = class {
         const guideList = this.mainWorkspace.guideList;
 
         // create video player
-        $("#entryMenuTop").html(`<video autoplay width="100%" height="100%" preload="metadata" controlsList="nodownload" id="myVideo" src=${guideList[videoNum].videoUrl}></video>`); //controls 
+        $("#entryMenuTop").html(`<video autoplay width="100%" height="100%" preload="metadata" controlsList="nodownload" id="myVideo" src=${guideList[videoNum].videoUrl}#t=0,1></video>`); //controls 
         $("#entryMenuTop").css({'z-index':99, position:'absolute'})
         $("#myVideo").css({position:'absolute'})
         setTimeout(() => {
             $("#myVideo")[0].pause();            
-        }, 0);
+        }, 500);
 
         // create play list
         $("#entryMenuTop").append(`<div id="playlist"></div>`)
 
         // create video-controls
         $("#entryMenuTop").append(`<div id="video-controls"></div>`)
-        $("#video-controls").append(`<img src="./images/modi_invenact_btn_prev.svg" id="previous">`)
+        $("#video-controls").append(`<img src="./images/modi_invenact_btn_prev.svg" id="previous" display = "hidden">`)
         $("#video-controls").append(`<img src="./images/modi_invenact_btn_play.svg" id="play">`)
         $("#video-controls").append(`<img src="./images/modi_invenact_btn_replay.svg" id="replay">`)
         $("#video-controls").append(`<img src="./images/modi_invenact_btn_pause.svg" id="pause">`)            
@@ -75,14 +75,19 @@ Entry.Playground = class {
         $("#pause").hide();
         $("#replay").hide();
         $("#next_t").hide();
+    
+        document.getElementById("previous").style.visibility = "hidden";
+
+        if(videoNum == guideList.length - 1) {
+            $("#next").hide();
+        }
+    
         $("#playerminscreen").hide();
         updatePlayList();
 
         function updatePlayList(params) {
             $("#playlist").text(`[ ${videoNum+1} / ${guideList.length} ]`)
         }
-
-
 
         // createEvents
         function showPauseBtn() {
@@ -114,6 +119,10 @@ Entry.Playground = class {
                 $("#myVideo")[0].src = guideList[videoNum].videoUrl
                 $("#myVideo")[0].play();
                 showPlayBtn()
+
+                if(videoNum == 0) {
+                    document.getElementById("previous").style.visibility = "hidden";
+                }
             }
             $("#next").show();
             $("#next_t").hide();
@@ -124,6 +133,9 @@ Entry.Playground = class {
                 return
             } 
             videoNum++;
+
+            document.getElementById("previous").style.visibility = "visible";
+
             updatePlayList()
             $("#myVideo")[0].src = guideList[videoNum].videoUrl;
             $("#myVideo")[0].play();
