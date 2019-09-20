@@ -25,6 +25,7 @@ Entry.Playground = class {
         this._maxNameLength = 10;
         
 
+
         /**
          * playground's current view type
          * View types are 'default', 'code', 'picture', 'text', sound'
@@ -45,17 +46,18 @@ Entry.Playground = class {
     }
 
     createVideoPlayer () {
-        let videoNum = 0;
-        let isPlayVideo = false;
-        const guideList = this.mainWorkspace.guideList;
+    
+        global.Entry.videoNum = 0;
+        global.Entry.guideList = this.mainWorkspace.guideList;
 
         // create video player
-        $("#entryMenuTop").html(`<video autoplay width="100%" height="100%" preload="metadata" controlsList="nodownload" id="myVideo" src=${guideList[videoNum].videoUrl}#t=0,1></video>`); //controls 
+        $("#entryMenuTop").html(`<video autoplay width="100%" height="100%" preload="metadata" controlsList="nodownload" id="myVideo" src=${global.Entry.guideList[global.Entry.videoNum].videoUrl}#t=1></video>`); //controls 
         $("#entryMenuTop").css({'z-index':99, position:'absolute'})
         $("#myVideo").css({position:'absolute'})
+
         setTimeout(() => {
             $("#myVideo")[0].pause();            
-        }, 500);
+        }, 1000);
 
         // create play list
         $("#entryMenuTop").append(`<div id="playlist"></div>`)
@@ -78,7 +80,7 @@ Entry.Playground = class {
     
         document.getElementById("previous").style.visibility = "hidden";
 
-        if(videoNum == guideList.length - 1) {
+        if(global.Entry.videoNum == global.Entry.guideList.length - 1) {
             $("#next").hide();
         }
     
@@ -86,7 +88,20 @@ Entry.Playground = class {
         updatePlayList();
 
         function updatePlayList(params) {
-            $("#playlist").text(`[ ${videoNum+1} / ${guideList.length} ]`)
+
+            console.log('updatePlayList');
+            if(global.Entry.videoNum == 0) {
+                document.getElementById("previous").style.visibility = "hidden";
+            }
+
+            if (global.Entry.videoNum >= global.Entry.guideList.length-1) {
+                global.Entry.videoNum = global.Entry.guideList.length-1
+                $("#next").hide();
+                $("#next_t").show();
+            } 
+
+
+            $("#playlist").text(`[ ${global.Entry.videoNum+1} / ${global.Entry.guideList.length} ]`)
         }
 
         // createEvents
@@ -113,59 +128,54 @@ Entry.Playground = class {
         $("#myVideo").on('play',showPauseBtn)
         $("#myVideo").on('pause', showPlayBtn)
         $("#previous").on('click',()=>{
-            if(videoNum > 0){
-                videoNum--
+            if(global.Entry.videoNum > 0){
+                global.Entry.videoNum--
                 updatePlayList()
-                $("#myVideo")[0].src = guideList[videoNum].videoUrl
+                $("#myVideo")[0].src = global.Entry.guideList[global.Entry.videoNum].videoUrl
                 $("#myVideo")[0].play();
                 showPlayBtn()
 
-                if(videoNum == 0) {
-                    document.getElementById("previous").style.visibility = "hidden";
-                }
+               
             }
             $("#next").show();
             $("#next_t").hide();
         })
         
         $("#next").on('click',()=>{
-            if (videoNum >= guideList.length-1) {
+            if (global.Entry.videoNum >= global.Entry.guideList.length-1) {
                 return
             } 
-            videoNum++;
+            global.Entry.videoNum++;
 
             document.getElementById("previous").style.visibility = "visible";
 
             updatePlayList()
-            $("#myVideo")[0].src = guideList[videoNum].videoUrl;
+            $("#myVideo")[0].src = global.Entry.guideList[global.Entry.videoNum].videoUrl;
             $("#myVideo")[0].play();
             showPlayBtn()
-            if (videoNum >= guideList.length-1) {
-                $("#next").hide();
-                $("#next_t").show();
-            } 
+           
         })
 
         $("#play").on('click',()=>{
             $("#myVideo")[0].play();
-            isPlayVideo= true;
+            this.isPlayVideo= true;
         })
 
         $("#replay").on('click',()=>{
             $("#myVideo")[0].play();
-            isPlayVideo= true;
+            this.isPlayVideo= true;
         })
 
         $("#pause").on('click',()=>{
             $("#myVideo")[0].pause();
-            isPlayVideo= false;
+            this.isPlayVideo= false;
         })
 
         $("#playerfullscreen").on('click',()=>{
             
-            const currentTime =  $("#myVideo")[0].currentTime;
+            global.Entry.currentTime =  $("#myVideo")[0].currentTime;
             
-            const videoData =currentTime+'#'+isPlayVideo+"#"+videoNum;
+            const videoData =global.Entry.currentTime+'#'+global.Entry.isPlayVideo+"#"+global.Entry.videoNum;
 
             window.android.setPlayerFullScreen(videoData);
             $("#myVideo")[0].pause();
@@ -187,29 +197,55 @@ Entry.Playground = class {
                 $("#playerfullscreen").show();  
             }
         })
+
+        $("#myVideo")[0].play();
     }
 
     minScreen(videoData) {
 
        
         const dataToken = videoData.split('#');
+        const isPlayMin = dataToken[1];
 
-        const currentTime = dataToken[0];
-        const isPlayVideo = dataToken[1];
-        const videoNum = dataToken[2] * 1;
+        global.Entry.currentTime = dataToken[0] * 1;
+        global.Entry.videoNum = dataToken[2] * 1;
 
-        const guideList = this.mainWorkspace.guideList;
-
-        console.log('isPlayVideo',isPlayVideo)
-        $("#playlist").text(`[ ${videoNum + 1} / ${guideList.length} ]`)
+        console.log(isPlayMin)
+        console.log(global.Entry.currentTime)
+        console.log(global.Entry.videoNum)
+        // $("#playlist").text(`[ ${videoNum + 1} / ${guideList.length} ]`)
     
-    
-        $("#myVideo")[0].src = guideList[videoNum].videoUrl;
+        $("#myVideo")[0].src = global.Entry.guideList[global.Entry.videoNum].videoUrl;
+
+        if(global.Entry.videoNum == 0) {
+            document.getElementById("previous").style.visibility = "hidden";
+        }
+
+        else {
+            document.getElementById("previous").style.visibility = "visible";
+        }
+
+        if (global.Entry.videoNum >= global.Entry.guideList.length-1) {
+            global.Entry.videoNum = global.Entry.guideList.length-1
+            $("#next").hide();
+            $("#next_t").show();
+        } 
+
+
+        $("#playlist").text(`[ ${global.Entry.videoNum+1} / ${global.Entry.guideList.length} ]`)
+        
        
     
-        if(isPlayVideo == 'true') {
+        if(isPlayMin == 'true') {
+            global.Entry.isPlayVideo = true;
             $("#myVideo")[0].play();
-            $("#myVideo")[0].currentTime = currentTime;
+            $("#myVideo")[0].currentTime = global.Entry.currentTime;
+        }
+
+        else {
+            global.Entry.isPlayVideo = false;
+            $("#myVideo")[0].pause();
+            $("#myVideo")[0].currentTime = global.Entry.currentTime;
         }
         
     }
@@ -265,6 +301,7 @@ Entry.Playground = class {
      */
     generateView(playgroundView, option = 'workspace') {
         /** @type {!Element} */
+    
         this.view_ = playgroundView;
         this.view_.addClass('entryPlayground');
         if (option === 'workspace') {
@@ -532,11 +569,10 @@ Entry.Playground = class {
             this.generateSoundView(soundView);
             this.soundView_ = soundView;
 
-
+          
             // JYJ - jquery는 여기에
             this.createVideoPlayer();
             $(".engineContainer").hide();
-            
         }
     }
 

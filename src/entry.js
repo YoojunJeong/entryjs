@@ -14,6 +14,12 @@ global.Entry.volume = '';
 global.Entry.guideList = undefined;
 global.Entry.modiList = [];
 
+global.Entry.guideList = []; 
+global.Entry.videoNum = 0;
+global.Entry.isPlayVideo = false;
+global.Entry.currentTime = 0;
+
+
 require('core-js/fn/object/values');
 require('./graphicEngine/FakePIXI');
 require('./css/entry.less');
