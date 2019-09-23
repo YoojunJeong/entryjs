@@ -217,7 +217,9 @@ EntryStatic.getImgDataFromImageUrl = function (source) {
 }
 
 EntryStatic.getMelodyDataFromMobile = function () {
-    EntryStatic.speakerMelody.data = global.Entry.melodyList
+
+    
+    EntryStatic.speakerMelody.data = JSON.parse(Entry.melodyList);
     EntryStatic.speakerMelody.list = Object.keys(EntryStatic.speakerMelody.data).map(el => {
         console.log(el)
         return [el, el]
@@ -311,7 +313,7 @@ EntryStatic.getAllBlocks = function () {
             return el
         })
 
-    if (global.Entry.melodyList) {
+    if (Entry.melodyList) {
         EntryStatic.getMelodyDataFromMobile()
         // melodyBlock = melodyBlock.blocks
         // EntryStatic.speakerMelody.list = melodyBlock.map(el=>{
