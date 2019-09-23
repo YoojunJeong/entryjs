@@ -173,12 +173,12 @@ EntryStatic.categoryProjectOption = [
     },
 ];
 
-EntryStatic.speakerMelody = {data:{},list:[]}
+EntryStatic.speakerMelody = { data: {}, list: [] }
 
-EntryStatic.displayImage = {data:{},list:[]}
+EntryStatic.displayImage = { data: {}, list: [] }
 
 EntryStatic.getImgDataFromImageUrl = function (source) {
-    const {url, name} = source
+    const { url, name } = source
     let img = new Image();
     // img.setAttribute('crossOrigin', 'anonymous');
     img.onload = function () {
@@ -192,14 +192,14 @@ EntryStatic.getImgDataFromImageUrl = function (source) {
 
         let gray_data = [];
         for (let i = 0; i < imgData.data.length; i += 4) {
-        let gray = imgData.data[i + 3];
-        gray_data.push(gray)
+            let gray = imgData.data[i + 3];
+            gray_data.push(gray)
         }
 
         let binary_data = [];
         for (let i = 0; i < gray_data.length; i++) {
-        let bin = gray_data[i] > 90 ? 1 : 0;
-        binary_data.push(bin);
+            let bin = gray_data[i] > 90 ? 1 : 0;
+            binary_data.push(bin);
         }
 
         let modi_display_data = [];
@@ -216,35 +216,43 @@ EntryStatic.getImgDataFromImageUrl = function (source) {
     img.src = url;
 }
 
-EntryStatic.getMelodyDataFromUrl = function(source) {
-    const {remoteUrl, name} = source
+EntryStatic.getMelodyDataFromMobile = function () {
+    EntryStatic.speakerMelody.data = global.Entry.melodyList
+    EntryStatic.speakerMelody.list = Object.keys(EntryStatic.speakerMelody.data).map(el => {
+        console.log(el)
+        return [el, el]
+    })
+
+    console.log('getMelodyDataFromMobile1', EntryStatic.speakerMelody.data)
+    console.log('getMelodyDataFromMobile2', EntryStatic.speakerMelody.list)
+}
+
+EntryStatic.getMelodyDataFromUrl = function (source) {
+    const { remoteUrl, name } = source
     $.ajax({
         url: remoteUrl,
         type: "GET",
     })
-    .done(function(json) {
-        EntryStatic.speakerMelody.data[name]=json
-    })
-    .fail(function(xhr, status, errorThrown) {
-        console.log('fail', xhr, status, errorThrown)
-        //TODO: 멜로디 다운 안될 경우 처리
-    })
+        .done(function (json) {
+            EntryStatic.speakerMelody.data[name] = json
+        })
+        .fail(function (xhr, status, errorThrown) {
+            console.log('fail', xhr, status, errorThrown)
+            //TODO: 멜로디 다운 안될 경우 처리
+        })
 }
 
-EntryStatic.getMelodyDataFromLocal = function(source) {
-    const {url, name} = source
+EntryStatic.getMelodyDataFromLocal = function (source) {
+    const { url, name } = source
 
     let rawFile = new XMLHttpRequest();
     rawFile.open("GET", url, false);
     debugger;
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
+    rawFile.onreadystatechange = function () {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
                 var allText = rawFile.responseText;
-                EntryStatic.speakerMelody.data[name]=allText
+                EntryStatic.speakerMelody.data[name] = allText
             }
         }
 
@@ -254,11 +262,11 @@ EntryStatic.getMelodyDataFromLocal = function(source) {
 }
 
 // JYJ - 사이드 메뉴 항목 설정
-EntryStatic.getAllBlocks = function() {
+EntryStatic.getAllBlocks = function () {
     let blocks = EntryStatic.defaultModiBlocks
 
     let moduleList;
-    if (Entry.modiList && Entry.modiList.length ) {
+    if (Entry.modiList && Entry.modiList.length) {
         console.log('getAllBlocks if', Entry.modiList)
         moduleList = Entry.modiList //["BATTERY", "BUTTON", "IR", "LED"]
     } else {
@@ -268,8 +276,8 @@ EntryStatic.getAllBlocks = function() {
 
     // console.log('getAllBlocks moduleList', moduleList)
     let HwBlocks = []
-    moduleList.forEach( moduleItem => {
-        if(moduleItem !="NETWORK") {
+    moduleList.forEach(moduleItem => {
+        if (moduleItem != "NETWORK") {
             HwBlocks = HwBlocks.concat(EntryStatic.moduleToBlocks[moduleItem])
         }
 
@@ -286,38 +294,39 @@ EntryStatic.getAllBlocks = function() {
 
     console.log('getAllBlocks HwBlocks : ', HwBlocks)
 
-    blocks.push({category:'arduino',blocks:HwBlocks})
+    blocks.push({ category: 'arduino', blocks: HwBlocks })
     // blocks.push(EntryStatic.moduleToBlocks["NETWORK"])
 
-    console.log('getAllBlocks blocks:HwBlocks : ', {category:'arduino',blocks:HwBlocks})
+    console.log('getAllBlocks blocks:HwBlocks : ', { category: 'arduino', blocks: HwBlocks })
     console.log('getAllBlocks blocks : ', blocks)
-    
-    let melodyBlock = blocks.filter( el => (el.category === "CONTENTS_MELODY_BASIC"))[0]
-    let imgBlock = blocks.filter( el => (el.category === "CONTENTS_IMG_BASIC"))[0]
-    let modiBlocks = blocks
-                    .filter( el => (el.category !== "CONTENTS_MELODY_BASIC" && el.category !== "CONTENTS_IMG_BASIC"))
-                    .map( el => {
-                        if(el.category === "HW"){
-                            el.category = 'arduino'
-                        } 
-                        return el
-                    })
 
-    if(melodyBlock && melodyBlock.blocks){
-        melodyBlock = melodyBlock.blocks
-        EntryStatic.speakerMelody.list = melodyBlock.map(el=>{
-            EntryStatic.getMelodyDataFromUrl(el) //webserver에서 받아오기
-            // EntryStatic.getMelodyDataFromLocal(el) //local에서 받아오기
-            return [el.name,el.name]
+    let melodyBlock = blocks.filter(el => (el.category === "CONTENTS_MELODY_BASIC"))[0]
+    let imgBlock = blocks.filter(el => (el.category === "CONTENTS_IMG_BASIC"))[0]
+    let modiBlocks = blocks
+        .filter(el => (el.category !== "CONTENTS_MELODY_BASIC" && el.category !== "CONTENTS_IMG_BASIC"))
+        .map(el => {
+            if (el.category === "HW") {
+                el.category = 'arduino'
+            }
+            return el
         })
-        console.log('EntryStatic.speakerMelody',EntryStatic.speakerMelody);
+
+    if (global.Entry.melodyList) {
+        EntryStatic.getMelodyDataFromMobile()
+        // melodyBlock = melodyBlock.blocks
+        // EntryStatic.speakerMelody.list = melodyBlock.map(el=>{
+        //     EntryStatic.getMelodyDataFromUrl(el) //webserver에서 받아오기
+        //     // EntryStatic.getMelodyDataFromLocal(el) //local에서 받아오기
+        //     return [el.name,el.name]
+        // })
+        console.log('EntryStatic.speakerMelody', EntryStatic.speakerMelody);
     }
 
-    if(imgBlock && imgBlock.blocks){
+    if (imgBlock && imgBlock.blocks) {
         imgBlock = imgBlock.blocks
-        EntryStatic.displayImage.list = imgBlock.map(el=>{
+        EntryStatic.displayImage.list = imgBlock.map(el => {
             EntryStatic.getImgDataFromImageUrl(el)
-            return [el.name,el.name]
+            return [el.name, el.name]
         })
     }
 
@@ -402,69 +411,69 @@ EntryStatic.defaultModiBlocks = [
     //     ]
     // }, 
     {
-        "category" : "CONTENTS_MELODY_BASIC",
-        "blocks" : [ {
-            "name" : "반짝반짝 작은별",
-            "url":"extern/asset/melody/elementary/반짝반짝 작은별.txt",
-            "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EB%B0%98%EC%A7%9D%EB%B0%98%EC%A7%9D+%EC%9E%91%EC%9D%80%EB%B3%84.cpp"
+        "category": "CONTENTS_MELODY_BASIC",
+        "blocks": [{
+            "name": "반짝반짝 작은별",
+            "url": "extern/asset/melody/elementary/반짝반짝 작은별.txt",
+            "remoteUrl": "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EB%B0%98%EC%A7%9D%EB%B0%98%EC%A7%9D+%EC%9E%91%EC%9D%80%EB%B3%84.cpp"
         }, {
-            "name" : "징글벨",
-            "url":"extern/asset/melody/elementary/징글벨.txt",
-            "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%A7%95%EA%B8%80%EB%B2%A8.cpp"
-        },{
-            "name" : "생일 축하 노래",
-            "url":"extern/asset/melody/elementary/생일 축하 노래.txt",
-            "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%83%9D%EC%9D%BC+%EC%B6%95%ED%95%98+%EB%85%B8%EB%9E%98.cpp"
-        },{
-            "name" : "사랑의 인사",
-            "url":"extern/asset/melody/elementary/사랑의 인사.txt",
-            "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1.cpp"
-        },{
-            "name" : "슈베르트 '송어'",
-            "url":"extern/asset/melody/elementary/슈베르트 송어.txt",
-            "remoteUrl" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%B2%E1%84%87%E1%85%A6%E1%84%85%E1%85%B3%E1%84%90%E1%85%B3+'%E1%84%89%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%A5'.cpp"
-        },{
-            "name" : "멘델스존 '결혼 행진곡'",
-            "url":"extern/asset/melody/멘델스존 '결혼 행진곡'.txt"
-        },{
-            "name" : "모차르트 '터키 행진곡'",
-            "url":"extern/asset/melody/모차르트 '터키 행진곡'.txt"
-        },{
-            "name" : "바그너 '결혼 행진곡'",
-            "url":"extern/asset/melody/바그너 '결혼 행진곡'.txt"
-        },{
-            "name" : "베토벤 '엘리제를 위하여'",
-            "url":"extern/asset/melody/베토벤 '엘리제를 위하여'.txt"
-        },{
-            "name" : "비발디 사계 '봄'",
-            "url":"extern/asset/melody/비발디 사계 '봄'.txt"
-        },{
-            "name" : "와이만 '은파'",
-            "url":"extern/asset/melody/와이만 '은파'.txt"
-        },{
-            "name" : "요나손 '뻐꾹 왈츠'",
-            "url":"extern/asset/melody/요나손 '뻐꾹 왈츠'.txt"
+            "name": "징글벨",
+            "url": "extern/asset/melody/elementary/징글벨.txt",
+            "remoteUrl": "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%A7%95%EA%B8%80%EB%B2%A8.cpp"
+        }, {
+            "name": "생일 축하 노래",
+            "url": "extern/asset/melody/elementary/생일 축하 노래.txt",
+            "remoteUrl": "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%EC%83%9D%EC%9D%BC+%EC%B6%95%ED%95%98+%EB%85%B8%EB%9E%98.cpp"
+        }, {
+            "name": "사랑의 인사",
+            "url": "extern/asset/melody/elementary/사랑의 인사.txt",
+            "remoteUrl": "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B4+%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1.cpp"
+        }, {
+            "name": "슈베르트 '송어'",
+            "url": "extern/asset/melody/elementary/슈베르트 송어.txt",
+            "remoteUrl": "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/melody/%ED%95%98/%E1%84%89%E1%85%B2%E1%84%87%E1%85%A6%E1%84%85%E1%85%B3%E1%84%90%E1%85%B3+'%E1%84%89%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%A5'.cpp"
+        }, {
+            "name": "멘델스존 '결혼 행진곡'",
+            "url": "extern/asset/melody/멘델스존 '결혼 행진곡'.txt"
+        }, {
+            "name": "모차르트 '터키 행진곡'",
+            "url": "extern/asset/melody/모차르트 '터키 행진곡'.txt"
+        }, {
+            "name": "바그너 '결혼 행진곡'",
+            "url": "extern/asset/melody/바그너 '결혼 행진곡'.txt"
+        }, {
+            "name": "베토벤 '엘리제를 위하여'",
+            "url": "extern/asset/melody/베토벤 '엘리제를 위하여'.txt"
+        }, {
+            "name": "비발디 사계 '봄'",
+            "url": "extern/asset/melody/비발디 사계 '봄'.txt"
+        }, {
+            "name": "와이만 '은파'",
+            "url": "extern/asset/melody/와이만 '은파'.txt"
+        }, {
+            "name": "요나손 '뻐꾹 왈츠'",
+            "url": "extern/asset/melody/요나손 '뻐꾹 왈츠'.txt"
         }]
     },
     {
-        "category" : "CONTENTS_IMG_BASIC",
-        "blocks" : [ {
-            "name" : "Welcome",
+        "category": "CONTENTS_IMG_BASIC",
+        "blocks": [{
+            "name": "Welcome",
             "url": 'extern/asset/img/elementary/welcome_1.png'
-        //   "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/welcome_1.png"
+            //   "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/welcome_1.png"
         }, {
-            "name" : "REDPEN",
+            "name": "REDPEN",
             "url": 'extern/asset/img/elementary/redpen_2.png'
-        //   "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/redpen_2.png"
-        },{
-            "name" : "Coding",
+            //   "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/redpen_2.png"
+        }, {
+            "name": "Coding",
             "url": 'extern/asset/img/elementary/coding_3.png'
-        //  "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/coding_3.png"
-        } ]
+            //  "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/coding_3.png"
+        }]
     },
 ];
 
-EntryStatic.defaultModiList =  [
+EntryStatic.defaultModiList = [
     "DIAL",
     "BUTTON",
     "IR",
@@ -477,38 +486,38 @@ EntryStatic.defaultModiList =  [
 EntryStatic.NetworkModule = ["NETWORK"]
 
 EntryStatic.moduleToBlocks = {
-    DIAL : [
+    DIAL: [
         'HW_DIAL_VALUE',
     ],
-    BUTTON : [
+    BUTTON: [
         'HW_BTN_VALUE',
         'HW_BTN_MENU',
         'HW_BTN_JUDGEMENT',
     ],
-    IR : [
+    IR: [
         'HW_IR_VALUE',
     ],
-    MOTOR:[
+    MOTOR: [
         'HW_MOTOR_BOTH',
     ],
-    LED:[
+    LED: [
         'HW_LED_OFF',
         'HW_LED_CUSTOM',
         'HW_LED_BASIC',
     ],
-    SPEAKER : [
+    SPEAKER: [
         'HW_SPEAKER_OFF',
         'HW_SPEAKER_TUNE',
         'HW_SPEAKER_MELODY',
     ],
-    DISPLAY : [
+    DISPLAY: [
         'HW_DISPLAY_TEXT',
         'HW_DISPLAY_DATA',
         'HW_DISPLAY_IMAGE',
         'HW_DISPLAY_RESET',
         'HW_DISPLAY_MOVE',
     ],
-    NETWORK : [
+    NETWORK: [
         'HW_NETWORK_BTN',
         'HW_NETWORK_BTN_MENU',
         'HW_NETWORK_BTN_JUDGEMENT',
@@ -662,7 +671,7 @@ EntryStatic.artPeriodOptions = [
     },
 ];
 
-EntryStatic.getCategoryByBlock = function(blockName) {
+EntryStatic.getCategoryByBlock = function (blockName) {
     if (!blockName) {
         return false;
     }
@@ -712,7 +721,7 @@ EntryStatic.objectSubCategories = {
 };
 
 Object.defineProperty(EntryStatic, 'fonts', {
-    get: function() {
+    get: function () {
         return [
             {
                 name: Lang.Fonts.batang,
@@ -867,12 +876,12 @@ EntryStatic.colorSet = {
             //Not guided emphasize color for EXPANSION
         },
         modi: {
-            OUTPUT : '#ff9100',
-            OUTPUT_OUTLINE : '#f46300',
-            INPUT : '#7873f0',
-            INPUT_OUTLINE : '#5959c9',
-            SETUP : '#ffbc00',
-            SETUP_OUTLINE : '#f97c00',
+            OUTPUT: '#ff9100',
+            OUTPUT_OUTLINE: '#f46300',
+            INPUT: '#7873f0',
+            INPUT_OUTLINE: '#5959c9',
+            SETUP: '#ffbc00',
+            SETUP_OUTLINE: '#f97c00',
         }
     },
     common: {
@@ -901,7 +910,7 @@ EntryStatic.COMMAND_TYPES = {
     redo: 303,
 };
 
-EntryStatic.getQuestionCategoryData = function() {
+EntryStatic.getQuestionCategoryData = function () {
     return {
         category: 'dummy',
         blocks: [

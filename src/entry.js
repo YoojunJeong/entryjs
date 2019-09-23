@@ -14,7 +14,7 @@ global.Entry.volume = '';
 global.Entry.guideList = undefined;
 global.Entry.modiList = [];
 global.Entry.mode = '';
-global.Entry.melodyList = {};
+global.Entry.melodyList = undefined;
 
 global.Entry.videoNum = 0;
 global.Entry.isPlayVideo = false;
