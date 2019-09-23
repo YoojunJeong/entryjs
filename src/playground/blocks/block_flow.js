@@ -166,8 +166,8 @@ module.exports = {
 
                     c: [
                         {
-                            syntax:'for(int i = 0; i < %1; i++)\n{\n$1\n}',
-                            template: 'for(int i = 0; i < %1; i++)\n{\n}',
+                            syntax:'for(int i = 0; i < %1; i++)\n{\n$1\nsleep(1);\n}',
+                            template: 'for(int i = 0; i < %1; i++)\n{\nsleep(1);\n}',
                             idChar: ['i', 'j', 'k'],
                            
                         },
@@ -235,8 +235,8 @@ module.exports = {
                     ],
 
                     c: [ {
-                        syntax: 'while(true)\n{\n$1\n}',
-                        template: 'while(%2)\n{\n}',
+                        syntax: 'while(true)\n{\n$1\nsleep(1);\n}',
+                        template: 'while(%2)\n{\nsleep(1);\n}',
                         textParams: [
                             undefined,
                             {
@@ -329,8 +329,8 @@ module.exports = {
                     ],
                     c: [
                         {
-                            syntax: 'while( %1 %2 )\n{\n$1\n}',
-                            template: 'while( %1 %2 )\n{\n}',
+                            syntax: 'while( %1 %2 )\n{\n$1\nsleep(1);\n}',
+                            template: 'while( %1 %2 )\n{\nsleep(1);\n}',
                         },
                     ],
                 },
