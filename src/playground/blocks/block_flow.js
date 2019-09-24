@@ -166,8 +166,8 @@ module.exports = {
 
                     c: [
                         {
-                            syntax:'for(int i = 0; i < %1; i++)\n{\n$1\n}\nsleep(1);\n',
-                            template: 'for(int i = 0; i < %1; i++)\n{\n}\nsleep(1);\n',
+                            syntax:'for(int i = 0; i < %1; i++)\n{\n$1\n}\nsleep(3);\n',
+                            template: 'for(int i = 0; i < %1; i++)\n{\n}\nsleep(3);\n',
                             idChar: ['i', 'j', 'k'],
                            
                         },
@@ -235,8 +235,8 @@ module.exports = {
                     ],
 
                     c: [ {
-                        syntax: 'while(true)\n{\n$1\n}\nsleep(1);\n',
-                        template: 'while(%2)\n{\n}\nsleep(1);\n',
+                        syntax: 'while(true)\n{\n$1\n}\nsleep(3);\n',
+                        template: 'while(%2)\n{\n}\nsleep(3);\n',
                         textParams: [
                             undefined,
                             {
@@ -329,8 +329,8 @@ module.exports = {
                     ],
                     c: [
                         {
-                            syntax: 'while( %1 %2 )\n{\n$1\n}\nsleep(1);\n',
-                            template: 'while( %1 %2 )\n{\n}\nsleep(1);\n',
+                            syntax: 'while( %1 %2 )\n{\n$1\n}\nsleep(3);\n',
+                            template: 'while( %1 %2 )\n{\n}\nsleep(3);\n',
                         },
                     ],
                 },
@@ -588,8 +588,8 @@ module.exports = {
                     py: ['Entry.wait_until(%1)'], 
                     c: [
                         {
-                            syntax: 'while(%1 == 0)\n{\n}\nsleep(1);\n',
-                            template: 'while(%1 == 0)\n{\n}s\nleep(1);\n',
+                            syntax: 'while(%1 == 0)\n{\n}\nsleep(3);\n',
+                            template: 'while(%1 == 0)\n{\n}s\nleep(3);\n',
                         },
                     ], 
                 },
