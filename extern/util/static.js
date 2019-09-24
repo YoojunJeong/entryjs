@@ -219,7 +219,7 @@ EntryStatic.getImgDataFromImageUrl = function (source) {
 EntryStatic.getMelodyDataFromMobile = function () {
 
     
-    EntryStatic.speakerMelody.data = JSON.parse(Entry.melodyList);
+    EntryStatic.speakerMelody.data = Entry.melodyList;
     EntryStatic.speakerMelody.list = Object.keys(EntryStatic.speakerMelody.data).map(el => {
         console.log(el)
         return [el, el]

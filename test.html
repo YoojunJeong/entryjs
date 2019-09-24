@@ -35,9 +35,8 @@
 <script src="./extern/blockly/msg/js/ko.js"></script> -->
 
 <!--react-->
-<script crossorigin src="../libs/react.production.min.js"></script>
-<script crossorigin
-        src="../libs/react-dom.production.min.js"
+<script  src="../libs/react.production.min.js"></script>
+<script  src="../libs/react-dom.production.min.js"
 ></script>
 
 <!--createjs-->
@@ -71,22 +70,24 @@
 <!--<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>-->
 <!--<script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>-->
 <!--<% } %>-->
- <script src="./dist/entry.js"></script>
- <script src="./extern/util/static.js"></script>
+<script src="./dist/entry.js"></script>
+<script src="./extern/util/static.js"></script>
 
 <!--main script-->
 <script>
+
                 window.PUBLIC_PATH_FOR_ENTRYJS = './dist/';
+                var melodyList = {};
+                function loadProject(project, mode, volume, guideList, modiList) {
 
-                function loadProject(project, volume, guideList, modiList) {
-
-                <!--console.log('html modiData.volume', volume);-->
-                <!--console.log('html modiData.guideList', guideList);-->
-                <!--console.log('html modiData.modiList', modiList);-->
+                console.log('modiList');
+                console.log(modiList);
 
                 Entry.volume = volume;
                 Entry.guideList= guideList;
                 Entry.modiList= modiList;
+                Entry.mode = mode;
+                Entry.melodyList = melodyList;
 
 
                     if(project != null) {
@@ -115,7 +116,26 @@
                 }
 
 
-                 function setConnectModule(module) {
+                function setMelody(...rest) {
+
+                console.log('setMelody');
+
+                console.log('setMelody rest',rest);
+
+                    rest.forEach((str)=>{
+                        let obj = JSON.parse(str)
+                        for(let key in obj){
+                            console.log(key, obj[key],obj,melodyList)
+                            melodyList[key] = obj[key]
+                            console.log(melodyList)
+                        }
+
+
+                    })
+
+                }
+
+                function setConnectModule(module) {
 
                    let result = '';
                    const moduleToken = module.split('?');
@@ -146,6 +166,10 @@
 
                  function clearProject() {
                     Entry.clearProject()
+                 }
+
+                 function minScreen(data) {
+                    Entry.playground.minScreen(data)
                  }
 
             </script>

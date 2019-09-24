@@ -16,20 +16,6 @@ global.Entry.modiList = [];
 global.Entry.mode = '';
 global.Entry.melodyList = undefined;
 
-Entry.melodyList1 = undefined;
-Entry.melodyList2 = undefined;
-Entry.melodyList3 = undefined;
-Entry.melodyList4 = undefined;
-Entry.melodyList5 = undefined;
-Entry.melodyList6 = undefined;
-Entry.melodyList7 = undefined;
-Entry.melodyList8 = undefined;
-Entry.melodyList9 = undefined;
-Entry.melodyList10 = undefined;
-Entry.melodyList11 = undefined;
-Entry.melodyList12 = undefined;
-
-
 global.Entry.videoNum = 0;
 global.Entry.isPlayVideo = false;
 global.Entry.currentTime = 0;
