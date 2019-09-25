@@ -302,9 +302,14 @@ Entry.ZoomController = class ZoomController {
                 if(unconnectedModules.length){
                     console.log('unconnectedModules')
                     console.log(unconnectedModules)
-                
-                    if(window.android){
-                        window.android.checkModules(unconnectedModules) // app에 리스트를 전달
+
+                    if(unconnectedModules.length == 1 && unconnectedModules[0] == '0') {
+                        console.log('unconnectedModules == 0')
+                        window.android.uploadCode(binaryOutput.block);
+                    }
+                        
+                    else {
+                        window.android.checkModules(JSON.stringify(unconnectedModules)) // app에 리스트를 전달
                     }
                 } else {
 

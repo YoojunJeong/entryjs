@@ -221,12 +221,12 @@ EntryStatic.getMelodyDataFromMobile = function () {
     
     EntryStatic.speakerMelody.data = Entry.melodyList;
     EntryStatic.speakerMelody.list = Object.keys(EntryStatic.speakerMelody.data).map(el => {
-        console.log(el)
+        
         return [el, el]
     })
 
-    console.log('getMelodyDataFromMobile1', EntryStatic.speakerMelody.data)
-    console.log('getMelodyDataFromMobile2', EntryStatic.speakerMelody.list)
+    // console.log('getMelodyDataFromMobile1', EntryStatic.speakerMelody.data)
+    // console.log('getMelodyDataFromMobile2', EntryStatic.speakerMelody.list)
 }
 
 EntryStatic.getMelodyDataFromUrl = function (source) {

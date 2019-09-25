@@ -156,7 +156,7 @@ Entry.BlockToCParser = class {
                     );
                     if(!block.statements[0]._data.length){
                         if(syntaxObj.key!=='_if' && syntaxObj.key!=='if_else'){
-                            resultTextCosde += 'sleep(3);'
+                            resultTextCode += 'sleep(3);'
                         }
                     }
                 });
