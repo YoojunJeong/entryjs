@@ -158,27 +158,29 @@ Entry.Playground = class {
 
         $("#play").on('click',()=>{
             $("#myVideo")[0].play();
-            this.isPlayVideo= true;
+            
+            global.Entry.isPlayVideo= true;
         })
 
         $("#replay").on('click',()=>{
             $("#myVideo")[0].play();
-            this.isPlayVideo= true;
+            global.Entry.isPlayVideo= true;
         })
 
         $("#pause").on('click',()=>{
             $("#myVideo")[0].pause();
-            this.isPlayVideo= false;
+            global.Entry.isPlayVideo= false;
         })
 
         $("#playerfullscreen").on('click',()=>{
+
             
             global.Entry.currentTime =  $("#myVideo")[0].currentTime;
-            
             const videoData =global.Entry.currentTime+'#'+global.Entry.isPlayVideo+"#"+global.Entry.videoNum;
 
-            window.android.setPlayerFullScreen(videoData);
             $("#myVideo")[0].pause();
+            window.android.setPlayerFullScreen(videoData);
+            
         })
 
         $("#playerminscreen").on('click',()=>{
@@ -248,6 +250,15 @@ Entry.Playground = class {
             $("#myVideo")[0].currentTime = global.Entry.currentTime;
         }
         
+    }
+
+    getMediaPlayerState() {
+        global.Entry.currentTime =  $("#myVideo")[0].currentTime;
+            
+        const videoData =global.Entry.currentTime+'#'+global.Entry.isPlayVideo+"#"+global.Entry.videoNum;
+
+        window.android.setMediaPlayerState(videoData);
+        $("#myVideo")[0].pause();
     }
 
     renderVariableModal (variable, index) {
