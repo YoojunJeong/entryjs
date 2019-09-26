@@ -618,8 +618,8 @@ function getCodeBlock(luxc) {
                             throw "'" + name + "' was not declared in this scope";
                         }
                     } else if ((match = regex.block.sleep.exec(code))) {
-                        var argumentsBlock = convertValueToBlock(match[1]);
-                        var block = new SleepBlock(argumentsBlock);
+                        var argumentsBlock = convertArgumentToBlocks(match[1]);
+                        var block = new SleepBlock(argumentsBlock[0]);
                         if (logicStack.length()) {
                             var logic = logicStack.peek();
                             logic.addChild(block);
