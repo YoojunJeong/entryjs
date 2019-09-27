@@ -210,6 +210,8 @@ EntryStatic.getImgDataFromImageUrl = function (source) {
             }
             modi_display_data.push(byte);
         }
+
+
         EntryStatic.displayImage.data[name] = modi_display_data
     };
 
@@ -457,22 +459,172 @@ EntryStatic.defaultModiBlocks = [
             "url": "extern/asset/melody/요나손 '뻐꾹 왈츠'.txt"
         }]
     },
-    {
-        "category": "CONTENTS_IMG_BASIC",
-        "blocks": [{
-            "name": "Welcome",
-            "url": 'extern/asset/img/elementary/welcome_1.png'
-            //   "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/welcome_1.png"
-        }, {
-            "name": "REDPEN",
-            "url": 'extern/asset/img/elementary/redpen_2.png'
-            //   "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/redpen_2.png"
-        }, {
-            "name": "Coding",
-            "url": 'extern/asset/img/elementary/coding_3.png'
-            //  "url" : "https://kyowon-modi.s3.ap-northeast-2.amazonaws.com/img/elementry/coding_3.png"
-        }]
-    },
+   {
+        "category": "CONTENTS_IMG_BASIC",
+        "blocks": [{
+            "name": "Welcome",
+            "url": 'extern/asset/img/elementary/1_Welcome.png'
+        }, {
+            "name": "REDPEN",
+            "url": 'extern/asset/img/elementary/2_REDPEN.png'
+        }, {
+            "name": "Coding",
+            "url": 'extern/asset/img/elementary/3. Coding.png'
+        }, {
+            "name": "환하게 웃는 얼굴",
+            "url": 'extern/asset/img/elementary/4. 환하게 웃는 얼굴.png'
+        }, {
+            "name": "힘든 얼굴",
+            "url": 'extern/asset/img/elementary/5. 힘든 얼굴.png'
+        }, {
+            "name": "지친 얼굴",
+            "url": 'extern/asset/img/elementary/6. 지친 얼굴.png'
+        }
+        , {
+            "name": "땀 흘리는 얼굴",
+            "url": 'extern/asset/img/elementary/7. 땀 흘리는 얼굴.png'
+        }
+        , {
+            "name": "미소짓는 얼굴",
+            "url": 'extern/asset/img/elementary/8. 미소짓는 얼굴.png'
+        }
+        , {
+            "name": "우는 얼굴",
+            "url": 'extern/asset/img/elementary/9. 우는 얼굴.png'
+        }, {
+            "name": "놀란 얼굴",
+            "url": 'extern/asset/img/elementary/10. 놀란 얼굴.png'
+        }
+
+        , {
+            "name": "자는 얼굴",
+            "url": 'extern/asset/img/elementary/11. 자는 얼굴.png'
+        }, {
+            "name": "화난 얼굴",
+            "url": 'extern/asset/img/elementary/12. 화난 얼굴.png'
+        }
+        , {
+            "name": "직진 표지판",
+            "url": 'extern/asset/img/elementary/13. 직진 표지판.png'
+        }
+        , {
+            "name": "좌회전 표지판",
+            "url": 'extern/asset/img/elementary/14. 좌회전 표지판.png'
+        }, {
+            "name": "우회전 표지판",
+            "url": 'extern/asset/img/elementary/15. 우회전 표지판.png'
+        }, {
+            "name": "멈춤 표지판",
+            "url": 'extern/asset/img/elementary/16. 멈춤 표지판.png'
+        }, {
+            "name": "물방울",
+            "url": 'extern/asset/img/elementary/17. 물방울.png'
+        }
+        , {
+            "name": "해",
+            "url": 'extern/asset/img/elementary/18. 해.png'
+        }, {
+            "name": "1층",
+            "url": 'extern/asset/img/elementary/19. 1층.png'
+        }
+        , {
+            "name": "2층",
+            "url": 'extern/asset/img/elementary/20. 2층.png'
+        }, {
+            "name": "3층",
+            "url": 'extern/asset/img/elementary/21. 3층.png'
+        }, {
+            "name": "나무",
+            "url": 'extern/asset/img/elementary/22. 나무.png'
+        }
+        , {
+            "name": "구름",
+            "url": 'extern/asset/img/elementary/23. 구름.png'
+        }, {
+            "name": "달",
+            "url": 'extern/asset/img/elementary/24. 달.png'
+        }, {
+            "name": "토끼",
+            "url": 'extern/asset/img/elementary/25. 토끼.png'
+        }, {
+            "name": "사자",
+            "url": 'extern/asset/img/elementary/26. 사자.png'
+        }, {
+            "name": "너구리",
+            "url": 'extern/asset/img/elementary/27. 너구리.png'
+        }, {
+            "name": "독수리",
+            "url": 'extern/asset/img/elementary/28. 독수리.png'
+        }
+        , {
+            "name": "뱀",
+            "url": 'extern/asset/img/elementary/29. 뱀.png'
+        }, {
+            "name": "참새 한 마리",
+            "url": 'extern/asset/img/elementary/30. 참새 한 마리.png'
+        }, {
+            "name": "참새 두 마리",
+            "url": 'extern/asset/img/elementary/31. 참새 두 마리.png'
+        }, {
+            "name": "참새 세 마리",
+            "url": 'extern/asset/img/elementary/32. 참새 세 마리.png'
+        }, {
+            "name": "당첨",
+            "url": 'extern/asset/img/elementary/33. 당첨.png'
+        }, {
+            "name": "꽝",
+            "url": 'extern/asset/img/elementary/34. 꽝.png'
+        }, {
+            "name": "다음 기회에",
+            "url": 'extern/asset/img/elementary/35. 다음 기회에.png'
+        }, {
+            "name": "자동차",
+            "url": 'extern/asset/img/elementary/36. 자동차.png'
+        }, {
+            "name": "사람",
+            "url": 'extern/asset/img/elementary/37. 사람.png'
+        }, {
+            "name": "쓰레기통",
+            "url": 'extern/asset/img/elementary/38. 쓰레기통.png'
+        }, {
+            "name": "가위",
+            "url": 'extern/asset/img/elementary/39. 가위.png'
+        }, {
+            "name": "바위",
+            "url": 'extern/asset/img/elementary/40. 바위.png'
+        }, {
+            "name": "보",
+            "url": 'extern/asset/img/elementary/41. 보.png'
+        }, {
+            "name": "위쪽 화살표",
+            "url": 'extern/asset/img/elementary/42. 위쪽 화살표.png'
+        }, {
+            "name": "아래쪽 화살표",
+            "url": 'extern/asset/img/elementary/43. 아래쪽 화살표.png'
+        }, {
+            "name": "오른쪽 화살표",
+            "url": 'extern/asset/img/elementary/44. 오른쪽 화살표.png'
+        }, {
+            "name": "왼쪽 화살표",
+            "url": 'extern/asset/img/elementary/45. 왼쪽 화살표.png'
+        }, {
+            "name": "꽃",
+            "url": 'extern/asset/img/elementary/46. 꽃.png'
+        }, {
+            "name": "하트",
+            "url": 'extern/asset/img/elementary/47. 하트.png'
+        }, {
+            "name": "별",
+            "url": 'extern/asset/img/elementary/48. 별.png'
+        }, {
+            "name": "엄지척",
+            "url": 'extern/asset/img/elementary/49. 엄지척.png'
+        }, {
+            "name": "꽉찬 화면",
+            "url": 'extern/asset/img/elementary/50. 꽉찬 화면.png'
+        }]
+    },
+
 ];
 
 EntryStatic.defaultModiList = [

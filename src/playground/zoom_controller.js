@@ -300,11 +300,11 @@ Entry.ZoomController = class ZoomController {
             
 
                 if(unconnectedModules.length){
-                    console.log('unconnectedModules')
-                    console.log(unconnectedModules)
+                    // console.log('unconnectedModules')
+                    // console.log(unconnectedModules)
 
                     if(unconnectedModules.length == 1 && unconnectedModules[0] == '0') {
-                        console.log('unconnectedModules == 0')
+                        // console.log('unconnectedModules == 0')
                         window.android.uploadCode(binaryOutput.block);
                     }
                         
