@@ -1269,7 +1269,8 @@ class TextCodingUtil {
         
         this.imgData.push(imgLibrary[contents].toString())
         
-        const result = `display0.drawPicture("${contents}");`;
+
+        const result = `display0.drawPicture("${encodeURI(contents)}");`;
         return result
     }
 
