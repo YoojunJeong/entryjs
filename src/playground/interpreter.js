@@ -371,7 +371,7 @@ const Property = {
 
 const define = defineValue;
 const regex = {
-    userTask: /void\s*doUserTask\s*\([\x20-\x7E\s]*?\)\s*\{([\x20-\x7E\s]*)\}/, // void doUserTask() {...}
+    userTask: /void\s*doUserTask\s*\([\x20-\x7E\s]*?\)\s*\{([\x20-\x7Eㄱ-ㅎ가-힣\s]*)\}/, // void doUserTask() {...}
 
     setup: {
         modules: /([\w]*)\s+([\w]+)\(([\w]+)\);/g, // Network network0(0x123456);
@@ -390,14 +390,14 @@ const regex = {
         for: /^for\s*\(([\x20-\x7E]*);([\x20-\x7E]*);([\x20-\x7E]*)\)/, // for(int i=0; i<gyro0.getRoll(); i++)
         condition: /([\x20-\x7E]*)(==|>=|<=|!=|>|<)([\x20-\x7E]*)/, // button0.getClick()==40
 
-        setProperty: /^([\w]*)\.([\w]*)\s*\(([\x20-\x7E]+)?\);/, // led0.setRgb(0, 50, 100)
+        setProperty: /^([\w]*)\.([\w]*)\s*\(([\x20-\x7Eㄱ-ㅎ가-힣]+)?\);/, // led0.setRgb(0, 50, 100)
         getProperty: /([\w]*)\.([\w]*)\s*\(\s*\)/, // button.getClick()
         sleep: /^sleep\s*\(([\x20-\x7E]*)\);/, // sleep(50),
         break: /^break;/, // break
         continue: /^continue;/, // continue
         setVariable: /^([\w]*) = ([\x20-\x7E]*);/, // number0 = 50 + 12
         variable: /^\(char\*\)([\w]*)|([\w]*)/, // picture0, (char*)picture0
-        string: /^"([\x20-\x7E]*)"/, // "MODI"
+        string: /^"([\x20-\x7Eㄱ-ㅎ가-힣]*)"/, // "MODI"
         number: /^(\s*[-0-9.]+)/ // 8421
     },
 
@@ -694,7 +694,7 @@ var luxcParer = new class {
             polynomial: /([\w.\$]+)|(--|\+\+|&&|\|\||>=|<=|==|!=|<|>|&|\||!|[+\-*\/%])/g,
             braket: /([\w.]*)\(((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*)\)/g,
             replacement: /\$[0-9]+/, // $0 $1 $2 $92 ... replace characters for inner polynomials
-            string: /^"([\x20-\x7E]*)"/, // "MODI"
+            string: /^"([\x20-\x7Eㄱ-ㅎ가-힣]*)"/, // "MODI"
         }
 
         this.unary_op_priority = [
@@ -1278,7 +1278,16 @@ class StringValue extends Block {
         var frame = [];
         frame.push(ValueType.STRING);
         for (var i = 0; i < value.length; i++) {
-            frame.push(value.charCodeAt(i));
+            var char_code = value.charCodeAt(i);
+            if (char_code > 0xFF)
+            {
+                frame.push(char_code & 0xFF);
+                frame.push(char_code >>> 8);
+            }
+            else
+            {
+                frame.push(char_code);
+            }
         }
         this.value = value;
         this.appendFrame(frame);
