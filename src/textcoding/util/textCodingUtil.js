@@ -851,22 +851,8 @@ class TextCodingUtil {
     }
 
     assembleWaitSecondeBlock(block, syntax) {
-
-        let result = '';
-        if (block.data.type === 'wait_second') {
-
-          var second = syntax * 1000;
-
-          result = 'sleep('+second+');'
-        } 
         
-        
-        else {
-            result = syntax;
-        }
-
-    
-        return result;
+        return `sleep(${syntax} * 1000);`;
     }
 
     assembleBasicOperatorBlock(block, syntax) {
