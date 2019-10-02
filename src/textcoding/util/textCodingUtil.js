@@ -1235,7 +1235,8 @@ class TextCodingUtil {
         }
 
         if(contents[0] !== '"' && isNaN(Number(contents)) === true){ // 인풋, (변수?)
-            result = ``;
+            window.android.failUpload('글자를 입력해 주세요.');
+            throw new Error('글자를 입력해 주세요.');
             // result = `display0.setVariable(2,${positionY},${contents});`; 
         }
 
