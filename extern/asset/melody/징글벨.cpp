@@ -35,7 +35,7 @@ while(true)
 	sleep(one);
 	speaker0.setTune(F_RA_6, 0);
 	sleep(number6);
-	speaker0.setTune(F_RA_6,__melodyVolume);
+	speaker0.setTune(F_RA_6__melodyVolume);
 	sleep(half);
 	speaker0.setTune(F_RA_6, 0);
 	sleep(number6);

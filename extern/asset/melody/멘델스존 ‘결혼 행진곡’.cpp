@@ -13,7 +13,7 @@ float number9 = 0.0;
 
 while(true)
 {
-	one = 3__melodyVolume*0.5;
+	one = 350;
 	half = one/2;
 	two = one*2;
 	number6 = one+half;
@@ -145,7 +145,6 @@ while(true)
 	sleep(number5);
 	speaker0.setTune(F_RA_6, __melodyVolume);
 	sleep(one);
-	// speaker0.setTune(F_MI_6, 0);
 	sleep(number5);
 	speaker0.setTune(F_SOL_6, __melodyVolume);
 	sleep(one);
@@ -163,10 +162,10 @@ while(true)
 	sleep(two);
 	speaker0.setTune(F_MI_6, 0);
 	sleep(number5);
-	speaker0.setTune(F_SI_5, __melodyVolume*0.5);
+	speaker0.setTune(F_SI_5, __melodyVolume);
 	sleep(halfhalf);
 	sleep(number5);
-	speaker0.setTune(F_DO_6, __melodyVolume*0.5);
+	speaker0.setTune(F_DO_6, __melodyVolume);
 	sleep(halfhalf);
 	sleep(number5);
 	speaker0.setTune(F_RE_6, __melodyVolume);
@@ -233,11 +232,11 @@ while(true)
 	sleep(two);
 	speaker0.setTune(F_RE_6, 0);
 	sleep(number5);
-	speaker0.setTune(F_SI_5, __melodyVolume*0.5);
+	speaker0.setTune(F_SI_5, __melodyVolume);
 	sleep(halfhalf);
 	speaker0.setTune(F_MI_6, 0);
 	sleep(number5);
-	speaker0.setTune(F_DO_6, __melodyVolume*0.5);
+	speaker0.setTune(F_DO_6, __melodyVolume);
 	sleep(halfhalf);
 	speaker0.setTune(F_MI_6, 0);
 	sleep(number5);
@@ -260,8 +259,8 @@ while(true)
 	speaker0.setTune(F_DO_6, __melodyVolume);
 	sleep(one);
 	speaker0.setTune(F_MI_6, 0);
-	sleep(__melodyVolume*0.50);
-
+	sleep(500);
+	
 	sleep(1);
 }
 }
