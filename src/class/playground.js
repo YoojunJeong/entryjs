@@ -252,6 +252,27 @@ Entry.Playground = class {
         
     }
 
+    setMediaPlayer(videoData) {
+
+       
+        const dataToken = videoData.split('#');
+        const isPlayMin = dataToken[1];
+
+        // $("#playlist").text(`[ ${videoNum + 1} / ${guideList.length} ]`)
+    
+        if(isPlayMin == 'true') {
+            global.Entry.isPlayVideo = true;
+            $("#myVideo")[0].play();
+           
+        }
+
+        else {
+            global.Entry.isPlayVideo = false;
+            $("#myVideo")[0].pause();
+        }
+        
+    }
+
     getMediaPlayerState() {
         global.Entry.currentTime =  $("#myVideo")[0].currentTime;
             
@@ -803,10 +824,10 @@ Entry.Playground = class {
             return name;
         }
 
-        Entry.toast.warning(
-            Lang.Workspace[`${type}_name_auto_edited_title`],
-            Lang.Workspace[`${type}_name_auto_edited_content`]
-        );
+        // Entry.toast.warning(
+        //     Lang.Workspace[`${type}_name_auto_edited_title`],
+        //     Lang.Workspace[`${type}_name_auto_edited_content`]
+        // );
 
         return name.substring(0, maxLen);
     }
