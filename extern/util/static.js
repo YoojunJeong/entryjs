@@ -485,7 +485,7 @@ EntryStatic.defaultModiBlocks = [
             "url": 'extern/asset/img/elementary/7.svg'
         }
         , {
-            "name": "미소짓는 얼굴",
+            "name": "미소 짓는 얼굴",
             "url": 'extern/asset/img/elementary/8.svg'
         }
         , {
