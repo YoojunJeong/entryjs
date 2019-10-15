@@ -9,6 +9,7 @@ import Toast from '../playground/toast';
 import EntryEvent from '@entrylabs/event';
 import { Destroyer } from '../util/destroyer/Destroyer';
 
+
 const Entry = require('../entry');
 
 /**
@@ -57,21 +58,65 @@ Entry.Playground = class {
 
         setTimeout(() => {
             $("#myVideo")[0].pause();            
-        }, 1000);
+        }, 1);
 
         // create play list
         $("#entryMenuTop").append(`<div id="playlist"></div>`)
 
         // create video-controls
         $("#entryMenuTop").append(`<div id="video-controls"></div>`)
-        $("#video-controls").append(`<img src="./images/modi_invenact_btn_prev.svg" id="previous" display = "hidden">`)
-        $("#video-controls").append(`<img src="./images/modi_invenact_btn_play.svg" id="play">`)
-        $("#video-controls").append(`<img src="./images/modi_invenact_btn_replay.svg" id="replay">`)
-        $("#video-controls").append(`<img src="./images/modi_invenact_btn_pause.svg" id="pause">`)            
-        $("#video-controls").append(`<img src="./images/modi_invenact_btn_next.svg" id="next">`)
-        $("#video-controls").append(`<img src="./images/modi_invenact_btn_next_transparent.svg" id="next_t">`)  
-        $("#video-controls").append(`<img src="./images/modi_invenact_btn_fullscreen.svg" id="playerfullscreen">`)
-        $("#video-controls").append(`<img src="./images/modi_invenact_btn_fullscreen_exit.svg" id="playerminscreen">`)
+        let state= `
+        <img src="./images/modi_invenact_btn_prev.svg" id="previous" display = "hidden">
+        <img src="./images/modi_invenact_btn_play.svg" id="play">
+        <img src="./images/modi_invenact_btn_replay.svg" id="replay">
+        <img src="./images/modi_invenact_btn_pause.svg" id="pause">
+        <img src="./images/modi_invenact_btn_next.svg" id="next">
+        <img src="./images/modi_invenact_btn_next_transparent.svg" id="next_t">
+        <img src="./images/modi_invenact_btn_fullscreen.svg" id="playerfullscreen">
+        <img src="./images/modi_invenact_btn_fullscreen_exit.svg" id="playerminscreen">
+        <div id="currentTime"></div>
+        <span id="progress">
+            <div id="thumb"></div>
+            <div id="filled-progress"></div>
+        </span>
+        <div id="duration"></div>
+        `
+        $("#video-controls").append(state)
+     
+
+        function progressUpdate() {
+            const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
+            document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
+
+            const width = $("#progress")[0].offsetWidth;
+            const pos = (percent / 100 ) * width;
+            document.getElementById("thumb").style.left = `${pos}px`;
+
+           
+            const duration_m_ =  Math.floor($("#myVideo")[0].duration / 60);
+            const duration_s_ = Math.floor($("#myVideo")[0].duration % 60);
+
+            const current_m = Math.floor($("#myVideo")[0].currentTime / 60);
+            const current_s = Math.floor($("#myVideo")[0].currentTime % 60);
+
+            $("#currentTime").text(`${current_m} : ${current_s}`)
+            $("#duration").text(`${duration_m_} : ${duration_s_}`)
+          }
+          
+        function scrub(e) {
+            const scrubTime = (e.offsetX / $("#progress")[0].offsetWidth) * $("#myVideo")[0].duration;
+            $("#myVideo")[0].currentTime = scrubTime;
+        }
+
+        $("#myVideo")[0].addEventListener('timeupdate', progressUpdate);
+
+        let mousedown = false;
+        $("#progress")[0].addEventListener('click', scrub);
+        $("#progress")[0].addEventListener('mousemove', (e) => mousedown && scrub(e));
+        $("#progress")[0].addEventListener('mousedown', () => mousedown = true);
+        $("#progress")[0].addEventListener('mouseup', () => mousedown = false);
+
+
 
         // init
         $("#pause").hide();
@@ -86,7 +131,9 @@ Entry.Playground = class {
     
         $("#playerminscreen").hide();
         updatePlayList();
+       
 
+    
         function updatePlayList(params) {
 
             console.log('updatePlayList');
@@ -200,8 +247,12 @@ Entry.Playground = class {
             }
         })
 
+       
+
+
         $("#myVideo")[0].play();
     }
+    
 
     minScreen(videoData) {
 
