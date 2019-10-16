@@ -1547,14 +1547,16 @@ video::-webkit-media-controls-enclosure {
     }
 
     #replay {
-        margin-top: 0px;
-        height: 34px;
-        width: 34px;
+        margin-top: 2px;
+        height: 32px;
+        width: 32px;
+        margin-left: 3%; // 23px
+        margin-right: 3%; // 23px
     }
 
-    #previous {
-        margin-left: 5%; //47px
-    }
+    // #previous {
+    //     margin-left: 5%; //47px
+    // }
 
     #playerfullscreen, #playerminscreen {
         float: right;
@@ -1564,7 +1566,7 @@ video::-webkit-media-controls-enclosure {
 
     #progress {
         display: inline-flex;
-        width: 40%;
+        width: 30%;
         height: 5px;
         transition: height 0.3s;
         background: rgba(239,241,240,0.5);
@@ -1592,22 +1594,24 @@ video::-webkit-media-controls-enclosure {
 
       #currentTime {
         display: inline-flex;
-        width: 40px;
+        width: 50px;
         height: 15px;
         transition: height 0.3s;
-        color: white;
+        color: rgba(190,190,190,0.5);
         vertical-align: middle;
         font-size: small;
+        font-weight: bold;
       }
 
       #duration {
         display: inline-flex;
-        width: 40px;
+        width: 50px;
         height: 15px;
         transition: height 0.3s;
-        color: white;
+        color: rgba(190,190,190,0.5);
         vertical-align: middle;
         font-size: small;
+        font-weight: bold;
         margin-left: 10px;
       }
 

@@ -227,8 +227,8 @@ EntryStatic.getMelodyDataFromMobile = function () {
         return [el, el]
     })
 
-    console.log('getMelodyDataFromMobile1', EntryStatic.speakerMelody.data)
-    console.log('getMelodyDataFromMobile2', EntryStatic.speakerMelody.list)
+    // console.log('getMelodyDataFromMobile1', EntryStatic.speakerMelody.data)
+    // console.log('getMelodyDataFromMobile2', EntryStatic.speakerMelody.list)
 }
 
 EntryStatic.getMelodyDataFromUrl = function (source) {
@@ -296,13 +296,13 @@ EntryStatic.getAllBlocks = function () {
 
     // console.log('getAllBlocks EntryStatic.moduleToBlocks[moduleItem] : ', EntryStatic.moduleToBlocks["NETWORK"])
 
-    console.log('getAllBlocks HwBlocks : ', HwBlocks)
+    // console.log('getAllBlocks HwBlocks : ', HwBlocks)
 
     blocks.push({ category: 'arduino', blocks: HwBlocks })
     // blocks.push(EntryStatic.moduleToBlocks["NETWORK"])
 
-    console.log('getAllBlocks blocks:HwBlocks : ', { category: 'arduino', blocks: HwBlocks })
-    console.log('getAllBlocks blocks : ', blocks)
+    // console.log('getAllBlocks blocks:HwBlocks : ', { category: 'arduino', blocks: HwBlocks })
+    // console.log('getAllBlocks blocks : ', blocks)
 
     let melodyBlock = blocks.filter(el => (el.category === "CONTENTS_MELODY_BASIC"))[0]
     let imgBlock = blocks.filter(el => (el.category === "CONTENTS_IMG_BASIC"))[0]
@@ -323,7 +323,7 @@ EntryStatic.getAllBlocks = function () {
         //     // EntryStatic.getMelodyDataFromLocal(el) //local에서 받아오기
         //     return [el.name,el.name]
         // })
-        console.log('EntryStatic.speakerMelody', EntryStatic.speakerMelody);
+        // console.log('EntryStatic.speakerMelody', EntryStatic.speakerMelody);
     }
     
     if (imgBlock && imgBlock.blocks) {

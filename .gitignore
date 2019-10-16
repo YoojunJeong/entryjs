@@ -34,7 +34,7 @@ extern/closure-library
 .DS_Store
 
 *.map
-
+*.json
 .vscode/*
 dist
 dist/entry.js

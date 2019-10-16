@@ -52,13 +52,13 @@ Entry.Playground = class {
         global.Entry.guideList = this.mainWorkspace.guideList;
 
         // create video player
-        $("#entryMenuTop").html(`<video autoplay width="100%" height="100%" preload="metadata" controlsList="nodownload" id="myVideo" src=${global.Entry.guideList[global.Entry.videoNum].videoUrl}#t=1></video>`); //controls 
+        $("#entryMenuTop").html(`<video autoplay width="100%" height="100%" preload="metadata" controlsList="nodownload" id="myVideo" src=${global.Entry.guideList[global.Entry.videoNum].videoUrl}#t=0></video>`); //controls 
         $("#entryMenuTop").css({'z-index':99, position:'absolute'})
         $("#myVideo").css({position:'absolute'})
 
-        setTimeout(() => {
-            $("#myVideo")[0].pause();            
-        }, 1);
+        // setTimeout(() => {
+        //     $("#myVideo")[0].pause();            
+        // }, 1);
 
         // create play list
         $("#entryMenuTop").append(`<div id="playlist"></div>`)
@@ -80,28 +80,46 @@ Entry.Playground = class {
             <div id="filled-progress"></div>
         </span>
         <div id="duration"></div>
-        `
-        $("#video-controls").append(state)
+        `;
+        $("#video-controls").append(state);
      
 
         function progressUpdate() {
             const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
             document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
 
-            const width = $("#progress")[0].offsetWidth;
+            const width = $("#progress")[0].offsetWidth - 10;
             const pos = (percent / 100 ) * width;
             document.getElementById("thumb").style.left = `${pos}px`;
 
            
-            const duration_m_ =  Math.floor($("#myVideo")[0].duration / 60);
-            const duration_s_ = Math.floor($("#myVideo")[0].duration % 60);
+            const duration_m_ = getPlaySecond(Math.floor($("#myVideo")[0].duration / 60));
+            const duration_s_ = getPlaySecond(Math.floor($("#myVideo")[0].duration % 60));
 
-            const current_m = Math.floor($("#myVideo")[0].currentTime / 60);
-            const current_s = Math.floor($("#myVideo")[0].currentTime % 60);
+            const current_m = getPlaySecond(Math.floor($("#myVideo")[0].currentTime / 60));
+            const current_s = getPlaySecond(Math.floor($("#myVideo")[0].currentTime % 60));
+            
 
             $("#currentTime").text(`${current_m} : ${current_s}`)
             $("#duration").text(`${duration_m_} : ${duration_s_}`)
           }
+
+          function getPlaySecond(sec) {
+            
+            if(isNaN(sec)) {
+                return '00';
+            }
+
+            if (sec < 10) {
+            
+                return '0'+sec;
+            }
+    
+            else {
+                return sec
+            }
+        }
+        
           
         function scrub(e) {
             const scrubTime = (e.offsetX / $("#progress")[0].offsetWidth) * $("#myVideo")[0].duration;
@@ -247,11 +265,11 @@ Entry.Playground = class {
             }
         })
 
-       
-
-
         $("#myVideo")[0].play();
+        global.Entry.isPlayVideo= true;
     }
+
+    
     
 
     minScreen(videoData) {
@@ -262,10 +280,11 @@ Entry.Playground = class {
 
         global.Entry.currentTime = dataToken[0] * 1;
         global.Entry.videoNum = dataToken[2] * 1;
+        
 
-        console.log(isPlayMin)
+        // console.log(isPlayMin)
         console.log(global.Entry.currentTime)
-        console.log(global.Entry.videoNum)
+        // console.log(global.Entry.videoNum)
         // $("#playlist").text(`[ ${videoNum + 1} / ${guideList.length} ]`)
     
         $("#myVideo")[0].src = global.Entry.guideList[global.Entry.videoNum].videoUrl;
@@ -286,9 +305,45 @@ Entry.Playground = class {
 
 
         $("#playlist").text(`[ ${global.Entry.videoNum+1} / ${global.Entry.guideList.length} ]`)
+
+        const min = Math.floor($("#myVideo")[0].duration / 60);
+        const sec = Math.floor($("#myVideo")[0].duration % 60);
+
+        let duration_m = '00';
+        let duration_s = '00';
+
+        if(isNaN(min)) {
+            duration_m = '00';
+        }
+
+        if(isNaN(sec)) {
+            duration_s = '00';
+        }
+
+        if (min < 10) {
         
-       
+            duration_m = '0'+sec;
+        }
+
+        else {
+            duration_m = sec
+        }
+
+
+        if (sec < 10) {
+        
+            duration_s = '0'+sec;
+        }
+
+        else {
+            duration_s = sec
+        }
+
     
+        
+        $("#duration").text(`${duration_m} : ${duration_s}`)
+    
+
         if(isPlayMin == 'true') {
             global.Entry.isPlayVideo = true;
             $("#myVideo")[0].play();

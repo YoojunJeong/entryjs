@@ -209,7 +209,7 @@ Entry.loadInterfaceState = function(interfaceState) {
             interfaceState = JSON.parse(interfaceModel);
         } else {
             interfaceState = {
-                menuWidth: 400,
+                menuWidth: 423,
                 canvasWidth: 480,
             };
         }
@@ -369,10 +369,21 @@ Entry.resizeElement = function(interfaceModel) {
             menuWidth = 550;
         }
 
-        // menuWidth = 400
+
         interfaceModel.menuWidth = menuWidth;
         const blockMenu = mainWorkspace.blockMenu;
         const adjust = blockMenu.hasCategory() ? -1 * categorysize : 0;
+
+        // console.log("menuWidth", menuWidth);
+        // console.log("adjust", adjust);
+
+        if(menuWidth  < 423) {
+            document.getElementById("duration").style.visibility = "hidden";
+        }
+
+        else {
+            document.getElementById("duration").style.visibility = "visible";
+        }
 
         $('.blockMenuContainer').css({ width: `${menuWidth + adjust}px` });
         $('.blockMenuContainer>div').css({ width: `${menuWidth + adjust - 2}px` });
@@ -382,6 +393,14 @@ Entry.resizeElement = function(interfaceModel) {
         if(Entry.mode > 0){
             $('.entryWorkspaceBlockMenu').css({top:`${menuWidth*285/427}px`})  //285
             $('.entryMenuTop').css({top:`-${(menuWidth*285/427)+0.6}px`,height:`${(menuWidth*285/427)+0.6}px`})
+
+            const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
+            document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
+
+            const width = $("#progress")[0].offsetWidth - 10;
+            const pos = (percent / 100 ) * width;
+            document.getElementById("thumb").style.left = `${pos}px`;
+
         }
 
         $('.entryWorkspaceBoard').css({ left: `${menuWidth + 20 }px` }); //`${menuWidth + 20 }px`
