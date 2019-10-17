@@ -104,7 +104,7 @@ Entry.Playground = class {
             $("#duration").text(`${duration_m_} : ${duration_s_}`)
           }
 
-          function getPlaySecond(sec) {
+        function getPlaySecond(sec) {
             
             if(isNaN(sec)) {
                 return '00';
@@ -184,6 +184,9 @@ Entry.Playground = class {
         $("#myVideo").on('ended',()=>{
             $("#replay").show();
             $("#play").hide();
+
+            global.Entry.currentTime =  $("#myVideo")[0].duration;
+            global.Entry.isPlayVideo= false;
             // if (videoNum < guideList.length - 1 ) {
             //     videoNum++
             //     $("#myVideo")[0].src = guideList[videoNum].videoUrl
@@ -198,6 +201,7 @@ Entry.Playground = class {
                 updatePlayList()
                 $("#myVideo")[0].src = global.Entry.guideList[global.Entry.videoNum].videoUrl
                 $("#myVideo")[0].play();
+                global.Entry.isPlayVideo= true;
                 showPlayBtn()
 
                
@@ -217,6 +221,7 @@ Entry.Playground = class {
             updatePlayList()
             $("#myVideo")[0].src = global.Entry.guideList[global.Entry.videoNum].videoUrl;
             $("#myVideo")[0].play();
+            global.Entry.isPlayVideo= true;
             showPlayBtn()
            
         })
