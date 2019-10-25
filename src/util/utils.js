@@ -374,20 +374,28 @@ Entry.resizeElement = function(interfaceModel) {
         const blockMenu = mainWorkspace.blockMenu;
         const adjust = blockMenu.hasCategory() ? -1 * categorysize : 0;
 
-        // console.log("menuWidth", menuWidth);
+        // console.log("menuWidth", menuWidth-340);
         // console.log("adjust", adjust);
+        const width = (menuWidth-300) * (0.9)  ;
+        $('#progress').css({ width: `${width}px` });
 
-        if(menuWidth  < 423) {
-            document.getElementById("duration").style.visibility = "hidden";
-        }
-
-        else {
-            document.getElementById("duration").style.visibility = "visible";
-        }
 
         $('.blockMenuContainer').css({ width: `${menuWidth + adjust}px` });
         $('.blockMenuContainer>div').css({ width: `${menuWidth + adjust - 2}px` });
         blockMenu.setWidth();
+
+        const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
+        
+        document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
+
+      
+        const pos = (percent / 100 ) * width - 5;
+
+        document.getElementById("thumb").style.left = `${pos}px`;
+
+        // console.log("pos", pos);
+        console.log("width", width);
+
 
         // 가로 기링에 따라 동영상 플레이어 사이즈 및 위치 수정
         if(Entry.mode > 0){
@@ -397,9 +405,13 @@ Entry.resizeElement = function(interfaceModel) {
             const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
             document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
 
-            const width = $("#progress")[0].offsetWidth - 10;
-            const pos = (percent / 100 ) * width;
+            const width = (menuWidth-260) * (1.0)  ;
+            // const width = (menuWidth-310) * (0.9) ;
+            const pos = (percent / 100 ) * width + 10 ;
+
             document.getElementById("thumb").style.left = `${pos}px`;
+
+            console.log("pos", pos);
 
         }
 

@@ -10,6 +10,7 @@ module.exports = {
         entry: './src/entry.js',
     },
     output: {
+        // path: path.resolve('../../android/luxrobo_modi/app/src/main/assets/entry/dist/'),
         path: path.resolve('./dist'),
         publicPath: '/dist/',
         filename: '[name].js',

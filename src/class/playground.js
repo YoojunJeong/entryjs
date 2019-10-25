@@ -52,13 +52,9 @@ Entry.Playground = class {
         global.Entry.guideList = this.mainWorkspace.guideList;
 
         // create video player
-        $("#entryMenuTop").html(`<video autoplay width="100%" height="100%" preload="metadata" controlsList="nodownload" id="myVideo" src=${global.Entry.guideList[global.Entry.videoNum].videoUrl}#t=0></video>`); //controls 
+        $("#entryMenuTop").html(`<video autoplay width="100%" height="100%" preload="metadata" controlsList="nodownload" id="myVideo" src=${global.Entry.guideList[global.Entry.videoNum].videoUrl}#t=0.1></video>`); //controls 
         $("#entryMenuTop").css({'z-index':99, position:'absolute'})
         $("#myVideo").css({position:'absolute'})
-
-        // setTimeout(() => {
-        //     $("#myVideo")[0].pause();            
-        // }, 1);
 
         // create play list
         $("#entryMenuTop").append(`<div id="playlist"></div>`)
@@ -74,11 +70,15 @@ Entry.Playground = class {
         <img src="./images/modi_invenact_btn_next_transparent.svg" id="next_t">
         <img src="./images/modi_invenact_btn_fullscreen.svg" id="playerfullscreen">
         <img src="./images/modi_invenact_btn_fullscreen_exit.svg" id="playerminscreen">
+
         <div id="currentTime"></div>
+        <div id="thumb"></div>
         <span id="progress">
-            <div id="thumb"></div>
+       
             <div id="filled-progress"></div>
+           
         </span>
+       
         <div id="duration"></div>
         `;
         $("#video-controls").append(state);
@@ -86,13 +86,18 @@ Entry.Playground = class {
 
         function progressUpdate() {
             const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
-            document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
 
-            const width = $("#progress")[0].offsetWidth - 10;
-            const pos = (percent / 100 ) * width;
+            const width = $("#progress")[0].offsetWidth;
+
+            
+            const pos = (percent / 100 ) * width - 5;
+
+            document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
             document.getElementById("thumb").style.left = `${pos}px`;
 
-           
+        
+            console.log('pos x',pos);
+
             const duration_m_ = getPlaySecond(Math.floor($("#myVideo")[0].duration / 60));
             const duration_s_ = getPlaySecond(Math.floor($("#myVideo")[0].duration % 60));
 
@@ -133,9 +138,7 @@ Entry.Playground = class {
         $("#progress")[0].addEventListener('mousemove', (e) => mousedown && scrub(e));
         $("#progress")[0].addEventListener('mousedown', () => mousedown = true);
         $("#progress")[0].addEventListener('mouseup', () => mousedown = false);
-
-
-
+      
         // init
         $("#pause").hide();
         $("#replay").hide();
@@ -241,6 +244,13 @@ Entry.Playground = class {
             $("#myVideo")[0].pause();
             global.Entry.isPlayVideo= false;
         })
+
+        $("#imgContainer").on('click',()=>{
+            $("#myVideo")[0].pause();
+            global.Entry.isPlayVideo= false;
+        })
+
+        
 
         $("#playerfullscreen").on('click',()=>{
 

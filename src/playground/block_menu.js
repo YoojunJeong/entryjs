@@ -996,11 +996,11 @@ class BlockMenu {
 
     getVideoData () {
         // TODO: 임시 영상 삭제 필요
-        // Entry.guideList = [
-        //     { "sort": 1, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/d304007d-ab25-4d9d-8628-767c0f8b2704.mp4", "imageUrl": null, "desc": null },
-        //     { "sort": 2, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/ef9d72e6-0389-4ed3-9483-7e62bf3722a2.mp4", "imageUrl": null, "desc": null },
-        //     { "sort": 3, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/c0578818-53fc-4dd6-a8a8-e5768fd7efbd.mp4", "imageUrl": null, "desc": null }
-        // ]
+        Entry.guideList = [
+            { "sort": 1, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/d304007d-ab25-4d9d-8628-767c0f8b2704.mp4", "imageUrl": null, "desc": null },
+            { "sort": 2, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/ef9d72e6-0389-4ed3-9483-7e62bf3722a2.mp4", "imageUrl": null, "desc": null },
+            { "sort": 3, "title": null, "videoUrl": "http://cdn.allng.com/data02/cms2/spcoding/2019/07/25/16/c0578818-53fc-4dd6-a8a8-e5768fd7efbd.mp4", "imageUrl": null, "desc": null }
+        ]
         if (Entry.guideList) {
             this.guideList = Entry.guideList;
         } else {
