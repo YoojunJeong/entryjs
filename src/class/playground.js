@@ -24,8 +24,7 @@ Entry.Playground = class {
         this.isTextBGMode_ = false;
         this.enableArduino = false;
         this._maxNameLength = 10;
-        
-
+       
 
         /**
          * playground's current view type
@@ -50,7 +49,8 @@ Entry.Playground = class {
     
         global.Entry.videoNum = 0;
         global.Entry.guideList = this.mainWorkspace.guideList;
-
+        
+        
         // create video player
         $("#entryMenuTop").html(`<video autoplay width="100%" height="100%" preload="metadata" controlsList="nodownload" id="myVideo" src=${global.Entry.guideList[global.Entry.videoNum].videoUrl}#t=0.1></video>`); //controls 
         $("#entryMenuTop").css({'z-index':99, position:'absolute'})
@@ -84,11 +84,14 @@ Entry.Playground = class {
         $("#video-controls").append(state);
      
 
+        let mousedown = false;
+       
+
         function progressUpdate() {
             const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
 
             const width = $("#progress")[0].offsetWidth;
-
+           
             
             const pos = (percent / 100 ) * width - 5;
 
@@ -96,7 +99,7 @@ Entry.Playground = class {
             document.getElementById("thumb").style.left = `${pos}px`;
 
         
-            console.log('pos x',pos);
+            // console.log('pos x',pos);
 
             const duration_m_ = getPlaySecond(Math.floor($("#myVideo")[0].duration / 60));
             const duration_s_ = getPlaySecond(Math.floor($("#myVideo")[0].duration % 60));
@@ -125,19 +128,136 @@ Entry.Playground = class {
             }
         }
         
-          
+        function onMouseUp () {
+
+            mousedown = false;
+            console.log('onMouseUp',mousedown);
+           
+            $(document).unbind('#progress');
+            // delete this.dragInstance;
+        };
+
+        function onMouseDown(e) {
+
+            mousedown = true;
+
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+    
+            // const e = Entry.Utils.convertMouseEvent(event);
+            Entry.documentMousedown.notify(e);
+    
+            //left mousedown
+            if (
+                (e.button === 0 || (e.originalEvent && e.originalEvent.touches) || e.touches)
+            ) {
+                const eventType = e.type;
+                let mouseEvent;
+                if (e.originalEvent && e.originalEvent.touches) {
+                    mouseEvent = e.originalEvent.touches[0];
+                } else if (e.touches) {
+                    mouseEvent = e.touches[0];
+                } else {
+                    mouseEvent = e;
+                }
+                console.log('onMouseDown',e.offsetX);
+
+                // this.mouseDownCoordinate = {
+                //     x: mouseEvent.pageX,
+                //     y: $("#progress")[0].offsetY,
+                // };
+                const $doc = $(document);
+    
+                if (mousedown) {
+                  
+                    $doc.bind('mousemove.progress', onMouseMove);
+                    document.addEventListener('touchmove', onMouseMove, { passive: false });
+                }
+                $doc.bind('mouseup.block', onMouseUp);
+                document.addEventListener('touchend', onMouseUp);
+               
+    
+    
+                if (eventType === 'touchstart' || Entry.isMobile()) {
+                    this.longPressTimer = setTimeout(() => {
+                        if (this.longPressTimer) {
+                            this.longPressTimer = null;
+                            this.onMouseUp();
+                         
+                        }
+                    }, 700);
+                }
+            } 
+
+            document.dispatchEvent(Entry.Utils.createMouseEvent('touchstart', e));
+    
+        }
+        function onMouseMove(e) {
+
+            if (!mousedown) {
+                return;
+            }
+            
+            // console.log('onMouseMove',e);
+
+            e.stopPropagation();
+            e.preventDefault();
+
+    
+            let mouseEvent ;
+        
+            
+            if (e.originalEvent && e.originalEvent.touches) {
+                console.log('onMouseMove1 ');
+                mouseEvent = e.originalEvent.touches[0];
+            } else if (e.touches) {
+                console.log('onMouseMove2 ');
+                mouseEvent = e.touches[0];
+            } else {
+                console.log('onMouseMove3 ');
+                mouseEvent = e;
+               
+            }
+        
+
+            const offsetx = mouseEvent.pageX - 181;
+
+            const scrubTime = (offsetx / $("#progress")[0].offsetWidth) * $("#myVideo")[0].duration;
+
+                $("#myVideo")[0].currentTime = scrubTime;
+        }
+        
         function scrub(e) {
+
+            console.log('onMouseMove ');
+
+            // if (e.touches.length > 1) {
+            //     return;
+            //   }
+            
+              if(e.cancelable) {
+                e.preventDefault();
+              }
+
+            console.log('onMouseMove2 e.offsetX',e.offsetX);
             const scrubTime = (e.offsetX / $("#progress")[0].offsetWidth) * $("#myVideo")[0].duration;
+
+            // console.log('scrub offsetWidth', $("#progress")[0].offsetWidth);
+
             $("#myVideo")[0].currentTime = scrubTime;
         }
 
-        $("#myVideo")[0].addEventListener('timeupdate', progressUpdate);
+    
 
-        let mousedown = false;
-        $("#progress")[0].addEventListener('click', scrub);
-        $("#progress")[0].addEventListener('mousemove', (e) => mousedown && scrub(e));
-        $("#progress")[0].addEventListener('mousedown', () => mousedown = true);
-        $("#progress")[0].addEventListener('mouseup', () => mousedown = false);
+        $("#myVideo")[0].addEventListener('timeupdate', progressUpdate);
+        $('#progress').bind('mousemove touchmove', (e) => mousedown && onMouseMove(e));
+        $('#progress').bind('mouseup touchend', mousedown = false);
+        $("#progress").bind('mousedown touchstart',onMouseDown.bind(this));
+    
       
         // init
         $("#pause").hide();

@@ -384,18 +384,7 @@ Entry.resizeElement = function(interfaceModel) {
         $('.blockMenuContainer>div').css({ width: `${menuWidth + adjust - 2}px` });
         blockMenu.setWidth();
 
-        const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
-        
-        document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
-
-      
-        const pos = (percent / 100 ) * width - 5;
-
-        document.getElementById("thumb").style.left = `${pos}px`;
-
-        // console.log("pos", pos);
-        console.log("width", width);
-
+    
 
         // 가로 기링에 따라 동영상 플레이어 사이즈 및 위치 수정
         if(Entry.mode > 0){
@@ -404,14 +393,9 @@ Entry.resizeElement = function(interfaceModel) {
 
             const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
             document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
-
-            const width = (menuWidth-260) * (1.0)  ;
-            // const width = (menuWidth-310) * (0.9) ;
-            const pos = (percent / 100 ) * width + 10 ;
-
+            
+            const pos = (percent / 100 ) * width - 5;
             document.getElementById("thumb").style.left = `${pos}px`;
-
-            console.log("pos", pos);
 
         }
 
