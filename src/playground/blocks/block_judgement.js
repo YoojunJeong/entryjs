@@ -771,8 +771,8 @@ module.exports = {
                     ],
                     c: [
                         {
-                            syntax: '(!%2)',
-                            template: '(!%2)',
+                            syntax: '(true != %2)',
+                            template: '(true !=%2)',
                         },
                     ], 
                 },

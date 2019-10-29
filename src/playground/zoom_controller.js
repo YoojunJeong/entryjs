@@ -251,6 +251,12 @@ Entry.ZoomController = class ZoomController {
                     moduleList += `\ndisplay0.addPicture(${images[i]},picture${i});\n`;
                 }
 
+                // moduleList += `Network network0(0x0000E07B45C3);
+                // Button button0(0x2030D92B254A);\n
+                // Led led0(0x4020A3A5DB73);\n
+                // display0(0x4020A3A5DB74)\n
+                // ir0(0x4020A3A5DB75)\n
+                // motor0(0x4020A3A5DB76)\n`
                 // 코드
                 // console.log("cOutput",cOutput)
                 binary += `${cOutput}\n`;
@@ -290,7 +296,7 @@ Entry.ZoomController = class ZoomController {
                 if (binaryOutput.errorCode != 0)
                 {
                     console.log("interpreter generate error : " + binaryOutput.errorCode);
-                    window.android.failUpload('errorCode');
+                    window.android.failUpload('errorCode:'+binaryOutput.errorCode);
                     throw binaryOutput.errorCode;
                 }
 

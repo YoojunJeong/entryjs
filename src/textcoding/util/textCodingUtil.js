@@ -943,8 +943,8 @@ class TextCodingUtil {
         }
         
 
-        console.log("boolean_and_or blockToken : ", blockToken);
-        console.log("boolean_and_or option : ", option);
+        console.log("boolean_not blockToken : ", blockToken);
+        console.log("boolean_not option : ", option);
 
         if (block.data.type === 'boolean_not') {
 
@@ -959,7 +959,7 @@ class TextCodingUtil {
                 result = result.replace('( ', '(');
                 result = result.replace(' )', ')');
 
-                console.log("boolean_and_or result3 : ", result);
+                console.log("boolean_not result3 : ", result);
                 
             } else if (option == 'or') {
               
