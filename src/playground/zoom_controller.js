@@ -287,6 +287,13 @@ Entry.ZoomController = class ZoomController {
                 console.log("binary",binary)
 
                 let binaryOutput = Interpreter.makeFrame(binary);
+                if (binaryOutput.errorCode != 0)
+                {
+                    console.log("interpreter generate error : " + binaryOutput.errorCode);
+                    window.android.failUpload('errorCode');
+                    throw binaryOutput.errorCode;
+                }
+
                 Entry.binaryOutput = binaryOutput.block
 
                 // data 초기화
