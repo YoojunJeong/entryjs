@@ -6744,7 +6744,7 @@ Lang.template = {
     "soundAddButton": "%1",
     "listAddButton": "%1",
     "change_variable": "%1 에 %2 만큼 더하기 %3",
-    "set_variable": "%1 를 %2 로 정하기 %3",
+    "set_variable": "%1 을(를) %2 로 정하기 %3",
     "show_variable": "변수 %1 보이기 %2",
     "hide_variable": "변수 %1 숨기기 %2",
     "get_variable": "%1 %2",
