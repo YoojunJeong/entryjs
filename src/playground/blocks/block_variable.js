@@ -366,7 +366,7 @@ module.exports = {
                     ],
                     c: [
                         {
-                            syntax: '%1;',
+                            syntax: '%1',
                         },
                     ],
                 },
