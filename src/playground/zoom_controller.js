@@ -11,12 +11,15 @@ Entry.ZoomController = class ZoomController {
     constructor(board) {
         this.boardMap = new Map();
         this.firstZoom = false;
+        this.retryCount = 0;
+        this.keyBlock = {};
         if (board) {
             this.setBoard(board);
         }
         if (Entry.windowResized) {
             Entry.windowResized.attach(this, this.setPosition);
         }
+        
     }
 
     get CONTROLLER_WIDTH() {
@@ -161,175 +164,206 @@ Entry.ZoomController = class ZoomController {
                     window.android.callFuntion('RESET');
                 break;
             case 'EXPORT':
-                createjs.Sound.play('entryMenuClick');
-                var startBtnCount = 0;
-                const blockMap = this.nowBoard.code._blockMap;
 
-                console.log(blockMap);
-                
+                    try { 
 
-                const keys = Object.keys(blockMap) || [];
-                keys.forEach((id) => {
-                    var block = blockMap[id];
-                    if(block.data.type == 'when_run_button_click') {
-                        startBtnCount++;
-                        if(startBtnCount > 1) {
+                    createjs.Sound.play('entryMenuClick');
+                    let startBtnCount = 0;
+                     
+                    
+                    const blockMap = this.nowBoard.code._blockMap;
+                    console.log('blockMap', blockMap);
+                    window.android.log('blockMap : '+JSON.stringify(blockMap));
+                    // window.android.entryRefresh();
+                    // return;
 
-                            console.log('failUpload1');
-                             window.android.failUpload('<내보내기 버튼을 클릭했을 때>\n코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤\n내보내기를 다시 시도해 주세요.');
-                            throw new Error('코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤 내보내기를 다시 시도해 주세요.');
+                    const keys = Object.keys(blockMap) || [];
+                    keys.forEach((id) => {
+                        let block = blockMap[id];
+                        if(block.data.type == 'when_run_button_click') {
+                            this.keyBlock = block;
+                            startBtnCount++;
+                            if(startBtnCount > 1) {
+
+                                console.log('failUpload1');
+                                window.android.failUpload('<내보내기 버튼을 클릭했을 때>\n코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤\n내보내기를 다시 시도해 주세요.');
+                                throw new Error('코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤 내보내기를 다시 시도해 주세요.');
+                            }
+                        }         
+
+                        if(keys.length == 2 && blockMap[keys[1]].data.type == 'repeat_inf') {
+                            console.log('failUpload2');
+                            window.android.failUpload('DEFAULT_CODE');
+                            throw new Error('기본 코딩입니다.');
                         }
-                    }         
+                    });
 
-                    if(keys.length == 2 && blockMap[keys[1]].data.type == 'repeat_inf') {
-                        console.log('failUpload2');
-                        window.android.failUpload('DEFAULT_CODE');
+                    if(startBtnCount == 0) {
+                        console.log('failUpload3');
+                        window.android.failUpload('<내보내기 버튼을 클릭했을 때>\n블록 없이는 내보내기를 할 수 없어요.\n다시 코딩을 한 뒤 내보내기를 시도해 주세요.');
                         throw new Error('기본 코딩입니다.');
                     }
-                });
 
-                if(startBtnCount == 0) {
-                    console.log('failUpload3');
-                    window.android.failUpload('<내보내기 버튼을 클릭했을 때>\n블록 없이는 내보내기를 할 수 없어요.\n다시 코딩을 한 뒤 내보내기를 시도해 주세요.');
-                    throw new Error('기본 코딩입니다.');
-                }
+    
+                        const block = this.keyBlock;
 
-                const block = blockMap[keys[0]];
-                var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
-                var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
+                        console.log('block : '+block);
+                        window.android.log('block : ' + JSON.stringify(block));
 
-                console.log('block', block);
+                        var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
+                        var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
+        
+                        console.log('block : '+block.getThread);
+                        window.android.log('block getThread: '+JSON.stringify(block.getThread()));
+                        // console.log('block getThread: ', typeof block.getThread());
+                       
+        
+                        // var blockToPyParser = new Entry.BlockToPyParser(syntax);
+                        var blockToCParser = new Entry.BlockToCParser(syntax);
+                        // var pyToBlockParser = new Entry.PyToBlockParser(syntax);
+        
+                        blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
 
-                // var blockToPyParser = new Entry.BlockToPyParser(syntax);
-                var blockToCParser = new Entry.BlockToCParser(syntax);
-                // var pyToBlockParser = new Entry.PyToBlockParser(syntax);
-
-                blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
-                var cOutput = blockToCParser.Thread(block.getThread());
-
-                let binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
-
-                // 이미지 데이터
-                let images = cOutput.match(/(?<=drawPicture\().*(?=\))/g)||[]
-                let imgData = Entry.TextCodingUtil.imgData
-                for(let i =0 ; i < images.length ; i++){
-                    binary += `const char picture${i}[${imgData[i].split(',').length + 1}] = {\n${imgData[i]}\n};\n\n`
-                }
-                binary += 'void doUserTask()\n';
-
-                let moduleList = ''
-                const variables = Entry.variableContainer.variables_
-                variables.forEach((el)=>{
-                    moduleList += `float ${el.id_} = 0.0;\n`
-                })
-
-                // 멜로디 템포 변수 선언
-                if(Entry.TextCodingUtil.melodyTempo.length){
-                    let melodyTempoVariable = ''
-                    Entry.TextCodingUtil.melodyTempo.forEach(el =>{
-                        melodyTempoVariable += el 
-                    })
-                    let melArr = melodyTempoVariable
-                    .replace(/[\n\t]*/g,"")
-                    .replace(/\s*(?=float)/g,"")
-                    .split(';')
-                    .reduce((accArr,el)=>{
-                        if(!accArr.includes(el)){
-                            accArr.push(el)
+                        var cOutput = blockToCParser.Thread(block.getThread());
+        
+                        let binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
+        
+                        // 이미지 데이터
+                        let images = cOutput.match(/(?<=drawPicture\().*(?=\))/g)||[]
+                        let imgData = Entry.TextCodingUtil.imgData
+                        for(let i =0 ; i < images.length ; i++){
+                            binary += `const char picture${i}[${imgData[i].split(',').length + 1}] = {\n${imgData[i]}\n};\n\n`
                         }
-                        return accArr
-                    },[])
-                    .join(';\n')
-                    moduleList += melArr
-                }
-
-                // 모듈 블럭 선언
-                moduleList += `\n${Entry.module}\n`;
-
-                // 이미지 변수 선언
-                for(let i =0 ; i < images.length ; i++){
-                    moduleList += `\ndisplay0.addPicture(${images[i]},picture${i});\n`;
-                }
-
-                // moduleList += `Network network0(0x0000E07B45C3);
-                // Button button0(0x2030D92B254A);\n
-                // Led led0(0x4020A3A5DB73);\n
-                // display0(0x4020A3A5DB74)\n
-                // ir0(0x4020A3A5DB75)\n
-                // motor0(0x4020A3A5DB76)\n`
-                // 코드
-                // console.log("cOutput",cOutput)
-                binary += `${cOutput}\n`;
-                binary += '}\n'
-                binary = binary.replace(/temp__/g, moduleList)
-                binary = binary.replace(/\t/g, "    ")
-
-                // 모듈 연결 상태를 체크
-                const designatedModules = cOutput.match(/[a-z]*(?=0\.)\d/g) || []
-                const connectedModules = Entry.module.match(/[a-z]*(?=0\()\d/g) || []
-                const unconnectedModules = 
-                designatedModules
-                .filter(module => {
-                    return !connectedModules.includes(module)
-                }) // designatedModules에 포함된 모듈이 connectedModules에 없으면 unconnectedModules에 추가
-                .reduce((accArr,el)=>{
-                    if(!accArr.includes(el)){
-                        accArr.push(el)
-                    }
-                    return accArr
-                },[]) // 중복 모듈 정리
-
-                const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/
-                const emojiMatch = binary.match(emojiRegex)
-                
-                if(emojiMatch){
-                    Entry.toast.warning(
-                        '사용할 수 없는 문자열',
-                        `${emojiMatch[0]}이모티콘은 사용할 수 없어요!`
-                    );
-                    throw new Error(emojiMatch[0])
-                }
-
-                console.log("binary",binary)
-
-                let binaryOutput = Interpreter.makeFrame(binary);
-                if (binaryOutput.errorCode != 0)
-                {
-                    console.log("interpreter generate error : " + binaryOutput.errorCode);
-                    window.android.failUpload('errorCode:'+binaryOutput.errorCode);
-                    throw binaryOutput.errorCode;
-                }
-
-                Entry.binaryOutput = binaryOutput.block
-
-                // data 초기화
-                Entry.TextCodingUtil.imgData = []
-                Entry.TextCodingUtil.melodyTempo = []
-
-                // 프로젝트 저장
-                console.log('exportProject')
-                let project = Entry.exportProject();
-                Entry.project = project
-            
-
-                if(unconnectedModules.length){
-                    // console.log('unconnectedModules')
-                    // console.log(unconnectedModules)
-
-                    if(unconnectedModules.length == 1 && unconnectedModules[0] == '0') {
-                        // console.log('unconnectedModules == 0')
-                        window.android.uploadCode(binaryOutput.block);
-                    }
+                        binary += 'void doUserTask()\n';
+        
+                        let moduleList = ''
+                        const variables = Entry.variableContainer.variables_
+                        variables.forEach((el)=>{
+                            moduleList += `float ${el.id_} = 0.0;\n`
+                        })
+        
+                        // 멜로디 템포 변수 선언
+                        if(Entry.TextCodingUtil.melodyTempo.length){
+                            let melodyTempoVariable = ''
+                            Entry.TextCodingUtil.melodyTempo.forEach(el =>{
+                                melodyTempoVariable += el 
+                            })
+                            let melArr = melodyTempoVariable
+                            .replace(/[\n\t]*/g,"")
+                            .replace(/\s*(?=float)/g,"")
+                            .split(';')
+                            .reduce((accArr,el)=>{
+                                if(!accArr.includes(el)){
+                                    accArr.push(el)
+                                }
+                                return accArr
+                            },[])
+                            .join(';\n')
+                            moduleList += melArr
+                        }
+        
+                        // 모듈 블럭 선언
+                        moduleList += `\n${Entry.module}\n`;
+        
+                        // 이미지 변수 선언
+                        for(let i =0 ; i < images.length ; i++){
+                            moduleList += `\ndisplay0.addPicture(${images[i]},picture${i});\n`;
+                        }
+        
+                        // moduleList += `Network network0(0x0000E07B45C3);
+                        // Button button0(0x2030D92B254A);\n
+                        // Led led0(0x4020A3A5DB73);\n
+                        // display0(0x4020A3A5DB74)\n
+                        // ir0(0x4020A3A5DB75)\n
+                        // motor0(0x4020A3A5DB76)\n`
+                        // 코드
+                        // console.log("cOutput",cOutput)
+                        binary += `${cOutput}\n`;
+                        binary += '}\n'
+                        binary = binary.replace(/temp__/g, moduleList)
+                        binary = binary.replace(/\t/g, "    ")
+        
+                        // 모듈 연결 상태를 체크
+                        const designatedModules = cOutput.match(/[a-z]*(?=0\.)\d/g) || []
+                        const connectedModules = Entry.module.match(/[a-z]*(?=0\()\d/g) || []
+                        const unconnectedModules = 
+                        designatedModules
+                        .filter(module => {
+                            return !connectedModules.includes(module)
+                        }) // designatedModules에 포함된 모듈이 connectedModules에 없으면 unconnectedModules에 추가
+                        .reduce((accArr,el)=>{
+                            if(!accArr.includes(el)){
+                                accArr.push(el)
+                            }
+                            return accArr
+                        },[]) // 중복 모듈 정리
+        
+                        const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/
+                        const emojiMatch = binary.match(emojiRegex)
                         
-                    else {
-                        window.android.checkModules(JSON.stringify(unconnectedModules)) // app에 리스트를 전달
-                    }
-                } else {
-
-                    window.android.uploadCode(binaryOutput.block);
-                   
+                        if(emojiMatch){
+                            Entry.toast.warning(
+                                '사용할 수 없는 문자열',
+                                `${emojiMatch[0]}이모티콘은 사용할 수 없어요!`
+                            );
+                            throw new Error(emojiMatch[0])
+                        }
+        
+                        console.log("binary",binary)
+        
+                        let binaryOutput = Interpreter.makeFrame(binary);
+                        if (binaryOutput.errorCode != 0)
+                        {
+                            console.log("interpreter generate error : " + binaryOutput.errorCode);
+                            window.android.failUpload('errorCode:'+binaryOutput.errorCode);
+                            throw binaryOutput.errorCode;
+                        }
+        
+                        Entry.binaryOutput = binaryOutput.block
+        
+                        // data 초기화
+                        Entry.TextCodingUtil.imgData = []
+                        Entry.TextCodingUtil.melodyTempo = []
+        
+                        // 프로젝트 저장
+                        console.log('exportProject')
+                        let project = Entry.exportProject();
+                        Entry.project = project
                     
-                }
+        
+                        if(unconnectedModules.length){
+                            // console.log('unconnectedModules')
+                            // console.log(unconnectedModules)
+        
+                            if(unconnectedModules.length == 1 && unconnectedModules[0] == '0') {
+                                // console.log('unconnectedModules == 0')
+                                this.retryCount = 0;
+                                window.android.uploadCode(binaryOutput.block);
+                            }
+                                
+                            else {
+                                window.android.checkModules(JSON.stringify(unconnectedModules)) // app에 리스트를 전달
+                            }
+                        } else {
+                            this.retryCount = 0;
+                            window.android.uploadCode(binaryOutput.block);
+                    
+                        }
+                  
+                    }
+
+                    catch(e) {
+                        this.retryCount++;
+                        console.log('export error', e);
+                        window.android.log(e);
+
+                        if(this.retryCount >= 3) {
+                            this.retryCount = 0;
+                            window.android.entryRefresh();
+                        }
+                       
+                    }
+               
                 
                 break;
             case 'REMOTE':

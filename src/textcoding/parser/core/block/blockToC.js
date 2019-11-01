@@ -49,35 +49,60 @@ Entry.BlockToCParser = class {
         if (thread instanceof Entry.Block) {
             return this.Block(thread);
         }
-        const blocks = thread.getBlocks();
 
-        if (blocks.length === 0) {
-            return '';
-        }
+        try {
 
-        if (blocks[0] instanceof Entry.Comment) {
-            this.Comment(blocks[0]);
-        } else if (this._parseMode === Entry.Parser.PARSE_SYNTAX) {
-            return blocks.map((block) => `${this.Block(block)}\n`).trim();
-        } else if (this._parseMode === Entry.Parser.PARSE_GENERAL) {
-            let rootResult = '';
-            let contentResult = '';
+            if (typeof thread.getBlocks !== 'undefined' && typeof thread.getBlocks === 'function') { 
 
-            // 여기서 에러 - this.Block(block)
-            blocks.forEach((block, index) => {
-                if (index === 0 && Entry.TextCodingUtil.isEventBlock(block)) {
-                    rootResult = `${this.Block(block)}\n`;
-                } else {
-                    contentResult += `${this.Block(block)}\n`;
-                }
-            });
-
-            if (rootResult !== '') {
-                contentResult = Entry.TextCodingUtil.indent(contentResult);
+                console.log('block.getBlocks() == function');
+            }
+    
+            else {
+                console.log('block.getBlocks() != function');
+                // console.log('retryCount : '+JSON.stringify(this.retryCount));
+                // this.retryCount++;
             }
 
-            return `${(rootResult + contentResult).trim()}\n`;
+                console.log('block.getBlocks',typeof thread.getBlocks,thread);
+
+
+            const blocks = thread.getBlocks();
+
+            window.android.log('blocks : '+JSON.stringify(blocks));
+    
+            if (blocks.length === 0) {
+                return '';
+            }
+    
+            if (blocks[0] instanceof Entry.Comment) {
+                this.Comment(blocks[0]);
+            } else if (this._parseMode === Entry.Parser.PARSE_SYNTAX) {
+                return blocks.map((block) => `${this.Block(block)}\n`).trim();
+            } else if (this._parseMode === Entry.Parser.PARSE_GENERAL) {
+                let rootResult = '';
+                let contentResult = '';
+    
+                // 여기서 에러 - this.Block(block)
+                blocks.forEach((block, index) => {
+                    if (index === 0 && Entry.TextCodingUtil.isEventBlock(block)) {
+                        rootResult = `${this.Block(block)}\n`;
+                    } else {
+                        contentResult += `${this.Block(block)}\n`;
+                    }
+                });
+    
+                if (rootResult !== '') {
+                    contentResult = Entry.TextCodingUtil.indent(contentResult);
+                }
+    
+                return `${(rootResult + contentResult).trim()}\n`;
+            }
         }
+
+        catch(e) {
+            window.android.entryRefresh();
+        }
+        
     }
 
     Block(block) {
