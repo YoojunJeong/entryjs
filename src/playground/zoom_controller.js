@@ -173,7 +173,7 @@ Entry.ZoomController = class ZoomController {
                     
                     const blockMap = this.nowBoard.code._blockMap;
                     console.log('blockMap', blockMap);
-                    window.android.log('blockMap : '+JSON.stringify(blockMap));
+                    // window.android.log('blockMap : '+JSON.stringify(blockMap));
                     // window.android.entryRefresh();
                     // return;
 
@@ -207,14 +207,14 @@ Entry.ZoomController = class ZoomController {
     
                         const block = this.keyBlock;
 
-                        console.log('block : '+block);
-                        window.android.log('block : ' + JSON.stringify(block));
+                        console.log('block : ',block);
+                        // window.android.log('block : ' + JSON.stringify(block));
 
                         var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
                         var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
         
-                        console.log('block : '+block.getThread);
-                        window.android.log('block getThread: '+JSON.stringify(block.getThread()));
+                        console.log('block : ',block.getThread);
+                        // window.android.log('block getThread: '+JSON.stringify(block.getThread()));
                         // console.log('block getThread: ', typeof block.getThread());
                        
         
@@ -239,7 +239,7 @@ Entry.ZoomController = class ZoomController {
                         let moduleList = ''
                         const variables = Entry.variableContainer.variables_
                         variables.forEach((el)=>{
-                            moduleList += `float ${el.id_} = 0.0;\n`
+                            moduleList += `float ${el.getId()} = 0.0;\n`
                         })
         
                         // 멜로디 템포 변수 선언

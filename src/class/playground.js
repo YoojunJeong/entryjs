@@ -547,6 +547,8 @@ Entry.Playground = class {
             if(isNewVar) {
                 Entry.variableContainer.variables_[index].name_ = e.currentTarget.value
                 Entry.playground.reloadPlayground();
+
+                
             } else {
                 Entry.toast.warning(
                     "변수명 중복",

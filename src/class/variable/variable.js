@@ -264,7 +264,7 @@ class Variable {
      * @return {string}
      */
     getId() {
-        return this.id_;
+        return '_' + this.id_;
     }
 
     setId(id) {

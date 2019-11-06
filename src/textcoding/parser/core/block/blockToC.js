@@ -68,7 +68,7 @@ Entry.BlockToCParser = class {
 
             const blocks = thread.getBlocks();
 
-            window.android.log('blocks : '+JSON.stringify(blocks));
+            // window.android.log('blocks : '+JSON.stringify(blocks));
     
             if (blocks.length === 0) {
                 return '';
@@ -100,6 +100,7 @@ Entry.BlockToCParser = class {
         }
 
         catch(e) {
+            console.log('error',e)
             window.android.entryRefresh();
         }
         
@@ -254,6 +255,15 @@ Entry.BlockToCParser = class {
 
                     case 'boolean_not': {
                         resultTextCode = Entry.TextCodingUtil.assembleBoolenNot(
+                            block,
+                            resultTextCode
+                        );
+                        break;
+                    }
+
+                    case 'calc_basic': {
+
+                        resultTextCode = Entry.TextCodingUtil.assembleCalcBasic(
                             block,
                             resultTextCode
                         );

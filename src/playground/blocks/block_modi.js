@@ -1328,7 +1328,7 @@ Entry.MODI.getBlocks = function() {
                         [Lang.Blocks.modi_speaker_F_PA_6, 'F_PA_6'],
                         [Lang.Blocks.modi_speaker_F_SOL_6, 'F_SOL_6'],
                         [Lang.Blocks.modi_speaker_F_RA_6, 'F_RA_6'],
-                        [Lang.Blocks.modi_speaker_F_SO_6, 'F_SO_6'],
+                        [Lang.Blocks.modi_speaker_F_SI_6, 'F_SI_6'],
                         // [Lang.Blocks.modi_speaker_F_DO_S_6, 'F_DO_S_6'],
                         // [Lang.Blocks.modi_speaker_F_RE_S_6, 'F_RE_S_6'],
                         // [Lang.Blocks.modi_speaker_F_PA_S_6, 'F_PA_S_6'],
