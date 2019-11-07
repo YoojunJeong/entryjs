@@ -15,7 +15,9 @@ Entry.BlockToCParser = class {
 
         this._variableDeclaration = null;
         this._listDeclaration = null;
-        this._forIdCharIndex = 0;   
+        this._forIdCharIndex = 0;  
+        this._blockCount = 0; 
+        this._secondBlock = {};
     }
 
     Code(code, parseMode) {
@@ -63,11 +65,8 @@ Entry.BlockToCParser = class {
                 // this.retryCount++;
             }
 
-                console.log('block.getBlocks',typeof thread.getBlocks,thread);
-
-
             const blocks = thread.getBlocks();
-
+            console.log('blocks', blocks);
             // window.android.log('blocks : '+JSON.stringify(blocks));
     
             if (blocks.length === 0) {
@@ -82,19 +81,27 @@ Entry.BlockToCParser = class {
                 let rootResult = '';
                 let contentResult = '';
     
+                
                 // 여기서 에러 - this.Block(block)
                 blocks.forEach((block, index) => {
                     if (index === 0 && Entry.TextCodingUtil.isEventBlock(block)) {
                         rootResult = `${this.Block(block)}\n`;
+                        this._blockCount++;
                     } else {
                         contentResult += `${this.Block(block)}\n`;
+                        this._blockCount++;
+
+                        if(this._blockCount == 2) {
+                            this._secondBlock = block;
+                        }
                     }
                 });
     
                 if (rootResult !== '') {
                     contentResult = Entry.TextCodingUtil.indent(contentResult);
                 }
-    
+               
+
                 return `${(rootResult + contentResult).trim()}\n`;
             }
         }

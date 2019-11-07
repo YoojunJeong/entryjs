@@ -172,7 +172,7 @@ Entry.ZoomController = class ZoomController {
                      
                     
                     const blockMap = this.nowBoard.code._blockMap;
-                    console.log('blockMap', blockMap);
+                    // console.log('blockMap', blockMap);
                     // window.android.log('blockMap : '+JSON.stringify(blockMap));
                     // window.android.entryRefresh();
                     // return;
@@ -185,21 +185,24 @@ Entry.ZoomController = class ZoomController {
                             startBtnCount++;
                             if(startBtnCount > 1) {
 
-                                console.log('failUpload1');
+                                // console.log('failUpload1');
                                 window.android.failUpload('<내보내기 버튼을 클릭했을 때>\n코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤\n내보내기를 다시 시도해 주세요.');
                                 throw new Error('코드 블록이 2개 이상이에요.\n1개만 남기고 삭제한 뒤 내보내기를 다시 시도해 주세요.');
                             }
                         }         
-
-                        if(keys.length == 2 && blockMap[keys[1]].data.type == 'repeat_inf') {
-                            console.log('failUpload2');
+                       
+                        if(keys.length == 1 && blockMap[keys[0]].data.type == 'when_run_button_click') {
+                            // console.log('failUpload4');
                             window.android.failUpload('DEFAULT_CODE');
                             throw new Error('기본 코딩입니다.');
                         }
+
+                        console.log('block thread = ', block.getThread().getBlocks);
+
                     });
 
                     if(startBtnCount == 0) {
-                        console.log('failUpload3');
+                        // console.log('failUpload3');
                         window.android.failUpload('<내보내기 버튼을 클릭했을 때>\n블록 없이는 내보내기를 할 수 없어요.\n다시 코딩을 한 뒤 내보내기를 시도해 주세요.');
                         throw new Error('기본 코딩입니다.');
                     }
@@ -207,13 +210,13 @@ Entry.ZoomController = class ZoomController {
     
                         const block = this.keyBlock;
 
-                        console.log('block : ',block);
+                        // console.log('block : ',block);
                         // window.android.log('block : ' + JSON.stringify(block));
 
                         var parser = new Entry.Parser(Entry.Vim.WORKSPACE_MODE);
                         var syntax = parser.mappingSyntax(Entry.Vim.WORKSPACE_MODE);
         
-                        console.log('block : ',block.getThread);
+                        // console.log('block : ',block.getThread);
                         // window.android.log('block getThread: '+JSON.stringify(block.getThread()));
                         // console.log('block getThread: ', typeof block.getThread());
                        
@@ -225,6 +228,12 @@ Entry.ZoomController = class ZoomController {
                         blockToCParser._parseMode = Entry.Parser.PARSE_GENERAL;
 
                         var cOutput = blockToCParser.Thread(block.getThread());
+
+                        if(blockToCParser._blockCount == 2 && blockToCParser._secondBlock.data.type =='repeat_inf') {
+                            console.log('failUpload2');
+                            window.android.failUpload('DEFAULT_CODE');
+                            throw new Error('기본 코딩입니다.');
+                        }
         
                         let binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
         
