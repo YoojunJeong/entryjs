@@ -100,8 +100,9 @@ Entry.BlockToCParser = class {
         }
 
         catch(e) {
-            console.log('error',e)
-            window.android.entryRefresh();
+            console.log('error',e);
+            throw new Error('thread');
+            // window.android.entryRefresh();
         }
         
     }
@@ -261,14 +262,14 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
-                    case 'calc_basic': {
+                    // case 'calc_basic': {
 
-                        resultTextCode = Entry.TextCodingUtil.assembleCalcBasic(
-                            block,
-                            resultTextCode
-                        );
-                        break;
-                    }
+                    //     resultTextCode = Entry.TextCodingUtil.assembleCalcBasic(
+                    //         block,
+                    //         resultTextCode
+                    //     );
+                    //     break;
+                    // }
 
                     case 'HW_BTN_VALUE' : {
                         

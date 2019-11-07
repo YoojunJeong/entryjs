@@ -315,7 +315,7 @@ Entry.ZoomController = class ZoomController {
                         if (binaryOutput.errorCode != 0)
                         {
                             console.log("interpreter generate error : " + binaryOutput.errorCode);
-                            window.android.failUpload('errorCode:'+binaryOutput.errorCode);
+                            // window.android.failUpload('errorCode:'+binaryOutput.errorCode);
                             throw binaryOutput.errorCode;
                         }
         
@@ -353,9 +353,13 @@ Entry.ZoomController = class ZoomController {
                     }
 
                     catch(e) {
-                        this.retryCount++;
+                        
                         console.log('export error', e);
                         window.android.log(e);
+
+                        if(e == 'thread') {
+                            this.retryCount++;
+                        }
 
                         if(this.retryCount >= 3) {
                             this.retryCount = 0;
