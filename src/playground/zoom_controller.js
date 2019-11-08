@@ -197,7 +197,7 @@ Entry.ZoomController = class ZoomController {
                             throw new Error('기본 코딩입니다.');
                         }
 
-                        console.log('block thread = ', block.getThread().getBlocks);
+                        // console.log('block thread = ', block.getThread().getBlocks);
 
                     });
 
@@ -324,7 +324,7 @@ Entry.ZoomController = class ZoomController {
                         if (binaryOutput.errorCode != 0)
                         {
                             console.log("interpreter generate error : " + binaryOutput.errorCode);
-                            // window.android.failUpload('errorCode:'+binaryOutput.errorCode);
+                            // window.android.log("interpreter generate error : " + );
                             throw binaryOutput.errorCode;
                         }
         
