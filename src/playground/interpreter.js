@@ -584,7 +584,8 @@ function getCodeBlock(luxc) {
 
                                 var tempVariableBlocks = [];
                                 for (var i = 0; i < argumentsBlocks.length; i++) {
-                                    if (argumentsBlocks[i].type == FrameType.CALTULATOR) {
+                                    if (argumentsBlocks[i].type == FrameType.CALTULATOR ||
+                                        argumentsBlocks[i].type == FrameType.RANDOM) {
                                         // Replace to value
                                         var variable_name = "__cal" + i;
                                         tempVariableBlocks.push(new VariableSetValue(new StringValue(variable_name), argumentsBlocks[i]));
