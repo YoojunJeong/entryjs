@@ -131,7 +131,7 @@ Entry.Playground = class {
         function onMouseUp () {
 
             mousedown = false;
-            console.log('onMouseUp',mousedown);
+            // console.log('onMouseUp',mousedown);
            
             $(document).unbind('#progress');
             // delete this.dragInstance;
@@ -164,7 +164,7 @@ Entry.Playground = class {
                 } else {
                     mouseEvent = e;
                 }
-                console.log('onMouseDown',e.offsetX);
+                // console.log('onMouseDown',e.offsetX);
 
                 // this.mouseDownCoordinate = {
                 //     x: mouseEvent.pageX,
@@ -212,13 +212,13 @@ Entry.Playground = class {
         
             
             if (e.originalEvent && e.originalEvent.touches) {
-                console.log('onMouseMove1 ');
+                // console.log('onMouseMove1 ');
                 mouseEvent = e.originalEvent.touches[0];
             } else if (e.touches) {
-                console.log('onMouseMove2 ');
+                // console.log('onMouseMove2 ');
                 mouseEvent = e.touches[0];
             } else {
-                console.log('onMouseMove3 ');
+                // console.log('onMouseMove3 ');
                 mouseEvent = e;
                
             }
@@ -254,9 +254,10 @@ Entry.Playground = class {
     
 
         $("#myVideo")[0].addEventListener('timeupdate', progressUpdate);
-        $('#progress').bind('mousemove touchmove', (e) => mousedown && onMouseMove(e));
-        $('#progress').bind('mouseup touchend', mousedown = false);
+        // $('#progress').bind('mousemove touchmove', (e) => mousedown && onMouseMove(e));
+        // $('#progress').bind('mouseup touchend', mousedown = false);
         $("#progress").bind('mousedown touchstart',onMouseDown.bind(this));
+        $("#progress").bind('click', onMouseMove())
     
       
         // init

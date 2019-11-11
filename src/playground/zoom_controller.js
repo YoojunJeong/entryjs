@@ -319,27 +319,7 @@ Entry.ZoomController = class ZoomController {
                         }
         
                         console.log("binary",binary)
-        
-                        let binaryOutput = Interpreter.makeFrame(binary);
-                        if (binaryOutput.errorCode != 0)
-                        {
-                            console.log("interpreter generate error : " + binaryOutput.errorCode);
-                            // window.android.log("interpreter generate error : " + );
-                            throw binaryOutput.errorCode;
-                        }
-        
-                        Entry.binaryOutput = binaryOutput.block
-        
-                        // data 초기화
-                        Entry.TextCodingUtil.imgData = []
-                        Entry.TextCodingUtil.melodyTempo = []
-        
-                        // 프로젝트 저장
-                        console.log('exportProject')
-                        let project = Entry.exportProject();
-                        Entry.project = project
-                    
-        
+
                         if(unconnectedModules.length){
                             // console.log('unconnectedModules')
                             // console.log(unconnectedModules)
@@ -358,6 +338,26 @@ Entry.ZoomController = class ZoomController {
                             window.android.uploadCode(binaryOutput.block);
                     
                         }
+
+        
+                        let binaryOutput = Interpreter.makeFrame(binary);
+                        if (binaryOutput.errorCode != 0)
+                        {
+                            console.log("interpreter generate error : " + binaryOutput.errorCode);
+                            window.android.log("interpreter generate error : " + binaryOutput.errorCode);
+                            // throw binaryOutput.errorCode;
+                        }
+        
+                        Entry.binaryOutput = binaryOutput.block
+        
+                        // data 초기화
+                        Entry.TextCodingUtil.imgData = []
+                        Entry.TextCodingUtil.melodyTempo = []
+        
+                        // 프로젝트 저장
+                        console.log('exportProject')
+                        let project = Entry.exportProject();
+                        Entry.project = project
                   
                     }
 
