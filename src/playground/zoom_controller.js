@@ -320,6 +320,8 @@ Entry.ZoomController = class ZoomController {
         
                         console.log("binary",binary)
 
+                        let binaryOutput = Interpreter.makeFrame(binary);
+
                         if(unconnectedModules.length){
                             // console.log('unconnectedModules')
                             // console.log(unconnectedModules)
@@ -327,6 +329,14 @@ Entry.ZoomController = class ZoomController {
                             if(unconnectedModules.length == 1 && unconnectedModules[0] == '0') {
                                 // console.log('unconnectedModules == 0')
                                 this.retryCount = 0;
+
+                                if (binaryOutput.errorCode != 0)
+                                {
+                                    console.log("interpreter generate error : " + binaryOutput.errorCode);
+                                    window.android.log("interpreter generate error : " + binaryOutput.errorCode);
+                                    // throw binaryOutput.errorCode;
+                                }
+
                                 window.android.uploadCode(binaryOutput.block);
                             }
                                 
@@ -339,15 +349,6 @@ Entry.ZoomController = class ZoomController {
                     
                         }
 
-        
-                        let binaryOutput = Interpreter.makeFrame(binary);
-                        if (binaryOutput.errorCode != 0)
-                        {
-                            console.log("interpreter generate error : " + binaryOutput.errorCode);
-                            window.android.log("interpreter generate error : " + binaryOutput.errorCode);
-                            // throw binaryOutput.errorCode;
-                        }
-        
                         Entry.binaryOutput = binaryOutput.block
         
                         // data 초기화
