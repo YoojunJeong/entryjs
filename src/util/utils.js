@@ -377,26 +377,17 @@ Entry.resizeElement = function(interfaceModel) {
         // console.log("menuWidth", menuWidth-340);
         // console.log("adjust", adjust);
         const width = (menuWidth-300) * (0.9)  ;
-        $('#progress').css({ width: `${width}px` });
+        $('.wrap').css({ width: `${width}px` });
 
 
         $('.blockMenuContainer').css({ width: `${menuWidth + adjust}px` });
         $('.blockMenuContainer>div').css({ width: `${menuWidth + adjust - 2}px` });
         blockMenu.setWidth();
 
-    
-
         // 가로 기링에 따라 동영상 플레이어 사이즈 및 위치 수정
         if(Entry.mode > 0){
-            $('.entryWorkspaceBlockMenu').css({top:`${menuWidth*285/427}px`})  //285
-            $('.entryMenuTop').css({top:`-${(menuWidth*285/427)+0.6}px`,height:`${(menuWidth*285/427)+0.6}px`})
-
-            const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
-            document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
-            
-            const pos = (percent / 100 ) * width - 5;
-            document.getElementById("thumb").style.left = `${pos}px`;
-
+            $('.entryWorkspaceBlockMenu').css({top:`${menuWidth*285/427}px`});  //285
+            $('.entryMenuTop').css({top:`-${(menuWidth*285/427)+0.6}px`,height:`${(menuWidth*285/427)+0.6}px`});
         }
 
         $('.entryWorkspaceBoard').css({ left: `${menuWidth + 20 }px` }); //`${menuWidth + 20 }px`

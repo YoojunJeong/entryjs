@@ -333,7 +333,7 @@ Entry.ZoomController = class ZoomController {
                                 if (binaryOutput.errorCode != 0)
                                 {
                                     console.log("interpreter generate error : " + binaryOutput.errorCode);
-                                    window.android.log("interpreter generate error : " + binaryOutput.errorCode);
+                                    // window.android.failUpload("코드를 만들 수 없어요.");
                                     // throw binaryOutput.errorCode;
                                 }
 

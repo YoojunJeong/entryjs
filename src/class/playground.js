@@ -74,31 +74,20 @@ Entry.Playground = class {
         <div id="currentTime"></div>
         <div class="wrap">
         <input type="range" min="0" max="100" value="0" class="range"  />
-       
+       </div>
         <div id="duration"></div>
         `;
         $("#video-controls").append(state);
-        // <div id="filled-progress"></div>
-
-        let mousedown = false;
-       
-
-        function progressUpdate() {
-            // const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
-
-            // const width =  $('.range').val();
-           
-            
-            // const pos = (percent / 100 ) * width ;
-
-            // document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
-            // document.getElementById(".range::-webkit-slider-thumb").style.left = `${pos}px`;
         
+        function progressUpdate() {
+            const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
+            // $('.range')[0].min = $("#myVideo")[0].currentTime;
+            // $('.range')[0].max = $("#myVideo")[0].duration;
 
-            $('.range')[0].value = $("#myVideo")[0].currentTime;
-            console.log('pos x',$("#myVideo")[0].currentTime);
-            console.log('pos x',$('.range')[0].value);
-
+            let val = $('.range').val();
+            let buf = ((100 - val) / 4) + parseInt(val);
+            
+            $('.range')[0].value = percent;
             const duration_m_ = getPlaySecond(Math.floor($("#myVideo")[0].duration / 60));
             const duration_s_ = getPlaySecond(Math.floor($("#myVideo")[0].duration % 60));
 
@@ -107,6 +96,12 @@ Entry.Playground = class {
 
             $("#currentTime").text(`${current_m} : ${current_s}`)
             $("#duration").text(`${duration_m_} : ${duration_s_}`)
+
+            $('.range').css(
+                'background',
+                'linear-gradient(to right, #ffffff 0%, #ffffff ' + val + '%, #777 ' + val + '%, #777 ' + buf + '%, #444 ' + buf + '%, #444 100%)'
+              );
+
           }
 
         function getPlaySecond(sec) {
@@ -127,38 +122,46 @@ Entry.Playground = class {
 
         $('.wrap').addClass('loaded');
   
-        $('.range').bind('change mousemove', function(e) {
-          let val = $(this).val();
-          let buf = ((100 - val) / 4) + parseInt(val);
-          $(this).css(
-            'background',
-            'linear-gradient(to right, #ffffff 0%, #ffffff ' + val + '%, #777 ' + val + '%, #777 ' + buf + '%, #444 ' + buf + '%, #444 100%)'
-          );
+        $('.range').bind('change mousemove', function() {
 
-          console.log('range val',val);
+            let val = $(this).val();
+            let buf = ((100 - val) / 4) + parseInt(val);
 
-          $("#myVideo")[0].currentTime = val;
+            $(this).css(
+                'background',
+                'linear-gradient(to right, #ffffff 0%, #ffffff ' + val + '%, #777 ' + val + '%, #777 ' + buf + '%, #444 ' + buf + '%, #444 100%)'
+            );
+
+            const time = $('#myVideo')[0].duration * (val / 100);
+            $('#myVideo')[0].currentTime = time;
+        
         });
-      
-        var timeout;
-        $('.wrap').bind('focusin mouseover mousedown hover', function() {
-          window.clearTimeout(timeout);
-          $(this).addClass('hover');
-        });
-        $('.wrap').bind('focusout mouseout mouseup', function() {
-          window.clearTimeout(timeout);
-          timeout = setTimeout(function(){removeHoverClass();}, 1000);
-        });
-        function removeHoverClass() {
-          if (!$('.wrap').is(":hover")) {
-            $('.wrap').removeClass('hover');
-          }
-        }
+    
         
         $('#myVideo')[0].addEventListener('timeupdate', progressUpdate);
-        // $('#progress').bind('mousemove touchmove', (e) => mousedown && onMouseMove(e));
-        // $('#progress').bind('mouseup touchend', mousedown = false);
-        // $("#progress").bind('mousedown touchstart',onMouseDown.bind(this));
+
+        $('.range').bind('mouseup touchend', () => {
+        
+            $("#myVideo")[0].play();
+        }); 
+        $('.range').bind('mousedown touchstart', () => {
+           
+            $("#myVideo")[0].pause();
+        });
+
+        $('.range').bind("click", function(){
+            let val = $(this).val();
+            let buf = ((100 - val) / 4) + parseInt(val);
+
+            $(this).css(
+                'background',
+                'linear-gradient(to right, #ffffff 0%, #ffffff ' + val + '%, #777 ' + val + '%, #777 ' + buf + '%, #444 ' + buf + '%, #444 100%)'
+            );
+
+            const time = $('#myVideo')[0].duration * (val / 100);
+            $('#myVideo')[0].currentTime = time;
+        });
+
       
         // init
         $("#pause").hide();
@@ -173,8 +176,6 @@ Entry.Playground = class {
     
         $("#playerminscreen").hide();
         updatePlayList();
-       
-
     
         function updatePlayList(params) {
 
