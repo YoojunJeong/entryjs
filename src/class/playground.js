@@ -72,41 +72,38 @@ Entry.Playground = class {
         <img src="./images/modi_invenact_btn_fullscreen_exit.svg" id="playerminscreen">
 
         <div id="currentTime"></div>
-        <div id="thumb"></div>
-        <span id="progress">
-       
-            <div id="filled-progress"></div>
-           
-        </span>
+        <div class="wrap">
+        <input type="range" min="0" max="100" value="0" class="range"  />
        
         <div id="duration"></div>
         `;
         $("#video-controls").append(state);
-     
+        // <div id="filled-progress"></div>
 
         let mousedown = false;
        
 
         function progressUpdate() {
-            const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
+            // const percent = ( $("#myVideo")[0].currentTime /  $("#myVideo")[0].duration) * 100;
 
-            const width = $("#progress")[0].offsetWidth;
+            // const width =  $('.range').val();
            
             
-            const pos = (percent / 100 ) * width - 5;
+            // const pos = (percent / 100 ) * width ;
 
-            document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
-            document.getElementById("thumb").style.left = `${pos}px`;
-
+            // document.getElementById("filled-progress").style.flexBasis = `${percent}%`;
+            // document.getElementById(".range::-webkit-slider-thumb").style.left = `${pos}px`;
         
-            // console.log('pos x',pos);
+
+            $('.range')[0].value = $("#myVideo")[0].currentTime;
+            console.log('pos x',$("#myVideo")[0].currentTime);
+            console.log('pos x',$('.range')[0].value);
 
             const duration_m_ = getPlaySecond(Math.floor($("#myVideo")[0].duration / 60));
             const duration_s_ = getPlaySecond(Math.floor($("#myVideo")[0].duration % 60));
 
             const current_m = getPlaySecond(Math.floor($("#myVideo")[0].currentTime / 60));
             const current_s = getPlaySecond(Math.floor($("#myVideo")[0].currentTime % 60));
-            
 
             $("#currentTime").text(`${current_m} : ${current_s}`)
             $("#duration").text(`${duration_m_} : ${duration_s_}`)
@@ -127,137 +124,41 @@ Entry.Playground = class {
                 return sec
             }
         }
-        
-        function onMouseUp () {
 
-            mousedown = false;
-            console.log('onMouseUp',mousedown);
-           
-            $(document).unbind('#progress');
-            // delete this.dragInstance;
-        };
+        $('.wrap').addClass('loaded');
+  
+        $('.range').bind('change mousemove', function(e) {
+          let val = $(this).val();
+          let buf = ((100 - val) / 4) + parseInt(val);
+          $(this).css(
+            'background',
+            'linear-gradient(to right, #ffffff 0%, #ffffff ' + val + '%, #777 ' + val + '%, #777 ' + buf + '%, #444 ' + buf + '%, #444 100%)'
+          );
 
-        function onMouseDown(e) {
+          console.log('range val',val);
 
-            mousedown = true;
-
-            if (e.stopPropagation) {
-                e.stopPropagation();
-            }
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-    
-            // const e = Entry.Utils.convertMouseEvent(event);
-            Entry.documentMousedown.notify(e);
-    
-            //left mousedown
-            if (
-                (e.button === 0 || (e.originalEvent && e.originalEvent.touches) || e.touches)
-            ) {
-                const eventType = e.type;
-                let mouseEvent;
-                if (e.originalEvent && e.originalEvent.touches) {
-                    mouseEvent = e.originalEvent.touches[0];
-                } else if (e.touches) {
-                    mouseEvent = e.touches[0];
-                } else {
-                    mouseEvent = e;
-                }
-                console.log('onMouseDown',e.offsetX);
-
-                // this.mouseDownCoordinate = {
-                //     x: mouseEvent.pageX,
-                //     y: $("#progress")[0].offsetY,
-                // };
-                const $doc = $(document);
-    
-                if (mousedown) {
-                  
-                    $doc.bind('mousemove.progress', onMouseMove);
-                    document.addEventListener('touchmove', onMouseMove, { passive: false });
-                }
-                $doc.bind('mouseup.block', onMouseUp);
-                document.addEventListener('touchend', onMouseUp);
-               
-    
-    
-                if (eventType === 'touchstart' || Entry.isMobile()) {
-                    this.longPressTimer = setTimeout(() => {
-                        if (this.longPressTimer) {
-                            this.longPressTimer = null;
-                            this.onMouseUp();
-                         
-                        }
-                    }, 700);
-                }
-            } 
-
-            document.dispatchEvent(Entry.Utils.createMouseEvent('touchstart', e));
-    
-        }
-        function onMouseMove(e) {
-
-            if (!mousedown) {
-                return;
-            }
-            
-            // console.log('onMouseMove',e);
-
-            e.stopPropagation();
-            e.preventDefault();
-
-    
-            let mouseEvent ;
-        
-            
-            if (e.originalEvent && e.originalEvent.touches) {
-                console.log('onMouseMove1 ');
-                mouseEvent = e.originalEvent.touches[0];
-            } else if (e.touches) {
-                console.log('onMouseMove2 ');
-                mouseEvent = e.touches[0];
-            } else {
-                console.log('onMouseMove3 ');
-                mouseEvent = e;
-               
-            }
-        
-
-            const offsetx = mouseEvent.pageX - 181;
-
-            const scrubTime = (offsetx / $("#progress")[0].offsetWidth) * $("#myVideo")[0].duration;
-
-                $("#myVideo")[0].currentTime = scrubTime;
+          $("#myVideo")[0].currentTime = val;
+        });
+      
+        var timeout;
+        $('.wrap').bind('focusin mouseover mousedown hover', function() {
+          window.clearTimeout(timeout);
+          $(this).addClass('hover');
+        });
+        $('.wrap').bind('focusout mouseout mouseup', function() {
+          window.clearTimeout(timeout);
+          timeout = setTimeout(function(){removeHoverClass();}, 1000);
+        });
+        function removeHoverClass() {
+          if (!$('.wrap').is(":hover")) {
+            $('.wrap').removeClass('hover');
+          }
         }
         
-        function scrub(e) {
-
-            console.log('onMouseMove ');
-
-            // if (e.touches.length > 1) {
-            //     return;
-            //   }
-            
-              if(e.cancelable) {
-                e.preventDefault();
-              }
-
-            console.log('onMouseMove2 e.offsetX',e.offsetX);
-            const scrubTime = (e.offsetX / $("#progress")[0].offsetWidth) * $("#myVideo")[0].duration;
-
-            // console.log('scrub offsetWidth', $("#progress")[0].offsetWidth);
-
-            $("#myVideo")[0].currentTime = scrubTime;
-        }
-
-    
-
-        $("#myVideo")[0].addEventListener('timeupdate', progressUpdate);
-        $('#progress').bind('mousemove touchmove', (e) => mousedown && onMouseMove(e));
-        $('#progress').bind('mouseup touchend', mousedown = false);
-        $("#progress").bind('mousedown touchstart',onMouseDown.bind(this));
-    
+        $('#myVideo')[0].addEventListener('timeupdate', progressUpdate);
+        // $('#progress').bind('mousemove touchmove', (e) => mousedown && onMouseMove(e));
+        // $('#progress').bind('mouseup touchend', mousedown = false);
+        // $("#progress").bind('mousedown touchstart',onMouseDown.bind(this));
       
         // init
         $("#pause").hide();

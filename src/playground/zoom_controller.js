@@ -365,7 +365,7 @@ Entry.ZoomController = class ZoomController {
                         
                         console.log('export error', e);
                         window.android.log(e);
-
+        
                         if(e == 'thread') {
                             this.retryCount++;
                         }
