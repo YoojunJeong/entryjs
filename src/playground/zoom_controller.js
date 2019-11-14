@@ -234,6 +234,12 @@ Entry.ZoomController = class ZoomController {
                             window.android.failUpload('DEFAULT_CODE');
                             throw new Error('기본 코딩입니다.');
                         }
+
+                        else if (blockToCParser._blockCount == 1) {
+                            console.log('failUpload1');
+                            window.android.failUpload('DEFAULT_CODE');
+                            throw new Error('기본 코딩입니다.');
+                        }
         
                         let binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
         
