@@ -329,7 +329,7 @@ Entry.ZoomController = class ZoomController {
                         let binaryOutput = Interpreter.makeFrame(binary);
 
                         if(unconnectedModules.length){
-                            // console.log('unconnectedModules')
+                            console.log('unconnectedModules',unconnectedModules);
                             // console.log(unconnectedModules)
         
                             if(unconnectedModules.length == 1 && unconnectedModules[0] == '0') {
@@ -339,10 +339,10 @@ Entry.ZoomController = class ZoomController {
                                 if (binaryOutput.errorCode != 0)
                                 {
                                     console.log("interpreter generate error : " + binaryOutput.errorCode);
-                                    // window.android.failUpload("코드를 만들 수 없어요.");
+                                    window.android.failUpload("코드를 만들 수 없어요.");
                                     // throw binaryOutput.errorCode;
                                 }
-
+                               
                                 window.android.uploadCode(binaryOutput.block);
                             }
                                 
@@ -350,6 +350,15 @@ Entry.ZoomController = class ZoomController {
                                 window.android.checkModules(JSON.stringify(unconnectedModules)) // app에 리스트를 전달
                             }
                         } else {
+                            
+        
+                            if (binaryOutput.errorCode != 0)
+                            {
+                                console.log("interpreter generate error : " + binaryOutput.errorCode);
+                                // window.android.failUpload("코드를 만들 수 없어요.");
+                                // throw binaryOutput.errorCode;
+                            }
+
                             this.retryCount = 0;
                             window.android.uploadCode(binaryOutput.block);
                     

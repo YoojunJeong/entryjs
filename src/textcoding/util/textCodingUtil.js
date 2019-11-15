@@ -806,12 +806,13 @@ class TextCodingUtil {
             console.log("repeat_while_true option : ", option);
 
             if (option == 'until') {
-                const condition = '!';
+                const condition = 'true !=';
                 blockToken.splice(1, 0, condition);
                 optIndex += 1;
                 blockToken.splice(optIndex, 1);
                 result = blockToken.join(' ').replace(' ! ', '!');
                 result = result.replace(' )', ')');
+
             } else if (option == 'while') {
                 blockToken.splice(optIndex, 1);
                 result = blockToken.join(' ').replace(' while ', '');
