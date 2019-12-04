@@ -424,7 +424,7 @@ Entry.Field = class Field {
 
         const board = this._blockView.getBoard();
         const { scale = 1 } = board;
-        invisibleContext.font = `${fontSize}px ${this.getFontFamily()}`;
+        invisibleContext.font = `bold ${fontSize}px ${this.getFontFamily()}`;
         bBox = {
             width: Math.round(invisibleContext.measureText(value).width * 100) / 100,
             height: Math.round(invisibleContext.measureText('M').width * 100) / 100,
