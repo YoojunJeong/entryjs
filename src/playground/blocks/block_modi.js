@@ -8,7 +8,7 @@ Entry.MODI = {
         ko: '모디',
         en: 'MODI',
     },
-    setZero: function() {
+    setZero: function () {
         Entry.hw.sendQueue.moduleValue = {
             led: [],
             motor: [],
@@ -22,7 +22,7 @@ Entry.MODI = {
         };
         Entry.hw.update();
     },
-    initSend: function() {
+    initSend: function () {
         Entry.hw.sendQueue.moduleValue = {
             led: [],
             motor: [],
@@ -40,7 +40,7 @@ Entry.MODI = {
         id: 0,
         property: 0,
     },
-    microphoneList: function() {
+    microphoneList: function () {
         var list;
         var moduleData = Entry.hw.portData['module'] || {};
 
@@ -54,7 +54,7 @@ Entry.MODI = {
         }
         return list;
     },
-    environmentList: function() {
+    environmentList: function () {
         var list;
         var moduleData = Entry.hw.portData['module'] || {};
 
@@ -68,7 +68,7 @@ Entry.MODI = {
         }
         return list;
     },
-    dialList: function() {
+    dialList: function () {
         var list;
         var moduleData = Entry.hw.portData['module'] || {};
 
@@ -82,7 +82,7 @@ Entry.MODI = {
         }
         return list;
     },
-    gyroscopeList: function() {
+    gyroscopeList: function () {
         var list;
         var moduleData = Entry.hw.portData['module'] || {};
 
@@ -96,7 +96,7 @@ Entry.MODI = {
         }
         return list;
     },
-    buttonList: function() {
+    buttonList: function () {
         var list;
         var moduleData = Entry.hw.portData['module'] || {};
 
@@ -110,7 +110,7 @@ Entry.MODI = {
         }
         return list;
     },
-    infraredList: function() {
+    infraredList: function () {
         var list;
         var moduleData = Entry.hw.portData['module'] || {};
 
@@ -124,7 +124,7 @@ Entry.MODI = {
         }
         return list;
     },
-    ultrasonicList: function() {
+    ultrasonicList: function () {
         var list;
         var moduleData = Entry.hw.portData['module'] || {};
 
@@ -138,7 +138,7 @@ Entry.MODI = {
         }
         return list;
     },
-    motorList: function() {
+    motorList: function () {
         var list;
         var moduleData = Entry.hw.portData['module'] || {};
 
@@ -151,7 +151,7 @@ Entry.MODI = {
         }
         return list;
     },
-    ledList: function() {
+    ledList: function () {
         var list;
         var moduleData = Entry.hw.portData['module'] || {};
 
@@ -165,7 +165,7 @@ Entry.MODI = {
         }
         return list;
     },
-    speakerList: function() {
+    speakerList: function () {
         var list;
         var moduleData = Entry.hw.portData['module'] || {};
 
@@ -179,7 +179,7 @@ Entry.MODI = {
         }
         return list;
     },
-    displayList: function() {
+    displayList: function () {
         var list;
         var moduleData = Entry.hw.portData['module'] || {};
 
@@ -193,18 +193,18 @@ Entry.MODI = {
         }
         return list;
     },
-    displayImageList: function() {
+    displayImageList: function () {
         let list = EntryStatic.displayImage.list;
         return list;
     },
-    speakerMelodyList: function() {
+    speakerMelodyList: function () {
         let list = EntryStatic.speakerMelody.list;
         return list;
     }
 };
 Entry.MODI.blockMenuBlocks = [];
 //region modi 모디
-Entry.MODI.getBlocks = function() {
+Entry.MODI.getBlocks = function () {
     return {
         modi_microphone_value: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
@@ -231,7 +231,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'microphone',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 var key = script.getStringField('name');
 
                 var pd = JSON.parse(Entry.hw.portData.module['mic'][key]);
@@ -254,8 +254,9 @@ Entry.MODI.getBlocks = function() {
                 return pd.value[2];
             },
 
-            syntax: { js: [], py: [''],
-            
+            syntax: {
+                js: [], py: [''],
+
                 c: [
                     {
                         syntax: 'microphone0.setReset();',
@@ -304,7 +305,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'environment',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 var key = script.getStringField('name');
                 var property = script.getNumberField('property');
 
@@ -329,7 +330,7 @@ Entry.MODI.getBlocks = function() {
                 return pd.value[property];
             },
 
-            
+
         },
         HW_DIAL_VALUE: {
             color: EntryStatic.colorSet.block.modi.INPUT,
@@ -361,7 +362,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'dial',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 var key = script.getStringField('name');
 
                 var pd = JSON.parse(Entry.hw.portData.module['dial'][key]);
@@ -383,7 +384,7 @@ Entry.MODI.getBlocks = function() {
 
                 var moduleID = JSON.parse(Entry.hw.portData.module['dial'][key]).id;
                 var pd = JSON.parse(Entry.hw.portData.module['button'][key]);
-                
+
                 return pd.value[2];
             },
 
@@ -490,12 +491,12 @@ Entry.MODI.getBlocks = function() {
                 type: 'HW_BTN_VALUE',
             },
             paramsKeyMap: {
-            
+
                 property: 0,
             },
             class: 'button',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 if (!Entry.hw.sendQueue.moduleValue || !Entry.hw.sendQueue['getProperty']) {
                     Entry.MODI.initSend();
                 }
@@ -535,7 +536,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        HW_BTN_MENU : {
+        HW_BTN_MENU: {
             color: EntryStatic.colorSet.block.modi.INPUT,
             outerLine: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
             fontColor: '#fff',
@@ -587,7 +588,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'button',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 return 100;
             },
 
@@ -614,7 +615,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'button',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 return 0;
             },
 
@@ -662,7 +663,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'infrared',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 var key = script.getStringField('name');
 
                 var pd = JSON.parse(Entry.hw.portData.module['ir'][key]);
@@ -805,7 +806,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'motor',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 if (!Entry.hw.sendQueue.moduleValue) {
                     Entry.MODI.initSend();
                 }
@@ -826,8 +827,9 @@ Entry.MODI.getBlocks = function() {
                 return script.callReturn();
             },
 
-            syntax: { js: [], py: [''],
-            
+            syntax: {
+                js: [], py: [''],
+
                 c: [
                     {
                         syntax: 'motor0.?%2?%3?%4',
@@ -889,7 +891,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'motor',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 if (!Entry.hw.sendQueue.moduleValue) {
                     Entry.MODI.initSend();
                 }
@@ -981,7 +983,7 @@ Entry.MODI.getBlocks = function() {
                 property: 1,
                 value: 2,
             },
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 if (!Entry.hw.sendQueue.moduleValue) {
                     Entry.MODI.initSend();
                 }
@@ -1010,7 +1012,7 @@ Entry.MODI.getBlocks = function() {
 
                 return script.callReturn();
             },
-            syntax : {
+            syntax: {
                 c: [
                     {
                         syntax: 'motor0.?%2?%3',
@@ -1048,7 +1050,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'led',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 if (!Entry.hw.sendQueue.moduleValue) {
                     Entry.MODI.initSend();
                 }
@@ -1135,7 +1137,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'led',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 if (!Entry.hw.sendQueue.moduleValue) {
                     Entry.MODI.initSend();
                 }
@@ -1200,7 +1202,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'led',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 if (!Entry.hw.sendQueue.moduleValue) {
                     Entry.MODI.initSend();
                 }
@@ -1269,7 +1271,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'speaker',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 if (!Entry.hw.sendQueue.moduleValue) {
                     Entry.MODI.initSend();
                 }
@@ -1374,7 +1376,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'speaker',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 if (!Entry.hw.sendQueue.moduleValue) {
                     Entry.MODI.initSend();
                 }
@@ -1458,7 +1460,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'speaker',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 if (!Entry.hw.sendQueue.moduleValue) {
                     Entry.MODI.initSend();
                 }
@@ -1485,7 +1487,7 @@ Entry.MODI.getBlocks = function() {
                     },
                 ],
             },
-          
+
         },
         HW_DISPLAY_TEXT: {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
@@ -1529,7 +1531,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'display',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 if (!Entry.hw.sendQueue.moduleValue) {
                     Entry.MODI.initSend();
                 }
@@ -1554,13 +1556,13 @@ Entry.MODI.getBlocks = function() {
             syntax: {
                 c: [
                     {
-                        syntax: 'display0.?%1?%2',
-                        template: 'display0.?%1?%2',
+                        syntax: 'display0.(?lXrObo8m_1#?)%1(?lXrObo8m_1#?)%2',
+                        template: 'display0.(?lXrObo8m_1#?)%1(?lXrObo8m_1#?)%2',
                     },
                 ],
             }
         },
-        HW_DISPLAY_DATA : {
+        HW_DISPLAY_DATA: {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
@@ -1602,7 +1604,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'display',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 return script.callReturn();
             },
             syntax: {
@@ -1614,7 +1616,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
-        HW_DISPLAY_IMAGE : {
+        HW_DISPLAY_IMAGE: {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
@@ -1647,7 +1649,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'display',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 return script.callReturn();
             },
             syntax: {
@@ -1659,7 +1661,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
-        HW_DISPLAY_RESET : {
+        HW_DISPLAY_RESET: {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
@@ -1684,7 +1686,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'display',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 return script.callReturn();
             },
             syntax: {
@@ -1696,7 +1698,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
-        HW_DISPLAY_MOVE : {
+        HW_DISPLAY_MOVE: {
             color: EntryStatic.colorSet.block.modi.OUTPUT,
             outerLine: EntryStatic.colorSet.block.modi.OUTPUT_OUTLINE,
             skeleton: 'basic',
@@ -1742,7 +1744,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'display',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 return script.callReturn();
             },
             syntax: {
@@ -1796,7 +1798,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             }
         },
-        HW_BTN_JUDGEMENT : {
+        HW_BTN_JUDGEMENT: {
             color: EntryStatic.colorSet.block.modi.INPUT,
             outerLine: EntryStatic.colorSet.block.modi.INPUT_OUTLINE,
             fontColor: '#fff',
@@ -1852,7 +1854,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        HW_NETWORK_BTN : {
+        HW_NETWORK_BTN: {
             color: EntryStatic.colorSet.block.modi.SETUP,
             outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
@@ -1906,7 +1908,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        HW_NETWORK_BTN_JUDGEMENT : {
+        HW_NETWORK_BTN_JUDGEMENT: {
             color: EntryStatic.colorSet.block.modi.SETUP,
             outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
@@ -1970,7 +1972,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        HW_NETWORK_BTN_MENU : {
+        HW_NETWORK_BTN_MENU: {
             color: EntryStatic.colorSet.block.modi.SETUP,
             outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
@@ -2012,7 +2014,7 @@ Entry.MODI.getBlocks = function() {
         },
         // modi_network_button_true : {},
         // modi_network_button_false : {},
-        HW_NETWORK_JOYSTICK_JUDGEMENT : {
+        HW_NETWORK_JOYSTICK_JUDGEMENT: {
             color: EntryStatic.colorSet.block.modi.SETUP,
             outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
@@ -2067,7 +2069,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        HW_NETWORK_JOYSTICK : {
+        HW_NETWORK_JOYSTICK: {
             color: EntryStatic.colorSet.block.modi.SETUP,
             outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
@@ -2109,7 +2111,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        HW_NETWORK_JOYSTICK_MENU : {
+        HW_NETWORK_JOYSTICK_MENU: {
             color: EntryStatic.colorSet.block.modi.SETUP,
             outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
@@ -2152,7 +2154,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_joystick_unpressed : {
+        modi_network_joystick_unpressed: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2164,7 +2166,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'network',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 return 0;
             },
 
@@ -2179,7 +2181,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_joystick_up : {
+        modi_network_joystick_up: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2191,7 +2193,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'network',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 return 20;
             },
 
@@ -2206,7 +2208,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_joystick_down : {
+        modi_network_joystick_down: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2218,7 +2220,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'network',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 return 30;
             },
 
@@ -2233,7 +2235,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_joystick_left : {
+        modi_network_joystick_left: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2245,7 +2247,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'network',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 return 40;
             },
 
@@ -2260,7 +2262,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_joystick_right : {
+        modi_network_joystick_right: {
             color: EntryStatic.colorSet.block.default.HARDWARE,
             outerLine: EntryStatic.colorSet.block.darken.HARDWARE,
             fontColor: '#fff',
@@ -2272,7 +2274,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'network',
             isNotFor: ['modi'],
-            func: function(sprite, script) {
+            func: function (sprite, script) {
                 return 50;
             },
 
@@ -2287,8 +2289,8 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_slider_left : {},
-        modi_network_slider_right : {},
+        modi_network_slider_left: {},
+        modi_network_slider_right: {},
         HW_NETWORK_SLIDER: {
             color: EntryStatic.colorSet.block.modi.SETUP,
             outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
@@ -2330,7 +2332,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'network',
             isNotFor: ['modi'],
-            
+
             syntax: {
                 c: [
                     {
@@ -2340,7 +2342,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        HW_NETWORK_DIAL : {
+        HW_NETWORK_DIAL: {
             color: EntryStatic.colorSet.block.modi.SETUP,
             outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
@@ -2378,7 +2380,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'network',
             isNotFor: ['modi'],
-            
+
             syntax: {
                 c: [
                     {
@@ -2389,7 +2391,7 @@ Entry.MODI.getBlocks = function() {
             },
         },
 
-        HW_NETWORK_TIMER_JUDGEMENT : {
+        HW_NETWORK_TIMER_JUDGEMENT: {
             color: EntryStatic.colorSet.block.modi.SETUP,
             outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
@@ -2430,7 +2432,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'network',
             isNotFor: ['modi'],
-            
+
             syntax: {
                 c: [
                     {
@@ -2440,7 +2442,7 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        HW_NETWORK_TIMER : {
+        HW_NETWORK_TIMER: {
             color: EntryStatic.colorSet.block.modi.SETUP,
             outerLine: EntryStatic.colorSet.block.modi.SETUP_OUTLINE,
             fontColor: '#fff',
@@ -2471,7 +2473,7 @@ Entry.MODI.getBlocks = function() {
             },
             class: 'network',
             isNotFor: ['modi'],
-            
+
             syntax: {
                 c: [
                     {
@@ -2521,8 +2523,8 @@ Entry.MODI.getBlocks = function() {
                 ],
             },
         },
-        modi_network_timer_unreached : {},
-        modi_network_timer_reached : {},
+        modi_network_timer_unreached: {},
+        modi_network_timer_reached: {},
     };
 };
 //endregion modi 모디

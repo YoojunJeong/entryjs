@@ -9,7 +9,7 @@ function getMelodyCode(name, vol) {
     const melodyMain = melodyRaw.match(mainRegex)[0].replace(/\t/g, "")
     const melodytempoVariables = melodyRaw.match(tempoVariablesRegex)[0]
 
-    return {melodyMain,melodytempoVariables}
+    return { melodyMain, melodytempoVariables }
 }
 
 
@@ -428,7 +428,7 @@ class txtToImg {
 
 
 class TextCodingUtil {
-    constructor(){
+    constructor() {
         this.imgData = []
         this.melodyTempo = []
     }
@@ -795,8 +795,8 @@ class TextCodingUtil {
             let optIndex = 0;
 
             for (var i = 0; i < blockToken.length; i++) {
-            
-                if(blockToken[i] == 'until' || blockToken[i]=='while') {
+
+                if (blockToken[i] == 'until' || blockToken[i] == 'while') {
                     option = blockToken[i];
                     optIndex = i;
                 }
@@ -840,19 +840,19 @@ class TextCodingUtil {
             result = blockToken.join(' ').replace(' ! ', '!');
             result = result.replace(' )', ')');
 
-        } 
-        
-        
+        }
+
+
         else {
             result = syntax;
         }
 
-    
+
         return result;
     }
 
     assembleWaitSecondeBlock(block, syntax) {
-        
+
         return `sleep(${syntax} * 1000);`;
     }
 
@@ -860,7 +860,7 @@ class TextCodingUtil {
 
         let result = '';
 
-        result = syntax.replace(/(\s*)/g,"");
+        result = syntax.replace(/(\s*)/g, "");
         console.log("boolean_and_or result : ", result);
 
         return result;
@@ -874,16 +874,16 @@ class TextCodingUtil {
         let optIndex = 0;
 
         const blockToken = syntax.split(/(?=:)|[ ]/gi); // space 로 split 하되, : 도 자르지만 토큰에 포함
-        
-    
+
+
         for (var i = 0; i < blockToken.length; i++) {
-            
-            if(blockToken[i] == 'and' || blockToken[i]=='or') {
+
+            if (blockToken[i] == 'and' || blockToken[i] == 'or') {
                 option = blockToken[i];
                 optIndex = i;
             }
         }
-        
+
 
         console.log("boolean_and_or blockToken : ", blockToken);
         console.log("boolean_and_or option : ", option);
@@ -891,7 +891,7 @@ class TextCodingUtil {
         if (block.data.type === 'boolean_and_or') {
 
             if (option == 'and') {
-              
+
                 const condition = '&&';
                 blockToken.splice(optIndex, 0, condition);
                 optIndex += 1;
@@ -902,9 +902,9 @@ class TextCodingUtil {
                 result = result.replace(' )', ')');
 
                 console.log("boolean_and_or result3 : ", result);
-                
+
             } else if (option == 'or') {
-              
+
                 const condition = '||';
                 blockToken.splice(optIndex, 0, condition);
                 optIndex += 1;
@@ -920,29 +920,29 @@ class TextCodingUtil {
         } else {
             result = syntax;
         }
-    
-       
+
+
 
         return result;
     }
 
     assembleBoolenNot(block, syntax) {
-        
+
         let result = '';
         let option = '';
         let optIndex = 0;
 
         const blockToken = syntax.split(/(?=:)|[ ]/gi); // space 로 split 하되, : 도 자르지만 토큰에 포함
-        
-    
+
+
         for (var i = 0; i < blockToken.length; i++) {
-            
-            if(blockToken[i] == 'and' || blockToken[i]=='or') {
+
+            if (blockToken[i] == 'and' || blockToken[i] == 'or') {
                 option = blockToken[i];
                 optIndex = i;
             }
         }
-        
+
 
         console.log("boolean_not blockToken : ", blockToken);
         console.log("boolean_not option : ", option);
@@ -950,7 +950,7 @@ class TextCodingUtil {
         if (block.data.type === 'boolean_not') {
 
             if (option == 'and') {
-              
+
                 const condition = '&&';
                 blockToken.splice(optIndex, 0, condition);
                 optIndex += 1;
@@ -961,9 +961,9 @@ class TextCodingUtil {
                 result = result.replace(' )', ')');
 
                 console.log("boolean_not result3 : ", result);
-                
+
             } else if (option == 'or') {
-              
+
                 const condition = '||';
                 blockToken.splice(optIndex, 0, condition);
                 optIndex += 1;
@@ -998,35 +998,35 @@ class TextCodingUtil {
         if (block.data.type === 'HW_BTN_VALUE') {
 
             if (option == '2') {
-              
+
                 const condition = 'getClick()';
                 blockToken.splice(lastIndex, 0, condition);
                 lastIndex += 1;
                 blockToken.splice(lastIndex, 1);
 
                 result = blockToken.join('.').replace('2', condition);
-                
+
             } else if (option == '3') {
-              
+
                 const condition = 'getDoubleClick()';
                 blockToken.splice(lastIndex, 0, condition);
                 lastIndex += 1;
                 blockToken.splice(lastIndex, 1);
 
                 result = blockToken.join('.').replace('3', condition);
-                
-            } 
+
+            }
 
             else if (option == '3') {
-              
+
                 const condition = 'getPressStatus()';
                 blockToken.splice(lastIndex, 0, condition);
                 lastIndex += 1;
                 blockToken.splice(lastIndex, 1);
 
                 result = blockToken.join('.').replace('4', condition);
-                
-            } 
+
+            }
 
             else {
                 const condition = 'getToggle()';
@@ -1041,7 +1041,7 @@ class TextCodingUtil {
             result = syntax;
         }
 
-       
+
 
         return result;
 
@@ -1057,37 +1057,37 @@ class TextCodingUtil {
 
         console.log("HW_DIAL_VALUE blockToken : ", blockToken);
         console.log("HW_DIAL_VALUE option : ", option);
-        
+
 
         if (block.data.type === 'HW_DIAL_VALUE') {
 
             if (option == '2') {
-              
+
                 const condition = 'getTurn()';
                 blockToken.splice(lastIndex, 0, condition);
                 lastIndex += 1;
                 blockToken.splice(lastIndex, 1);
 
                 result = blockToken.join('.').replace('2', condition);
-                
+
             } else if (option == '3') {
-              
+
                 const condition = 'getTurnSpeed()';
                 blockToken.splice(lastIndex, 0, condition);
                 lastIndex += 1;
                 blockToken.splice(lastIndex, 1);
 
                 result = blockToken.join('.').replace('3', condition);
-                
-            } 
 
-    
+            }
+
+
         } else {
             result = syntax;
         }
 
         console.log("HW_DIAL_VALUE option : ", result);
-       
+
         return result;
 
     }
@@ -1097,19 +1097,19 @@ class TextCodingUtil {
         const blockToken = syntax.split('.'); // space 로 split 하되, : 도 자르지만 토큰에 포함
         const option = blockToken[blockToken.length - 1];
 
-        let hex = option.replace( "#", "" ); 
-        let value = hex.match( /[a-f\d]/gi ); 
+        let hex = option.replace("#", "");
+        let value = hex.match(/[a-f\d]/gi);
 
         // 헥사값이 세자리일 경우, 여섯자리로. 
-        if ( value.length == 3 ) hex = value[0] + value[0] + value[1] + value[1] + value[2] + value[2]; 
-        value = hex.match( /[a-f\d]{2}/gi ); 
+        if (value.length == 3) hex = value[0] + value[0] + value[1] + value[1] + value[2] + value[2];
+        value = hex.match(/[a-f\d]{2}/gi);
 
         let transferedValue = value.map(el => {
-            return Math.round((parseInt( el, 16 ) / 255) * 100)
+            return Math.round((parseInt(el, 16) / 255) * 100)
         })
 
-        let rgbType = `led0.setRgb(${transferedValue[0]},${transferedValue[1]},${transferedValue[2]});`; 
-        return rgbType; 
+        let rgbType = `led0.setRgb(${transferedValue[0]},${transferedValue[1]},${transferedValue[2]});`;
+        return rgbType;
     }
 
     assembleModiSetMotorValueBlock(block, syntax) {
@@ -1121,12 +1121,12 @@ class TextCodingUtil {
 
         if (block.data.type === 'HW_MOTOR_BOTH') {
             if (option == 'MOTOR_ANGLE') {
-                result = 'motor0.setAngle(' + option1 + ',' + option2+');';
+                result = 'motor0.setAngle(' + option1 + ',' + option2 + ');';
             } else if (option == 'MOTOR_SPEED') {
-                result = 'motor0.setSpeed(' + option1 + ',' + option2+');';
-            } else if  (option == 'MOTOR_TORQUE') {
-                result = 'motor0.setTorque(' + option1 + ',' + option2+');';
-            } 
+                result = 'motor0.setSpeed(' + option1 + ',' + option2 + ');';
+            } else if (option == 'MOTOR_TORQUE') {
+                result = 'motor0.setTorque(' + option1 + ',' + option2 + ');';
+            }
         } else {
             result = syntax;
         }
@@ -1173,32 +1173,32 @@ class TextCodingUtil {
 
         let result = '';
 
-        const blockToken = syntax.split('?'); 
-       
+        const blockToken = syntax.split('?');
+
         const option1 = blockToken[1];
         const option2 = blockToken[2];
 
-    
 
-        result = 'speaker0.setTune(' + option1 + ', ' + option2+');';
-        
-    
+
+        result = 'speaker0.setTune(' + option1 + ', ' + option2 + ');';
+
+
         console.log("HW_SPEAKER_TUNE option1 : ", option1);
         console.log("HW_SPEAKER_TUNE option2 : ", option2);
         console.log("HW_SPEAKER_TUNE result : ", result);
 
-        
+
 
         return result;
 
     }
 
     assembleModiMelodySpeakerBlock(block, syntax) {
-        const blockToken = syntax.split('?'); 
+        const blockToken = syntax.split('?');
         const melodyName = blockToken[1]
         const melodyVolume = blockToken[2] || 50;
         console.log("assembleModiMelodySpeakerBlock", blockToken)
-        const melodyCode = getMelodyCode(melodyName,melodyVolume)
+        const melodyCode = getMelodyCode(melodyName, melodyVolume)
         this.melodyTempo.push(melodyCode.melodytempoVariables)
         return melodyCode.melodyMain
     }
@@ -1206,27 +1206,27 @@ class TextCodingUtil {
 
     assembleModiDisplayBlock(block, syntax) {
         // 영문, (영+수), |  숫자, 변수, 인풋, | 한글, (한글+수), (영+한글)
-        const blockToken = syntax.split('?'); 
-        const positionY = Number(blockToken[1]) || 0 ;
-        const contents = blockToken[2];
+        const blockToken = syntax.split('(?lXrObo8m_1#?)');
+        const positionY = Number(blockToken[1]) || 0;
+        const contents = blockToken[2] + ' ';
         let result = `display0.setText(${contents});`; // 영문이 포함된 경우 줄선택 불가
         console.log("assembleModiDisplayBlock : ", blockToken);
 
         function isNotInASCII(str) {
-            for(let i=0;i<str.length;i++){
-                if(str.charCodeAt(i) > 127){
+            for (let i = 0; i < str.length; i++) {
+                if (str.charCodeAt(i) > 127) {
                     return true
                 }
             }
             return false
         }
 
-        if(isNotInASCII(contents)){ // 한글이 포함된 경우 이미지로 출력
+        if (isNotInASCII(contents)) { // 한글이 포함된 경우 이미지로 출력
             console.log('isNotInASCII, make this str to img')
             const textImgVariable = `image${this.imgData.length}`;
 
             // get image data from text (which is enhanced by bilinear algorithm)
-            let imgData = new txtToImg(contents.replace(/"/g,""), 320);
+            let imgData = new txtToImg(contents.replace(/"/g, ""), 320);
             imgData.bilinear(0.2);
             imgData.convertToBin(150, 1);
             imgData = imgData.getModuleData();
@@ -1235,7 +1235,7 @@ class TextCodingUtil {
             result = `display0.drawPicture("${textImgVariable}");`;
         }
 
-        if(contents[0] !== '"' && isNaN(Number(contents)) === true){ // 인풋, (변수?)
+        if (contents[0] !== '"' && isNaN(Number(contents)) === true) { // 인풋, (변수?)
             window.android.failUpload('글자를 입력해 주세요.');
             throw new Error('글자를 입력해 주세요.');
             // result = `display0.setVariable(2,${positionY},${contents});`; 
@@ -1245,25 +1245,25 @@ class TextCodingUtil {
     }
 
     assembleModiDisplayImgBlock(block, syntax) {
-        const blockToken = syntax.split('?'); 
+        const blockToken = syntax.split('?');
         const contents = blockToken[1];
 
         const imgLibrary = EntryStatic.displayImage.data
 
-        console.log('DisplayImgBlock EntryStatic.displayImage.data : ',EntryStatic.displayImage.data )
-        console.log('DisplayImgBlock imgLibrar : ',imgLibrary )
-        
+        console.log('DisplayImgBlock EntryStatic.displayImage.data : ', EntryStatic.displayImage.data)
+        console.log('DisplayImgBlock imgLibrar : ', imgLibrary)
 
-        
+
+
         this.imgData.push(imgLibrary[contents].toString())
-        
+
 
         const result = `display0.drawPicture("${encodeURI(contents)}");`;
         return result
     }
 
     assembleModiDisplayMoveBlock(block, syntax) {
-        const blockToken = syntax.split('?'); 
+        const blockToken = syntax.split('?');
         const direction = blockToken[1];
         const sign = blockToken[2];
         const distance = blockToken[3];
@@ -1673,8 +1673,8 @@ class TextCodingUtil {
         if (keywords.includes(name)) {
             return this._generateErrorObject(
                 Lang.Menus[`textcoding_bookedError_1${errorSuffix}`] +
-                    name +
-                    Lang.Menus[`textcoding_bookedError_2${errorSuffix}`],
+                name +
+                Lang.Menus[`textcoding_bookedError_2${errorSuffix}`],
                 'error'
             );
         }
