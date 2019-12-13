@@ -1017,7 +1017,7 @@ class TextCodingUtil {
 
             }
 
-            else if (option == '3') {
+            else if (option == '4') {
 
                 const condition = 'getPressStatus()';
                 blockToken.splice(lastIndex, 0, condition);
