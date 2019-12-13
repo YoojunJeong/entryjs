@@ -1208,7 +1208,7 @@ class TextCodingUtil {
         // 영문, (영+수), |  숫자, 변수, 인풋, | 한글, (한글+수), (영+한글)
         const blockToken = syntax.split('(?lXrObo8m_1#?)');
         const positionY = Number(blockToken[1]) || 0;
-        const contents = blockToken[2] + ' ';
+        const contents = `${blockToken[2].substr(0, blockToken[2].length - 1)} "`;
         let result = `display0.setText(${contents});`; // 영문이 포함된 경우 줄선택 불가
         console.log("assembleModiDisplayBlock : ", blockToken);
 
