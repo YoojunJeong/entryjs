@@ -22,6 +22,7 @@ class txtToImg {
         console.log(`${this.options.des} : w ${this.width} h ${this.height}`)
         this.fontSize;
         this.font = 'sans-serif'
+        this.fonttype = 'bold'
         this.ctx;
         this.canvas;
         this.init()
@@ -29,9 +30,9 @@ class txtToImg {
 
     setFontSize() {
         if (this.width === 64) {
-            this.fontSize = Math.trunc(this.width / 6)
+            this.fontSize = Math.trunc(this.width / 5.5)
         } else {
-            this.fontSize = Math.trunc(this.width / 6)
+            this.fontSize = Math.trunc(this.width / 5.5)
         }
     }
 
@@ -42,7 +43,7 @@ class txtToImg {
         const ctx = this.canvas.getContext('2d');
         console.log('  font', `${this.fontSize}pt ${this.font}`)
         ctx.textBaseline = "top";
-        ctx.font = `${this.fontSize}pt ${this.font}`;
+        ctx.font = `${this.fonttype} ${this.fontSize}pt ${this.font}`;
 
         const { render } = options
         if (render) {
