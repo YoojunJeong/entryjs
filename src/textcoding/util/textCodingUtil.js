@@ -1222,6 +1222,14 @@ class TextCodingUtil {
             return false
         }
 
+        const commaRegex = /,/g
+        const commaMatch = contents.match(commaRegex)
+        
+        if(commaMatch){
+            window.android.failUpload(`${commaMatch[0]}는 사용할 수 없어요!`);
+            throw new Error(commaMatch[0])
+        }
+
         if (isNotInASCII(contents)) { // 한글이 포함된 경우 이미지로 출력
             console.log('isNotInASCII, make this str to img')
             const textImgVariable = `image${this.imgData.length}`;

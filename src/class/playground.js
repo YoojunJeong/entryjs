@@ -179,7 +179,7 @@ Entry.Playground = class {
     
         function updatePlayList(params) {
 
-            console.log('updatePlayList');
+            // console.log('updatePlayList');
             if(global.Entry.videoNum == 0) {
                 document.getElementById("previous").style.visibility = "hidden";
             }

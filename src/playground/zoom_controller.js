@@ -323,8 +323,10 @@ Entry.ZoomController = class ZoomController {
                             );
                             throw new Error(emojiMatch[0])
                         }
+
+                
         
-                        console.log("binary",binary)
+                        // console.log("binary",binary)
 
                         let binaryOutput = Interpreter.makeFrame(binary);
 
