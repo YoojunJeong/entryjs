@@ -317,10 +317,9 @@ Entry.ZoomController = class ZoomController {
                         const emojiMatch = binary.match(emojiRegex)
                         
                         if(emojiMatch){
-                            Entry.toast.warning(
-                                '사용할 수 없는 문자열',
-                                `${emojiMatch[0]}이모티콘은 사용할 수 없어요!`
-                            );
+
+                            window.android.failUpload(`'${emojiMatch[0]}'은 사용할 수 없어요!\n코딩한 내용을 다시 확인해 주세요.`);
+
                             throw new Error(emojiMatch[0])
                         }
 
