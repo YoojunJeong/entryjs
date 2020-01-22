@@ -30,9 +30,9 @@ class txtToImg {
 
     setFontSize() {
         if (this.width === 64) {
-            this.fontSize = Math.trunc(this.width / 5.5)
+            this.fontSize = Math.trunc(this.width / 6)
         } else {
-            this.fontSize = Math.trunc(this.width / 5.5)
+            this.fontSize = Math.trunc(this.width / 6)
         }
     }
 
@@ -422,7 +422,7 @@ class txtToImg {
                 console.log(this.canvas)
             }
         }
-        this.fillTextMultiLine(this.ctx, this.txt, 0, 3);
+        this.fillTextMultiLine(this.ctx, this.txt, 0, 13);
 
     }
 }
