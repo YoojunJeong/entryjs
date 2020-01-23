@@ -312,20 +312,32 @@ Entry.ZoomController = class ZoomController {
                             }
                             return accArr
                         },[]) // 중복 모듈 정리
-        
-                        const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/
+                       
+                        // const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/
+                        const emojiRegex = /[\uD83C-\uDBFF\uDC00-\uDFFF]+/;
                         const emojiMatch = binary.match(emojiRegex)
                         
                         if(emojiMatch){
 
-                            window.android.failUpload(`'${emojiMatch[0]}'은 사용할 수 없어요!\n코딩한 내용을 다시 확인해 주세요.`);
+                            window.android.failUpload(`'${emojiMatch[0]}'는(은) 사용할 수 없어요!\n코딩한 내용을 다시 확인해 주세요.`);
 
                             throw new Error(emojiMatch[0])
                         }
 
+                        const numberRegex = /([ㄱ-ㅎ|ㅏ-ㅣ|가-힣])/
+                        const numberMatch = binary.match(numberRegex)
+                        
+                        if(numberMatch){
+
+                            window.android.failUpload('숫자를 입력해 주세요.');
+
+                            throw new Error(numberMatch[0])
+                        }
+
+
                 
         
-                        // console.log("binary",binary)
+                        console.log("binary",binary)
 
                         let binaryOutput = Interpreter.makeFrame(binary);
 
@@ -381,6 +393,13 @@ Entry.ZoomController = class ZoomController {
                     catch(e) {
                         
                         console.log('export error', e);
+
+                        if( e.type === undefined && e.message.includes('length')) {
+                            console.log('export length error');
+                            window.android.failUpload('숫자를 입력해 주세요.');
+                        }
+                
+
                         window.android.log(e);
         
                         if(e == 'thread') {

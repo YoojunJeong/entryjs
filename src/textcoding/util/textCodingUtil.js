@@ -1209,7 +1209,10 @@ class TextCodingUtil {
         // 영문, (영+수), |  숫자, 변수, 인풋, | 한글, (한글+수), (영+한글)
         const blockToken = syntax.split('(?lXrObo8m_1#?)');
         const positionY = Number(blockToken[1]) || 0;
-        const contents = `${blockToken[2].substr(0, blockToken[2].length - 1)} "`;
+        // const contents = `${blockToken[2].substr(0, blockToken[2].length - 1)} "`;
+        const contents = blockToken[2];
+        // console.log('blockToken[2]',blockToken[2]);
+        // console.log('contents',contents);
         let result = `display0.setText(${contents});`; // 영문이 포함된 경우 줄선택 불가
         console.log("assembleModiDisplayBlock : ", blockToken);
 
@@ -1245,7 +1248,7 @@ class TextCodingUtil {
         }
 
         if (contents[0] !== '"' && isNaN(Number(contents)) === true) { // 인풋, (변수?)
-            window.android.failUpload('글자를 입력해 주세요.');
+            window.android.failUpload(`글자를 입력해 주세요.`);
             throw new Error('글자를 입력해 주세요.');
             // result = `display0.setVariable(2,${positionY},${contents});`; 
         }
