@@ -429,7 +429,6 @@ function makeFrame(luxc) {
         result.errorCode = code.errorCode;
     }
 
-
     console.log("total length : " + result.block.length);
 
     return result;
@@ -508,19 +507,12 @@ function getCodeBlock(luxc) {
                 code = code.replace(/^\s*/, "")
                 try {
 
-                    console.log('code',code);
-
                     var match = null;
                     if ((match = regex.block.comment.exec(luxc))) {
-
-                        console.log('egex.block.comment.exec');
-
                         return true;
                     }
 
                     if ((match = regex.block.module.exec(code))) {
-
-                        console.log('egex.block.module.exec');
 
                         var type = match[1].toLowerCase();
                         var name = match[2];
@@ -551,7 +543,6 @@ function getCodeBlock(luxc) {
                         logicStack.push(block);
                     } else if ((match = regex.block.setVariable.exec(code))) {
 
-                        console.log('egex.block.setVariable.exec');
                         var variableName = match[1];
                         var value_block = convertArgumentToBlocks(match[2]);
                         // var polynomial = convertPolynomial(match[2], modules);
@@ -567,8 +558,6 @@ function getCodeBlock(luxc) {
                             blocks.push(block);
                         }
                     } else if ((match = regex.block.setProperty.exec(code))) {
-
-                        console.log('egex.block.setProperty.exec', match);
 
                         var name = match[1];
                         if (modules[name]) {
@@ -635,8 +624,6 @@ function getCodeBlock(luxc) {
                             throw "'" + name + "' was not declared in this scope";
                         }
                     } else if ((match = regex.block.sleep.exec(code))) {
-
-                        console.log('egex.block.sleep.exec');
 
                         var argumentsBlock = convertArgumentToBlocks(match[1]);
 
@@ -756,12 +743,7 @@ var luxcParer = new class {
 
     _replace(str) {
 
-        console.log('_replace str',str);
-
         var match_results = this._match(str);
-
-        console.log('_replace match_results',match_results);
-
         // replace inner bracket results to '$' arguments for indexing
         var replace_text = str;
         for (var i = 0; i < match_results.length; i++) {
@@ -773,9 +755,6 @@ var luxcParer = new class {
         // match[1] function name ex) led0.setRgb or null, null means () operator
         // match[2] arguments of inner braket '100, 100, 0'
         var replacement = [match_results, replace_text];
-
-        console.log('_replace replacement',replacement);
-
         return replacement;
     };
 
@@ -950,22 +929,14 @@ var luxcParer = new class {
 
     _splitArgs(args_text) {
 
-        console.log('_splitArgs args_text',args_text);
         var replace_object = this._replace(args_text);
-
-        console.log('_splitArgs replace_object',replace_object);
         var split_array = replace_object[1].split(',');
         var repair_args = this._repair(replace_object[0], split_array, true);
-
-        console.log('_splitArgs repair_args',repair_args);
-
         return repair_args;
     }
 
     _parsePolynomial(polynomial_text) {
-
-        console.log('_parsePolynomial polynomial_text',polynomial_text);
-
+    
         var replace_object = this._replace(polynomial_text);
         var split_array = this._split(replace_object[1]);
         var repair_args = this._repair(replace_object[0], split_array);
@@ -1000,21 +971,15 @@ var luxcParer = new class {
 
     parse(text) {
 
-        console.log('parse text',text);
-       
         const quotationRegex = /(["'])(?:(?=(\\?))\2.)*?\1/;
         const quotationMatch = text.match(quotationRegex);
         const commaIndex = text.indexOf(',');
         
         if(quotationMatch && commaIndex > 0 && commaIndex < quotationMatch.length) {
-
-            console.log('parse quotationMatch text', quotationMatch);
             return text;
         }
 
         var args = this._splitArgs(text);
-
-        console.log('parse args',args);
 
         if (args.length > 1) {
             for (var i = 0; i < args.length; i++) {

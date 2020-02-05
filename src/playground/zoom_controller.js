@@ -240,9 +240,7 @@ Entry.ZoomController = class ZoomController {
                             window.android.failUpload('DEFAULT_CODE');
                             throw new Error('기본 코딩입니다.');
                         }
-        
-                        console.log('cOutput ',cOutput);
-
+                        
                         let binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
         
                         // 이미지 데이터

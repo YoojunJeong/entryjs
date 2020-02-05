@@ -56,17 +56,17 @@ Entry.BlockToCParser = class {
 
             if (typeof thread.getBlocks !== 'undefined' && typeof thread.getBlocks === 'function') { 
 
-                console.log('block.getBlocks() == function');
+                // console.log('block.getBlocks() == function');
             }
     
             else {
-                console.log('block.getBlocks() != function');
+                // console.log('block.getBlocks() != function');
                 // console.log('retryCount : '+JSON.stringify(this.retryCount));
                 // this.retryCount++;
             }
 
             const blocks = thread.getBlocks();
-            console.log('blocks', blocks);
+            // console.log('blocks', blocks);
             // window.android.log('blocks : '+JSON.stringify(blocks));
     
             if (blocks.length === 0) {

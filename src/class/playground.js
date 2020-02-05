@@ -320,7 +320,7 @@ Entry.Playground = class {
         
 
         // console.log(isPlayMin)
-        console.log(global.Entry.currentTime)
+        // console.log(global.Entry.currentTime)
         // console.log(global.Entry.videoNum)
         // $("#playlist").text(`[ ${videoNum + 1} / ${guideList.length} ]`)
     
@@ -1162,7 +1162,7 @@ Entry.Playground = class {
         //     minValue.setAttribute('disabled', 'disabled');
         //     maxValue.setAttribute('disabled', 'disabled');
         // }
-        console.log('updateVariableSettingView')
+        // console.log('updateVariableSettingView')
         initValue.value = v.getValue();
         v.listElement.appendChild(view);
     }
