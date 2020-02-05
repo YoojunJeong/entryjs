@@ -383,6 +383,11 @@ Entry.BlockToCParser = class {
                         break;
                     }
 
+                    case 'HW_DISPLAY_RESET' : {
+                        resultTextCode = Entry.TextCodingUtil.assembleModiDisplayClearBlock();
+                        break;
+                    }
+                    
                     case 'HW_DISPLAY_MOVE' : {
                         resultTextCode = Entry.TextCodingUtil.assembleModiDisplayMoveBlock(
                             block,

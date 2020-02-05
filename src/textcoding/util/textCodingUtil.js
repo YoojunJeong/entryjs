@@ -1228,10 +1228,10 @@ class TextCodingUtil {
         const commaRegex = /,/g
         const commaMatch = contents.match(commaRegex)
         
-        if(commaMatch){
-            window.android.failUpload(`${commaMatch[0]}는 사용할 수 없어요!`);
-            throw new Error(commaMatch[0])
-        }
+        // if(commaMatch){
+        //     window.android.failUpload(`${commaMatch[0]}는 사용할 수 없어요!`);
+        //     throw new Error(commaMatch[0])
+        // }
 
         if (isNotInASCII(contents)) { // 한글이 포함된 경우 이미지로 출력
             console.log('isNotInASCII, make this str to img')
@@ -1247,7 +1247,7 @@ class TextCodingUtil {
             result = `display0.drawPicture("${textImgVariable}");`;
         }
 
-        if (contents[0] !== '"' && isNaN(Number(contents)) === true) { // 인풋, (변수?)
+        if (contents[0] !== '\"' && isNaN(Number(contents)) === true) { // 인풋, (변수?)
             window.android.failUpload(`글자를 입력해 주세요.`);
             throw new Error('글자를 입력해 주세요.');
             // result = `display0.setVariable(2,${positionY},${contents});`; 
@@ -1272,6 +1272,20 @@ class TextCodingUtil {
 
         const result = `display0.drawPicture("${encodeURI(contents)}");`;
         return result
+    }
+
+    assembleModiDisplayClearBlock() {
+
+        const clearImage = [];
+        for (let i = 0; i < 384; i++) {
+            clearImage[i] = 0;
+        }
+
+        this.imgData.push(clearImage.toString())
+
+        const result = `display0.drawPicture("clearImage");`;
+        return result
+    
     }
 
     assembleModiDisplayMoveBlock(block, syntax) {

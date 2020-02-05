@@ -241,14 +241,18 @@ Entry.ZoomController = class ZoomController {
                             throw new Error('기본 코딩입니다.');
                         }
         
+                        console.log('cOutput ',cOutput);
+
                         let binary = '#include "user.hpp"\n\nusing namespace math;\n\n';
         
                         // 이미지 데이터
                         let images = cOutput.match(/(?<=drawPicture\().*(?=\))/g)||[]
                         let imgData = Entry.TextCodingUtil.imgData
+
                         for(let i =0 ; i < images.length ; i++){
                             binary += `const char picture${i}[${imgData[i].split(',').length + 1}] = {\n${imgData[i]}\n};\n\n`
                         }
+                        
                         binary += 'void doUserTask()\n';
         
                         let moduleList = ''
@@ -280,17 +284,17 @@ Entry.ZoomController = class ZoomController {
                         // 모듈 블럭 선언
                         moduleList += `\n${Entry.module}\n`;
         
+                        // moduleList += 'Network network0(0x0000E07B45C3);\n'
+                        // moduleList += 'Display display0(0x4020A3A5DB74);\n'
+                        // moduleList += 'Dial dial0(0x4020A3A5DB74);\n'
+
                         // 이미지 변수 선언
                         for(let i =0 ; i < images.length ; i++){
                             moduleList += `\ndisplay0.addPicture(${images[i]},picture${i});\n`;
                         }
         
-                        // moduleList += `Network network0(0x0000E07B45C3);
-                        // Button button0(0x2030D92B254A);\n
-                        // Led led0(0x4020A3A5DB73);\n
-                        // display0(0x4020A3A5DB74)\n
-                        // ir0(0x4020A3A5DB75)\n
-                        // motor0(0x4020A3A5DB76)\n`
+                       
+                       
                         // 코드
                         // console.log("cOutput",cOutput)
                         binary += `${cOutput}\n`;
@@ -300,6 +304,7 @@ Entry.ZoomController = class ZoomController {
         
                         // 모듈 연결 상태를 체크
                         const designatedModules = cOutput.match(/[a-z]*(?=0\.)\d/g) || []
+                        // const connectedModules = moduleList.match(/[a-z]*(?=0\()\d/g) || []
                         const connectedModules = Entry.module.match(/[a-z]*(?=0\()\d/g) || []
                         const unconnectedModules = 
                         designatedModules
@@ -312,7 +317,9 @@ Entry.ZoomController = class ZoomController {
                             }
                             return accArr
                         },[]) // 중복 모듈 정리
-                       
+                    
+                        console.log(binary)
+
                         // const emojiRegex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/
                         const emojiRegex = /[\uD83C-\uDBFF\uDC00-\uDFFF]+/;
                         const emojiMatch = binary.match(emojiRegex)
@@ -324,7 +331,7 @@ Entry.ZoomController = class ZoomController {
                             throw new Error(emojiMatch[0])
                         }
 
-                        const numberRegex = /([ㄱ-ㅎ|ㅏ-ㅣ|가-힣])/
+                        const numberRegex = /([ㄱ-ㅎㅏ-ㅣ가-힣])/
                         const numberMatch = binary.match(numberRegex)
                         
                         if(numberMatch){
@@ -333,11 +340,6 @@ Entry.ZoomController = class ZoomController {
 
                             throw new Error(numberMatch[0])
                         }
-
-
-                
-        
-                        console.log("binary",binary)
 
                         let binaryOutput = Interpreter.makeFrame(binary);
 
@@ -352,7 +354,7 @@ Entry.ZoomController = class ZoomController {
                                 if (binaryOutput.errorCode != 0)
                                 {
                                     console.log("interpreter generate error : " + binaryOutput.errorCode);
-                                    window.android.failUpload("코드를 만들 수 없어요.");
+                                    // window.android.failUpload("코드를 만들 수 없어요.");
                                     // throw binaryOutput.errorCode;
                                 }
                                
