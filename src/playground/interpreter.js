@@ -525,7 +525,7 @@ function getCodeBlock(luxc) {
                     } else if ((match = regex.block.if.exec(code))) {
                         var conditions = convertArgumentToConditionBlocks(match[1]);
                         var block = new IfBlock(IfType.if, conditions);
-                        logicSqtack.push(block);
+                        logicStack.push(block);
                     } else if ((match = regex.block.elseIf.exec(code))) {
                         var conditions = convertArgumentToConditionBlocks(match[1]);
                         var block = new IfBlock(IfType.elseIf, conditions);
@@ -1106,8 +1106,6 @@ function convertArgumentToBlocks(args) {
 
     var args = luxcParer.parse(args.replace(/\(char\*\)/, ""));
 
-    console.log('convertArgumentToBlocks args', args);
-
     if (Array.isArray(args)) {
         var blocks = [];
         for (var i = 0; i < args.length; i++) {
@@ -1115,11 +1113,9 @@ function convertArgumentToBlocks(args) {
             blocks.push(block);
         }
 
-        console.log('convertArgumentToBlocks blocks', blocks);
-
         return blocks;
     }
-    console.log('convertArgumentToBlocks argsToBlock(args)', [argsToBlock(args)]);
+
     return [argsToBlock(args)];
 }
 
